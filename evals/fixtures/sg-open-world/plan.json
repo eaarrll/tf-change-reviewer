@@ -1,0 +1,4202 @@
+{
+ "format_version": "1.2",
+ "terraform_version": "1.10.5",
+ "variables": {
+  "app_subnet_cidrs": {
+   "value": [
+    "10.40.10.0/24",
+    "10.40.11.0/24",
+    "10.40.12.0/24"
+   ]
+  },
+  "db_public": {
+   "value": true
+  },
+  "environment": {
+   "value": "prod"
+  },
+  "log_retention_days": {
+   "value": 14
+  },
+  "office_cidrs": {
+   "value": [
+    "203.0.113.0/24",
+    "198.51.100.0/25"
+   ]
+  },
+  "services": {
+   "value": {
+    "billing-api": {
+     "keep_images": 30
+    },
+    "billing-worker": {
+     "keep_images": 30
+    },
+    "dunning-scheduler": {
+     "keep_images": 10
+    },
+    "invoice-renderer": {
+     "keep_images": 20
+    },
+    "ledger-sync": {
+     "keep_images": 20
+    },
+    "payment-gateway": {
+     "keep_images": 50
+    },
+    "statements-api": {
+     "keep_images": 20
+    },
+    "tax-calculator": {
+     "keep_images": 20
+    },
+    "usage-metering": {
+     "keep_images": 20
+    },
+    "webhook-relay": {
+     "keep_images": 10
+    }
+   }
+  },
+  "vpc_id": {
+   "value": "vpc-0a1b2c3d4e5f60718"
+  }
+ },
+ "planned_values": {
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_security_group.db",
+     "mode": "managed",
+     "type": "aws_security_group",
+     "name": "db",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_security_group.db",
+      "description": "Billing Postgres cluster",
+      "egress": [
+       {
+        "cidr_blocks": [
+         "0.0.0.0/0"
+        ],
+        "description": "",
+        "from_port": 0,
+        "ipv6_cidr_blocks": [],
+        "prefix_list_ids": [],
+        "protocol": "-1",
+        "security_groups": [],
+        "self": false,
+        "to_port": 0
+       }
+      ],
+      "id": "mock-aws_security_group.db",
+      "ingress": [
+       {
+        "cidr_blocks": [
+         "0.0.0.0/0"
+        ],
+        "description": "Postgres from office and VPN",
+        "from_port": 5432,
+        "ipv6_cidr_blocks": [],
+        "prefix_list_ids": [],
+        "protocol": "tcp",
+        "security_groups": [],
+        "self": false,
+        "to_port": 5432
+       },
+       {
+        "cidr_blocks": [
+         "10.40.10.0/24",
+         "10.40.11.0/24",
+         "10.40.12.0/24"
+        ],
+        "description": "Postgres from billing services",
+        "from_port": 5432,
+        "ipv6_cidr_blocks": [],
+        "prefix_list_ids": [],
+        "protocol": "tcp",
+        "security_groups": [],
+        "self": false,
+        "to_port": 5432
+       }
+      ],
+      "name": "billing-prod-postgres",
+      "name_prefix": "mock-name_prefix",
+      "owner_id": "mock-owner_id",
+      "region": "us-east-1",
+      "revoke_rules_on_delete": false,
+      "tags": {
+       "Name": "billing-prod-postgres"
+      },
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Name": "billing-prod-postgres",
+       "Project": "billing",
+       "Repository": "acme/billing-infra",
+       "Team": "billing-platform"
+      },
+      "timeouts": null,
+      "vpc_id": "vpc-0a1b2c3d4e5f60718"
+     },
+     "sensitive_values": {
+      "egress": [
+       {
+        "cidr_blocks": [
+         false
+        ],
+        "ipv6_cidr_blocks": [],
+        "prefix_list_ids": [],
+        "security_groups": []
+       }
+      ],
+      "ingress": [
+       {
+        "cidr_blocks": [
+         false
+        ],
+        "ipv6_cidr_blocks": [],
+        "prefix_list_ids": [],
+        "security_groups": []
+       },
+       {
+        "cidr_blocks": [
+         false,
+         false,
+         false
+        ],
+        "ipv6_cidr_blocks": [],
+        "prefix_list_ids": [],
+        "security_groups": []
+       }
+      ],
+      "tags": {},
+      "tags_all": {}
+     }
+    }
+   ],
+   "child_modules": [
+    {
+     "resources": [
+      {
+       "address": "module.service[\"billing-api\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-api\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service[\"billing-api\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ecs/prod/billing-api",
+        "name_prefix": "mock-name_prefix",
+        "region": "us-east-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service[\"billing-api\"].aws_ecr_lifecycle_policy.this",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.service[\"billing-api\"].aws_ecr_lifecycle_policy.this",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository": "billing/billing-api"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.service[\"billing-api\"].aws_ecr_repository.this",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-api\"].aws_ecr_repository.this",
+        "encryption_configuration": [],
+        "force_delete": null,
+        "id": "mock-module.service[\"billing-api\"].aws_ecr_repository.this",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "billing/billing-api",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.service[\"billing-api\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service[\"billing-worker\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-worker\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service[\"billing-worker\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ecs/prod/billing-worker",
+        "name_prefix": "mock-name_prefix",
+        "region": "us-east-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service[\"billing-worker\"].aws_ecr_lifecycle_policy.this",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.service[\"billing-worker\"].aws_ecr_lifecycle_policy.this",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository": "billing/billing-worker"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.service[\"billing-worker\"].aws_ecr_repository.this",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-worker\"].aws_ecr_repository.this",
+        "encryption_configuration": [],
+        "force_delete": null,
+        "id": "mock-module.service[\"billing-worker\"].aws_ecr_repository.this",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "billing/billing-worker",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.service[\"billing-worker\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ecs/prod/dunning-scheduler",
+        "name_prefix": "mock-name_prefix",
+        "region": "us-east-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service[\"dunning-scheduler\"].aws_ecr_lifecycle_policy.this",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.service[\"dunning-scheduler\"].aws_ecr_lifecycle_policy.this",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 10 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":10,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository": "billing/dunning-scheduler"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.service[\"dunning-scheduler\"].aws_ecr_repository.this",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"dunning-scheduler\"].aws_ecr_repository.this",
+        "encryption_configuration": [],
+        "force_delete": null,
+        "id": "mock-module.service[\"dunning-scheduler\"].aws_ecr_repository.this",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "billing/dunning-scheduler",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.service[\"dunning-scheduler\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ecs/prod/invoice-renderer",
+        "name_prefix": "mock-name_prefix",
+        "region": "us-east-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service[\"invoice-renderer\"].aws_ecr_lifecycle_policy.this",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.service[\"invoice-renderer\"].aws_ecr_lifecycle_policy.this",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository": "billing/invoice-renderer"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.service[\"invoice-renderer\"].aws_ecr_repository.this",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"invoice-renderer\"].aws_ecr_repository.this",
+        "encryption_configuration": [],
+        "force_delete": null,
+        "id": "mock-module.service[\"invoice-renderer\"].aws_ecr_repository.this",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "billing/invoice-renderer",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.service[\"invoice-renderer\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ecs/prod/ledger-sync",
+        "name_prefix": "mock-name_prefix",
+        "region": "us-east-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service[\"ledger-sync\"].aws_ecr_lifecycle_policy.this",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.service[\"ledger-sync\"].aws_ecr_lifecycle_policy.this",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository": "billing/ledger-sync"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.service[\"ledger-sync\"].aws_ecr_repository.this",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"ledger-sync\"].aws_ecr_repository.this",
+        "encryption_configuration": [],
+        "force_delete": null,
+        "id": "mock-module.service[\"ledger-sync\"].aws_ecr_repository.this",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "billing/ledger-sync",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.service[\"ledger-sync\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ecs/prod/payment-gateway",
+        "name_prefix": "mock-name_prefix",
+        "region": "us-east-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service[\"payment-gateway\"].aws_ecr_lifecycle_policy.this",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.service[\"payment-gateway\"].aws_ecr_lifecycle_policy.this",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 50 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":50,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository": "billing/payment-gateway"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.service[\"payment-gateway\"].aws_ecr_repository.this",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"payment-gateway\"].aws_ecr_repository.this",
+        "encryption_configuration": [],
+        "force_delete": null,
+        "id": "mock-module.service[\"payment-gateway\"].aws_ecr_repository.this",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "billing/payment-gateway",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.service[\"payment-gateway\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service[\"statements-api\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "kms_key_id": null,
+        "name": "/ecs/prod/statements-api",
+        "region": "us-east-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service[\"statements-api\"].aws_ecr_lifecycle_policy.this",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "us-east-1",
+        "repository": "billing/statements-api"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.service[\"statements-api\"].aws_ecr_repository.this",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "encryption_configuration": [],
+        "force_delete": null,
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "billing/statements-api",
+        "region": "us-east-1",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.service[\"statements-api\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ecs/prod/tax-calculator",
+        "name_prefix": "mock-name_prefix",
+        "region": "us-east-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service[\"tax-calculator\"].aws_ecr_lifecycle_policy.this",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.service[\"tax-calculator\"].aws_ecr_lifecycle_policy.this",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository": "billing/tax-calculator"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.service[\"tax-calculator\"].aws_ecr_repository.this",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"tax-calculator\"].aws_ecr_repository.this",
+        "encryption_configuration": [],
+        "force_delete": null,
+        "id": "mock-module.service[\"tax-calculator\"].aws_ecr_repository.this",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "billing/tax-calculator",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.service[\"tax-calculator\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service[\"usage-metering\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"usage-metering\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service[\"usage-metering\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ecs/prod/usage-metering",
+        "name_prefix": "mock-name_prefix",
+        "region": "us-east-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service[\"usage-metering\"].aws_ecr_lifecycle_policy.this",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.service[\"usage-metering\"].aws_ecr_lifecycle_policy.this",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository": "billing/usage-metering"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.service[\"usage-metering\"].aws_ecr_repository.this",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"usage-metering\"].aws_ecr_repository.this",
+        "encryption_configuration": [],
+        "force_delete": null,
+        "id": "mock-module.service[\"usage-metering\"].aws_ecr_repository.this",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "billing/usage-metering",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.service[\"usage-metering\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ecs/prod/webhook-relay",
+        "name_prefix": "mock-name_prefix",
+        "region": "us-east-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service[\"webhook-relay\"].aws_ecr_lifecycle_policy.this",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.service[\"webhook-relay\"].aws_ecr_lifecycle_policy.this",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 10 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":10,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository": "billing/webhook-relay"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.service[\"webhook-relay\"].aws_ecr_repository.this",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"webhook-relay\"].aws_ecr_repository.this",
+        "encryption_configuration": [],
+        "force_delete": null,
+        "id": "mock-module.service[\"webhook-relay\"].aws_ecr_repository.this",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "billing/webhook-relay",
+        "region": "us-east-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "billing",
+         "Repository": "acme/billing-infra",
+         "Team": "billing-platform"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.service[\"webhook-relay\"]"
+    }
+   ]
+  }
+ },
+ "resource_changes": [
+  {
+   "address": "aws_security_group.db",
+   "mode": "managed",
+   "type": "aws_security_group",
+   "name": "db",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_security_group.db",
+     "description": "Billing Postgres cluster",
+     "egress": [
+      {
+       "cidr_blocks": [
+        "0.0.0.0/0"
+       ],
+       "description": "",
+       "from_port": 0,
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "protocol": "-1",
+       "security_groups": [],
+       "self": false,
+       "to_port": 0
+      }
+     ],
+     "id": "mock-aws_security_group.db",
+     "ingress": [
+      {
+       "cidr_blocks": [
+        "10.40.10.0/24",
+        "10.40.11.0/24",
+        "10.40.12.0/24"
+       ],
+       "description": "Postgres from billing services",
+       "from_port": 5432,
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "protocol": "tcp",
+       "security_groups": [],
+       "self": false,
+       "to_port": 5432
+      },
+      {
+       "cidr_blocks": [
+        "203.0.113.0/24",
+        "198.51.100.0/25"
+       ],
+       "description": "Postgres from office and VPN",
+       "from_port": 5432,
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "protocol": "tcp",
+       "security_groups": [],
+       "self": false,
+       "to_port": 5432
+      }
+     ],
+     "name": "billing-prod-postgres",
+     "name_prefix": "mock-name_prefix",
+     "owner_id": "mock-owner_id",
+     "region": "us-east-1",
+     "revoke_rules_on_delete": false,
+     "tags": {
+      "Name": "billing-prod-postgres"
+     },
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Name": "billing-prod-postgres",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     },
+     "timeouts": null,
+     "vpc_id": "vpc-0a1b2c3d4e5f60718"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_security_group.db",
+     "description": "Billing Postgres cluster",
+     "egress": [
+      {
+       "cidr_blocks": [
+        "0.0.0.0/0"
+       ],
+       "description": "",
+       "from_port": 0,
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "protocol": "-1",
+       "security_groups": [],
+       "self": false,
+       "to_port": 0
+      }
+     ],
+     "id": "mock-aws_security_group.db",
+     "ingress": [
+      {
+       "cidr_blocks": [
+        "0.0.0.0/0"
+       ],
+       "description": "Postgres from office and VPN",
+       "from_port": 5432,
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "protocol": "tcp",
+       "security_groups": [],
+       "self": false,
+       "to_port": 5432
+      },
+      {
+       "cidr_blocks": [
+        "10.40.10.0/24",
+        "10.40.11.0/24",
+        "10.40.12.0/24"
+       ],
+       "description": "Postgres from billing services",
+       "from_port": 5432,
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "protocol": "tcp",
+       "security_groups": [],
+       "self": false,
+       "to_port": 5432
+      }
+     ],
+     "name": "billing-prod-postgres",
+     "name_prefix": "mock-name_prefix",
+     "owner_id": "mock-owner_id",
+     "region": "us-east-1",
+     "revoke_rules_on_delete": false,
+     "tags": {
+      "Name": "billing-prod-postgres"
+     },
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Name": "billing-prod-postgres",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     },
+     "timeouts": null,
+     "vpc_id": "vpc-0a1b2c3d4e5f60718"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "egress": [
+      {
+       "cidr_blocks": [
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      }
+     ],
+     "ingress": [
+      {
+       "cidr_blocks": [
+        false,
+        false,
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      },
+      {
+       "cidr_blocks": [
+        false,
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      }
+     ],
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "egress": [
+      {
+       "cidr_blocks": [
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      }
+     ],
+     "ingress": [
+      {
+       "cidr_blocks": [
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      },
+      {
+       "cidr_blocks": [
+        false,
+        false,
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      }
+     ],
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"billing-api\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service[\"billing-api\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"billing-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/billing-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"billing-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/billing-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"billing-api\"].aws_ecr_lifecycle_policy.this",
+   "module_address": "module.service[\"billing-api\"]",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.service[\"billing-api\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/billing-api"
+    },
+    "after": {
+     "id": "mock-module.service[\"billing-api\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/billing-api"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.service[\"billing-api\"].aws_ecr_repository.this",
+   "module_address": "module.service[\"billing-api\"]",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-api\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"billing-api\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/billing-api",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-api\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"billing-api\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/billing-api",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"billing-worker\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service[\"billing-worker\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-worker\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"billing-worker\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/billing-worker",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-worker\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"billing-worker\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/billing-worker",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"billing-worker\"].aws_ecr_lifecycle_policy.this",
+   "module_address": "module.service[\"billing-worker\"]",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.service[\"billing-worker\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/billing-worker"
+    },
+    "after": {
+     "id": "mock-module.service[\"billing-worker\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/billing-worker"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.service[\"billing-worker\"].aws_ecr_repository.this",
+   "module_address": "module.service[\"billing-worker\"]",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-worker\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"billing-worker\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/billing-worker",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-worker\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"billing-worker\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/billing-worker",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service[\"dunning-scheduler\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/dunning-scheduler",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/dunning-scheduler",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"dunning-scheduler\"].aws_ecr_lifecycle_policy.this",
+   "module_address": "module.service[\"dunning-scheduler\"]",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.service[\"dunning-scheduler\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 10 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":10,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/dunning-scheduler"
+    },
+    "after": {
+     "id": "mock-module.service[\"dunning-scheduler\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 10 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":10,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/dunning-scheduler"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.service[\"dunning-scheduler\"].aws_ecr_repository.this",
+   "module_address": "module.service[\"dunning-scheduler\"]",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"dunning-scheduler\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"dunning-scheduler\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/dunning-scheduler",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"dunning-scheduler\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"dunning-scheduler\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/dunning-scheduler",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service[\"invoice-renderer\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/invoice-renderer",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/invoice-renderer",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"invoice-renderer\"].aws_ecr_lifecycle_policy.this",
+   "module_address": "module.service[\"invoice-renderer\"]",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.service[\"invoice-renderer\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/invoice-renderer"
+    },
+    "after": {
+     "id": "mock-module.service[\"invoice-renderer\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/invoice-renderer"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.service[\"invoice-renderer\"].aws_ecr_repository.this",
+   "module_address": "module.service[\"invoice-renderer\"]",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"invoice-renderer\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"invoice-renderer\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/invoice-renderer",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"invoice-renderer\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"invoice-renderer\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/invoice-renderer",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service[\"ledger-sync\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/ledger-sync",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/ledger-sync",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"ledger-sync\"].aws_ecr_lifecycle_policy.this",
+   "module_address": "module.service[\"ledger-sync\"]",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.service[\"ledger-sync\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/ledger-sync"
+    },
+    "after": {
+     "id": "mock-module.service[\"ledger-sync\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/ledger-sync"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.service[\"ledger-sync\"].aws_ecr_repository.this",
+   "module_address": "module.service[\"ledger-sync\"]",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"ledger-sync\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"ledger-sync\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/ledger-sync",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"ledger-sync\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"ledger-sync\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/ledger-sync",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service[\"payment-gateway\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/payment-gateway",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/payment-gateway",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"payment-gateway\"].aws_ecr_lifecycle_policy.this",
+   "module_address": "module.service[\"payment-gateway\"]",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.service[\"payment-gateway\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 50 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":50,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/payment-gateway"
+    },
+    "after": {
+     "id": "mock-module.service[\"payment-gateway\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 50 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":50,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/payment-gateway"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.service[\"payment-gateway\"].aws_ecr_repository.this",
+   "module_address": "module.service[\"payment-gateway\"]",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"payment-gateway\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"payment-gateway\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/payment-gateway",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"payment-gateway\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"payment-gateway\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/payment-gateway",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"statements-api\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service[\"statements-api\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "kms_key_id": null,
+     "name": "/ecs/prod/statements-api",
+     "region": "us-east-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     }
+    },
+    "after_unknown": {
+     "arn": true,
+     "deletion_protection_enabled": true,
+     "id": true,
+     "log_group_class": true,
+     "name_prefix": true,
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"statements-api\"].aws_ecr_lifecycle_policy.this",
+   "module_address": "module.service[\"statements-api\"]",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "repository": "billing/statements-api"
+    },
+    "after_unknown": {
+     "id": true,
+     "registry_id": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.service[\"statements-api\"].aws_ecr_repository.this",
+   "module_address": "module.service[\"statements-api\"]",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "encryption_configuration": [],
+     "force_delete": null,
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/statements-api",
+     "region": "us-east-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {
+     "arn": true,
+     "encryption_configuration": [],
+     "id": true,
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "registry_id": true,
+     "repository_url": true,
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service[\"tax-calculator\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/tax-calculator",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/tax-calculator",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"tax-calculator\"].aws_ecr_lifecycle_policy.this",
+   "module_address": "module.service[\"tax-calculator\"]",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.service[\"tax-calculator\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/tax-calculator"
+    },
+    "after": {
+     "id": "mock-module.service[\"tax-calculator\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/tax-calculator"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.service[\"tax-calculator\"].aws_ecr_repository.this",
+   "module_address": "module.service[\"tax-calculator\"]",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"tax-calculator\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"tax-calculator\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/tax-calculator",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"tax-calculator\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"tax-calculator\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/tax-calculator",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"usage-metering\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service[\"usage-metering\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"usage-metering\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"usage-metering\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/usage-metering",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"usage-metering\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"usage-metering\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/usage-metering",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"usage-metering\"].aws_ecr_lifecycle_policy.this",
+   "module_address": "module.service[\"usage-metering\"]",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.service[\"usage-metering\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/usage-metering"
+    },
+    "after": {
+     "id": "mock-module.service[\"usage-metering\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/usage-metering"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.service[\"usage-metering\"].aws_ecr_repository.this",
+   "module_address": "module.service[\"usage-metering\"]",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"usage-metering\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"usage-metering\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/usage-metering",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"usage-metering\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"usage-metering\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/usage-metering",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service[\"webhook-relay\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/webhook-relay",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/prod/webhook-relay",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service[\"webhook-relay\"].aws_ecr_lifecycle_policy.this",
+   "module_address": "module.service[\"webhook-relay\"]",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.service[\"webhook-relay\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 10 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":10,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/webhook-relay"
+    },
+    "after": {
+     "id": "mock-module.service[\"webhook-relay\"].aws_ecr_lifecycle_policy.this",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 10 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":10,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository": "billing/webhook-relay"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.service[\"webhook-relay\"].aws_ecr_repository.this",
+   "module_address": "module.service[\"webhook-relay\"]",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"webhook-relay\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"webhook-relay\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/webhook-relay",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"webhook-relay\"].aws_ecr_repository.this",
+     "encryption_configuration": [],
+     "force_delete": null,
+     "id": "mock-module.service[\"webhook-relay\"].aws_ecr_repository.this",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "billing/webhook-relay",
+     "region": "us-east-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "billing",
+      "Repository": "acme/billing-infra",
+      "Team": "billing-platform"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags_all": {}
+    }
+   }
+  }
+ ],
+ "prior_state": {
+  "format_version": "1.0",
+  "terraform_version": "1.10.5",
+  "values": {
+   "root_module": {
+    "resources": [
+     {
+      "address": "aws_security_group.db",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "db",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_security_group.db",
+       "description": "Billing Postgres cluster",
+       "egress": [
+        {
+         "cidr_blocks": [
+          "0.0.0.0/0"
+         ],
+         "description": "",
+         "from_port": 0,
+         "ipv6_cidr_blocks": [],
+         "prefix_list_ids": [],
+         "protocol": "-1",
+         "security_groups": [],
+         "self": false,
+         "to_port": 0
+        }
+       ],
+       "id": "mock-aws_security_group.db",
+       "ingress": [
+        {
+         "cidr_blocks": [
+          "10.40.10.0/24",
+          "10.40.11.0/24",
+          "10.40.12.0/24"
+         ],
+         "description": "Postgres from billing services",
+         "from_port": 5432,
+         "ipv6_cidr_blocks": [],
+         "prefix_list_ids": [],
+         "protocol": "tcp",
+         "security_groups": [],
+         "self": false,
+         "to_port": 5432
+        },
+        {
+         "cidr_blocks": [
+          "203.0.113.0/24",
+          "198.51.100.0/25"
+         ],
+         "description": "Postgres from office and VPN",
+         "from_port": 5432,
+         "ipv6_cidr_blocks": [],
+         "prefix_list_ids": [],
+         "protocol": "tcp",
+         "security_groups": [],
+         "self": false,
+         "to_port": 5432
+        }
+       ],
+       "name": "billing-prod-postgres",
+       "name_prefix": "mock-name_prefix",
+       "owner_id": "mock-owner_id",
+       "region": "us-east-1",
+       "revoke_rules_on_delete": false,
+       "tags": {
+        "Name": "billing-prod-postgres"
+       },
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Name": "billing-prod-postgres",
+        "Project": "billing",
+        "Repository": "acme/billing-infra"
+       },
+       "timeouts": null,
+       "vpc_id": "vpc-0a1b2c3d4e5f60718"
+      },
+      "sensitive_values": {
+       "egress": [
+        {
+         "cidr_blocks": [
+          false
+         ],
+         "ipv6_cidr_blocks": [],
+         "prefix_list_ids": [],
+         "security_groups": []
+        }
+       ],
+       "ingress": [
+        {
+         "cidr_blocks": [
+          false,
+          false,
+          false
+         ],
+         "ipv6_cidr_blocks": [],
+         "prefix_list_ids": [],
+         "security_groups": []
+        },
+        {
+         "cidr_blocks": [
+          false,
+          false
+         ],
+         "ipv6_cidr_blocks": [],
+         "prefix_list_ids": [],
+         "security_groups": []
+        }
+       ],
+       "tags": {},
+       "tags_all": {}
+      }
+     }
+    ],
+    "child_modules": [
+     {
+      "resources": [
+       {
+        "address": "module.service[\"billing-api\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-api\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service[\"billing-api\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ecs/prod/billing-api",
+         "name_prefix": "mock-name_prefix",
+         "region": "us-east-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service[\"billing-api\"].aws_ecr_lifecycle_policy.this",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.service[\"billing-api\"].aws_ecr_lifecycle_policy.this",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository": "billing/billing-api"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.service.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.service[\"billing-api\"].aws_ecr_repository.this",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-api\"].aws_ecr_repository.this",
+         "encryption_configuration": [],
+         "force_delete": null,
+         "id": "mock-module.service[\"billing-api\"].aws_ecr_repository.this",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "billing/billing-api",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.service[\"billing-api\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service[\"billing-worker\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-worker\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service[\"billing-worker\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ecs/prod/billing-worker",
+         "name_prefix": "mock-name_prefix",
+         "region": "us-east-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service[\"billing-worker\"].aws_ecr_lifecycle_policy.this",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.service[\"billing-worker\"].aws_ecr_lifecycle_policy.this",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository": "billing/billing-worker"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.service.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.service[\"billing-worker\"].aws_ecr_repository.this",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"billing-worker\"].aws_ecr_repository.this",
+         "encryption_configuration": [],
+         "force_delete": null,
+         "id": "mock-module.service[\"billing-worker\"].aws_ecr_repository.this",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "billing/billing-worker",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.service[\"billing-worker\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ecs/prod/dunning-scheduler",
+         "name_prefix": "mock-name_prefix",
+         "region": "us-east-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service[\"dunning-scheduler\"].aws_ecr_lifecycle_policy.this",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.service[\"dunning-scheduler\"].aws_ecr_lifecycle_policy.this",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 10 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":10,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository": "billing/dunning-scheduler"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.service.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.service[\"dunning-scheduler\"].aws_ecr_repository.this",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"dunning-scheduler\"].aws_ecr_repository.this",
+         "encryption_configuration": [],
+         "force_delete": null,
+         "id": "mock-module.service[\"dunning-scheduler\"].aws_ecr_repository.this",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "billing/dunning-scheduler",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.service[\"dunning-scheduler\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ecs/prod/invoice-renderer",
+         "name_prefix": "mock-name_prefix",
+         "region": "us-east-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service[\"invoice-renderer\"].aws_ecr_lifecycle_policy.this",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.service[\"invoice-renderer\"].aws_ecr_lifecycle_policy.this",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository": "billing/invoice-renderer"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.service.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.service[\"invoice-renderer\"].aws_ecr_repository.this",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"invoice-renderer\"].aws_ecr_repository.this",
+         "encryption_configuration": [],
+         "force_delete": null,
+         "id": "mock-module.service[\"invoice-renderer\"].aws_ecr_repository.this",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "billing/invoice-renderer",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.service[\"invoice-renderer\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ecs/prod/ledger-sync",
+         "name_prefix": "mock-name_prefix",
+         "region": "us-east-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service[\"ledger-sync\"].aws_ecr_lifecycle_policy.this",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.service[\"ledger-sync\"].aws_ecr_lifecycle_policy.this",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository": "billing/ledger-sync"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.service.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.service[\"ledger-sync\"].aws_ecr_repository.this",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"ledger-sync\"].aws_ecr_repository.this",
+         "encryption_configuration": [],
+         "force_delete": null,
+         "id": "mock-module.service[\"ledger-sync\"].aws_ecr_repository.this",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "billing/ledger-sync",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.service[\"ledger-sync\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ecs/prod/payment-gateway",
+         "name_prefix": "mock-name_prefix",
+         "region": "us-east-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service[\"payment-gateway\"].aws_ecr_lifecycle_policy.this",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.service[\"payment-gateway\"].aws_ecr_lifecycle_policy.this",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 50 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":50,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository": "billing/payment-gateway"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.service.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.service[\"payment-gateway\"].aws_ecr_repository.this",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"payment-gateway\"].aws_ecr_repository.this",
+         "encryption_configuration": [],
+         "force_delete": null,
+         "id": "mock-module.service[\"payment-gateway\"].aws_ecr_repository.this",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "billing/payment-gateway",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.service[\"payment-gateway\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ecs/prod/tax-calculator",
+         "name_prefix": "mock-name_prefix",
+         "region": "us-east-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service[\"tax-calculator\"].aws_ecr_lifecycle_policy.this",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.service[\"tax-calculator\"].aws_ecr_lifecycle_policy.this",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository": "billing/tax-calculator"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.service.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.service[\"tax-calculator\"].aws_ecr_repository.this",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"tax-calculator\"].aws_ecr_repository.this",
+         "encryption_configuration": [],
+         "force_delete": null,
+         "id": "mock-module.service[\"tax-calculator\"].aws_ecr_repository.this",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "billing/tax-calculator",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.service[\"tax-calculator\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service[\"usage-metering\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"usage-metering\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service[\"usage-metering\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ecs/prod/usage-metering",
+         "name_prefix": "mock-name_prefix",
+         "region": "us-east-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service[\"usage-metering\"].aws_ecr_lifecycle_policy.this",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.service[\"usage-metering\"].aws_ecr_lifecycle_policy.this",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository": "billing/usage-metering"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.service.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.service[\"usage-metering\"].aws_ecr_repository.this",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"usage-metering\"].aws_ecr_repository.this",
+         "encryption_configuration": [],
+         "force_delete": null,
+         "id": "mock-module.service[\"usage-metering\"].aws_ecr_repository.this",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "billing/usage-metering",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.service[\"usage-metering\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ecs/prod/webhook-relay",
+         "name_prefix": "mock-name_prefix",
+         "region": "us-east-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service[\"webhook-relay\"].aws_ecr_lifecycle_policy.this",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.service[\"webhook-relay\"].aws_ecr_lifecycle_policy.this",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 10 images\",\"rulePriority\":1,\"selection\":{\"countNumber\":10,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository": "billing/webhook-relay"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.service.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.service[\"webhook-relay\"].aws_ecr_repository.this",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service[\"webhook-relay\"].aws_ecr_repository.this",
+         "encryption_configuration": [],
+         "force_delete": null,
+         "id": "mock-module.service[\"webhook-relay\"].aws_ecr_repository.this",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "billing/webhook-relay",
+         "region": "us-east-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "billing",
+          "Repository": "acme/billing-infra"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.service[\"webhook-relay\"]"
+     }
+    ]
+   }
+  }
+ },
+ "configuration": {
+  "provider_config": {
+   "aws": {
+    "name": "aws",
+    "full_name": "registry.terraform.io/hashicorp/aws",
+    "version_constraint": "~> 6.0",
+    "expressions": {
+     "access_key": {
+      "constant_value": "mock_access_key"
+     },
+     "default_tags": [
+      {
+       "tags": {
+        "references": [
+         "var.environment"
+        ]
+       }
+      }
+     ],
+     "region": {
+      "constant_value": "us-east-1"
+     },
+     "secret_key": {
+      "constant_value": "mock_secret_key"
+     },
+     "skip_credentials_validation": {
+      "constant_value": true
+     },
+     "skip_metadata_api_check": {
+      "constant_value": true
+     },
+     "skip_region_validation": {
+      "constant_value": true
+     },
+     "skip_requesting_account_id": {
+      "constant_value": true
+     }
+    }
+   }
+  },
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_security_group.db",
+     "mode": "managed",
+     "type": "aws_security_group",
+     "name": "db",
+     "provider_config_key": "aws",
+     "expressions": {
+      "description": {
+       "constant_value": "Billing Postgres cluster"
+      },
+      "egress": {
+       "constant_value": [
+        {
+         "cidr_blocks": [
+          "0.0.0.0/0"
+         ],
+         "description": null,
+         "from_port": 0,
+         "ipv6_cidr_blocks": null,
+         "prefix_list_ids": null,
+         "protocol": "-1",
+         "security_groups": null,
+         "self": null,
+         "to_port": 0
+        }
+       ]
+      },
+      "ingress": {
+       "references": [
+        "var.app_subnet_cidrs",
+        "local.allowed_db_cidrs"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      },
+      "tags": {
+       "references": [
+        "var.environment"
+       ]
+      },
+      "vpc_id": {
+       "references": [
+        "var.vpc_id"
+       ]
+      }
+     },
+     "schema_version": 1
+    }
+   ],
+   "module_calls": {
+    "service": {
+     "source": "./modules/service",
+     "expressions": {
+      "environment": {
+       "references": [
+        "var.environment"
+       ]
+      },
+      "keep_images": {
+       "references": [
+        "each.value.keep_images",
+        "each.value"
+       ]
+      },
+      "log_retention_days": {
+       "references": [
+        "var.log_retention_days"
+       ]
+      },
+      "name": {
+       "references": [
+        "each.key"
+       ]
+      }
+     },
+     "for_each_expression": {
+      "references": [
+       "var.services"
+      ]
+     },
+     "module": {
+      "resources": [
+       {
+        "address": "aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_config_key": "aws",
+        "expressions": {
+         "name": {
+          "references": [
+           "var.environment",
+           "var.name"
+          ]
+         },
+         "retention_in_days": {
+          "references": [
+           "var.log_retention_days"
+          ]
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "aws_ecr_lifecycle_policy.this",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "provider_config_key": "aws",
+        "expressions": {
+         "policy": {
+          "references": [
+           "var.keep_images",
+           "var.keep_images"
+          ]
+         },
+         "repository": {
+          "references": [
+           "aws_ecr_repository.this.name",
+           "aws_ecr_repository.this"
+          ]
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "aws_ecr_repository.this",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "provider_config_key": "aws",
+        "expressions": {
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": {
+            "constant_value": true
+           }
+          }
+         ],
+         "image_tag_mutability": {
+          "constant_value": "IMMUTABLE"
+         },
+         "name": {
+          "references": [
+           "var.name"
+          ]
+         }
+        },
+        "schema_version": 0
+       }
+      ],
+      "variables": {
+       "environment": {},
+       "keep_images": {},
+       "log_retention_days": {},
+       "name": {}
+      }
+     }
+    }
+   },
+   "variables": {
+    "app_subnet_cidrs": {
+     "description": "Private subnets the billing services run in."
+    },
+    "db_public": {
+     "default": false,
+     "description": "Open the database port to any address instead of office_cidrs."
+    },
+    "environment": {},
+    "log_retention_days": {
+     "default": 30
+    },
+    "office_cidrs": {
+     "description": "Office and VPN egress ranges allowed to reach the database directly."
+    },
+    "services": {
+     "description": "Container services: ECR repository, log group and image-tag parameter each."
+    },
+    "vpc_id": {}
+   }
+  }
+ },
+ "relevant_attributes": [
+  {
+   "resource": "module.service[\"statements-api\"].aws_ecr_repository.this",
+   "attribute": [
+    "name"
+   ]
+  }
+ ],
+ "timestamp": "2026-11-24T09:17:02Z",
+ "applyable": true,
+ "complete": true,
+ "errored": false
+}

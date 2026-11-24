@@ -1,0 +1,581 @@
+module.service_role["churn-scoring"].data.aws_iam_policy_document.this: Reading...
+module.service_role["funnel-builder"].data.aws_iam_policy_document.this: Reading...
+module.service_role["kpi-rollup"].data.aws_iam_policy_document.this: Reading...
+module.service_role["ab-test-readout"].data.aws_iam_policy_document.this: Reading...
+data.aws_iam_policy_document.lambda_assume: Reading...
+module.service_role["sessionizer"].data.aws_iam_policy_document.this: Reading...
+module.service_role["ltv-forecast"].data.aws_iam_policy_document.this: Reading...
+module.service_role["attribution"].data.aws_iam_policy_document.this: Reading...
+module.service_role["export-scheduler"].data.aws_iam_policy_document.this: Reading...
+module.service_role["cohort-refresh"].data.aws_iam_policy_document.this: Reading...
+module.service_role["kpi-rollup"].data.aws_iam_policy_document.this: Read complete after 0s [id=2172273692]
+module.service_role["funnel-builder"].data.aws_iam_policy_document.this: Read complete after 0s [id=1889601652]
+module.service_role["attribution"].data.aws_iam_policy_document.this: Read complete after 0s [id=3097607074]
+data.aws_iam_policy_document.lambda_assume: Read complete after 0s [id=2690255455]
+module.service_role["ab-test-readout"].data.aws_iam_policy_document.this: Read complete after 0s [id=4134789329]
+module.service_role["ltv-forecast"].data.aws_iam_policy_document.this: Read complete after 0s [id=1686987578]
+module.service_role["sessionizer"].data.aws_iam_policy_document.this: Read complete after 0s [id=3536686984]
+module.service_role["export-scheduler"].data.aws_iam_policy_document.this: Read complete after 0s [id=958849639]
+module.service_role["churn-scoring"].data.aws_iam_policy_document.this: Read complete after 0s [id=3206024251]
+module.service_role["cohort-refresh"].data.aws_iam_policy_document.this: Read complete after 0s [id=1460398275]
+data.aws_iam_policy_document.reports_exporter: Reading...
+data.aws_iam_policy_document.reports_exporter: Read complete after 0s [id=4281067135]
+module.service_role["export-scheduler"].data.aws_iam_policy_document.assume: Reading...
+module.service_role["kpi-rollup"].data.aws_iam_policy_document.assume: Reading...
+module.service_role["ab-test-readout"].data.aws_iam_policy_document.assume: Reading...
+module.service_role["attribution"].data.aws_iam_policy_document.assume: Reading...
+module.service_role["ltv-forecast"].data.aws_iam_policy_document.assume: Reading...
+module.service_role["sessionizer"].data.aws_iam_policy_document.assume: Reading...
+module.service_role["cohort-refresh"].data.aws_iam_policy_document.assume: Reading...
+module.service_role["churn-scoring"].data.aws_iam_policy_document.assume: Reading...
+module.service_role["export-scheduler"].data.aws_iam_policy_document.assume: Read complete after 0s [id=2690255455]
+module.service_role["funnel-builder"].data.aws_iam_policy_document.assume: Reading...
+module.service_role["ab-test-readout"].data.aws_iam_policy_document.assume: Read complete after 0s [id=2690255455]
+module.service_role["cohort-refresh"].data.aws_iam_policy_document.assume: Read complete after 0s [id=2690255455]
+module.service_role["sessionizer"].data.aws_iam_policy_document.assume: Read complete after 0s [id=2690255455]
+module.service_role["churn-scoring"].data.aws_iam_policy_document.assume: Read complete after 0s [id=1077804475]
+module.service_role["kpi-rollup"].data.aws_iam_policy_document.assume: Read complete after 0s [id=2690255455]
+module.service_role["funnel-builder"].data.aws_iam_policy_document.assume: Read complete after 0s [id=2690255455]
+module.service_role["attribution"].data.aws_iam_policy_document.assume: Read complete after 0s [id=1077804475]
+module.service_role["ltv-forecast"].data.aws_iam_policy_document.assume: Read complete after 0s [id=1077804475]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.reports_exporter will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "reports_exporter" {
+        id                          = "mock-aws_cloudwatch_log_group.reports_exporter"
+        name                        = "/aws/lambda/reports-exporter-prod"
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_iam_policy.reports_exporter will be updated in-place
+  ~ resource "aws_iam_policy" "reports_exporter" {
+        id               = "mock-aws_iam_policy.reports_exporter"
+        name             = "reports-exporter-prod"
+      ~ policy           = jsonencode(
+          ~ {
+              ~ Statement = [
+                  ~ {
+                      ~ Action   = [
+                          - "s3:PutObject",
+                          - "s3:ListBucket",
+                          - "s3:GetObject",
+                        ] -> "s3:*"
+                      ~ Resource = [
+                          - "arn:aws:s3:::acme-analytics-prod-reports/*",
+                          - "arn:aws:s3:::acme-analytics-prod-reports",
+                        ] -> "*"
+                        # (2 unchanged attributes hidden)
+                    },
+                    {
+                        Action   = [
+                            "logs:PutLogEvents",
+                            "logs:CreateLogStream",
+                        ]
+                        Effect   = "Allow"
+                        Resource = "arn:aws:logs:eu-central-1:123456789012:log-group:/aws/lambda/reports-exporter-prod:*"
+                        Sid      = "Logs"
+                    },
+                ]
+                # (1 unchanged attribute hidden)
+            }
+        )
+      ~ tags_all         = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # aws_iam_role.reports_exporter will be updated in-place
+  ~ resource "aws_iam_role" "reports_exporter" {
+        id                    = "mock-aws_iam_role.reports_exporter"
+        name                  = "reports-exporter-prod"
+      ~ tags_all              = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # module.service_role["ab-test-readout"].aws_cloudwatch_log_group.this will be created
+  + resource "aws_cloudwatch_log_group" "this" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/analytics/prod/ab-test-readout"
+      + name_prefix                 = (known after apply)
+      + region                      = "eu-central-1"
+      + retention_in_days           = 30
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "analytics"
+        }
+    }
+
+  # module.service_role["ab-test-readout"].aws_iam_policy.this will be created
+  + resource "aws_iam_policy" "this" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "analytics-prod-ab-test-readout"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "sqs:ReceiveMessage",
+                          + "sqs:GetQueueAttributes",
+                          + "sqs:DeleteMessage",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:sqs:eu-central-1:123456789012:analytics-prod-ab-test-readout"
+                      + Sid      = "OwnQueue"
+                    },
+                  + {
+                      + Action   = [
+                          + "ssm:GetParametersByPath",
+                          + "ssm:GetParameter",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:ssm:eu-central-1:123456789012:parameter/analytics/prod/ab-test-readout/*"
+                      + Sid      = "OwnParameters"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags_all         = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "analytics"
+        }
+    }
+
+  # module.service_role["ab-test-readout"].aws_iam_role.this will be created
+  + resource "aws_iam_role" "this" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "analytics-prod-ab-test-readout"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "analytics"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # module.service_role["ab-test-readout"].aws_iam_role_policy_attachment.this will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::123456789012:policy/analytics-prod-ab-test-readout"
+      + role       = "analytics-prod-ab-test-readout"
+    }
+
+  # module.service_role["attribution"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service_role[\"attribution\"].aws_cloudwatch_log_group.this"
+        name                        = "/analytics/prod/attribution"
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # module.service_role["attribution"].aws_iam_policy.this will be updated in-place
+  ~ resource "aws_iam_policy" "this" {
+        id               = "mock-module.service_role[\"attribution\"].aws_iam_policy.this"
+        name             = "analytics-prod-attribution"
+      ~ tags_all         = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service_role["attribution"].aws_iam_role.this will be updated in-place
+  ~ resource "aws_iam_role" "this" {
+        id                    = "mock-module.service_role[\"attribution\"].aws_iam_role.this"
+        name                  = "analytics-prod-attribution"
+      ~ tags_all              = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # module.service_role["churn-scoring"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service_role[\"churn-scoring\"].aws_cloudwatch_log_group.this"
+        name                        = "/analytics/prod/churn-scoring"
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # module.service_role["churn-scoring"].aws_iam_policy.this will be updated in-place
+  ~ resource "aws_iam_policy" "this" {
+        id               = "mock-module.service_role[\"churn-scoring\"].aws_iam_policy.this"
+        name             = "analytics-prod-churn-scoring"
+      ~ tags_all         = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service_role["churn-scoring"].aws_iam_role.this will be updated in-place
+  ~ resource "aws_iam_role" "this" {
+        id                    = "mock-module.service_role[\"churn-scoring\"].aws_iam_role.this"
+        name                  = "analytics-prod-churn-scoring"
+      ~ tags_all              = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # module.service_role["cohort-refresh"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service_role[\"cohort-refresh\"].aws_cloudwatch_log_group.this"
+        name                        = "/analytics/prod/cohort-refresh"
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # module.service_role["cohort-refresh"].aws_iam_policy.this will be updated in-place
+  ~ resource "aws_iam_policy" "this" {
+        id               = "mock-module.service_role[\"cohort-refresh\"].aws_iam_policy.this"
+        name             = "analytics-prod-cohort-refresh"
+      ~ tags_all         = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service_role["cohort-refresh"].aws_iam_role.this will be updated in-place
+  ~ resource "aws_iam_role" "this" {
+        id                    = "mock-module.service_role[\"cohort-refresh\"].aws_iam_role.this"
+        name                  = "analytics-prod-cohort-refresh"
+      ~ tags_all              = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # module.service_role["export-scheduler"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service_role[\"export-scheduler\"].aws_cloudwatch_log_group.this"
+        name                        = "/analytics/prod/export-scheduler"
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # module.service_role["export-scheduler"].aws_iam_policy.this will be updated in-place
+  ~ resource "aws_iam_policy" "this" {
+        id               = "mock-module.service_role[\"export-scheduler\"].aws_iam_policy.this"
+        name             = "analytics-prod-export-scheduler"
+      ~ tags_all         = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service_role["export-scheduler"].aws_iam_role.this will be updated in-place
+  ~ resource "aws_iam_role" "this" {
+        id                    = "mock-module.service_role[\"export-scheduler\"].aws_iam_role.this"
+        name                  = "analytics-prod-export-scheduler"
+      ~ tags_all              = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # module.service_role["funnel-builder"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service_role[\"funnel-builder\"].aws_cloudwatch_log_group.this"
+        name                        = "/analytics/prod/funnel-builder"
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # module.service_role["funnel-builder"].aws_iam_policy.this will be updated in-place
+  ~ resource "aws_iam_policy" "this" {
+        id               = "mock-module.service_role[\"funnel-builder\"].aws_iam_policy.this"
+        name             = "analytics-prod-funnel-builder"
+      ~ tags_all         = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service_role["funnel-builder"].aws_iam_role.this will be updated in-place
+  ~ resource "aws_iam_role" "this" {
+        id                    = "mock-module.service_role[\"funnel-builder\"].aws_iam_role.this"
+        name                  = "analytics-prod-funnel-builder"
+      ~ tags_all              = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # module.service_role["kpi-rollup"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service_role[\"kpi-rollup\"].aws_cloudwatch_log_group.this"
+        name                        = "/analytics/prod/kpi-rollup"
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # module.service_role["kpi-rollup"].aws_iam_policy.this will be updated in-place
+  ~ resource "aws_iam_policy" "this" {
+        id               = "mock-module.service_role[\"kpi-rollup\"].aws_iam_policy.this"
+        name             = "analytics-prod-kpi-rollup"
+      ~ tags_all         = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service_role["kpi-rollup"].aws_iam_role.this will be updated in-place
+  ~ resource "aws_iam_role" "this" {
+        id                    = "mock-module.service_role[\"kpi-rollup\"].aws_iam_role.this"
+        name                  = "analytics-prod-kpi-rollup"
+      ~ tags_all              = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # module.service_role["ltv-forecast"].aws_cloudwatch_log_group.this will be created
+  + resource "aws_cloudwatch_log_group" "this" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/analytics/prod/ltv-forecast"
+      + name_prefix                 = (known after apply)
+      + region                      = "eu-central-1"
+      + retention_in_days           = 30
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "analytics"
+        }
+    }
+
+  # module.service_role["ltv-forecast"].aws_iam_policy.this will be created
+  + resource "aws_iam_policy" "this" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "analytics-prod-ltv-forecast"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "sqs:ReceiveMessage",
+                          + "sqs:GetQueueAttributes",
+                          + "sqs:DeleteMessage",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:sqs:eu-central-1:123456789012:analytics-prod-ltv-forecast"
+                      + Sid      = "OwnQueue"
+                    },
+                  + {
+                      + Action   = [
+                          + "ssm:GetParametersByPath",
+                          + "ssm:GetParameter",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:ssm:eu-central-1:123456789012:parameter/analytics/prod/ltv-forecast/*"
+                      + Sid      = "OwnParameters"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags_all         = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "analytics"
+        }
+    }
+
+  # module.service_role["ltv-forecast"].aws_iam_role.this will be created
+  + resource "aws_iam_role" "this" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "analytics-prod-ltv-forecast"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "analytics"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # module.service_role["ltv-forecast"].aws_iam_role_policy_attachment.this will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::123456789012:policy/analytics-prod-ltv-forecast"
+      + role       = "analytics-prod-ltv-forecast"
+    }
+
+  # module.service_role["sessionizer"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service_role[\"sessionizer\"].aws_cloudwatch_log_group.this"
+        name                        = "/analytics/prod/sessionizer"
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # module.service_role["sessionizer"].aws_iam_policy.this will be updated in-place
+  ~ resource "aws_iam_policy" "this" {
+        id               = "mock-module.service_role[\"sessionizer\"].aws_iam_policy.this"
+        name             = "analytics-prod-sessionizer"
+      ~ tags_all         = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service_role["sessionizer"].aws_iam_role.this will be updated in-place
+  ~ resource "aws_iam_role" "this" {
+        id                    = "mock-module.service_role[\"sessionizer\"].aws_iam_role.this"
+        name                  = "analytics-prod-sessionizer"
+      ~ tags_all              = {
+          + "CostCenter"  = "cc-analytics-210"
+          + "DataOwner"   = "analytics-eng"
+            # (3 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+Plan: 8 to add, 24 to change, 0 to destroy.

@@ -1,0 +1,70 @@
+diff --git a/data.tf b/data.tf
+index 826d2b4..bd7cdc5 100644
+--- a/data.tf
++++ b/data.tf
+@@ -4,6 +4,7 @@ resource "aws_s3_bucket" "attachments" {
+ 
+   tags = {
+     DataClassification = "confidential"
++    Retention          = "7y"
+   }
+ }
+ 
+diff --git a/providers.tf b/providers.tf
+index d9afb5b..222c5a9 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -17,6 +17,7 @@ provider "aws" {
+       Environment = var.environment
+       Team        = "messaging"
+       ManagedBy   = "terraform"
++      CostCenter  = "cc-comms-118"
+     }
+   }
+ }
+diff --git a/settings.tf b/settings.tf
+new file mode 100644
+index 0000000..b2feba0
+--- /dev/null
++++ b/settings.tf
+@@ -0,0 +1,25 @@
++# Runtime settings the dispatchers read at cold start (NOTIF-412).
++resource "aws_ssm_parameter" "quiet_hours_start" {
++  name  = "/${local.prefix}/settings/quiet-hours-start"
++  type  = "String"
++  value = "22:00"
++}
++
++resource "aws_ssm_parameter" "quiet_hours_end" {
++  name  = "/${local.prefix}/settings/quiet-hours-end"
++  type  = "String"
++  value = "07:00"
++}
++
++resource "aws_ssm_parameter" "max_daily_per_user" {
++  name  = "/${local.prefix}/settings/max-daily-per-user"
++  type  = "String"
++  value = "25"
++}
++
++# SES bounce and complaint events, drained by the suppression-list job.
++resource "aws_sqs_queue" "bounces" {
++  name                      = "${local.prefix}-ses-bounces"
++  message_retention_seconds = 345600
++  sqs_managed_sse_enabled   = true
++}
+diff --git a/terraform.tfvars b/terraform.tfvars
+index 6e8dce9..5d243a0 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -2,8 +2,8 @@ environment        = "prod"
+ account_id         = "444455556666"
+ artifact_bucket    = "acme-notifications-artifacts"
+ dispatcher_version = "3.14.2"
+-template_version   = "2026.10.2"
+-log_retention_days = 14
++template_version   = "2026.11.0"
++log_retention_days = 30
+ 
+ channels = {
+   "email"         = { timeout = 30, memory = 512, concurrency = 50 }

@@ -1,0 +1,655 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_db_instance.history will be updated in-place
+  ~ resource "aws_db_instance" "history" {
+        id                                    = "mock-aws_db_instance.history"
+      ~ tags_all                              = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (64 unchanged attributes hidden)
+    }
+
+  # aws_db_subnet_group.history will be updated in-place
+  ~ resource "aws_db_subnet_group" "history" {
+        id                      = "mock-aws_db_subnet_group.history"
+        name                    = "notifications-prod-history"
+      ~ tags_all                = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_iam_role.dispatcher will be updated in-place
+  ~ resource "aws_iam_role" "dispatcher" {
+        id                    = "mock-aws_iam_role.dispatcher"
+        name                  = "notifications-prod-dispatcher"
+      ~ tags_all              = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # aws_s3_bucket.attachments will be updated in-place
+  ~ resource "aws_s3_bucket" "attachments" {
+        id                          = "mock-aws_s3_bucket.attachments"
+      ~ tags                        = {
+            "DataClassification" = "confidential"
+          + "Retention"          = "7y"
+        }
+      ~ tags_all                    = {
+          + "CostCenter"         = "cc-comms-118"
+          + "Retention"          = "7y"
+            # (5 unchanged elements hidden)
+        }
+        # (17 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.bounces will be created
+  + resource "aws_sqs_queue" "bounces" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = 0
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 345600
+      + name                              = "notifications-prod-ses-bounces"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 0
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = (known after apply)
+      + region                            = "eu-west-2"
+      + sqs_managed_sse_enabled           = true
+      + tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "notifications"
+          + "Team"        = "messaging"
+        }
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 30
+    }
+
+  # aws_ssm_parameter.history_db_identifier will be updated in-place
+  ~ resource "aws_ssm_parameter" "history_db_identifier" {
+        id             = "mock-aws_ssm_parameter.history_db_identifier"
+        name           = "/notifications-prod/history-db/identifier"
+      ~ tags_all       = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # aws_ssm_parameter.max_daily_per_user will be created
+  + resource "aws_ssm_parameter" "max_daily_per_user" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/notifications-prod/settings/max-daily-per-user"
+      + region         = "eu-west-2"
+      + tags_all       = {
+          + "CostCenter"  = "cc-comms-118"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "notifications"
+          + "Team"        = "messaging"
+        }
+      + tier           = (known after apply)
+      + type           = "String"
+      + value          = (sensitive value)
+      + version        = (known after apply)
+    }
+
+  # aws_ssm_parameter.quiet_hours_end will be created
+  + resource "aws_ssm_parameter" "quiet_hours_end" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/notifications-prod/settings/quiet-hours-end"
+      + region         = "eu-west-2"
+      + tags_all       = {
+          + "CostCenter"  = "cc-comms-118"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "notifications"
+          + "Team"        = "messaging"
+        }
+      + tier           = (known after apply)
+      + type           = "String"
+      + value          = (sensitive value)
+      + version        = (known after apply)
+    }
+
+  # aws_ssm_parameter.quiet_hours_start will be created
+  + resource "aws_ssm_parameter" "quiet_hours_start" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/notifications-prod/settings/quiet-hours-start"
+      + region         = "eu-west-2"
+      + tags_all       = {
+          + "CostCenter"  = "cc-comms-118"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "notifications"
+          + "Team"        = "messaging"
+        }
+      + tier           = (known after apply)
+      + type           = "String"
+      + value          = (sensitive value)
+      + version        = (known after apply)
+    }
+
+  # module.channel["digest-daily"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.channel[\"digest-daily\"].aws_cloudwatch_log_group.this"
+        name                        = "/aws/lambda/notifications-prod-digest-daily"
+      ~ retention_in_days           = 14 -> 30
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.channel["digest-daily"].aws_lambda_event_source_mapping.this will be updated in-place
+  ~ resource "aws_lambda_event_source_mapping" "this" {
+        id                            = "mock-module.channel[\"digest-daily\"].aws_lambda_event_source_mapping.this"
+      ~ tags_all                      = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.channel["digest-daily"].aws_lambda_function.this will be updated in-place
+  ~ resource "aws_lambda_function" "this" {
+        id                             = "mock-module.channel[\"digest-daily\"].aws_lambda_function.this"
+      ~ tags_all                       = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (26 unchanged attributes hidden)
+
+      ~ environment {
+          ~ variables = {
+              ~ "TEMPLATE_VERSION" = "2026.10.2" -> "2026.11.0"
+                # (3 unchanged elements hidden)
+            }
+        }
+    }
+
+  # module.channel["digest-daily"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.channel[\"digest-daily\"].aws_sqs_queue.dlq"
+        name                              = "notifications-prod-digest-daily-dlq"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["digest-daily"].aws_sqs_queue.this will be updated in-place
+  ~ resource "aws_sqs_queue" "this" {
+        id                                = "mock-module.channel[\"digest-daily\"].aws_sqs_queue.this"
+        name                              = "notifications-prod-digest-daily"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["digest-weekly"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.channel[\"digest-weekly\"].aws_cloudwatch_log_group.this"
+        name                        = "/aws/lambda/notifications-prod-digest-weekly"
+      ~ retention_in_days           = 14 -> 30
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.channel["digest-weekly"].aws_lambda_event_source_mapping.this will be updated in-place
+  ~ resource "aws_lambda_event_source_mapping" "this" {
+        id                            = "mock-module.channel[\"digest-weekly\"].aws_lambda_event_source_mapping.this"
+      ~ tags_all                      = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.channel["digest-weekly"].aws_lambda_function.this will be updated in-place
+  ~ resource "aws_lambda_function" "this" {
+        id                             = "mock-module.channel[\"digest-weekly\"].aws_lambda_function.this"
+      ~ tags_all                       = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (26 unchanged attributes hidden)
+
+      ~ environment {
+          ~ variables = {
+              ~ "TEMPLATE_VERSION" = "2026.10.2" -> "2026.11.0"
+                # (3 unchanged elements hidden)
+            }
+        }
+    }
+
+  # module.channel["digest-weekly"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.channel[\"digest-weekly\"].aws_sqs_queue.dlq"
+        name                              = "notifications-prod-digest-weekly-dlq"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["digest-weekly"].aws_sqs_queue.this will be updated in-place
+  ~ resource "aws_sqs_queue" "this" {
+        id                                = "mock-module.channel[\"digest-weekly\"].aws_sqs_queue.this"
+        name                              = "notifications-prod-digest-weekly"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["email"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.channel[\"email\"].aws_cloudwatch_log_group.this"
+        name                        = "/aws/lambda/notifications-prod-email"
+      ~ retention_in_days           = 14 -> 30
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.channel["email"].aws_lambda_event_source_mapping.this will be updated in-place
+  ~ resource "aws_lambda_event_source_mapping" "this" {
+        id                            = "mock-module.channel[\"email\"].aws_lambda_event_source_mapping.this"
+      ~ tags_all                      = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.channel["email"].aws_lambda_function.this will be updated in-place
+  ~ resource "aws_lambda_function" "this" {
+        id                             = "mock-module.channel[\"email\"].aws_lambda_function.this"
+      ~ tags_all                       = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (26 unchanged attributes hidden)
+
+      ~ environment {
+          ~ variables = {
+              ~ "TEMPLATE_VERSION" = "2026.10.2" -> "2026.11.0"
+                # (3 unchanged elements hidden)
+            }
+        }
+    }
+
+  # module.channel["email"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.channel[\"email\"].aws_sqs_queue.dlq"
+        name                              = "notifications-prod-email-dlq"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["email"].aws_sqs_queue.this will be updated in-place
+  ~ resource "aws_sqs_queue" "this" {
+        id                                = "mock-module.channel[\"email\"].aws_sqs_queue.this"
+        name                              = "notifications-prod-email"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["in-app"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.channel[\"in-app\"].aws_cloudwatch_log_group.this"
+        name                        = "/aws/lambda/notifications-prod-in-app"
+      ~ retention_in_days           = 14 -> 30
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.channel["in-app"].aws_lambda_event_source_mapping.this will be updated in-place
+  ~ resource "aws_lambda_event_source_mapping" "this" {
+        id                            = "mock-module.channel[\"in-app\"].aws_lambda_event_source_mapping.this"
+      ~ tags_all                      = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.channel["in-app"].aws_lambda_function.this will be updated in-place
+  ~ resource "aws_lambda_function" "this" {
+        id                             = "mock-module.channel[\"in-app\"].aws_lambda_function.this"
+      ~ tags_all                       = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (26 unchanged attributes hidden)
+
+      ~ environment {
+          ~ variables = {
+              ~ "TEMPLATE_VERSION" = "2026.10.2" -> "2026.11.0"
+                # (3 unchanged elements hidden)
+            }
+        }
+    }
+
+  # module.channel["in-app"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.channel[\"in-app\"].aws_sqs_queue.dlq"
+        name                              = "notifications-prod-in-app-dlq"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["in-app"].aws_sqs_queue.this will be updated in-place
+  ~ resource "aws_sqs_queue" "this" {
+        id                                = "mock-module.channel[\"in-app\"].aws_sqs_queue.this"
+        name                              = "notifications-prod-in-app"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["push-android"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.channel[\"push-android\"].aws_cloudwatch_log_group.this"
+        name                        = "/aws/lambda/notifications-prod-push-android"
+      ~ retention_in_days           = 14 -> 30
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.channel["push-android"].aws_lambda_event_source_mapping.this will be updated in-place
+  ~ resource "aws_lambda_event_source_mapping" "this" {
+        id                            = "mock-module.channel[\"push-android\"].aws_lambda_event_source_mapping.this"
+      ~ tags_all                      = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.channel["push-android"].aws_lambda_function.this will be updated in-place
+  ~ resource "aws_lambda_function" "this" {
+        id                             = "mock-module.channel[\"push-android\"].aws_lambda_function.this"
+      ~ tags_all                       = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (26 unchanged attributes hidden)
+
+      ~ environment {
+          ~ variables = {
+              ~ "TEMPLATE_VERSION" = "2026.10.2" -> "2026.11.0"
+                # (3 unchanged elements hidden)
+            }
+        }
+    }
+
+  # module.channel["push-android"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.channel[\"push-android\"].aws_sqs_queue.dlq"
+        name                              = "notifications-prod-push-android-dlq"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["push-android"].aws_sqs_queue.this will be updated in-place
+  ~ resource "aws_sqs_queue" "this" {
+        id                                = "mock-module.channel[\"push-android\"].aws_sqs_queue.this"
+        name                              = "notifications-prod-push-android"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["push-ios"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.channel[\"push-ios\"].aws_cloudwatch_log_group.this"
+        name                        = "/aws/lambda/notifications-prod-push-ios"
+      ~ retention_in_days           = 14 -> 30
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.channel["push-ios"].aws_lambda_event_source_mapping.this will be updated in-place
+  ~ resource "aws_lambda_event_source_mapping" "this" {
+        id                            = "mock-module.channel[\"push-ios\"].aws_lambda_event_source_mapping.this"
+      ~ tags_all                      = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.channel["push-ios"].aws_lambda_function.this will be updated in-place
+  ~ resource "aws_lambda_function" "this" {
+        id                             = "mock-module.channel[\"push-ios\"].aws_lambda_function.this"
+      ~ tags_all                       = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (26 unchanged attributes hidden)
+
+      ~ environment {
+          ~ variables = {
+              ~ "TEMPLATE_VERSION" = "2026.10.2" -> "2026.11.0"
+                # (3 unchanged elements hidden)
+            }
+        }
+    }
+
+  # module.channel["push-ios"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.channel[\"push-ios\"].aws_sqs_queue.dlq"
+        name                              = "notifications-prod-push-ios-dlq"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["push-ios"].aws_sqs_queue.this will be updated in-place
+  ~ resource "aws_sqs_queue" "this" {
+        id                                = "mock-module.channel[\"push-ios\"].aws_sqs_queue.this"
+        name                              = "notifications-prod-push-ios"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["sms"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.channel[\"sms\"].aws_cloudwatch_log_group.this"
+        name                        = "/aws/lambda/notifications-prod-sms"
+      ~ retention_in_days           = 14 -> 30
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.channel["sms"].aws_lambda_event_source_mapping.this will be updated in-place
+  ~ resource "aws_lambda_event_source_mapping" "this" {
+        id                            = "mock-module.channel[\"sms\"].aws_lambda_event_source_mapping.this"
+      ~ tags_all                      = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.channel["sms"].aws_lambda_function.this will be updated in-place
+  ~ resource "aws_lambda_function" "this" {
+        id                             = "mock-module.channel[\"sms\"].aws_lambda_function.this"
+      ~ tags_all                       = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (26 unchanged attributes hidden)
+
+      ~ environment {
+          ~ variables = {
+              ~ "TEMPLATE_VERSION" = "2026.10.2" -> "2026.11.0"
+                # (3 unchanged elements hidden)
+            }
+        }
+    }
+
+  # module.channel["sms"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.channel[\"sms\"].aws_sqs_queue.dlq"
+        name                              = "notifications-prod-sms-dlq"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["sms"].aws_sqs_queue.this will be updated in-place
+  ~ resource "aws_sqs_queue" "this" {
+        id                                = "mock-module.channel[\"sms\"].aws_sqs_queue.this"
+        name                              = "notifications-prod-sms"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["webhook"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.channel[\"webhook\"].aws_cloudwatch_log_group.this"
+        name                        = "/aws/lambda/notifications-prod-webhook"
+      ~ retention_in_days           = 14 -> 30
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.channel["webhook"].aws_lambda_event_source_mapping.this will be updated in-place
+  ~ resource "aws_lambda_event_source_mapping" "this" {
+        id                            = "mock-module.channel[\"webhook\"].aws_lambda_event_source_mapping.this"
+      ~ tags_all                      = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.channel["webhook"].aws_lambda_function.this will be updated in-place
+  ~ resource "aws_lambda_function" "this" {
+        id                             = "mock-module.channel[\"webhook\"].aws_lambda_function.this"
+      ~ tags_all                       = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (26 unchanged attributes hidden)
+
+      ~ environment {
+          ~ variables = {
+              ~ "TEMPLATE_VERSION" = "2026.10.2" -> "2026.11.0"
+                # (3 unchanged elements hidden)
+            }
+        }
+    }
+
+  # module.channel["webhook"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.channel[\"webhook\"].aws_sqs_queue.dlq"
+        name                              = "notifications-prod-webhook-dlq"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.channel["webhook"].aws_sqs_queue.this will be updated in-place
+  ~ resource "aws_sqs_queue" "this" {
+        id                                = "mock-module.channel[\"webhook\"].aws_sqs_queue.this"
+        name                              = "notifications-prod-webhook"
+      ~ tags_all                          = {
+          + "CostCenter"  = "cc-comms-118"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+Plan: 4 to add, 45 to change, 0 to destroy.

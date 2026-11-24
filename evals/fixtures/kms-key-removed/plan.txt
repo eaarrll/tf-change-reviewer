@@ -1,0 +1,319 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_kms_alias.documents will be destroyed
+  # (because aws_kms_alias.documents is not in configuration)
+  - resource "aws_kms_alias" "documents" {
+      - arn            = "arn:aws:mock:eu-west-1:123456789012:aws_kms_alias.documents" -> null
+      - id             = "mock-aws_kms_alias.documents" -> null
+      - name           = "alias/prod-documents" -> null
+      - name_prefix    = "mock-name_prefix" -> null
+      - region         = "eu-west-1" -> null
+      - target_key_arn = "mock-target_key_arn" -> null
+      - target_key_id  = "mock-key_id" -> null
+    }
+
+  # aws_kms_key.documents will be destroyed
+  # (because aws_kms_key.documents is not in configuration)
+  - resource "aws_kms_key" "documents" {
+      - arn                                = "arn:aws:mock:eu-west-1:123456789012:aws_kms_key.documents" -> null
+      - bypass_policy_lockout_safety_check = false -> null
+      - customer_master_key_spec           = "SYMMETRIC_DEFAULT" -> null
+      - deletion_window_in_days            = 30 -> null
+      - description                        = "Customer documents at rest (S3, SQS, SSM)" -> null
+      - enable_key_rotation                = true -> null
+      - id                                 = "mock-aws_kms_key.documents" -> null
+      - is_enabled                         = true -> null
+      - key_id                             = "mock-key_id" -> null
+      - key_usage                          = "ENCRYPT_DECRYPT" -> null
+      - multi_region                       = false -> null
+      - policy                             = "mock-policy" -> null
+      - region                             = "eu-west-1" -> null
+      - rotation_period_in_days            = 0 -> null
+      - tags_all                           = {
+          - "Environment" = "prod"
+          - "ManagedBy"   = "terraform"
+          - "Owner"       = "team-docs"
+          - "Project"     = "documents"
+        } -> null
+    }
+
+  # module.workflow["audit-replay"].aws_cloudwatch_metric_alarm.backlog will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "backlog" {
+      ~ evaluation_periods                    = 2 -> 3
+        id                                    = "mock-module.workflow[\"audit-replay\"].aws_cloudwatch_metric_alarm.backlog"
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.workflow["classify"].aws_cloudwatch_metric_alarm.backlog will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "backlog" {
+      ~ evaluation_periods                    = 2 -> 3
+        id                                    = "mock-module.workflow[\"classify\"].aws_cloudwatch_metric_alarm.backlog"
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.workflow["esign"].aws_cloudwatch_log_group.worker will be created
+  + resource "aws_cloudwatch_log_group" "worker" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + kms_key_id                  = "arn:aws:mock:eu-west-1:123456789012:aws_kms_key.logs"
+      + log_group_class             = (known after apply)
+      + name                        = "/docs/prod/esign"
+      + name_prefix                 = (known after apply)
+      + region                      = "eu-west-1"
+      + retention_in_days           = 90
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "team-docs"
+          + "Project"     = "documents"
+        }
+    }
+
+  # module.workflow["esign"].aws_cloudwatch_metric_alarm.backlog will be created
+  + resource "aws_cloudwatch_metric_alarm" "backlog" {
+      + actions_enabled                       = true
+      + alarm_description                     = "Messages waiting in the esign queue"
+      + alarm_name                            = "prod-docs-esign-backlog"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanThreshold"
+      + dimensions                            = {
+          + "QueueName" = "prod-docs-esign"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 3
+      + id                                    = (known after apply)
+      + metric_name                           = "ApproximateNumberOfMessagesVisible"
+      + namespace                             = "AWS/SQS"
+      + period                                = 300
+      + region                                = "eu-west-1"
+      + statistic                             = "Maximum"
+      + tags_all                              = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "team-docs"
+          + "Project"     = "documents"
+        }
+      + threshold                             = 500
+      + treat_missing_data                    = "notBreaching"
+    }
+
+  # module.workflow["esign"].aws_sqs_queue.this will be created
+  + resource "aws_sqs_queue" "this" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = 3600
+      + kms_master_key_id                 = "alias/prod-documents"
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 1209600
+      + name                              = "prod-docs-esign"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 0
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = (known after apply)
+      + region                            = "eu-west-1"
+      + sqs_managed_sse_enabled           = (known after apply)
+      + tags_all                          = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "team-docs"
+          + "Project"     = "documents"
+        }
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 300
+    }
+
+  # module.workflow["esign"].aws_ssm_parameter.settings will be created
+  + resource "aws_ssm_parameter" "settings" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = "alias/prod-documents"
+      + name           = "/prod/docs/esign/settings"
+      + region         = "eu-west-1"
+      + tags_all       = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "team-docs"
+          + "Project"     = "documents"
+        }
+      + tier           = (known after apply)
+      + type           = "SecureString"
+      + value          = (sensitive value)
+      + version        = (known after apply)
+    }
+
+  # module.workflow["export"].aws_cloudwatch_metric_alarm.backlog will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "backlog" {
+      ~ evaluation_periods                    = 2 -> 3
+        id                                    = "mock-module.workflow[\"export\"].aws_cloudwatch_metric_alarm.backlog"
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.workflow["index"].aws_cloudwatch_metric_alarm.backlog will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "backlog" {
+      ~ evaluation_periods                    = 2 -> 3
+        id                                    = "mock-module.workflow[\"index\"].aws_cloudwatch_metric_alarm.backlog"
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.workflow["ingest"].aws_cloudwatch_metric_alarm.backlog will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "backlog" {
+      ~ evaluation_periods                    = 2 -> 3
+        id                                    = "mock-module.workflow[\"ingest\"].aws_cloudwatch_metric_alarm.backlog"
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.workflow["notify"].aws_cloudwatch_metric_alarm.backlog will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "backlog" {
+      ~ evaluation_periods                    = 2 -> 3
+        id                                    = "mock-module.workflow[\"notify\"].aws_cloudwatch_metric_alarm.backlog"
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.workflow["ocr"].aws_cloudwatch_metric_alarm.backlog will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "backlog" {
+      ~ evaluation_periods                    = 2 -> 3
+        id                                    = "mock-module.workflow[\"ocr\"].aws_cloudwatch_metric_alarm.backlog"
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.workflow["redact"].aws_cloudwatch_metric_alarm.backlog will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "backlog" {
+      ~ evaluation_periods                    = 2 -> 3
+        id                                    = "mock-module.workflow[\"redact\"].aws_cloudwatch_metric_alarm.backlog"
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.workflow["retention"].aws_cloudwatch_metric_alarm.backlog will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "backlog" {
+      ~ evaluation_periods                    = 2 -> 3
+        id                                    = "mock-module.workflow[\"retention\"].aws_cloudwatch_metric_alarm.backlog"
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.workflow["thumbnail"].aws_cloudwatch_metric_alarm.backlog will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "backlog" {
+      ~ evaluation_periods                    = 2 -> 3
+        id                                    = "mock-module.workflow[\"thumbnail\"].aws_cloudwatch_metric_alarm.backlog"
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.workflow["translate"].aws_cloudwatch_log_group.worker will be created
+  + resource "aws_cloudwatch_log_group" "worker" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + kms_key_id                  = "arn:aws:mock:eu-west-1:123456789012:aws_kms_key.logs"
+      + log_group_class             = (known after apply)
+      + name                        = "/docs/prod/translate"
+      + name_prefix                 = (known after apply)
+      + region                      = "eu-west-1"
+      + retention_in_days           = 90
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "team-docs"
+          + "Project"     = "documents"
+        }
+    }
+
+  # module.workflow["translate"].aws_cloudwatch_metric_alarm.backlog will be created
+  + resource "aws_cloudwatch_metric_alarm" "backlog" {
+      + actions_enabled                       = true
+      + alarm_description                     = "Messages waiting in the translate queue"
+      + alarm_name                            = "prod-docs-translate-backlog"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanThreshold"
+      + dimensions                            = {
+          + "QueueName" = "prod-docs-translate"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 3
+      + id                                    = (known after apply)
+      + metric_name                           = "ApproximateNumberOfMessagesVisible"
+      + namespace                             = "AWS/SQS"
+      + period                                = 300
+      + region                                = "eu-west-1"
+      + statistic                             = "Maximum"
+      + tags_all                              = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "team-docs"
+          + "Project"     = "documents"
+        }
+      + threshold                             = 1000
+      + treat_missing_data                    = "notBreaching"
+    }
+
+  # module.workflow["translate"].aws_sqs_queue.this will be created
+  + resource "aws_sqs_queue" "this" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = 3600
+      + kms_master_key_id                 = "alias/prod-documents"
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 1209600
+      + name                              = "prod-docs-translate"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 0
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = (known after apply)
+      + region                            = "eu-west-1"
+      + sqs_managed_sse_enabled           = (known after apply)
+      + tags_all                          = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "team-docs"
+          + "Project"     = "documents"
+        }
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 600
+    }
+
+  # module.workflow["translate"].aws_ssm_parameter.settings will be created
+  + resource "aws_ssm_parameter" "settings" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = "alias/prod-documents"
+      + name           = "/prod/docs/translate/settings"
+      + region         = "eu-west-1"
+      + tags_all       = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "team-docs"
+          + "Project"     = "documents"
+        }
+      + tier           = (known after apply)
+      + type           = "SecureString"
+      + value          = (sensitive value)
+      + version        = (known after apply)
+    }
+
+Plan: 8 to add, 10 to change, 2 to destroy.

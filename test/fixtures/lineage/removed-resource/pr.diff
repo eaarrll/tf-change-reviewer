@@ -1,0 +1,28 @@
+diff --git a/archive.tf b/archive.tf
+deleted file mode 100644
+index 4682e15..0000000
+--- a/archive.tf
++++ /dev/null
+@@ -1,7 +0,0 @@
+-# Archive pipeline, retired in Q3.
+-resource "terraform_data" "archive" {
+-  input = {
+-    bucket = "acme-archive"
+-    days   = 365
+-  }
+-}
+diff --git a/main.tf b/main.tf
+index 13ee4ba..ec582a2 100644
+--- a/main.tf
++++ b/main.tf
+@@ -2,10 +2,6 @@ resource "terraform_data" "keep" {
+   input = "keep"
+ }
+ 
+-resource "terraform_data" "legacy" {
+-  input = "legacy"
+-}
+-
+ resource "terraform_data" "also_keep" {
+   input = "also"
+ }

@@ -1,0 +1,46 @@
+{
+  "set": "holdout",
+  "description": "PR renames the \"payments\" key of the for_each queues map in terraform.tfvars to \"payments-v2\"; the key is part of the queue names, so Terraform destroys the live prod-payments work queue and its DLQ (delete_because_each_key) and creates new prod-payments-v2 queues. Noise: a new loyalty-points queue set, orders visibility timeout 60 -> 90, Team/Runbook default tags, producer/consumer IAM policies re-rendered.",
+  "material": [
+    {
+      "address": "aws_sqs_queue.main[\"payments\"]",
+      "severity": "critical",
+      "why": "The live prod-payments queue is deleted: payment events still in flight (14-day retention) are lost, and producers/consumers that address the queue by URL/ARN break until redeployed against prod-payments-v2. Lost payment messages are unrecoverable money-moving work, hence critical rather than high.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 12
+        },
+        {
+          "file": "terraform.tfvars",
+          "line": 12,
+          "side": "base"
+        }
+      ]
+    },
+    {
+      "address": "aws_sqs_queue.dlq[\"payments\"]",
+      "severity": "high",
+      "why": "The payments dead-letter queue is deleted too: failed payment messages awaiting investigation/redrive are lost.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 12
+        },
+        {
+          "file": "terraform.tfvars",
+          "line": 12,
+          "side": "base"
+        }
+      ]
+    }
+  ],
+  "acceptable": [
+    "aws_sqs_queue.main[\"payments-v2\"]",
+    "aws_sqs_queue.dlq[\"payments-v2\"]",
+    "aws_iam_policy.consumers",
+    "aws_iam_policy.producers",
+    "aws_cloudwatch_metric_alarm.dlq_not_empty[\"payments\"]",
+    "aws_cloudwatch_metric_alarm.oldest_message[\"payments\"]"
+  ]
+}

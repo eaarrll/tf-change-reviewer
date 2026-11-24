@@ -1,0 +1,96 @@
+name: Terraform Change Reviewer
+description: Finds the changes in a Terraform plan that need your attention and traces each one to the line of the PR that caused it.
+author: eaarrll
+branding:
+  icon: git-pull-request
+  color: purple
+
+inputs:
+  plan-json:
+    description: >-
+      Plan files written with `terraform show -json plan.out > plan.json`, one per line. Each line is
+      `path/to/plan.json` or `path/to/plan.json=root/module/dir` (default root module dir: the plan file's
+      directory). Globs are allowed, e.g. `envs/*/plan.json`. Paths are relative to the checkout; a plan
+      kept outside it (e.g. a downloaded artifact) may be an absolute path under RUNNER_TEMP, with its root
+      module dir, e.g. the runner.temp path of the plan followed by `=infra`. Plan files must be regular files (no symlinks).
+    required: true
+  github-token:
+    description: >-
+      Token used to read the pull request and post the review comment. Needs contents: read and
+      pull-requests: write.
+    required: false
+    default: ${{ github.token }}
+  anthropic-api-key:
+    description: >-
+      Anthropic API key for the AI review. When empty, the review runs on the deterministic rules and
+      lineage only (no AI, no cost).
+    required: false
+    default: ""
+  model:
+    description: Claude model ID for the AI review.
+    required: false
+    default: claude-opus-5-5
+  effort:
+    description: "How hard the model thinks: low, medium, high, xhigh or max."
+    required: false
+    default: high
+  max-findings:
+    description: Most changes listed under "Needs your attention" per root module (1 to 50); the rest go to "Other changes".
+    required: false
+    default: "7"
+  max-cost-usd:
+    description: AI budget for the whole run in US dollars, shared by every plan (greater than 0, at most 50).
+    required: false
+    default: "1.00"
+  timeout-minutes:
+    description: >-
+      Time budget for the AI review in minutes, shared by every plan (1 to 60). Keep the job's
+      timeout-minutes a few minutes above it.
+    required: false
+    default: "5"
+  fail-on:
+    description: >-
+      Fail the step when a finding is at least this severe: none, critical, high or medium. The default
+      never fails on findings. Any other level also fails the step when a plan errored (terraform plan
+      failed, so the plan could not be fully reviewed). Invalid inputs and unreadable plans always fail the step.
+    required: false
+    default: none
+  comment:
+    description: Post the review as one sticky pull request comment, updated in place on every run.
+    required: false
+    default: "true"
+  comment-key:
+    description: >-
+      Which sticky comment this step owns. By default each distinct plan-json keeps its own comment, so
+      matrix jobs (one per environment) do not overwrite each other's; set it when two steps with the same
+      plan-json should keep separate comments, e.g. the matrix environment name.
+    required: false
+    default: ""
+  extra-instructions:
+    description: >-
+      Repository-specific guidance for the AI review, e.g. which environments are production or which
+      resources are disposable. Up to 4000 characters.
+    required: false
+    default: ""
+  pr-number:
+    description: >-
+      Pull request to review and comment on. Defaults to the event's pull request (pull_request,
+      pull_request_target, or workflow_run of a same-repository PR). Set it in the workflow_run pattern
+      for fork pull requests (see the README); under workflow_run the action comments only when that
+      PR's head commit is the run's head_sha, from the same head repository.
+    required: false
+    default: ""
+
+outputs:
+  findings-count:
+    description: Number of findings under "Needs your attention", over all plans.
+  max-severity:
+    description: "Most severe finding: critical, high or medium; none when there is no finding."
+  report-json:
+    description: Path of the full review as JSON (under RUNNER_TEMP).
+  comment-url:
+    description: URL of the pull request comment that was posted or updated; empty when none was.
+
+runs:
+  using: node24
+  main: dist/index.js

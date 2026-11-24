@@ -1,0 +1,346 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_security_group.db will be updated in-place
+  ~ resource "aws_security_group" "db" {
+        id                     = "mock-aws_security_group.db"
+      ~ ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "203.0.113.0/24",
+                  - "198.51.100.0/25",
+                ]
+              - description      = "Postgres from office and VPN"
+              - from_port        = 5432
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 5432
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Postgres from office and VPN"
+              + from_port        = 5432
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 5432
+            },
+            # (1 unchanged element hidden)
+        ]
+        name                   = "billing-prod-postgres"
+        tags                   = {
+            "Name" = "billing-prod-postgres"
+        }
+      ~ tags_all               = {
+          + "Team"        = "billing-platform"
+            # (5 unchanged elements hidden)
+        }
+        # (8 unchanged attributes hidden)
+    }
+
+  # module.service["billing-api"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service[\"billing-api\"].aws_cloudwatch_log_group.this"
+        name                        = "/ecs/prod/billing-api"
+      ~ retention_in_days           = 30 -> 14
+      ~ tags_all                    = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service["billing-api"].aws_ecr_repository.this will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.service[\"billing-api\"].aws_ecr_repository.this"
+        name                 = "billing/billing-api"
+      ~ tags_all             = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.service["billing-worker"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service[\"billing-worker\"].aws_cloudwatch_log_group.this"
+        name                        = "/ecs/prod/billing-worker"
+      ~ retention_in_days           = 30 -> 14
+      ~ tags_all                    = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service["billing-worker"].aws_ecr_repository.this will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.service[\"billing-worker\"].aws_ecr_repository.this"
+        name                 = "billing/billing-worker"
+      ~ tags_all             = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.service["dunning-scheduler"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this"
+        name                        = "/ecs/prod/dunning-scheduler"
+      ~ retention_in_days           = 30 -> 14
+      ~ tags_all                    = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service["dunning-scheduler"].aws_ecr_repository.this will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.service[\"dunning-scheduler\"].aws_ecr_repository.this"
+        name                 = "billing/dunning-scheduler"
+      ~ tags_all             = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.service["invoice-renderer"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this"
+        name                        = "/ecs/prod/invoice-renderer"
+      ~ retention_in_days           = 30 -> 14
+      ~ tags_all                    = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service["invoice-renderer"].aws_ecr_repository.this will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.service[\"invoice-renderer\"].aws_ecr_repository.this"
+        name                 = "billing/invoice-renderer"
+      ~ tags_all             = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.service["ledger-sync"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this"
+        name                        = "/ecs/prod/ledger-sync"
+      ~ retention_in_days           = 30 -> 14
+      ~ tags_all                    = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service["ledger-sync"].aws_ecr_repository.this will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.service[\"ledger-sync\"].aws_ecr_repository.this"
+        name                 = "billing/ledger-sync"
+      ~ tags_all             = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.service["payment-gateway"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this"
+        name                        = "/ecs/prod/payment-gateway"
+      ~ retention_in_days           = 30 -> 14
+      ~ tags_all                    = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service["payment-gateway"].aws_ecr_repository.this will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.service[\"payment-gateway\"].aws_ecr_repository.this"
+        name                 = "billing/payment-gateway"
+      ~ tags_all             = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.service["statements-api"].aws_cloudwatch_log_group.this will be created
+  + resource "aws_cloudwatch_log_group" "this" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/ecs/prod/statements-api"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 14
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "billing"
+          + "Repository"  = "acme/billing-infra"
+          + "Team"        = "billing-platform"
+        }
+    }
+
+  # module.service["statements-api"].aws_ecr_lifecycle_policy.this will be created
+  + resource "aws_ecr_lifecycle_policy" "this" {
+      + id          = (known after apply)
+      + policy      = jsonencode(
+            {
+              + rules = [
+                  + {
+                      + action       = {
+                          + type = "expire"
+                        }
+                      + description  = "Keep the last 20 images"
+                      + rulePriority = 1
+                      + selection    = {
+                          + countNumber = 20
+                          + countType   = "imageCountMoreThan"
+                          + tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      + region      = "us-east-1"
+      + registry_id = (known after apply)
+      + repository  = "billing/statements-api"
+    }
+
+  # module.service["statements-api"].aws_ecr_repository.this will be created
+  + resource "aws_ecr_repository" "this" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "IMMUTABLE"
+      + name                 = "billing/statements-api"
+      + region               = "us-east-1"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags_all             = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "billing"
+          + "Repository"  = "acme/billing-infra"
+          + "Team"        = "billing-platform"
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # module.service["tax-calculator"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this"
+        name                        = "/ecs/prod/tax-calculator"
+      ~ retention_in_days           = 30 -> 14
+      ~ tags_all                    = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service["tax-calculator"].aws_ecr_repository.this will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.service[\"tax-calculator\"].aws_ecr_repository.this"
+        name                 = "billing/tax-calculator"
+      ~ tags_all             = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.service["usage-metering"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service[\"usage-metering\"].aws_cloudwatch_log_group.this"
+        name                        = "/ecs/prod/usage-metering"
+      ~ retention_in_days           = 30 -> 14
+      ~ tags_all                    = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service["usage-metering"].aws_ecr_repository.this will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.service[\"usage-metering\"].aws_ecr_repository.this"
+        name                 = "billing/usage-metering"
+      ~ tags_all             = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.service["webhook-relay"].aws_cloudwatch_log_group.this will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "this" {
+        id                          = "mock-module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this"
+        name                        = "/ecs/prod/webhook-relay"
+      ~ retention_in_days           = 30 -> 14
+      ~ tags_all                    = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.service["webhook-relay"].aws_ecr_repository.this will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.service[\"webhook-relay\"].aws_ecr_repository.this"
+        name                 = "billing/webhook-relay"
+      ~ tags_all             = {
+          + "Team"        = "billing-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 3 to add, 19 to change, 0 to destroy.

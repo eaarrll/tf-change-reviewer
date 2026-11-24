@@ -1,0 +1,30 @@
+{
+  "description": "PR adds a CostCenter default tag and shortens the platform service log retention 30 -> 14 days (acceptable: a retention cut), and turns off storage encryption for the orders DB through a new root variable, which forces the database to be replaced.",
+  "material": [
+    {
+      "address": "module.orders_db.aws_db_instance.this",
+      "severity": "critical",
+      "why": "storage_encrypted true -> false forces replacement of the production database: the plan destroys it and creates an empty one (data loss unless restored from a snapshot). As written the apply fails at the destroy (deletion_protection is true, and skip_final_snapshot is false with no final_snapshot_identifier), but the PR's intent is still to replace the database, and turning protection off to get past the error loses the data.",
+      "cause": [
+        {
+          "file": "main.tf",
+          "line": 12
+        },
+        {
+          "file": "main.tf",
+          "line": 18
+        }
+      ]
+    }
+  ],
+  "acceptable": [
+    "module.platform.aws_cloudwatch_log_group.service[\"audit\"]",
+    "module.platform.aws_cloudwatch_log_group.service[\"billing-api\"]",
+    "module.platform.aws_cloudwatch_log_group.service[\"billing-worker\"]",
+    "module.platform.aws_cloudwatch_log_group.service[\"notifications\"]",
+    "module.platform.aws_cloudwatch_log_group.service[\"orders-api\"]",
+    "module.platform.aws_cloudwatch_log_group.service[\"orders-worker\"]",
+    "module.platform.aws_cloudwatch_log_group.service[\"reports\"]",
+    "module.platform.aws_cloudwatch_log_group.service[\"search\"]"
+  ]
+}

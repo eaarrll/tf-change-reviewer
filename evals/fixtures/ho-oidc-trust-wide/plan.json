@@ -1,0 +1,3865 @@
+{
+ "format_version": "1.2",
+ "terraform_version": "1.10.5",
+ "variables": {
+  "account_id": {
+   "value": "412093857261"
+  },
+  "deploy_log_retention_days": {
+   "value": 180
+  },
+  "deploy_role_subjects": {
+   "value": [
+    "repo:*"
+   ]
+  },
+  "ecr_namespace": {
+   "value": "acme"
+  },
+  "ecr_repositories": {
+   "value": {
+    "catalog-api": {
+     "keep_images": 30,
+     "scan_on_push": true
+    },
+    "catalog-indexer": {
+     "keep_images": 20,
+     "scan_on_push": true
+    },
+    "checkout-api": {
+     "keep_images": 50,
+     "scan_on_push": true
+    },
+    "checkout-worker": {
+     "keep_images": 30,
+     "scan_on_push": true
+    },
+    "loyalty-api": {
+     "keep_images": 30,
+     "scan_on_push": true
+    },
+    "loyalty-worker": {
+     "keep_images": 20,
+     "scan_on_push": true
+    },
+    "notifications": {
+     "keep_images": 20,
+     "scan_on_push": false
+    },
+    "payments-gateway": {
+     "keep_images": 50,
+     "scan_on_push": true
+    },
+    "pricing-engine": {
+     "keep_images": 30,
+     "scan_on_push": true
+    },
+    "search-api": {
+     "keep_images": 30,
+     "scan_on_push": true
+    }
+   }
+  },
+  "ecs_cluster_name": {
+   "value": "prod-apps"
+  },
+  "environment": {
+   "value": "prod"
+  },
+  "region": {
+   "value": "eu-west-1"
+  }
+ },
+ "planned_values": {
+  "outputs": {
+   "deploy_role_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "gha-deploy-prod"
+   },
+   "ecr_repository_urls": {
+    "sensitive": false
+   }
+  },
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_cloudwatch_log_group.deploy_audit",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "deploy_audit",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.deploy_audit",
+      "deletion_protection_enabled": false,
+      "id": "mock-aws_cloudwatch_log_group.deploy_audit",
+      "kms_key_id": null,
+      "log_group_class": "mock-log_group_class",
+      "name": "/ci/prod/deploys",
+      "name_prefix": "mock-name_prefix",
+      "region": "eu-west-1",
+      "retention_in_days": 180,
+      "skip_destroy": false,
+      "tags": null,
+      "tags_all": {
+       "CostCenter": "cc-2207",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "delivery-platform",
+       "Repository": "acme-platform/infra-ci"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_ssm_parameter.deploy_role_arn",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "deploy_role_arn",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "allowed_pattern": null,
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.deploy_role_arn",
+      "data_type": "mock-data_type",
+      "description": null,
+      "has_value_wo": false,
+      "id": "mock-aws_ssm_parameter.deploy_role_arn",
+      "insecure_value": "mock-insecure_value",
+      "key_id": "mock-key_id",
+      "name": "/ci/prod/deploy-role-arn",
+      "overwrite": null,
+      "region": "eu-west-1",
+      "tags": null,
+      "tags_all": {
+       "CostCenter": "cc-2207",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "delivery-platform",
+       "Repository": "acme-platform/infra-ci"
+      },
+      "tier": "mock-tier",
+      "type": "String",
+      "value": "arn:aws:iam::412093857261:role/gha-deploy-prod",
+      "value_wo": null,
+      "value_wo_version": null,
+      "version": 0
+     },
+     "sensitive_values": {
+      "tags_all": {},
+      "value": true,
+      "value_wo": true
+     }
+    }
+   ],
+   "child_modules": [
+    {
+     "resources": [
+      {
+       "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-api\"]",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "index": "catalog-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-api\"]",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository": "acme/catalog-api"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-indexer\"]",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "index": "catalog-indexer",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-indexer\"]",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository": "acme/catalog-indexer"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-api\"]",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "index": "checkout-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 50 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":50,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "eu-west-1",
+        "repository": "acme/checkout-api"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-worker\"]",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "index": "checkout-worker",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-worker\"]",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository": "acme/checkout-worker"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"loyalty-api\"]",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "index": "loyalty-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "eu-west-1",
+        "repository": "acme/loyalty-api"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"loyalty-worker\"]",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "index": "loyalty-worker",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "eu-west-1",
+        "repository": "acme/loyalty-worker"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"notifications\"]",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "index": "notifications",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"notifications\"]",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository": "acme/notifications"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"payments-gateway\"]",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "index": "payments-gateway",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"payments-gateway\"]",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 50 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":50,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository": "acme/payments-gateway"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"pricing-engine\"]",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "index": "pricing-engine",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "eu-west-1",
+        "repository": "acme/pricing-engine"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"search-api\"]",
+       "mode": "managed",
+       "type": "aws_ecr_lifecycle_policy",
+       "name": "this",
+       "index": "search-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"search-api\"]",
+        "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository": "acme/search-api"
+       },
+       "sensitive_values": {}
+      },
+      {
+       "address": "module.ecr.aws_ecr_repository.this[\"catalog-api\"]",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "index": "catalog-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"catalog-api\"]",
+        "encryption_configuration": [
+         {
+          "encryption_type": "AES256",
+          "kms_key": "mock-kms_key"
+         }
+        ],
+        "force_delete": null,
+        "id": "mock-module.ecr.aws_ecr_repository.this[\"catalog-api\"]",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "acme/catalog-api",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": {
+         "Service": "catalog-api"
+        },
+        "tags_all": {
+         "CostCenter": "cc-2207",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "delivery-platform",
+         "Repository": "acme-platform/infra-ci",
+         "Service": "catalog-api"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [
+         {}
+        ],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags": {},
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.ecr.aws_ecr_repository.this[\"catalog-indexer\"]",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "index": "catalog-indexer",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"catalog-indexer\"]",
+        "encryption_configuration": [
+         {
+          "encryption_type": "AES256",
+          "kms_key": "mock-kms_key"
+         }
+        ],
+        "force_delete": null,
+        "id": "mock-module.ecr.aws_ecr_repository.this[\"catalog-indexer\"]",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "acme/catalog-indexer",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": {
+         "Service": "catalog-indexer"
+        },
+        "tags_all": {
+         "CostCenter": "cc-2207",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "delivery-platform",
+         "Repository": "acme-platform/infra-ci",
+         "Service": "catalog-indexer"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [
+         {}
+        ],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags": {},
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.ecr.aws_ecr_repository.this[\"checkout-api\"]",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "index": "checkout-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"checkout-api\"]",
+        "encryption_configuration": [
+         {
+          "encryption_type": "AES256",
+          "kms_key": "mock-kms_key"
+         }
+        ],
+        "force_delete": null,
+        "id": "mock-module.ecr.aws_ecr_repository.this[\"checkout-api\"]",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "acme/checkout-api",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": {
+         "Service": "checkout-api"
+        },
+        "tags_all": {
+         "CostCenter": "cc-2207",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "delivery-platform",
+         "Repository": "acme-platform/infra-ci",
+         "Service": "checkout-api"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [
+         {}
+        ],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags": {},
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.ecr.aws_ecr_repository.this[\"checkout-worker\"]",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "index": "checkout-worker",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"checkout-worker\"]",
+        "encryption_configuration": [
+         {
+          "encryption_type": "AES256",
+          "kms_key": "mock-kms_key"
+         }
+        ],
+        "force_delete": null,
+        "id": "mock-module.ecr.aws_ecr_repository.this[\"checkout-worker\"]",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "acme/checkout-worker",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": {
+         "Service": "checkout-worker"
+        },
+        "tags_all": {
+         "CostCenter": "cc-2207",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "delivery-platform",
+         "Repository": "acme-platform/infra-ci",
+         "Service": "checkout-worker"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [
+         {}
+        ],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags": {},
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.ecr.aws_ecr_repository.this[\"loyalty-api\"]",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "index": "loyalty-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "encryption_configuration": [
+         {
+          "encryption_type": "AES256"
+         }
+        ],
+        "force_delete": null,
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "acme/loyalty-api",
+        "region": "eu-west-1",
+        "tags": {
+         "Service": "loyalty-api"
+        },
+        "tags_all": {
+         "CostCenter": "cc-2207",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "delivery-platform",
+         "Repository": "acme-platform/infra-ci",
+         "Service": "loyalty-api"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [
+         {}
+        ],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags": {},
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.ecr.aws_ecr_repository.this[\"loyalty-worker\"]",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "index": "loyalty-worker",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "encryption_configuration": [
+         {
+          "encryption_type": "AES256"
+         }
+        ],
+        "force_delete": null,
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "acme/loyalty-worker",
+        "region": "eu-west-1",
+        "tags": {
+         "Service": "loyalty-worker"
+        },
+        "tags_all": {
+         "CostCenter": "cc-2207",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "delivery-platform",
+         "Repository": "acme-platform/infra-ci",
+         "Service": "loyalty-worker"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [
+         {}
+        ],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags": {},
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.ecr.aws_ecr_repository.this[\"notifications\"]",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "index": "notifications",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"notifications\"]",
+        "encryption_configuration": [
+         {
+          "encryption_type": "AES256",
+          "kms_key": "mock-kms_key"
+         }
+        ],
+        "force_delete": null,
+        "id": "mock-module.ecr.aws_ecr_repository.this[\"notifications\"]",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": false
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "acme/notifications",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": {
+         "Service": "notifications"
+        },
+        "tags_all": {
+         "CostCenter": "cc-2207",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "delivery-platform",
+         "Repository": "acme-platform/infra-ci",
+         "Service": "notifications"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [
+         {}
+        ],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags": {},
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.ecr.aws_ecr_repository.this[\"payments-gateway\"]",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "index": "payments-gateway",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"payments-gateway\"]",
+        "encryption_configuration": [
+         {
+          "encryption_type": "AES256",
+          "kms_key": "mock-kms_key"
+         }
+        ],
+        "force_delete": null,
+        "id": "mock-module.ecr.aws_ecr_repository.this[\"payments-gateway\"]",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "acme/payments-gateway",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": {
+         "Service": "payments-gateway"
+        },
+        "tags_all": {
+         "CostCenter": "cc-2207",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "delivery-platform",
+         "Repository": "acme-platform/infra-ci",
+         "Service": "payments-gateway"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [
+         {}
+        ],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags": {},
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.ecr.aws_ecr_repository.this[\"pricing-engine\"]",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "index": "pricing-engine",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "encryption_configuration": [
+         {
+          "encryption_type": "AES256"
+         }
+        ],
+        "force_delete": null,
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "acme/pricing-engine",
+        "region": "eu-west-1",
+        "tags": {
+         "Service": "pricing-engine"
+        },
+        "tags_all": {
+         "CostCenter": "cc-2207",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "delivery-platform",
+         "Repository": "acme-platform/infra-ci",
+         "Service": "pricing-engine"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [
+         {}
+        ],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags": {},
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.ecr.aws_ecr_repository.this[\"search-api\"]",
+       "mode": "managed",
+       "type": "aws_ecr_repository",
+       "name": "this",
+       "index": "search-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"search-api\"]",
+        "encryption_configuration": [
+         {
+          "encryption_type": "AES256",
+          "kms_key": "mock-kms_key"
+         }
+        ],
+        "force_delete": null,
+        "id": "mock-module.ecr.aws_ecr_repository.this[\"search-api\"]",
+        "image_scanning_configuration": [
+         {
+          "scan_on_push": true
+         }
+        ],
+        "image_tag_mutability": "IMMUTABLE",
+        "image_tag_mutability_exclusion_filter": [],
+        "name": "acme/search-api",
+        "region": "eu-west-1",
+        "registry_id": "mock-registry_id",
+        "repository_url": "mock-repository_url",
+        "tags": {
+         "Service": "search-api"
+        },
+        "tags_all": {
+         "CostCenter": "cc-2207",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "delivery-platform",
+         "Repository": "acme-platform/infra-ci",
+         "Service": "search-api"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "encryption_configuration": [
+         {}
+        ],
+        "image_scanning_configuration": [
+         {}
+        ],
+        "image_tag_mutability_exclusion_filter": [],
+        "tags": {},
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.ecr"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.github_deploy_role.aws_iam_role.this",
+       "mode": "managed",
+       "type": "aws_iam_role",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.github_deploy_role.aws_iam_role.this",
+        "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRoleWithWebIdentity\",\"Condition\":{\"StringEquals\":{\"token.actions.githubusercontent.com:aud\":\"sts.amazonaws.com\"},\"StringLike\":{\"token.actions.githubusercontent.com:sub\":\"repo:*\"}},\"Effect\":\"Allow\",\"Principal\":{\"Federated\":\"arn:aws:iam::412093857261:oidc-provider/token.actions.githubusercontent.com\"},\"Sid\":\"GitHubActionsOIDC\"}],\"Version\":\"2012-10-17\"}",
+        "create_date": "mock-create_date",
+        "description": "Assumed by GitHub Actions to push images and roll ECS services.",
+        "force_detach_policies": false,
+        "id": "mock-module.github_deploy_role.aws_iam_role.this",
+        "inline_policy": [],
+        "managed_policy_arns": [],
+        "max_session_duration": 3600,
+        "name": "gha-deploy-prod",
+        "name_prefix": "mock-name_prefix",
+        "path": "/",
+        "permissions_boundary": null,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-2207",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "delivery-platform",
+         "Repository": "acme-platform/infra-ci"
+        },
+        "unique_id": "mock-unique_id"
+       },
+       "sensitive_values": {
+        "inline_policy": [],
+        "managed_policy_arns": [],
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.github_deploy_role.aws_iam_role_policy.deploy",
+       "mode": "managed",
+       "type": "aws_iam_role_policy",
+       "name": "deploy",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "id": "mock-module.github_deploy_role.aws_iam_role_policy.deploy",
+        "name": "deploy",
+        "name_prefix": "mock-name_prefix",
+        "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":\"ecr:GetAuthorizationToken\",\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"EcrAuth\"},{\"Action\":[\"ecr:UploadLayerPart\",\"ecr:PutImage\",\"ecr:InitiateLayerUpload\",\"ecr:CompleteLayerUpload\",\"ecr:BatchCheckLayerAvailability\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:ecr:eu-west-1:*:repository/acme/search-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/pricing-engine\",\"arn:aws:ecr:eu-west-1:*:repository/acme/payments-gateway\",\"arn:aws:ecr:eu-west-1:*:repository/acme/notifications\",\"arn:aws:ecr:eu-west-1:*:repository/acme/loyalty-worker\",\"arn:aws:ecr:eu-west-1:*:repository/acme/loyalty-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/checkout-worker\",\"arn:aws:ecr:eu-west-1:*:repository/acme/checkout-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/catalog-indexer\",\"arn:aws:ecr:eu-west-1:*:repository/acme/catalog-api\"],\"Sid\":\"EcrPush\"},{\"Action\":[\"ecs:UpdateService\",\"ecs:RegisterTaskDefinition\",\"ecs:DescribeServices\"],\"Condition\":{\"ArnEquals\":{\"ecs:cluster\":\"arn:aws:ecs:eu-west-1:412093857261:cluster/prod-apps\"}},\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"EcsDeploy\"}]}",
+        "role": "mock-module.github_deploy_role.aws_iam_role.this"
+       },
+       "sensitive_values": {}
+      }
+     ],
+     "address": "module.github_deploy_role"
+    }
+   ]
+  }
+ },
+ "resource_changes": [
+  {
+   "address": "aws_cloudwatch_log_group.deploy_audit",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "deploy_audit",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.deploy_audit",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.deploy_audit",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ci/prod/deploys",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 90,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.deploy_audit",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.deploy_audit",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ci/prod/deploys",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 180,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_ssm_parameter.deploy_role_arn",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "deploy_role_arn",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.deploy_role_arn",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.deploy_role_arn",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ci/prod/deploy-role-arn",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "arn:aws:iam::412093857261:role/gha-deploy-prod",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.deploy_role_arn",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.deploy_role_arn",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ci/prod/deploy-role-arn",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "arn:aws:iam::412093857261:role/gha-deploy-prod",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-api\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "index": "catalog-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-api\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/catalog-api"
+    },
+    "after": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-api\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/catalog-api"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-indexer\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "index": "catalog-indexer",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-indexer\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/catalog-indexer"
+    },
+    "after": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-indexer\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/catalog-indexer"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-api\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "index": "checkout-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "delete",
+     "create"
+    ],
+    "before": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-api\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/checkout-api"
+    },
+    "after": {
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 50 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":50,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "repository": "acme/checkout-api"
+    },
+    "after_unknown": {
+     "id": true,
+     "registry_id": true
+    },
+    "before_sensitive": {},
+    "after_sensitive": {},
+    "replace_paths": [
+     [
+      "policy"
+     ]
+    ]
+   },
+   "action_reason": "replace_because_cannot_update"
+  },
+  {
+   "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-worker\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "index": "checkout-worker",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-worker\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/checkout-worker"
+    },
+    "after": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-worker\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/checkout-worker"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"loyalty-api\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "index": "loyalty-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "repository": "acme/loyalty-api"
+    },
+    "after_unknown": {
+     "id": true,
+     "registry_id": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"loyalty-worker\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "index": "loyalty-worker",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "repository": "acme/loyalty-worker"
+    },
+    "after_unknown": {
+     "id": true,
+     "registry_id": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"notifications\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "index": "notifications",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"notifications\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/notifications"
+    },
+    "after": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"notifications\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/notifications"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"payments-gateway\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "index": "payments-gateway",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"payments-gateway\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 50 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":50,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/payments-gateway"
+    },
+    "after": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"payments-gateway\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 50 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":50,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/payments-gateway"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"pricing-engine\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "index": "pricing-engine",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "repository": "acme/pricing-engine"
+    },
+    "after_unknown": {
+     "id": true,
+     "registry_id": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"search-api\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_lifecycle_policy",
+   "name": "this",
+   "index": "search-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"search-api\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/search-api"
+    },
+    "after": {
+     "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"search-api\"]",
+     "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository": "acme/search-api"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_repository.this[\"catalog-api\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "index": "catalog-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"catalog-api\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"catalog-api\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/catalog-api",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "catalog-api"
+     },
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "catalog-api"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"catalog-api\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"catalog-api\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/catalog-api",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "catalog-api"
+     },
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "catalog-api"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_repository.this[\"catalog-indexer\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "index": "catalog-indexer",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"catalog-indexer\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"catalog-indexer\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/catalog-indexer",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "catalog-indexer"
+     },
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "catalog-indexer"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"catalog-indexer\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"catalog-indexer\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/catalog-indexer",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "catalog-indexer"
+     },
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "catalog-indexer"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_repository.this[\"checkout-api\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "index": "checkout-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"checkout-api\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"checkout-api\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/checkout-api",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "checkout-api"
+     },
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "checkout-api"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"checkout-api\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"checkout-api\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/checkout-api",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "checkout-api"
+     },
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "checkout-api"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_repository.this[\"checkout-worker\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "index": "checkout-worker",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"checkout-worker\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"checkout-worker\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/checkout-worker",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "checkout-worker"
+     },
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "checkout-worker"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"checkout-worker\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"checkout-worker\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/checkout-worker",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "checkout-worker"
+     },
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "checkout-worker"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_repository.this[\"loyalty-api\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "index": "loyalty-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256"
+      }
+     ],
+     "force_delete": null,
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/loyalty-api",
+     "region": "eu-west-1",
+     "tags": {
+      "Service": "loyalty-api"
+     },
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "loyalty-api"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {
+     "arn": true,
+     "encryption_configuration": [
+      {
+       "kms_key": true
+      }
+     ],
+     "id": true,
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "registry_id": true,
+     "repository_url": true,
+     "tags": {},
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_repository.this[\"loyalty-worker\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "index": "loyalty-worker",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256"
+      }
+     ],
+     "force_delete": null,
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/loyalty-worker",
+     "region": "eu-west-1",
+     "tags": {
+      "Service": "loyalty-worker"
+     },
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "loyalty-worker"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {
+     "arn": true,
+     "encryption_configuration": [
+      {
+       "kms_key": true
+      }
+     ],
+     "id": true,
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "registry_id": true,
+     "repository_url": true,
+     "tags": {},
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_repository.this[\"notifications\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "index": "notifications",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"notifications\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"notifications\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": false
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/notifications",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "notifications"
+     },
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "notifications"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"notifications\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"notifications\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": false
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/notifications",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "notifications"
+     },
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "notifications"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_repository.this[\"payments-gateway\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "index": "payments-gateway",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"payments-gateway\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"payments-gateway\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/payments-gateway",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "payments-gateway"
+     },
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "payments-gateway"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"payments-gateway\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"payments-gateway\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/payments-gateway",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "payments-gateway"
+     },
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "payments-gateway"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_repository.this[\"pricing-engine\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "index": "pricing-engine",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256"
+      }
+     ],
+     "force_delete": null,
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/pricing-engine",
+     "region": "eu-west-1",
+     "tags": {
+      "Service": "pricing-engine"
+     },
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "pricing-engine"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {
+     "arn": true,
+     "encryption_configuration": [
+      {
+       "kms_key": true
+      }
+     ],
+     "id": true,
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "registry_id": true,
+     "repository_url": true,
+     "tags": {},
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.ecr.aws_ecr_repository.this[\"search-api\"]",
+   "module_address": "module.ecr",
+   "mode": "managed",
+   "type": "aws_ecr_repository",
+   "name": "this",
+   "index": "search-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"search-api\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"search-api\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/search-api",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "search-api"
+     },
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "search-api"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"search-api\"]",
+     "encryption_configuration": [
+      {
+       "encryption_type": "AES256",
+       "kms_key": "mock-kms_key"
+      }
+     ],
+     "force_delete": null,
+     "id": "mock-module.ecr.aws_ecr_repository.this[\"search-api\"]",
+     "image_scanning_configuration": [
+      {
+       "scan_on_push": true
+      }
+     ],
+     "image_tag_mutability": "IMMUTABLE",
+     "image_tag_mutability_exclusion_filter": [],
+     "name": "acme/search-api",
+     "region": "eu-west-1",
+     "registry_id": "mock-registry_id",
+     "repository_url": "mock-repository_url",
+     "tags": {
+      "Service": "search-api"
+     },
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci",
+      "Service": "search-api"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "encryption_configuration": [
+      {}
+     ],
+     "image_scanning_configuration": [
+      {}
+     ],
+     "image_tag_mutability_exclusion_filter": [],
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.github_deploy_role.aws_iam_role.this",
+   "module_address": "module.github_deploy_role",
+   "mode": "managed",
+   "type": "aws_iam_role",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.github_deploy_role.aws_iam_role.this",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRoleWithWebIdentity\",\"Condition\":{\"StringEquals\":{\"token.actions.githubusercontent.com:aud\":\"sts.amazonaws.com\"},\"StringLike\":{\"token.actions.githubusercontent.com:sub\":\"repo:acme-platform/checkout-app:ref:refs/heads/main\"}},\"Effect\":\"Allow\",\"Principal\":{\"Federated\":\"arn:aws:iam::412093857261:oidc-provider/token.actions.githubusercontent.com\"},\"Sid\":\"GitHubActionsOIDC\"}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": "Assumed by GitHub Actions to push images and roll ECS services.",
+     "force_detach_policies": false,
+     "id": "mock-module.github_deploy_role.aws_iam_role.this",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "gha-deploy-prod",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.github_deploy_role.aws_iam_role.this",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRoleWithWebIdentity\",\"Condition\":{\"StringEquals\":{\"token.actions.githubusercontent.com:aud\":\"sts.amazonaws.com\"},\"StringLike\":{\"token.actions.githubusercontent.com:sub\":\"repo:*\"}},\"Effect\":\"Allow\",\"Principal\":{\"Federated\":\"arn:aws:iam::412093857261:oidc-provider/token.actions.githubusercontent.com\"},\"Sid\":\"GitHubActionsOIDC\"}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": "Assumed by GitHub Actions to push images and roll ECS services.",
+     "force_detach_policies": false,
+     "id": "mock-module.github_deploy_role.aws_iam_role.this",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "gha-deploy-prod",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-2207",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "delivery-platform",
+      "Repository": "acme-platform/infra-ci"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.github_deploy_role.aws_iam_role_policy.deploy",
+   "module_address": "module.github_deploy_role",
+   "mode": "managed",
+   "type": "aws_iam_role_policy",
+   "name": "deploy",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "id": "mock-module.github_deploy_role.aws_iam_role_policy.deploy",
+     "name": "deploy",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":\"ecr:GetAuthorizationToken\",\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"EcrAuth\"},{\"Action\":[\"ecr:UploadLayerPart\",\"ecr:PutImage\",\"ecr:InitiateLayerUpload\",\"ecr:CompleteLayerUpload\",\"ecr:BatchCheckLayerAvailability\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:ecr:eu-west-1:*:repository/acme/search-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/payments-gateway\",\"arn:aws:ecr:eu-west-1:*:repository/acme/notifications\",\"arn:aws:ecr:eu-west-1:*:repository/acme/checkout-worker\",\"arn:aws:ecr:eu-west-1:*:repository/acme/checkout-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/catalog-indexer\",\"arn:aws:ecr:eu-west-1:*:repository/acme/catalog-api\"],\"Sid\":\"EcrPush\"},{\"Action\":[\"ecs:UpdateService\",\"ecs:RegisterTaskDefinition\",\"ecs:DescribeServices\"],\"Condition\":{\"ArnEquals\":{\"ecs:cluster\":\"arn:aws:ecs:eu-west-1:412093857261:cluster/prod-apps\"}},\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"EcsDeploy\"}]}",
+     "role": "mock-module.github_deploy_role.aws_iam_role.this"
+    },
+    "after": {
+     "id": "mock-module.github_deploy_role.aws_iam_role_policy.deploy",
+     "name": "deploy",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":\"ecr:GetAuthorizationToken\",\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"EcrAuth\"},{\"Action\":[\"ecr:UploadLayerPart\",\"ecr:PutImage\",\"ecr:InitiateLayerUpload\",\"ecr:CompleteLayerUpload\",\"ecr:BatchCheckLayerAvailability\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:ecr:eu-west-1:*:repository/acme/search-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/pricing-engine\",\"arn:aws:ecr:eu-west-1:*:repository/acme/payments-gateway\",\"arn:aws:ecr:eu-west-1:*:repository/acme/notifications\",\"arn:aws:ecr:eu-west-1:*:repository/acme/loyalty-worker\",\"arn:aws:ecr:eu-west-1:*:repository/acme/loyalty-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/checkout-worker\",\"arn:aws:ecr:eu-west-1:*:repository/acme/checkout-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/catalog-indexer\",\"arn:aws:ecr:eu-west-1:*:repository/acme/catalog-api\"],\"Sid\":\"EcrPush\"},{\"Action\":[\"ecs:UpdateService\",\"ecs:RegisterTaskDefinition\",\"ecs:DescribeServices\"],\"Condition\":{\"ArnEquals\":{\"ecs:cluster\":\"arn:aws:ecs:eu-west-1:412093857261:cluster/prod-apps\"}},\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"EcsDeploy\"}]}",
+     "role": "mock-module.github_deploy_role.aws_iam_role.this"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  }
+ ],
+ "output_changes": {
+  "deploy_role_name": {
+   "actions": [
+    "create"
+   ],
+   "before": null,
+   "after": "gha-deploy-prod",
+   "after_unknown": false,
+   "before_sensitive": false,
+   "after_sensitive": false
+  },
+  "ecr_repository_urls": {
+   "actions": [
+    "create"
+   ],
+   "before": null,
+   "after": {
+    "catalog-api": "mock-repository_url",
+    "catalog-indexer": "mock-repository_url",
+    "checkout-api": "mock-repository_url",
+    "checkout-worker": "mock-repository_url",
+    "notifications": "mock-repository_url",
+    "payments-gateway": "mock-repository_url",
+    "search-api": "mock-repository_url"
+   },
+   "after_unknown": {
+    "loyalty-api": true,
+    "loyalty-worker": true,
+    "pricing-engine": true
+   },
+   "before_sensitive": false,
+   "after_sensitive": false
+  }
+ },
+ "prior_state": {
+  "format_version": "1.0",
+  "terraform_version": "1.10.5",
+  "values": {
+   "outputs": {
+    "deploy_role_name": {
+     "sensitive": false,
+     "value": "gha-deploy-prod",
+     "type": "string"
+    }
+   },
+   "root_module": {
+    "resources": [
+     {
+      "address": "aws_cloudwatch_log_group.deploy_audit",
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "deploy_audit",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.deploy_audit",
+       "deletion_protection_enabled": false,
+       "id": "mock-aws_cloudwatch_log_group.deploy_audit",
+       "kms_key_id": null,
+       "log_group_class": "mock-log_group_class",
+       "name": "/ci/prod/deploys",
+       "name_prefix": "mock-name_prefix",
+       "region": "eu-west-1",
+       "retention_in_days": 90,
+       "skip_destroy": false,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "delivery-platform",
+        "Repository": "acme-platform/infra-ci"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_ssm_parameter.deploy_role_arn",
+      "mode": "managed",
+      "type": "aws_ssm_parameter",
+      "name": "deploy_role_arn",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "allowed_pattern": null,
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.deploy_role_arn",
+       "data_type": "mock-data_type",
+       "description": null,
+       "has_value_wo": false,
+       "id": "mock-aws_ssm_parameter.deploy_role_arn",
+       "insecure_value": "mock-insecure_value",
+       "key_id": "mock-key_id",
+       "name": "/ci/prod/deploy-role-arn",
+       "overwrite": null,
+       "region": "eu-west-1",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "delivery-platform",
+        "Repository": "acme-platform/infra-ci"
+       },
+       "tier": "mock-tier",
+       "type": "String",
+       "value": "arn:aws:iam::412093857261:role/gha-deploy-prod",
+       "value_wo": null,
+       "value_wo_version": null,
+       "version": 0
+      },
+      "sensitive_values": {
+       "tags_all": {},
+       "value": true,
+       "value_wo": true
+      }
+     }
+    ],
+    "child_modules": [
+     {
+      "resources": [
+       {
+        "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-api\"]",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "index": "catalog-api",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-api\"]",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository": "acme/catalog-api"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.ecr.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-indexer\"]",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "index": "catalog-indexer",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"catalog-indexer\"]",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository": "acme/catalog-indexer"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.ecr.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-api\"]",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "index": "checkout-api",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-api\"]",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository": "acme/checkout-api"
+        },
+        "sensitive_values": {}
+       },
+       {
+        "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-worker\"]",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "index": "checkout-worker",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-worker\"]",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository": "acme/checkout-worker"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.ecr.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"notifications\"]",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "index": "notifications",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"notifications\"]",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 20 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":20,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository": "acme/notifications"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.ecr.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"payments-gateway\"]",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "index": "payments-gateway",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"payments-gateway\"]",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 50 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":50,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository": "acme/payments-gateway"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.ecr.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.ecr.aws_ecr_lifecycle_policy.this[\"search-api\"]",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "index": "search-api",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"search-api\"]",
+         "policy": "{\"rules\":[{\"action\":{\"type\":\"expire\"},\"description\":\"Expire untagged images after 7 days\",\"rulePriority\":1,\"selection\":{\"countNumber\":7,\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"tagStatus\":\"untagged\"}},{\"action\":{\"type\":\"expire\"},\"description\":\"Keep the last 30 images\",\"rulePriority\":2,\"selection\":{\"countNumber\":30,\"countType\":\"imageCountMoreThan\",\"tagStatus\":\"any\"}}]}",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository": "acme/search-api"
+        },
+        "sensitive_values": {},
+        "depends_on": [
+         "module.ecr.aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "module.ecr.aws_ecr_repository.this[\"catalog-api\"]",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "index": "catalog-api",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"catalog-api\"]",
+         "encryption_configuration": [
+          {
+           "encryption_type": "AES256",
+           "kms_key": "mock-kms_key"
+          }
+         ],
+         "force_delete": null,
+         "id": "mock-module.ecr.aws_ecr_repository.this[\"catalog-api\"]",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "acme/catalog-api",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": {
+          "Service": "catalog-api"
+         },
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "delivery-platform",
+          "Repository": "acme-platform/infra-ci",
+          "Service": "catalog-api"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [
+          {}
+         ],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags": {},
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.ecr.aws_ecr_repository.this[\"catalog-indexer\"]",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "index": "catalog-indexer",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"catalog-indexer\"]",
+         "encryption_configuration": [
+          {
+           "encryption_type": "AES256",
+           "kms_key": "mock-kms_key"
+          }
+         ],
+         "force_delete": null,
+         "id": "mock-module.ecr.aws_ecr_repository.this[\"catalog-indexer\"]",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "acme/catalog-indexer",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": {
+          "Service": "catalog-indexer"
+         },
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "delivery-platform",
+          "Repository": "acme-platform/infra-ci",
+          "Service": "catalog-indexer"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [
+          {}
+         ],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags": {},
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.ecr.aws_ecr_repository.this[\"checkout-api\"]",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "index": "checkout-api",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"checkout-api\"]",
+         "encryption_configuration": [
+          {
+           "encryption_type": "AES256",
+           "kms_key": "mock-kms_key"
+          }
+         ],
+         "force_delete": null,
+         "id": "mock-module.ecr.aws_ecr_repository.this[\"checkout-api\"]",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "acme/checkout-api",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": {
+          "Service": "checkout-api"
+         },
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "delivery-platform",
+          "Repository": "acme-platform/infra-ci",
+          "Service": "checkout-api"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [
+          {}
+         ],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags": {},
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.ecr.aws_ecr_repository.this[\"checkout-worker\"]",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "index": "checkout-worker",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"checkout-worker\"]",
+         "encryption_configuration": [
+          {
+           "encryption_type": "AES256",
+           "kms_key": "mock-kms_key"
+          }
+         ],
+         "force_delete": null,
+         "id": "mock-module.ecr.aws_ecr_repository.this[\"checkout-worker\"]",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "acme/checkout-worker",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": {
+          "Service": "checkout-worker"
+         },
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "delivery-platform",
+          "Repository": "acme-platform/infra-ci",
+          "Service": "checkout-worker"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [
+          {}
+         ],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags": {},
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.ecr.aws_ecr_repository.this[\"notifications\"]",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "index": "notifications",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"notifications\"]",
+         "encryption_configuration": [
+          {
+           "encryption_type": "AES256",
+           "kms_key": "mock-kms_key"
+          }
+         ],
+         "force_delete": null,
+         "id": "mock-module.ecr.aws_ecr_repository.this[\"notifications\"]",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": false
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "acme/notifications",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": {
+          "Service": "notifications"
+         },
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "delivery-platform",
+          "Repository": "acme-platform/infra-ci",
+          "Service": "notifications"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [
+          {}
+         ],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags": {},
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.ecr.aws_ecr_repository.this[\"payments-gateway\"]",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "index": "payments-gateway",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"payments-gateway\"]",
+         "encryption_configuration": [
+          {
+           "encryption_type": "AES256",
+           "kms_key": "mock-kms_key"
+          }
+         ],
+         "force_delete": null,
+         "id": "mock-module.ecr.aws_ecr_repository.this[\"payments-gateway\"]",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "acme/payments-gateway",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": {
+          "Service": "payments-gateway"
+         },
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "delivery-platform",
+          "Repository": "acme-platform/infra-ci",
+          "Service": "payments-gateway"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [
+          {}
+         ],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags": {},
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.ecr.aws_ecr_repository.this[\"search-api\"]",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "index": "search-api",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.ecr.aws_ecr_repository.this[\"search-api\"]",
+         "encryption_configuration": [
+          {
+           "encryption_type": "AES256",
+           "kms_key": "mock-kms_key"
+          }
+         ],
+         "force_delete": null,
+         "id": "mock-module.ecr.aws_ecr_repository.this[\"search-api\"]",
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": true
+          }
+         ],
+         "image_tag_mutability": "IMMUTABLE",
+         "image_tag_mutability_exclusion_filter": [],
+         "name": "acme/search-api",
+         "region": "eu-west-1",
+         "registry_id": "mock-registry_id",
+         "repository_url": "mock-repository_url",
+         "tags": {
+          "Service": "search-api"
+         },
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "delivery-platform",
+          "Repository": "acme-platform/infra-ci",
+          "Service": "search-api"
+         },
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "encryption_configuration": [
+          {}
+         ],
+         "image_scanning_configuration": [
+          {}
+         ],
+         "image_tag_mutability_exclusion_filter": [],
+         "tags": {},
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.ecr"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.github_deploy_role.data.aws_iam_policy_document.deploy",
+        "mode": "data",
+        "type": "aws_iam_policy_document",
+        "name": "deploy",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "3617285200",
+         "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"EcrAuth\",\n      \"Effect\": \"Allow\",\n      \"Action\": \"ecr:GetAuthorizationToken\",\n      \"Resource\": \"*\"\n    },\n    {\n      \"Sid\": \"EcrPush\",\n      \"Effect\": \"Allow\",\n      \"Action\": [\n        \"ecr:UploadLayerPart\",\n        \"ecr:PutImage\",\n        \"ecr:InitiateLayerUpload\",\n        \"ecr:CompleteLayerUpload\",\n        \"ecr:BatchCheckLayerAvailability\"\n      ],\n      \"Resource\": [\n        \"arn:aws:ecr:eu-west-1:*:repository/acme/search-api\",\n        \"arn:aws:ecr:eu-west-1:*:repository/acme/pricing-engine\",\n        \"arn:aws:ecr:eu-west-1:*:repository/acme/payments-gateway\",\n        \"arn:aws:ecr:eu-west-1:*:repository/acme/notifications\",\n        \"arn:aws:ecr:eu-west-1:*:repository/acme/loyalty-worker\",\n        \"arn:aws:ecr:eu-west-1:*:repository/acme/loyalty-api\",\n        \"arn:aws:ecr:eu-west-1:*:repository/acme/checkout-worker\",\n        \"arn:aws:ecr:eu-west-1:*:repository/acme/checkout-api\",\n        \"arn:aws:ecr:eu-west-1:*:repository/acme/catalog-indexer\",\n        \"arn:aws:ecr:eu-west-1:*:repository/acme/catalog-api\"\n      ]\n    },\n    {\n      \"Sid\": \"EcsDeploy\",\n      \"Effect\": \"Allow\",\n      \"Action\": [\n        \"ecs:UpdateService\",\n        \"ecs:RegisterTaskDefinition\",\n        \"ecs:DescribeServices\"\n      ],\n      \"Resource\": \"*\",\n      \"Condition\": {\n        \"ArnEquals\": {\n          \"ecs:cluster\": \"arn:aws:ecs:eu-west-1:412093857261:cluster/prod-apps\"\n        }\n      }\n    }\n  ]\n}",
+         "minified_json": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"EcrAuth\",\"Effect\":\"Allow\",\"Action\":\"ecr:GetAuthorizationToken\",\"Resource\":\"*\"},{\"Sid\":\"EcrPush\",\"Effect\":\"Allow\",\"Action\":[\"ecr:UploadLayerPart\",\"ecr:PutImage\",\"ecr:InitiateLayerUpload\",\"ecr:CompleteLayerUpload\",\"ecr:BatchCheckLayerAvailability\"],\"Resource\":[\"arn:aws:ecr:eu-west-1:*:repository/acme/search-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/pricing-engine\",\"arn:aws:ecr:eu-west-1:*:repository/acme/payments-gateway\",\"arn:aws:ecr:eu-west-1:*:repository/acme/notifications\",\"arn:aws:ecr:eu-west-1:*:repository/acme/loyalty-worker\",\"arn:aws:ecr:eu-west-1:*:repository/acme/loyalty-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/checkout-worker\",\"arn:aws:ecr:eu-west-1:*:repository/acme/checkout-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/catalog-indexer\",\"arn:aws:ecr:eu-west-1:*:repository/acme/catalog-api\"]},{\"Sid\":\"EcsDeploy\",\"Effect\":\"Allow\",\"Action\":[\"ecs:UpdateService\",\"ecs:RegisterTaskDefinition\",\"ecs:DescribeServices\"],\"Resource\":\"*\",\"Condition\":{\"ArnEquals\":{\"ecs:cluster\":\"arn:aws:ecs:eu-west-1:412093857261:cluster/prod-apps\"}}}]}",
+         "override_json": null,
+         "override_policy_documents": null,
+         "policy_id": null,
+         "source_json": null,
+         "source_policy_documents": null,
+         "statement": [
+          {
+           "actions": [
+            "ecr:GetAuthorizationToken"
+           ],
+           "condition": [],
+           "effect": "Allow",
+           "not_actions": [],
+           "not_principals": [],
+           "not_resources": [],
+           "principals": [],
+           "resources": [
+            "*"
+           ],
+           "sid": "EcrAuth"
+          },
+          {
+           "actions": [
+            "ecr:BatchCheckLayerAvailability",
+            "ecr:CompleteLayerUpload",
+            "ecr:InitiateLayerUpload",
+            "ecr:PutImage",
+            "ecr:UploadLayerPart"
+           ],
+           "condition": [],
+           "effect": "Allow",
+           "not_actions": [],
+           "not_principals": [],
+           "not_resources": [],
+           "principals": [],
+           "resources": [
+            "arn:aws:ecr:eu-west-1:*:repository/acme/catalog-api",
+            "arn:aws:ecr:eu-west-1:*:repository/acme/catalog-indexer",
+            "arn:aws:ecr:eu-west-1:*:repository/acme/checkout-api",
+            "arn:aws:ecr:eu-west-1:*:repository/acme/checkout-worker",
+            "arn:aws:ecr:eu-west-1:*:repository/acme/loyalty-api",
+            "arn:aws:ecr:eu-west-1:*:repository/acme/loyalty-worker",
+            "arn:aws:ecr:eu-west-1:*:repository/acme/notifications",
+            "arn:aws:ecr:eu-west-1:*:repository/acme/payments-gateway",
+            "arn:aws:ecr:eu-west-1:*:repository/acme/pricing-engine",
+            "arn:aws:ecr:eu-west-1:*:repository/acme/search-api"
+           ],
+           "sid": "EcrPush"
+          },
+          {
+           "actions": [
+            "ecs:DescribeServices",
+            "ecs:RegisterTaskDefinition",
+            "ecs:UpdateService"
+           ],
+           "condition": [
+            {
+             "test": "ArnEquals",
+             "values": [
+              "arn:aws:ecs:eu-west-1:412093857261:cluster/prod-apps"
+             ],
+             "variable": "ecs:cluster"
+            }
+           ],
+           "effect": "Allow",
+           "not_actions": [],
+           "not_principals": [],
+           "not_resources": [],
+           "principals": [],
+           "resources": [
+            "*"
+           ],
+           "sid": "EcsDeploy"
+          }
+         ],
+         "version": "2012-10-17"
+        },
+        "sensitive_values": {
+         "statement": [
+          {
+           "actions": [
+            false
+           ],
+           "condition": [],
+           "not_actions": [],
+           "not_principals": [],
+           "not_resources": [],
+           "principals": [],
+           "resources": [
+            false
+           ]
+          },
+          {
+           "actions": [
+            false,
+            false,
+            false,
+            false,
+            false
+           ],
+           "condition": [],
+           "not_actions": [],
+           "not_principals": [],
+           "not_resources": [],
+           "principals": [],
+           "resources": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+           ]
+          },
+          {
+           "actions": [
+            false,
+            false,
+            false
+           ],
+           "condition": [
+            {
+             "values": [
+              false
+             ]
+            }
+           ],
+           "not_actions": [],
+           "not_principals": [],
+           "not_resources": [],
+           "principals": [],
+           "resources": [
+            false
+           ]
+          }
+         ]
+        }
+       },
+       {
+        "address": "module.github_deploy_role.data.aws_iam_policy_document.trust",
+        "mode": "data",
+        "type": "aws_iam_policy_document",
+        "name": "trust",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "3455963953",
+         "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"GitHubActionsOIDC\",\n      \"Effect\": \"Allow\",\n      \"Action\": \"sts:AssumeRoleWithWebIdentity\",\n      \"Principal\": {\n        \"Federated\": \"arn:aws:iam::412093857261:oidc-provider/token.actions.githubusercontent.com\"\n      },\n      \"Condition\": {\n        \"StringEquals\": {\n          \"token.actions.githubusercontent.com:aud\": \"sts.amazonaws.com\"\n        },\n        \"StringLike\": {\n          \"token.actions.githubusercontent.com:sub\": \"repo:*\"\n        }\n      }\n    }\n  ]\n}",
+         "minified_json": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"GitHubActionsOIDC\",\"Effect\":\"Allow\",\"Action\":\"sts:AssumeRoleWithWebIdentity\",\"Principal\":{\"Federated\":\"arn:aws:iam::412093857261:oidc-provider/token.actions.githubusercontent.com\"},\"Condition\":{\"StringEquals\":{\"token.actions.githubusercontent.com:aud\":\"sts.amazonaws.com\"},\"StringLike\":{\"token.actions.githubusercontent.com:sub\":\"repo:*\"}}}]}",
+         "override_json": null,
+         "override_policy_documents": null,
+         "policy_id": null,
+         "source_json": null,
+         "source_policy_documents": null,
+         "statement": [
+          {
+           "actions": [
+            "sts:AssumeRoleWithWebIdentity"
+           ],
+           "condition": [
+            {
+             "test": "StringEquals",
+             "values": [
+              "sts.amazonaws.com"
+             ],
+             "variable": "token.actions.githubusercontent.com:aud"
+            },
+            {
+             "test": "StringLike",
+             "values": [
+              "repo:*"
+             ],
+             "variable": "token.actions.githubusercontent.com:sub"
+            }
+           ],
+           "effect": "Allow",
+           "not_actions": [],
+           "not_principals": [],
+           "not_resources": [],
+           "principals": [
+            {
+             "identifiers": [
+              "arn:aws:iam::412093857261:oidc-provider/token.actions.githubusercontent.com"
+             ],
+             "type": "Federated"
+            }
+           ],
+           "resources": [],
+           "sid": "GitHubActionsOIDC"
+          }
+         ],
+         "version": "2012-10-17"
+        },
+        "sensitive_values": {
+         "statement": [
+          {
+           "actions": [
+            false
+           ],
+           "condition": [
+            {
+             "values": [
+              false
+             ]
+            },
+            {
+             "values": [
+              false
+             ]
+            }
+           ],
+           "not_actions": [],
+           "not_principals": [],
+           "not_resources": [],
+           "principals": [
+            {
+             "identifiers": [
+              false
+             ]
+            }
+           ],
+           "resources": []
+          }
+         ]
+        }
+       },
+       {
+        "address": "module.github_deploy_role.aws_iam_role.this",
+        "mode": "managed",
+        "type": "aws_iam_role",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.github_deploy_role.aws_iam_role.this",
+         "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRoleWithWebIdentity\",\"Condition\":{\"StringEquals\":{\"token.actions.githubusercontent.com:aud\":\"sts.amazonaws.com\"},\"StringLike\":{\"token.actions.githubusercontent.com:sub\":\"repo:acme-platform/checkout-app:ref:refs/heads/main\"}},\"Effect\":\"Allow\",\"Principal\":{\"Federated\":\"arn:aws:iam::412093857261:oidc-provider/token.actions.githubusercontent.com\"},\"Sid\":\"GitHubActionsOIDC\"}],\"Version\":\"2012-10-17\"}",
+         "create_date": "mock-create_date",
+         "description": "Assumed by GitHub Actions to push images and roll ECS services.",
+         "force_detach_policies": false,
+         "id": "mock-module.github_deploy_role.aws_iam_role.this",
+         "inline_policy": [],
+         "managed_policy_arns": [],
+         "max_session_duration": 3600,
+         "name": "gha-deploy-prod",
+         "name_prefix": "mock-name_prefix",
+         "path": "/",
+         "permissions_boundary": null,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "delivery-platform",
+          "Repository": "acme-platform/infra-ci"
+         },
+         "unique_id": "mock-unique_id"
+        },
+        "sensitive_values": {
+         "inline_policy": [],
+         "managed_policy_arns": [],
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.github_deploy_role.aws_iam_role_policy.deploy",
+        "mode": "managed",
+        "type": "aws_iam_role_policy",
+        "name": "deploy",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "id": "mock-module.github_deploy_role.aws_iam_role_policy.deploy",
+         "name": "deploy",
+         "name_prefix": "mock-name_prefix",
+         "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":\"ecr:GetAuthorizationToken\",\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"EcrAuth\"},{\"Action\":[\"ecr:UploadLayerPart\",\"ecr:PutImage\",\"ecr:InitiateLayerUpload\",\"ecr:CompleteLayerUpload\",\"ecr:BatchCheckLayerAvailability\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:ecr:eu-west-1:*:repository/acme/search-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/payments-gateway\",\"arn:aws:ecr:eu-west-1:*:repository/acme/notifications\",\"arn:aws:ecr:eu-west-1:*:repository/acme/checkout-worker\",\"arn:aws:ecr:eu-west-1:*:repository/acme/checkout-api\",\"arn:aws:ecr:eu-west-1:*:repository/acme/catalog-indexer\",\"arn:aws:ecr:eu-west-1:*:repository/acme/catalog-api\"],\"Sid\":\"EcrPush\"},{\"Action\":[\"ecs:UpdateService\",\"ecs:RegisterTaskDefinition\",\"ecs:DescribeServices\"],\"Condition\":{\"ArnEquals\":{\"ecs:cluster\":\"arn:aws:ecs:eu-west-1:412093857261:cluster/prod-apps\"}},\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"EcsDeploy\"}]}",
+         "role": "mock-module.github_deploy_role.aws_iam_role.this"
+        },
+        "sensitive_values": {}
+       }
+      ],
+      "address": "module.github_deploy_role"
+     }
+    ]
+   }
+  }
+ },
+ "configuration": {
+  "provider_config": {
+   "aws": {
+    "name": "aws",
+    "full_name": "registry.terraform.io/hashicorp/aws",
+    "version_constraint": "~> 6.0",
+    "expressions": {
+     "access_key": {
+      "constant_value": "mock_access_key"
+     },
+     "default_tags": [
+      {
+       "tags": {
+        "references": [
+         "var.environment"
+        ]
+       }
+      }
+     ],
+     "region": {
+      "references": [
+       "var.region"
+      ]
+     },
+     "secret_key": {
+      "constant_value": "mock_secret_key"
+     },
+     "skip_credentials_validation": {
+      "constant_value": true
+     },
+     "skip_metadata_api_check": {
+      "constant_value": true
+     },
+     "skip_region_validation": {
+      "constant_value": true
+     },
+     "skip_requesting_account_id": {
+      "constant_value": true
+     }
+    }
+   }
+  },
+  "root_module": {
+   "outputs": {
+    "deploy_role_name": {
+     "expression": {
+      "references": [
+       "module.github_deploy_role.role_name",
+       "module.github_deploy_role"
+      ]
+     }
+    },
+    "ecr_repository_urls": {
+     "expression": {
+      "references": [
+       "module.ecr.repository_urls",
+       "module.ecr"
+      ]
+     }
+    }
+   },
+   "resources": [
+    {
+     "address": "aws_cloudwatch_log_group.deploy_audit",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "deploy_audit",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      },
+      "retention_in_days": {
+       "references": [
+        "var.deploy_log_retention_days"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_ssm_parameter.deploy_role_arn",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "deploy_role_arn",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      },
+      "type": {
+       "constant_value": "String"
+      },
+      "value": {
+       "references": [
+        "var.account_id",
+        "var.environment"
+       ]
+      }
+     },
+     "schema_version": 0
+    }
+   ],
+   "module_calls": {
+    "ecr": {
+     "source": "./modules/ecr",
+     "expressions": {
+      "namespace": {
+       "references": [
+        "var.ecr_namespace"
+       ]
+      },
+      "repositories": {
+       "references": [
+        "var.ecr_repositories"
+       ]
+      }
+     },
+     "module": {
+      "outputs": {
+       "repository_arns": {
+        "expression": {
+         "references": [
+          "var.repositories",
+          "var.namespace"
+         ]
+        }
+       },
+       "repository_urls": {
+        "expression": {
+         "references": [
+          "aws_ecr_repository.this"
+         ]
+        }
+       }
+      },
+      "resources": [
+       {
+        "address": "aws_ecr_lifecycle_policy.this",
+        "mode": "managed",
+        "type": "aws_ecr_lifecycle_policy",
+        "name": "this",
+        "provider_config_key": "aws",
+        "expressions": {
+         "policy": {
+          "references": [
+           "each.value.keep_images",
+           "each.value",
+           "each.value.keep_images",
+           "each.value"
+          ]
+         },
+         "repository": {
+          "references": [
+           "var.namespace",
+           "each.key"
+          ]
+         }
+        },
+        "schema_version": 0,
+        "for_each_expression": {
+         "references": [
+          "var.repositories"
+         ]
+        },
+        "depends_on": [
+         "aws_ecr_repository.this"
+        ]
+       },
+       {
+        "address": "aws_ecr_repository.this",
+        "mode": "managed",
+        "type": "aws_ecr_repository",
+        "name": "this",
+        "provider_config_key": "aws",
+        "expressions": {
+         "encryption_configuration": [
+          {
+           "encryption_type": {
+            "constant_value": "AES256"
+           }
+          }
+         ],
+         "image_scanning_configuration": [
+          {
+           "scan_on_push": {
+            "references": [
+             "each.value.scan_on_push",
+             "each.value"
+            ]
+           }
+          }
+         ],
+         "image_tag_mutability": {
+          "constant_value": "IMMUTABLE"
+         },
+         "name": {
+          "references": [
+           "var.namespace",
+           "each.key"
+          ]
+         },
+         "tags": {
+          "references": [
+           "each.key"
+          ]
+         }
+        },
+        "schema_version": 0,
+        "for_each_expression": {
+         "references": [
+          "var.repositories"
+         ]
+        }
+       }
+      ],
+      "variables": {
+       "namespace": {},
+       "repositories": {}
+      }
+     }
+    },
+    "github_deploy_role": {
+     "source": "./modules/github-oidc-role",
+     "expressions": {
+      "account_id": {
+       "references": [
+        "var.account_id"
+       ]
+      },
+      "allowed_subjects": {
+       "references": [
+        "var.deploy_role_subjects"
+       ]
+      },
+      "ecr_repository_arns": {
+       "references": [
+        "module.ecr.repository_arns",
+        "module.ecr"
+       ]
+      },
+      "ecs_cluster_name": {
+       "references": [
+        "var.ecs_cluster_name"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      }
+     },
+     "module": {
+      "outputs": {
+       "role_name": {
+        "expression": {
+         "references": [
+          "aws_iam_role.this.name",
+          "aws_iam_role.this"
+         ]
+        }
+       }
+      },
+      "resources": [
+       {
+        "address": "aws_iam_role.this",
+        "mode": "managed",
+        "type": "aws_iam_role",
+        "name": "this",
+        "provider_config_key": "aws",
+        "expressions": {
+         "assume_role_policy": {
+          "references": [
+           "data.aws_iam_policy_document.trust.json",
+           "data.aws_iam_policy_document.trust"
+          ]
+         },
+         "description": {
+          "constant_value": "Assumed by GitHub Actions to push images and roll ECS services."
+         },
+         "max_session_duration": {
+          "constant_value": 3600
+         },
+         "name": {
+          "references": [
+           "var.name"
+          ]
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "aws_iam_role_policy.deploy",
+        "mode": "managed",
+        "type": "aws_iam_role_policy",
+        "name": "deploy",
+        "provider_config_key": "aws",
+        "expressions": {
+         "name": {
+          "constant_value": "deploy"
+         },
+         "policy": {
+          "references": [
+           "data.aws_iam_policy_document.deploy.json",
+           "data.aws_iam_policy_document.deploy"
+          ]
+         },
+         "role": {
+          "references": [
+           "aws_iam_role.this.id",
+           "aws_iam_role.this"
+          ]
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "data.aws_iam_policy_document.deploy",
+        "mode": "data",
+        "type": "aws_iam_policy_document",
+        "name": "deploy",
+        "provider_config_key": "aws",
+        "expressions": {
+         "statement": [
+          {
+           "actions": {
+            "constant_value": [
+             "ecr:GetAuthorizationToken"
+            ]
+           },
+           "resources": {
+            "constant_value": [
+             "*"
+            ]
+           },
+           "sid": {
+            "constant_value": "EcrAuth"
+           }
+          },
+          {
+           "actions": {
+            "constant_value": [
+             "ecr:BatchCheckLayerAvailability",
+             "ecr:CompleteLayerUpload",
+             "ecr:InitiateLayerUpload",
+             "ecr:PutImage",
+             "ecr:UploadLayerPart"
+            ]
+           },
+           "resources": {
+            "references": [
+             "var.ecr_repository_arns"
+            ]
+           },
+           "sid": {
+            "constant_value": "EcrPush"
+           }
+          },
+          {
+           "actions": {
+            "constant_value": [
+             "ecs:UpdateService",
+             "ecs:DescribeServices",
+             "ecs:RegisterTaskDefinition"
+            ]
+           },
+           "condition": [
+            {
+             "test": {
+              "constant_value": "ArnEquals"
+             },
+             "values": {
+              "references": [
+               "var.account_id",
+               "var.ecs_cluster_name"
+              ]
+             },
+             "variable": {
+              "constant_value": "ecs:cluster"
+             }
+            }
+           ],
+           "resources": {
+            "constant_value": [
+             "*"
+            ]
+           },
+           "sid": {
+            "constant_value": "EcsDeploy"
+           }
+          }
+         ]
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "data.aws_iam_policy_document.trust",
+        "mode": "data",
+        "type": "aws_iam_policy_document",
+        "name": "trust",
+        "provider_config_key": "aws",
+        "expressions": {
+         "statement": [
+          {
+           "actions": {
+            "constant_value": [
+             "sts:AssumeRoleWithWebIdentity"
+            ]
+           },
+           "condition": [
+            {
+             "test": {
+              "constant_value": "StringEquals"
+             },
+             "values": {
+              "constant_value": [
+               "sts.amazonaws.com"
+              ]
+             },
+             "variable": {
+              "constant_value": "token.actions.githubusercontent.com:aud"
+             }
+            },
+            {
+             "test": {
+              "constant_value": "StringLike"
+             },
+             "values": {
+              "references": [
+               "var.allowed_subjects"
+              ]
+             },
+             "variable": {
+              "constant_value": "token.actions.githubusercontent.com:sub"
+             }
+            }
+           ],
+           "effect": {
+            "constant_value": "Allow"
+           },
+           "principals": [
+            {
+             "identifiers": {
+              "references": [
+               "local.oidc_provider_arn"
+              ]
+             },
+             "type": {
+              "constant_value": "Federated"
+             }
+            }
+           ],
+           "sid": {
+            "constant_value": "GitHubActionsOIDC"
+           }
+          }
+         ]
+        },
+        "schema_version": 0
+       }
+      ],
+      "variables": {
+       "account_id": {},
+       "allowed_subjects": {
+        "description": "Values matched against the token's sub claim (StringLike)."
+       },
+       "ecr_repository_arns": {},
+       "ecs_cluster_name": {},
+       "name": {}
+      }
+     }
+    }
+   },
+   "variables": {
+    "account_id": {
+     "description": "AWS account that owns the GitHub OIDC provider (created by the org-bootstrap stack)."
+    },
+    "deploy_log_retention_days": {
+     "default": 180
+    },
+    "deploy_role_subjects": {
+     "description": "GitHub OIDC token subjects (repo:<org>/<repo>:ref:<ref>) allowed to assume the deploy role."
+    },
+    "ecr_namespace": {},
+    "ecr_repositories": {
+     "description": "Service images pushed by GitHub Actions. keep_images = how many tagged images the lifecycle policy keeps."
+    },
+    "ecs_cluster_name": {},
+    "environment": {},
+    "region": {
+     "default": "eu-west-1"
+    }
+   }
+  }
+ },
+ "relevant_attributes": [
+  {
+   "resource": "module.github_deploy_role.data.aws_iam_policy_document.trust",
+   "attribute": [
+    "json"
+   ]
+  },
+  {
+   "resource": "module.github_deploy_role.aws_iam_role.this",
+   "attribute": [
+    "id"
+   ]
+  },
+  {
+   "resource": "module.github_deploy_role.data.aws_iam_policy_document.deploy",
+   "attribute": [
+    "json"
+   ]
+  },
+  {
+   "resource": "module.ecr.aws_ecr_repository.this",
+   "attribute": []
+  },
+  {
+   "resource": "module.github_deploy_role.aws_iam_role.this",
+   "attribute": [
+    "name"
+   ]
+  }
+ ],
+ "timestamp": "2026-11-24T09:31:28Z",
+ "applyable": true,
+ "complete": true,
+ "errored": false
+}

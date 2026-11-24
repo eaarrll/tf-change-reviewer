@@ -1,0 +1,43 @@
+diff --git a/providers.tf b/providers.tf
+index edfa530..0042de2 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -16,6 +16,8 @@ provider "aws" {
+       Project     = "commerce-events"
+       Environment = var.environment
+       ManagedBy   = "terraform"
++      Team        = "commerce-core"
++      Runbook     = "https://wiki.acme.example/runbooks/commerce-events"
+     }
+   }
+ }
+diff --git a/terraform.tfvars b/terraform.tfvars
+index dd5bb42..92c6582 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -4,12 +4,12 @@ alarm_topic_arn = "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+ 
+ queues = {
+   orders = {
+-    visibility_timeout = 60
++    visibility_timeout = 90
+     retention_seconds  = 345600
+     max_receive_count  = 5
+     dlq_alarm_at       = 1
+   }
+-  payments = {
++  "payments-v2" = {
+     visibility_timeout = 120
+     retention_seconds  = 1209600
+     max_receive_count  = 3
+@@ -27,4 +27,10 @@ queues = {
+     max_receive_count  = 10
+     dlq_alarm_at       = 50
+   }
++  loyalty-points = {
++    visibility_timeout = 45
++    retention_seconds  = 345600
++    max_receive_count  = 5
++    dlq_alarm_at       = 10
++  }
+ }

@@ -1,0 +1,358 @@
+data.aws_iam_policy_document.assume_ecs_tasks: Reading...
+data.aws_iam_policy_document.assume_ecs_tasks: Read complete after 0s [id=1077804475]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+  - destroy
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.gateway_task will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "gateway_task" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "secretsmanager:DescribeSecret",
+              + "secretsmanager:GetSecretValue",
+            ]
+          + resources = [
+              + "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.db_credentials",
+              + "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.sftp_key",
+              + "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.webhook_signing",
+              + (known after apply),
+            ]
+          + sid       = "ReadAppSecrets"
+        }
+      + statement {
+          + actions   = [
+              + "kms:Decrypt",
+            ]
+          + resources = [
+              + "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+            ]
+          + sid       = "DecryptAppSecrets"
+        }
+      + statement {
+          + actions   = [
+              + "sqs:DeleteMessage",
+              + "sqs:GetQueueAttributes",
+              + "sqs:ReceiveMessage",
+              + "sqs:SendMessage",
+            ]
+          + resources = [
+              + "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"catalog\"]",
+              + "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"inventory\"]",
+              + "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"invoices\"]",
+              + "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"orders\"]",
+            ]
+          + sid       = "ConsumeSyncQueues"
+        }
+    }
+
+  # aws_cloudwatch_event_rule.sync["catalog"] will be updated in-place
+  ~ resource "aws_cloudwatch_event_rule" "sync" {
+        id                  = "mock-aws_cloudwatch_event_rule.sync[\"catalog\"]"
+        name                = "partner-gateway-catalog-sync"
+      ~ tags_all            = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_event_rule.sync["inventory"] will be updated in-place
+  ~ resource "aws_cloudwatch_event_rule" "sync" {
+        id                  = "mock-aws_cloudwatch_event_rule.sync[\"inventory\"]"
+        name                = "partner-gateway-inventory-sync"
+      ~ schedule_expression = "rate(15 minutes)" -> "rate(10 minutes)"
+      ~ tags_all            = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_event_rule.sync["invoices"] will be updated in-place
+  ~ resource "aws_cloudwatch_event_rule" "sync" {
+        id                  = "mock-aws_cloudwatch_event_rule.sync[\"invoices\"]"
+        name                = "partner-gateway-invoices-sync"
+      ~ tags_all            = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_event_rule.sync["orders"] will be updated in-place
+  ~ resource "aws_cloudwatch_event_rule" "sync" {
+        id                  = "mock-aws_cloudwatch_event_rule.sync[\"orders\"]"
+        name                = "partner-gateway-orders-sync"
+      ~ tags_all            = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_log_group.gateway will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "gateway" {
+        id                          = "mock-aws_cloudwatch_log_group.gateway"
+        name                        = "/ecs/partner-gateway"
+      ~ retention_in_days           = 30 -> 90
+      ~ tags_all                    = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_iam_role.gateway_task will be updated in-place
+  ~ resource "aws_iam_role" "gateway_task" {
+        id                    = "mock-aws_iam_role.gateway_task"
+        name                  = "partner-gateway-task"
+      ~ tags_all              = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # aws_iam_role_policy.gateway_task will be updated in-place
+  ~ resource "aws_iam_role_policy" "gateway_task" {
+        id          = "mock-aws_iam_role_policy.gateway_task"
+        name        = "partner-gateway-task"
+      ~ policy      = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action   = [
+                          - "secretsmanager:GetSecretValue",
+                          - "secretsmanager:DescribeSecret",
+                        ]
+                      - Effect   = "Allow"
+                      - Resource = [
+                          - "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.webhook_signing",
+                          - "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.sftp_key",
+                          - "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.db_credentials",
+                          - "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.acme_partner_api",
+                        ]
+                      - Sid      = "ReadAppSecrets"
+                    },
+                  - {
+                      - Action   = "kms:Decrypt"
+                      - Effect   = "Allow"
+                      - Resource = "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41"
+                      - Sid      = "DecryptAppSecrets"
+                    },
+                  - {
+                      - Action   = [
+                          - "sqs:SendMessage",
+                          - "sqs:ReceiveMessage",
+                          - "sqs:GetQueueAttributes",
+                          - "sqs:DeleteMessage",
+                        ]
+                      - Effect   = "Allow"
+                      - Resource = [
+                          - "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"orders\"]",
+                          - "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"invoices\"]",
+                          - "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"inventory\"]",
+                          - "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"catalog\"]",
+                        ]
+                      - Sid      = "ConsumeSyncQueues"
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> (known after apply)
+        # (2 unchanged attributes hidden)
+    }
+
+  # aws_secretsmanager_secret.acme_partner_api will be destroyed
+  # (because aws_secretsmanager_secret.acme_partner_api is not in configuration)
+  - resource "aws_secretsmanager_secret" "acme_partner_api" {
+      - arn                            = "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.acme_partner_api" -> null
+      - description                    = "OAuth client for the ACME wholesale API (legacy v1 integration)." -> null
+      - force_overwrite_replica_secret = false -> null
+      - id                             = "mock-aws_secretsmanager_secret.acme_partner_api" -> null
+      - kms_key_id                     = "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41" -> null
+      - name                           = "partner-gateway/prod/acme-partner-api" -> null
+      - name_prefix                    = "mock-name_prefix" -> null
+      - policy                         = "mock-policy" -> null
+      - recovery_window_in_days        = 0 -> null
+      - region                         = "us-east-1" -> null
+      - tags_all                       = {
+          - "Application" = "partner-gateway"
+          - "Environment" = "production"
+          - "Owner"       = "integrations"
+          - "Terraform"   = "true"
+        } -> null
+    }
+
+  # aws_secretsmanager_secret.acme_partner_api_v2 will be created
+  + resource "aws_secretsmanager_secret" "acme_partner_api_v2" {
+      + arn                            = (known after apply)
+      + description                    = "OAuth client for the ACME wholesale API v2."
+      + force_overwrite_replica_secret = false
+      + id                             = (known after apply)
+      + kms_key_id                     = "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41"
+      + name                           = "partner-gateway/prod/acme-partner-api-v2"
+      + name_prefix                    = (known after apply)
+      + policy                         = (known after apply)
+      + recovery_window_in_days        = 30
+      + region                         = "us-east-1"
+      + tags_all                       = {
+          + "Application" = "partner-gateway"
+          + "Environment" = "production"
+          + "Owner"       = "integrations"
+          + "Repository"  = "partner-gateway-infra"
+          + "Terraform"   = "true"
+        }
+    }
+
+  # aws_secretsmanager_secret.db_credentials will be updated in-place
+  ~ resource "aws_secretsmanager_secret" "db_credentials" {
+        id                             = "mock-aws_secretsmanager_secret.db_credentials"
+        name                           = "partner-gateway/prod/db-credentials"
+      ~ tags_all                       = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (8 unchanged attributes hidden)
+    }
+
+  # aws_secretsmanager_secret.sftp_key will be updated in-place
+  ~ resource "aws_secretsmanager_secret" "sftp_key" {
+        id                             = "mock-aws_secretsmanager_secret.sftp_key"
+        name                           = "partner-gateway/prod/sftp-private-key"
+      ~ tags_all                       = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (8 unchanged attributes hidden)
+    }
+
+  # aws_secretsmanager_secret.webhook_signing will be updated in-place
+  ~ resource "aws_secretsmanager_secret" "webhook_signing" {
+        id                             = "mock-aws_secretsmanager_secret.webhook_signing"
+        name                           = "partner-gateway/prod/webhook-signing-key"
+      ~ tags_all                       = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (8 unchanged attributes hidden)
+    }
+
+  # aws_secretsmanager_secret_version.acme_partner_api will be destroyed
+  # (because aws_secretsmanager_secret_version.acme_partner_api is not in configuration)
+  - resource "aws_secretsmanager_secret_version" "acme_partner_api" {
+      - arn                  = "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret_version.acme_partner_api" -> null
+      - has_secret_string_wo = false -> null
+      - id                   = "mock-aws_secretsmanager_secret_version.acme_partner_api" -> null
+      - region               = "us-east-1" -> null
+      - secret_arn           = "mock-secret_arn" -> null
+      - secret_id            = "mock-aws_secretsmanager_secret.acme_partner_api" -> null
+      - secret_string        = (sensitive value) -> null
+      - version_id           = "mock-version_id" -> null
+      - version_stages       = [] -> null
+    }
+
+  # aws_sqs_queue.sync["catalog"] will be updated in-place
+  ~ resource "aws_sqs_queue" "sync" {
+        id                                = "mock-aws_sqs_queue.sync[\"catalog\"]"
+      ~ message_retention_seconds         = 345600 -> 604800
+        name                              = "partner-gateway-catalog-sync"
+      ~ tags_all                          = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.sync["inventory"] will be updated in-place
+  ~ resource "aws_sqs_queue" "sync" {
+        id                                = "mock-aws_sqs_queue.sync[\"inventory\"]"
+      ~ message_retention_seconds         = 345600 -> 604800
+        name                              = "partner-gateway-inventory-sync"
+      ~ tags_all                          = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.sync["invoices"] will be updated in-place
+  ~ resource "aws_sqs_queue" "sync" {
+        id                                = "mock-aws_sqs_queue.sync[\"invoices\"]"
+      ~ message_retention_seconds         = 345600 -> 604800
+        name                              = "partner-gateway-invoices-sync"
+      ~ tags_all                          = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.sync["orders"] will be updated in-place
+  ~ resource "aws_sqs_queue" "sync" {
+        id                                = "mock-aws_sqs_queue.sync[\"orders\"]"
+      ~ message_retention_seconds         = 345600 -> 604800
+        name                              = "partner-gateway-orders-sync"
+      ~ tags_all                          = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.sync_dlq["catalog"] will be updated in-place
+  ~ resource "aws_sqs_queue" "sync_dlq" {
+        id                                = "mock-aws_sqs_queue.sync_dlq[\"catalog\"]"
+        name                              = "partner-gateway-catalog-sync-dlq"
+      ~ tags_all                          = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (19 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.sync_dlq["inventory"] will be updated in-place
+  ~ resource "aws_sqs_queue" "sync_dlq" {
+        id                                = "mock-aws_sqs_queue.sync_dlq[\"inventory\"]"
+        name                              = "partner-gateway-inventory-sync-dlq"
+      ~ tags_all                          = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (19 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.sync_dlq["invoices"] will be updated in-place
+  ~ resource "aws_sqs_queue" "sync_dlq" {
+        id                                = "mock-aws_sqs_queue.sync_dlq[\"invoices\"]"
+        name                              = "partner-gateway-invoices-sync-dlq"
+      ~ tags_all                          = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (19 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.sync_dlq["orders"] will be updated in-place
+  ~ resource "aws_sqs_queue" "sync_dlq" {
+        id                                = "mock-aws_sqs_queue.sync_dlq[\"orders\"]"
+        name                              = "partner-gateway-orders-sync-dlq"
+      ~ tags_all                          = {
+          + "Repository"  = "partner-gateway-infra"
+            # (4 unchanged elements hidden)
+        }
+        # (19 unchanged attributes hidden)
+    }
+
+Plan: 1 to add, 18 to change, 2 to destroy.

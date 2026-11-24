@@ -1,0 +1,23 @@
+diff --git a/README.md b/README.md
+index 1698548..589be5f 100644
+--- a/README.md
++++ b/README.md
+@@ -13,3 +13,8 @@ log groups / error metric filters of every reporting service.
+ 
+ CI runs `terraform plan` on every pull request and `terraform apply` on merge to `main`.
+ Variables come from `terraform.tfvars`.
++
++## Log retention
++
++Service log groups keep 60 days of logs (raised from 30 for the quarterly audit window).
++Change `log_retention_days` in `terraform.tfvars`; every service picks it up.
+diff --git a/terraform.tfvars b/terraform.tfvars
+index 2593591..eb5e7ad 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -20,4 +20,4 @@ services = [
+   "partner-feeds",
+ ]
+ 
+-log_retention_days = 30
++log_retention_days = 60

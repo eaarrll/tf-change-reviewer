@@ -1,0 +1,27 @@
+{
+  "description": "'Decommission prep' PR flips three root variables in terraform.tfvars for the prod orders database (deletion_protection false, skip_final_snapshot true, backup_retention 14 -> 0), which reach the RDS instance through the postgres module's inputs as an in-place update. Noise: an Owner default tag, a lower slow-query threshold in the orders parameter group, a looser queue-age alarm and a new order.split event stream.",
+  "material": [
+    {
+      "address": "module.orders_db.aws_db_instance.this",
+      "severity": "critical",
+      "why": "Nothing is replaced, which is why it is easy to wave through, but all three safety nets on the production orders database go at once: backup_retention_period 0 turns off automated backups and deletes the existing automated backups and point-in-time recovery when applied (with a brief outage on the switch), deletion_protection false lets the next PR or a stray destroy delete the instance, and skip_final_snapshot true means that delete keeps no final snapshot. The data migration to Aurora has not happened yet.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 14
+        },
+        {
+          "file": "terraform.tfvars",
+          "line": 12
+        },
+        {
+          "file": "terraform.tfvars",
+          "line": 13
+        }
+      ]
+    }
+  ],
+  "acceptable": [
+    "module.orders_db.aws_db_parameter_group.this"
+  ]
+}

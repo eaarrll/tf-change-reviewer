@@ -1,0 +1,61 @@
+diff --git a/locals.tf b/locals.tf
+index fb71159..01297c9 100644
+--- a/locals.tf
++++ b/locals.tf
+@@ -1,6 +1,8 @@
+ locals {
+-  name_prefix   = "${var.service}-${var.environment}"
+-  db_identifier = "${var.service}-${var.environment}"
++  name_prefix = "${var.service}-${var.environment}"
++
++  # Naming standard (PLAT-212): <env>-<region>-<service>-<engine>
++  db_identifier = "${var.environment}-${var.region_short}-${var.service}-pg"
+ 
+   common_tags = {
+     Service = var.service
+diff --git a/modules/postgres/main.tf b/modules/postgres/main.tf
+index 4fa75f6..f84b0c0 100644
+--- a/modules/postgres/main.tf
++++ b/modules/postgres/main.tf
+@@ -25,7 +25,7 @@ resource "aws_vpc_security_group_ingress_rule" "clients" {
+ resource "aws_db_parameter_group" "this" {
+   name        = "${var.name}-pg16"
+   family      = "postgres16"
+-  description = "Parameters for ${var.name}"
++  description = "Postgres 16 parameters for ${var.name}"
+ 
+   parameter {
+     name  = "log_min_duration_statement"
+diff --git a/providers.tf b/providers.tf
+index 1c4cc21..62391aa 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -13,10 +13,11 @@ provider "aws" {
+ 
+   default_tags {
+     tags = {
+-      Team        = "payments-platform"
+-      Environment = var.environment
+-      ManagedBy   = "terraform"
+-      Repo        = "infra-payments"
++      Team               = "payments-platform"
++      Environment        = var.environment
++      ManagedBy          = "terraform"
++      Repo               = "platform-infra/payments"
++      DataClassification = "confidential"
+     }
+   }
+ }
+diff --git a/terraform.tfvars b/terraform.tfvars
+index 77402b9..93995d7 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -19,4 +19,8 @@ app_settings = {
+   "ledger/batch_size"       = "500"
+   "http/timeout_ms"         = "4000"
+   "fraud/score_threshold"   = "0.82"
++  "fraud/review_queue"      = "manual-review"
++  "payouts/schedule"        = "daily"
++  "payouts/min_amount"      = "10"
++  "webhooks/retry_limit"    = "8"
+ }

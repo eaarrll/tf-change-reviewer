@@ -1,0 +1,16 @@
+diff --git a/prod.auto.tfvars b/prod.auto.tfvars
+index 6730b68..2ec9a20 100644
+--- a/prod.auto.tfvars
++++ b/prod.auto.tfvars
+@@ -1,2 +1,2 @@
+ # Production sizing
+-instance_size = "large"
++instance_size = "2xlarge"
+diff --git a/terraform.tfvars b/terraform.tfvars
+index d0529ea..5a03d5b 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -1,2 +1,2 @@
+-instance_size = "medium"
++instance_size = "xlarge"
+ replicas      = 2

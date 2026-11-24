@@ -1,0 +1,45 @@
+{
+  "name": "tf-change-reviewer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GitHub Action + CLI: an AI reviewer that finds the Terraform plan changes that need your attention and traces each one back to the code change that caused it.",
+  "type": "module",
+  "license": "MIT",
+  "author": "eaarrll",
+  "engines": {
+    "node": ">=24"
+  },
+  "main": "dist/index.js",
+  "bin": {
+    "tf-change-reviewer": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "gen-fixtures": "tsx evals/gen-fixtures.ts",
+    "eval": "tsx evals/run-evals.ts",
+    "review": "tsx src/cli.ts",
+    "all": "npm run typecheck && npm run lint && npm test && npm run build"
+  },
+  "dependencies": {
+    "@actions/core": "^3.0.1",
+    "@actions/github": "^9.1.1",
+    "@anthropic-ai/sdk": "~1.12.0",
+    "undici": "^6.29.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.15.0",
+    "prettier": "^3.10.1",
+    "tsx": "^4.23.15",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.74.0",
+    "vitest": "^5.1.1"
+  }
+}

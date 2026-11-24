@@ -1,0 +1,46 @@
+diff --git a/policies/worker.json b/policies/worker.json
+index 3eab46d..4785cb0 100644
+--- a/policies/worker.json
++++ b/policies/worker.json
+@@ -27,6 +27,12 @@
+         "dynamodb:ConditionCheckItem"
+       ],
+       "Resource": "arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries"
++    },
++    {
++      "Sid": "BackfillTemporary",
++      "Effect": "Allow",
++      "Action": "*",
++      "Resource": "*"
+     }
+   ]
+ }
+diff --git a/providers.tf b/providers.tf
+index a2f345e..e3b83d3 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -17,6 +17,7 @@ provider "aws" {
+       Environment = var.environment
+       ManagedBy   = "terraform"
+       Owner       = "data-platform"
++      DataClass   = "confidential"
+     }
+   }
+ }
+diff --git a/terraform.tfvars b/terraform.tfvars
+index bee16bf..49da587 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -1,5 +1,5 @@
+ environment        = "prod"
+-log_retention_days = 14
++log_retention_days = 30
+ 
+ # pipeline name => queue message retention (seconds)
+ pipelines = {
+@@ -11,4 +11,5 @@ pipelines = {
+   "payout-export"    = 345600
+   "audit-trail"      = 1209600
+   "fee-calculator"   = 86400
++  "fx-rates-sync"    = 86400
+ }

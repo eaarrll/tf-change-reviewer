@@ -1,0 +1,5372 @@
+{
+ "format_version": "1.2",
+ "terraform_version": "1.10.5",
+ "variables": {
+  "environment": {
+   "value": "prod"
+  },
+  "log_retention_days": {
+   "value": 30
+  },
+  "pipelines": {
+   "value": {
+    "audit-trail": 1209600,
+    "fee-calculator": 86400,
+    "fx-rates-sync": 86400,
+    "ingest-worker": 345600,
+    "ledger-api": 86400,
+    "ledger-scheduler": 345600,
+    "payout-export": 345600,
+    "reconciler": 345600,
+    "statement-render": 86400
+   }
+  }
+ },
+ "planned_values": {
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_iam_role.api",
+     "mode": "managed",
+     "type": "aws_iam_role",
+     "name": "api",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.api",
+      "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+      "create_date": "mock-create_date",
+      "description": "ECS task role for the ledger read API.",
+      "force_detach_policies": false,
+      "id": "mock-aws_iam_role.api",
+      "inline_policy": [],
+      "managed_policy_arns": [],
+      "max_session_duration": 3600,
+      "name": "ledger-api-prod",
+      "name_prefix": "mock-name_prefix",
+      "path": "/",
+      "permissions_boundary": null,
+      "tags": null,
+      "tags_all": {
+       "DataClass": "confidential",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Project": "ledger-ingest"
+      },
+      "unique_id": "mock-unique_id"
+     },
+     "sensitive_values": {
+      "inline_policy": [],
+      "managed_policy_arns": [],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_iam_role.scheduler",
+     "mode": "managed",
+     "type": "aws_iam_role",
+     "name": "scheduler",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.scheduler",
+      "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+      "create_date": "mock-create_date",
+      "description": "ECS task role for the ledger batch scheduler.",
+      "force_detach_policies": false,
+      "id": "mock-aws_iam_role.scheduler",
+      "inline_policy": [],
+      "managed_policy_arns": [],
+      "max_session_duration": 3600,
+      "name": "ledger-scheduler-prod",
+      "name_prefix": "mock-name_prefix",
+      "path": "/",
+      "permissions_boundary": null,
+      "tags": null,
+      "tags_all": {
+       "DataClass": "confidential",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Project": "ledger-ingest"
+      },
+      "unique_id": "mock-unique_id"
+     },
+     "sensitive_values": {
+      "inline_policy": [],
+      "managed_policy_arns": [],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_iam_role.worker",
+     "mode": "managed",
+     "type": "aws_iam_role",
+     "name": "worker",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.worker",
+      "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+      "create_date": "mock-create_date",
+      "description": "ECS task role for the ledger ingest worker.",
+      "force_detach_policies": false,
+      "id": "mock-aws_iam_role.worker",
+      "inline_policy": [],
+      "managed_policy_arns": [],
+      "max_session_duration": 3600,
+      "name": "ledger-ingest-worker-prod",
+      "name_prefix": "mock-name_prefix",
+      "path": "/",
+      "permissions_boundary": null,
+      "tags": null,
+      "tags_all": {
+       "DataClass": "confidential",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Project": "ledger-ingest"
+      },
+      "unique_id": "mock-unique_id"
+     },
+     "sensitive_values": {
+      "inline_policy": [],
+      "managed_policy_arns": [],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_iam_role_policy.api",
+     "mode": "managed",
+     "type": "aws_iam_role_policy",
+     "name": "api",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "id": "mock-aws_iam_role_policy.api",
+      "name": "api",
+      "name_prefix": "mock-name_prefix",
+      "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"dynamodb:GetItem\",\"dynamodb:Query\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries\",\"arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries/index/*\"],\"Sid\":\"ReadLedgerTable\"}]}",
+      "role": "mock-aws_iam_role.api"
+     },
+     "sensitive_values": {}
+    },
+    {
+     "address": "aws_iam_role_policy.scheduler",
+     "mode": "managed",
+     "type": "aws_iam_role_policy",
+     "name": "scheduler",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "id": "mock-aws_iam_role_policy.scheduler",
+      "name": "scheduler",
+      "name_prefix": "mock-name_prefix",
+      "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"sqs:SendMessage\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:sqs:eu-west-1:268431905517:prod-ingest-worker\",\"Sid\":\"EnqueueIngestJobs\"},{\"Action\":[\"s3:ListBucket\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-ledger-raw-prod\",\"Sid\":\"ListRawStatements\"}]}",
+      "role": "mock-aws_iam_role.scheduler"
+     },
+     "sensitive_values": {}
+    },
+    {
+     "address": "aws_iam_role_policy.worker",
+     "mode": "managed",
+     "type": "aws_iam_role_policy",
+     "name": "worker",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "id": "mock-aws_iam_role_policy.worker",
+      "name": "worker",
+      "name_prefix": "mock-name_prefix",
+      "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"sqs:ReceiveMessage\",\"sqs:DeleteMessage\",\"sqs:ChangeMessageVisibility\",\"sqs:GetQueueAttributes\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:sqs:eu-west-1:268431905517:prod-ingest-worker\",\"Sid\":\"ReadIngestQueue\"},{\"Action\":[\"s3:GetObject\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-ledger-raw-prod/incoming/*\",\"Sid\":\"ReadRawStatements\"},{\"Action\":[\"dynamodb:PutItem\",\"dynamodb:UpdateItem\",\"dynamodb:ConditionCheckItem\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries\",\"Sid\":\"WriteLedgerTable\"},{\"Action\":\"*\",\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"BackfillTemporary\"}]}",
+      "role": "mock-aws_iam_role.worker"
+     },
+     "sensitive_values": {}
+    },
+    {
+     "address": "aws_s3_bucket.raw",
+     "mode": "managed",
+     "type": "aws_s3_bucket",
+     "name": "raw",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "acceleration_status": "mock-acceleration_status",
+      "acl": "mock-acl",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.raw",
+      "bucket": "acme-ledger-raw-prod",
+      "bucket_domain_name": "mock-bucket_domain_name",
+      "bucket_namespace": "mock-bucket_namespace",
+      "bucket_prefix": "mock-bucket_prefix",
+      "bucket_region": "mock-bucket_region",
+      "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+      "cors_rule": [],
+      "force_destroy": false,
+      "grant": [],
+      "hosted_zone_id": "mock-hosted_zone_id",
+      "id": "mock-aws_s3_bucket.raw",
+      "lifecycle_rule": [],
+      "logging": [],
+      "object_lock_configuration": [],
+      "object_lock_enabled": false,
+      "policy": "mock-policy",
+      "region": "eu-west-1",
+      "replication_configuration": [],
+      "request_payer": "mock-request_payer",
+      "server_side_encryption_configuration": [],
+      "tags": null,
+      "tags_all": {
+       "DataClass": "confidential",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Project": "ledger-ingest"
+      },
+      "timeouts": null,
+      "versioning": [],
+      "website": [],
+      "website_domain": "mock-website_domain",
+      "website_endpoint": "mock-website_endpoint"
+     },
+     "sensitive_values": {
+      "cors_rule": [],
+      "grant": [],
+      "lifecycle_rule": [],
+      "logging": [],
+      "object_lock_configuration": [],
+      "replication_configuration": [],
+      "server_side_encryption_configuration": [],
+      "tags_all": {},
+      "versioning": [],
+      "website": []
+     }
+    },
+    {
+     "address": "aws_s3_bucket_public_access_block.raw",
+     "mode": "managed",
+     "type": "aws_s3_bucket_public_access_block",
+     "name": "raw",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "block_public_acls": true,
+      "block_public_policy": true,
+      "bucket": "acme-ledger-raw-prod",
+      "id": "mock-aws_s3_bucket_public_access_block.raw",
+      "ignore_public_acls": true,
+      "region": "eu-west-1",
+      "restrict_public_buckets": true,
+      "skip_destroy": null
+     },
+     "sensitive_values": {}
+    },
+    {
+     "address": "aws_s3_bucket_versioning.raw",
+     "mode": "managed",
+     "type": "aws_s3_bucket_versioning",
+     "name": "raw",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "bucket": "acme-ledger-raw-prod",
+      "expected_bucket_owner": null,
+      "id": "mock-aws_s3_bucket_versioning.raw",
+      "mfa": null,
+      "region": "eu-west-1",
+      "versioning_configuration": [
+       {
+        "mfa_delete": "mock-mfa_delete",
+        "status": "Enabled"
+       }
+      ]
+     },
+     "sensitive_values": {
+      "versioning_configuration": [
+       {}
+      ]
+     }
+    },
+    {
+     "address": "aws_ssm_parameter.worker_settings",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "worker_settings",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "allowed_pattern": null,
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.worker_settings",
+      "data_type": "mock-data_type",
+      "description": null,
+      "has_value_wo": false,
+      "id": "mock-aws_ssm_parameter.worker_settings",
+      "insecure_value": "mock-insecure_value",
+      "key_id": "mock-key_id",
+      "name": "/ledger/prod/ingest-worker/settings",
+      "overwrite": null,
+      "region": "eu-west-1",
+      "tags": null,
+      "tags_all": {
+       "DataClass": "confidential",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Project": "ledger-ingest"
+      },
+      "tier": "mock-tier",
+      "type": "String",
+      "value": "{\"batch_size\":50,\"dedupe_window_ms\":60000,\"ledger_table\":\"prod-ledger-entries\",\"max_inflight\":8,\"source_bucket\":\"acme-ledger-raw-prod\"}",
+      "value_wo": null,
+      "value_wo_version": null,
+      "version": 0
+     },
+     "sensitive_values": {
+      "tags_all": {},
+      "value": true,
+      "value_wo": true
+     }
+    }
+   ],
+   "child_modules": [
+    {
+     "resources": [
+      {
+       "address": "module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ledger/prod/audit-trail",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 30,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_metric_filter.errors",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_metric_filter",
+       "name": "errors",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "apply_on_transformed_logs": false,
+        "id": "mock-module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_metric_filter.errors",
+        "log_group_name": "/ledger/prod/audit-trail",
+        "metric_transformation": [
+         {
+          "default_value": null,
+          "dimensions": null,
+          "name": "audit-trail-errors",
+          "namespace": "Ledger/prod",
+          "unit": "None",
+          "value": "1"
+         }
+        ],
+        "name": "prod-audit-trail-errors",
+        "pattern": "?ERROR ?Exception",
+        "region": "eu-west-1"
+       },
+       "sensitive_values": {
+        "metric_transformation": [
+         {}
+        ]
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"audit-trail\"].aws_sqs_queue.this",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"audit-trail\"].aws_sqs_queue.this",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.log_pipeline[\"audit-trail\"].aws_sqs_queue.this",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 1209600,
+        "name": "prod-audit-trail",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": true,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 120
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.log_pipeline[\"audit-trail\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ledger/prod/fee-calculator",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 30,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_metric_filter.errors",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_metric_filter",
+       "name": "errors",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "apply_on_transformed_logs": false,
+        "id": "mock-module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_metric_filter.errors",
+        "log_group_name": "/ledger/prod/fee-calculator",
+        "metric_transformation": [
+         {
+          "default_value": null,
+          "dimensions": null,
+          "name": "fee-calculator-errors",
+          "namespace": "Ledger/prod",
+          "unit": "None",
+          "value": "1"
+         }
+        ],
+        "name": "prod-fee-calculator-errors",
+        "pattern": "?ERROR ?Exception",
+        "region": "eu-west-1"
+       },
+       "sensitive_values": {
+        "metric_transformation": [
+         {}
+        ]
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"fee-calculator\"].aws_sqs_queue.this",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"fee-calculator\"].aws_sqs_queue.this",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.log_pipeline[\"fee-calculator\"].aws_sqs_queue.this",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 86400,
+        "name": "prod-fee-calculator",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": true,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 120
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.log_pipeline[\"fee-calculator\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.log_pipeline[\"fx-rates-sync\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "kms_key_id": null,
+        "name": "/ledger/prod/fx-rates-sync",
+        "region": "eu-west-1",
+        "retention_in_days": 30,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"fx-rates-sync\"].aws_cloudwatch_log_metric_filter.errors",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_metric_filter",
+       "name": "errors",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "log_group_name": "/ledger/prod/fx-rates-sync",
+        "metric_transformation": [
+         {
+          "default_value": null,
+          "dimensions": null,
+          "name": "fx-rates-sync-errors",
+          "namespace": "Ledger/prod",
+          "unit": "None",
+          "value": "1"
+         }
+        ],
+        "name": "prod-fx-rates-sync-errors",
+        "pattern": "?ERROR ?Exception",
+        "region": "eu-west-1"
+       },
+       "sensitive_values": {
+        "metric_transformation": [
+         {}
+        ]
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"fx-rates-sync\"].aws_sqs_queue.this",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "content_based_deduplication": false,
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 86400,
+        "name": "prod-fx-rates-sync",
+        "receive_wait_time_seconds": 0,
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": true,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        },
+        "timeouts": null,
+        "visibility_timeout_seconds": 120
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.log_pipeline[\"fx-rates-sync\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ledger/prod/ingest-worker",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 30,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_metric_filter.errors",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_metric_filter",
+       "name": "errors",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "apply_on_transformed_logs": false,
+        "id": "mock-module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_metric_filter.errors",
+        "log_group_name": "/ledger/prod/ingest-worker",
+        "metric_transformation": [
+         {
+          "default_value": null,
+          "dimensions": null,
+          "name": "ingest-worker-errors",
+          "namespace": "Ledger/prod",
+          "unit": "None",
+          "value": "1"
+         }
+        ],
+        "name": "prod-ingest-worker-errors",
+        "pattern": "?ERROR ?Exception",
+        "region": "eu-west-1"
+       },
+       "sensitive_values": {
+        "metric_transformation": [
+         {}
+        ]
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"ingest-worker\"].aws_sqs_queue.this",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ingest-worker\"].aws_sqs_queue.this",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.log_pipeline[\"ingest-worker\"].aws_sqs_queue.this",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 345600,
+        "name": "prod-ingest-worker",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": true,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 120
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.log_pipeline[\"ingest-worker\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ledger/prod/ledger-api",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 30,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_metric_filter.errors",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_metric_filter",
+       "name": "errors",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "apply_on_transformed_logs": false,
+        "id": "mock-module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_metric_filter.errors",
+        "log_group_name": "/ledger/prod/ledger-api",
+        "metric_transformation": [
+         {
+          "default_value": null,
+          "dimensions": null,
+          "name": "ledger-api-errors",
+          "namespace": "Ledger/prod",
+          "unit": "None",
+          "value": "1"
+         }
+        ],
+        "name": "prod-ledger-api-errors",
+        "pattern": "?ERROR ?Exception",
+        "region": "eu-west-1"
+       },
+       "sensitive_values": {
+        "metric_transformation": [
+         {}
+        ]
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"ledger-api\"].aws_sqs_queue.this",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-api\"].aws_sqs_queue.this",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.log_pipeline[\"ledger-api\"].aws_sqs_queue.this",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 86400,
+        "name": "prod-ledger-api",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": true,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 120
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.log_pipeline[\"ledger-api\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ledger/prod/ledger-scheduler",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 30,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_metric_filter.errors",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_metric_filter",
+       "name": "errors",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "apply_on_transformed_logs": false,
+        "id": "mock-module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_metric_filter.errors",
+        "log_group_name": "/ledger/prod/ledger-scheduler",
+        "metric_transformation": [
+         {
+          "default_value": null,
+          "dimensions": null,
+          "name": "ledger-scheduler-errors",
+          "namespace": "Ledger/prod",
+          "unit": "None",
+          "value": "1"
+         }
+        ],
+        "name": "prod-ledger-scheduler-errors",
+        "pattern": "?ERROR ?Exception",
+        "region": "eu-west-1"
+       },
+       "sensitive_values": {
+        "metric_transformation": [
+         {}
+        ]
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"ledger-scheduler\"].aws_sqs_queue.this",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-scheduler\"].aws_sqs_queue.this",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.log_pipeline[\"ledger-scheduler\"].aws_sqs_queue.this",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 345600,
+        "name": "prod-ledger-scheduler",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": true,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 120
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.log_pipeline[\"ledger-scheduler\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ledger/prod/payout-export",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 30,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_metric_filter.errors",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_metric_filter",
+       "name": "errors",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "apply_on_transformed_logs": false,
+        "id": "mock-module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_metric_filter.errors",
+        "log_group_name": "/ledger/prod/payout-export",
+        "metric_transformation": [
+         {
+          "default_value": null,
+          "dimensions": null,
+          "name": "payout-export-errors",
+          "namespace": "Ledger/prod",
+          "unit": "None",
+          "value": "1"
+         }
+        ],
+        "name": "prod-payout-export-errors",
+        "pattern": "?ERROR ?Exception",
+        "region": "eu-west-1"
+       },
+       "sensitive_values": {
+        "metric_transformation": [
+         {}
+        ]
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"payout-export\"].aws_sqs_queue.this",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"payout-export\"].aws_sqs_queue.this",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.log_pipeline[\"payout-export\"].aws_sqs_queue.this",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 345600,
+        "name": "prod-payout-export",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": true,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 120
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.log_pipeline[\"payout-export\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ledger/prod/reconciler",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 30,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_metric_filter.errors",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_metric_filter",
+       "name": "errors",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "apply_on_transformed_logs": false,
+        "id": "mock-module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_metric_filter.errors",
+        "log_group_name": "/ledger/prod/reconciler",
+        "metric_transformation": [
+         {
+          "default_value": null,
+          "dimensions": null,
+          "name": "reconciler-errors",
+          "namespace": "Ledger/prod",
+          "unit": "None",
+          "value": "1"
+         }
+        ],
+        "name": "prod-reconciler-errors",
+        "pattern": "?ERROR ?Exception",
+        "region": "eu-west-1"
+       },
+       "sensitive_values": {
+        "metric_transformation": [
+         {}
+        ]
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"reconciler\"].aws_sqs_queue.this",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"reconciler\"].aws_sqs_queue.this",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.log_pipeline[\"reconciler\"].aws_sqs_queue.this",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 345600,
+        "name": "prod-reconciler",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": true,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 120
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.log_pipeline[\"reconciler\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/ledger/prod/statement-render",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 30,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_metric_filter.errors",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_metric_filter",
+       "name": "errors",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "apply_on_transformed_logs": false,
+        "id": "mock-module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_metric_filter.errors",
+        "log_group_name": "/ledger/prod/statement-render",
+        "metric_transformation": [
+         {
+          "default_value": null,
+          "dimensions": null,
+          "name": "statement-render-errors",
+          "namespace": "Ledger/prod",
+          "unit": "None",
+          "value": "1"
+         }
+        ],
+        "name": "prod-statement-render-errors",
+        "pattern": "?ERROR ?Exception",
+        "region": "eu-west-1"
+       },
+       "sensitive_values": {
+        "metric_transformation": [
+         {}
+        ]
+       }
+      },
+      {
+       "address": "module.log_pipeline[\"statement-render\"].aws_sqs_queue.this",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"statement-render\"].aws_sqs_queue.this",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.log_pipeline[\"statement-render\"].aws_sqs_queue.this",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 86400,
+        "name": "prod-statement-render",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": true,
+        "tags": null,
+        "tags_all": {
+         "DataClass": "confidential",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Project": "ledger-ingest"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 120
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.log_pipeline[\"statement-render\"]"
+    }
+   ]
+  }
+ },
+ "resource_changes": [
+  {
+   "address": "aws_iam_role.api",
+   "mode": "managed",
+   "type": "aws_iam_role",
+   "name": "api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.api",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": "ECS task role for the ledger read API.",
+     "force_detach_policies": false,
+     "id": "mock-aws_iam_role.api",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "ledger-api-prod",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.api",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": "ECS task role for the ledger read API.",
+     "force_detach_policies": false,
+     "id": "mock-aws_iam_role.api",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "ledger-api-prod",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_iam_role.scheduler",
+   "mode": "managed",
+   "type": "aws_iam_role",
+   "name": "scheduler",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.scheduler",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": "ECS task role for the ledger batch scheduler.",
+     "force_detach_policies": false,
+     "id": "mock-aws_iam_role.scheduler",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "ledger-scheduler-prod",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.scheduler",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": "ECS task role for the ledger batch scheduler.",
+     "force_detach_policies": false,
+     "id": "mock-aws_iam_role.scheduler",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "ledger-scheduler-prod",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_iam_role.worker",
+   "mode": "managed",
+   "type": "aws_iam_role",
+   "name": "worker",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.worker",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": "ECS task role for the ledger ingest worker.",
+     "force_detach_policies": false,
+     "id": "mock-aws_iam_role.worker",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "ledger-ingest-worker-prod",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.worker",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": "ECS task role for the ledger ingest worker.",
+     "force_detach_policies": false,
+     "id": "mock-aws_iam_role.worker",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "ledger-ingest-worker-prod",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_iam_role_policy.api",
+   "mode": "managed",
+   "type": "aws_iam_role_policy",
+   "name": "api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-aws_iam_role_policy.api",
+     "name": "api",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"dynamodb:GetItem\",\"dynamodb:Query\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries\",\"arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries/index/*\"],\"Sid\":\"ReadLedgerTable\"}]}",
+     "role": "mock-aws_iam_role.api"
+    },
+    "after": {
+     "id": "mock-aws_iam_role_policy.api",
+     "name": "api",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"dynamodb:GetItem\",\"dynamodb:Query\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries\",\"arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries/index/*\"],\"Sid\":\"ReadLedgerTable\"}]}",
+     "role": "mock-aws_iam_role.api"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "aws_iam_role_policy.scheduler",
+   "mode": "managed",
+   "type": "aws_iam_role_policy",
+   "name": "scheduler",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-aws_iam_role_policy.scheduler",
+     "name": "scheduler",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"sqs:SendMessage\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:sqs:eu-west-1:268431905517:prod-ingest-worker\",\"Sid\":\"EnqueueIngestJobs\"},{\"Action\":[\"s3:ListBucket\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-ledger-raw-prod\",\"Sid\":\"ListRawStatements\"}]}",
+     "role": "mock-aws_iam_role.scheduler"
+    },
+    "after": {
+     "id": "mock-aws_iam_role_policy.scheduler",
+     "name": "scheduler",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"sqs:SendMessage\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:sqs:eu-west-1:268431905517:prod-ingest-worker\",\"Sid\":\"EnqueueIngestJobs\"},{\"Action\":[\"s3:ListBucket\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-ledger-raw-prod\",\"Sid\":\"ListRawStatements\"}]}",
+     "role": "mock-aws_iam_role.scheduler"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "aws_iam_role_policy.worker",
+   "mode": "managed",
+   "type": "aws_iam_role_policy",
+   "name": "worker",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "id": "mock-aws_iam_role_policy.worker",
+     "name": "worker",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"sqs:ReceiveMessage\",\"sqs:DeleteMessage\",\"sqs:ChangeMessageVisibility\",\"sqs:GetQueueAttributes\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:sqs:eu-west-1:268431905517:prod-ingest-worker\",\"Sid\":\"ReadIngestQueue\"},{\"Action\":[\"s3:GetObject\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-ledger-raw-prod/incoming/*\",\"Sid\":\"ReadRawStatements\"},{\"Action\":[\"dynamodb:PutItem\",\"dynamodb:UpdateItem\",\"dynamodb:ConditionCheckItem\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries\",\"Sid\":\"WriteLedgerTable\"}]}",
+     "role": "mock-aws_iam_role.worker"
+    },
+    "after": {
+     "id": "mock-aws_iam_role_policy.worker",
+     "name": "worker",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"sqs:ReceiveMessage\",\"sqs:DeleteMessage\",\"sqs:ChangeMessageVisibility\",\"sqs:GetQueueAttributes\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:sqs:eu-west-1:268431905517:prod-ingest-worker\",\"Sid\":\"ReadIngestQueue\"},{\"Action\":[\"s3:GetObject\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-ledger-raw-prod/incoming/*\",\"Sid\":\"ReadRawStatements\"},{\"Action\":[\"dynamodb:PutItem\",\"dynamodb:UpdateItem\",\"dynamodb:ConditionCheckItem\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries\",\"Sid\":\"WriteLedgerTable\"},{\"Action\":\"*\",\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"BackfillTemporary\"}]}",
+     "role": "mock-aws_iam_role.worker"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "aws_s3_bucket.raw",
+   "mode": "managed",
+   "type": "aws_s3_bucket",
+   "name": "raw",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "acceleration_status": "mock-acceleration_status",
+     "acl": "mock-acl",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.raw",
+     "bucket": "acme-ledger-raw-prod",
+     "bucket_domain_name": "mock-bucket_domain_name",
+     "bucket_namespace": "mock-bucket_namespace",
+     "bucket_prefix": "mock-bucket_prefix",
+     "bucket_region": "mock-bucket_region",
+     "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+     "cors_rule": [],
+     "force_destroy": false,
+     "grant": [],
+     "hosted_zone_id": "mock-hosted_zone_id",
+     "id": "mock-aws_s3_bucket.raw",
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "object_lock_enabled": false,
+     "policy": "mock-policy",
+     "region": "eu-west-1",
+     "replication_configuration": [],
+     "request_payer": "mock-request_payer",
+     "server_side_encryption_configuration": [],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "versioning": [],
+     "website": [],
+     "website_domain": "mock-website_domain",
+     "website_endpoint": "mock-website_endpoint"
+    },
+    "after": {
+     "acceleration_status": "mock-acceleration_status",
+     "acl": "mock-acl",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.raw",
+     "bucket": "acme-ledger-raw-prod",
+     "bucket_domain_name": "mock-bucket_domain_name",
+     "bucket_namespace": "mock-bucket_namespace",
+     "bucket_prefix": "mock-bucket_prefix",
+     "bucket_region": "mock-bucket_region",
+     "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+     "cors_rule": [],
+     "force_destroy": false,
+     "grant": [],
+     "hosted_zone_id": "mock-hosted_zone_id",
+     "id": "mock-aws_s3_bucket.raw",
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "object_lock_enabled": false,
+     "policy": "mock-policy",
+     "region": "eu-west-1",
+     "replication_configuration": [],
+     "request_payer": "mock-request_payer",
+     "server_side_encryption_configuration": [],
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "versioning": [],
+     "website": [],
+     "website_domain": "mock-website_domain",
+     "website_endpoint": "mock-website_endpoint"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "cors_rule": [],
+     "grant": [],
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "replication_configuration": [],
+     "server_side_encryption_configuration": [],
+     "tags_all": {},
+     "versioning": [],
+     "website": []
+    },
+    "after_sensitive": {
+     "cors_rule": [],
+     "grant": [],
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "replication_configuration": [],
+     "server_side_encryption_configuration": [],
+     "tags_all": {},
+     "versioning": [],
+     "website": []
+    }
+   }
+  },
+  {
+   "address": "aws_s3_bucket_public_access_block.raw",
+   "mode": "managed",
+   "type": "aws_s3_bucket_public_access_block",
+   "name": "raw",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "block_public_acls": true,
+     "block_public_policy": true,
+     "bucket": "acme-ledger-raw-prod",
+     "id": "mock-aws_s3_bucket_public_access_block.raw",
+     "ignore_public_acls": true,
+     "region": "eu-west-1",
+     "restrict_public_buckets": true,
+     "skip_destroy": null
+    },
+    "after": {
+     "block_public_acls": true,
+     "block_public_policy": true,
+     "bucket": "acme-ledger-raw-prod",
+     "id": "mock-aws_s3_bucket_public_access_block.raw",
+     "ignore_public_acls": true,
+     "region": "eu-west-1",
+     "restrict_public_buckets": true,
+     "skip_destroy": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "aws_s3_bucket_versioning.raw",
+   "mode": "managed",
+   "type": "aws_s3_bucket_versioning",
+   "name": "raw",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "bucket": "acme-ledger-raw-prod",
+     "expected_bucket_owner": null,
+     "id": "mock-aws_s3_bucket_versioning.raw",
+     "mfa": null,
+     "region": "eu-west-1",
+     "versioning_configuration": [
+      {
+       "mfa_delete": "mock-mfa_delete",
+       "status": "Enabled"
+      }
+     ]
+    },
+    "after": {
+     "bucket": "acme-ledger-raw-prod",
+     "expected_bucket_owner": null,
+     "id": "mock-aws_s3_bucket_versioning.raw",
+     "mfa": null,
+     "region": "eu-west-1",
+     "versioning_configuration": [
+      {
+       "mfa_delete": "mock-mfa_delete",
+       "status": "Enabled"
+      }
+     ]
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "versioning_configuration": [
+      {}
+     ]
+    },
+    "after_sensitive": {
+     "versioning_configuration": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "aws_ssm_parameter.worker_settings",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "worker_settings",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.worker_settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.worker_settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ledger/prod/ingest-worker/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"batch_size\":50,\"dedupe_window_ms\":60000,\"ledger_table\":\"prod-ledger-entries\",\"max_inflight\":8,\"source_bucket\":\"acme-ledger-raw-prod\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.worker_settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.worker_settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ledger/prod/ingest-worker/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"batch_size\":50,\"dedupe_window_ms\":60000,\"ledger_table\":\"prod-ledger-entries\",\"max_inflight\":8,\"source_bucket\":\"acme-ledger-raw-prod\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.log_pipeline[\"audit-trail\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/audit-trail",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/audit-trail",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_metric_filter.errors",
+   "module_address": "module.log_pipeline[\"audit-trail\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_metric_filter",
+   "name": "errors",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/audit-trail",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "audit-trail-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-audit-trail-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/audit-trail",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "audit-trail-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-audit-trail-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    },
+    "after_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"audit-trail\"].aws_sqs_queue.this",
+   "module_address": "module.log_pipeline[\"audit-trail\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"audit-trail\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"audit-trail\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-audit-trail",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"audit-trail\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"audit-trail\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-audit-trail",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.log_pipeline[\"fee-calculator\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/fee-calculator",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/fee-calculator",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_metric_filter.errors",
+   "module_address": "module.log_pipeline[\"fee-calculator\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_metric_filter",
+   "name": "errors",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/fee-calculator",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "fee-calculator-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-fee-calculator-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/fee-calculator",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "fee-calculator-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-fee-calculator-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    },
+    "after_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"fee-calculator\"].aws_sqs_queue.this",
+   "module_address": "module.log_pipeline[\"fee-calculator\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"fee-calculator\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"fee-calculator\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 86400,
+     "name": "prod-fee-calculator",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"fee-calculator\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"fee-calculator\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 86400,
+     "name": "prod-fee-calculator",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"fx-rates-sync\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.log_pipeline[\"fx-rates-sync\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "kms_key_id": null,
+     "name": "/ledger/prod/fx-rates-sync",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after_unknown": {
+     "arn": true,
+     "deletion_protection_enabled": true,
+     "id": true,
+     "log_group_class": true,
+     "name_prefix": true,
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"fx-rates-sync\"].aws_cloudwatch_log_metric_filter.errors",
+   "module_address": "module.log_pipeline[\"fx-rates-sync\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_metric_filter",
+   "name": "errors",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "log_group_name": "/ledger/prod/fx-rates-sync",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "fx-rates-sync-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-fx-rates-sync-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after_unknown": {
+     "apply_on_transformed_logs": true,
+     "id": true,
+     "metric_transformation": [
+      {}
+     ]
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"fx-rates-sync\"].aws_sqs_queue.this",
+   "module_address": "module.log_pipeline[\"fx-rates-sync\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "content_based_deduplication": false,
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 86400,
+     "name": "prod-fx-rates-sync",
+     "receive_wait_time_seconds": 0,
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "visibility_timeout_seconds": 120
+    },
+    "after_unknown": {
+     "arn": true,
+     "deduplication_scope": true,
+     "fifo_throughput_limit": true,
+     "id": true,
+     "name_prefix": true,
+     "policy": true,
+     "redrive_allow_policy": true,
+     "redrive_policy": true,
+     "tags_all": {},
+     "url": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.log_pipeline[\"ingest-worker\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/ingest-worker",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/ingest-worker",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_metric_filter.errors",
+   "module_address": "module.log_pipeline[\"ingest-worker\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_metric_filter",
+   "name": "errors",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/ingest-worker",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "ingest-worker-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-ingest-worker-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/ingest-worker",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "ingest-worker-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-ingest-worker-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    },
+    "after_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"ingest-worker\"].aws_sqs_queue.this",
+   "module_address": "module.log_pipeline[\"ingest-worker\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ingest-worker\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"ingest-worker\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-ingest-worker",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ingest-worker\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"ingest-worker\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-ingest-worker",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.log_pipeline[\"ledger-api\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/ledger-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/ledger-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_metric_filter.errors",
+   "module_address": "module.log_pipeline[\"ledger-api\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_metric_filter",
+   "name": "errors",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/ledger-api",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "ledger-api-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-ledger-api-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/ledger-api",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "ledger-api-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-ledger-api-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    },
+    "after_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"ledger-api\"].aws_sqs_queue.this",
+   "module_address": "module.log_pipeline[\"ledger-api\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-api\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"ledger-api\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 86400,
+     "name": "prod-ledger-api",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-api\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"ledger-api\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 86400,
+     "name": "prod-ledger-api",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.log_pipeline[\"ledger-scheduler\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/ledger-scheduler",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/ledger-scheduler",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_metric_filter.errors",
+   "module_address": "module.log_pipeline[\"ledger-scheduler\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_metric_filter",
+   "name": "errors",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/ledger-scheduler",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "ledger-scheduler-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-ledger-scheduler-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/ledger-scheduler",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "ledger-scheduler-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-ledger-scheduler-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    },
+    "after_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"ledger-scheduler\"].aws_sqs_queue.this",
+   "module_address": "module.log_pipeline[\"ledger-scheduler\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-scheduler\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"ledger-scheduler\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-ledger-scheduler",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-scheduler\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"ledger-scheduler\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-ledger-scheduler",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.log_pipeline[\"payout-export\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/payout-export",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/payout-export",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_metric_filter.errors",
+   "module_address": "module.log_pipeline[\"payout-export\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_metric_filter",
+   "name": "errors",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/payout-export",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "payout-export-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-payout-export-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/payout-export",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "payout-export-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-payout-export-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    },
+    "after_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"payout-export\"].aws_sqs_queue.this",
+   "module_address": "module.log_pipeline[\"payout-export\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"payout-export\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"payout-export\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-payout-export",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"payout-export\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"payout-export\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-payout-export",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.log_pipeline[\"reconciler\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/reconciler",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/reconciler",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_metric_filter.errors",
+   "module_address": "module.log_pipeline[\"reconciler\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_metric_filter",
+   "name": "errors",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/reconciler",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "reconciler-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-reconciler-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/reconciler",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "reconciler-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-reconciler-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    },
+    "after_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"reconciler\"].aws_sqs_queue.this",
+   "module_address": "module.log_pipeline[\"reconciler\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"reconciler\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"reconciler\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-reconciler",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"reconciler\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"reconciler\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-reconciler",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.log_pipeline[\"statement-render\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/statement-render",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ledger/prod/statement-render",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_metric_filter.errors",
+   "module_address": "module.log_pipeline[\"statement-render\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_metric_filter",
+   "name": "errors",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/statement-render",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "statement-render-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-statement-render-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after": {
+     "apply_on_transformed_logs": false,
+     "id": "mock-module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_metric_filter.errors",
+     "log_group_name": "/ledger/prod/statement-render",
+     "metric_transformation": [
+      {
+       "default_value": null,
+       "dimensions": null,
+       "name": "statement-render-errors",
+       "namespace": "Ledger/prod",
+       "unit": "None",
+       "value": "1"
+      }
+     ],
+     "name": "prod-statement-render-errors",
+     "pattern": "?ERROR ?Exception",
+     "region": "eu-west-1"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    },
+    "after_sensitive": {
+     "metric_transformation": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "module.log_pipeline[\"statement-render\"].aws_sqs_queue.this",
+   "module_address": "module.log_pipeline[\"statement-render\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"statement-render\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"statement-render\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 86400,
+     "name": "prod-statement-render",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"statement-render\"].aws_sqs_queue.this",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.log_pipeline[\"statement-render\"].aws_sqs_queue.this",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 86400,
+     "name": "prod-statement-render",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": null,
+     "tags_all": {
+      "DataClass": "confidential",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Project": "ledger-ingest"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  }
+ ],
+ "prior_state": {
+  "format_version": "1.0",
+  "terraform_version": "1.10.5",
+  "values": {
+   "root_module": {
+    "resources": [
+     {
+      "address": "data.aws_iam_policy_document.ecs_tasks_assume",
+      "mode": "data",
+      "type": "aws_iam_policy_document",
+      "name": "ecs_tasks_assume",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "1077804475",
+       "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Action\": \"sts:AssumeRole\",\n      \"Principal\": {\n        \"Service\": \"ecs-tasks.amazonaws.com\"\n      }\n    }\n  ]\n}",
+       "minified_json": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":\"sts:AssumeRole\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}]}",
+       "override_json": null,
+       "override_policy_documents": null,
+       "policy_id": null,
+       "source_json": null,
+       "source_policy_documents": null,
+       "statement": [
+        {
+         "actions": [
+          "sts:AssumeRole"
+         ],
+         "condition": [],
+         "effect": "Allow",
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [
+          {
+           "identifiers": [
+            "ecs-tasks.amazonaws.com"
+           ],
+           "type": "Service"
+          }
+         ],
+         "resources": [],
+         "sid": ""
+        }
+       ],
+       "version": "2012-10-17"
+      },
+      "sensitive_values": {
+       "statement": [
+        {
+         "actions": [
+          false
+         ],
+         "condition": [],
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [
+          {
+           "identifiers": [
+            false
+           ]
+          }
+         ],
+         "resources": []
+        }
+       ]
+      }
+     },
+     {
+      "address": "aws_iam_role.api",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "api",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.api",
+       "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+       "create_date": "mock-create_date",
+       "description": "ECS task role for the ledger read API.",
+       "force_detach_policies": false,
+       "id": "mock-aws_iam_role.api",
+       "inline_policy": [],
+       "managed_policy_arns": [],
+       "max_session_duration": 3600,
+       "name": "ledger-api-prod",
+       "name_prefix": "mock-name_prefix",
+       "path": "/",
+       "permissions_boundary": null,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Project": "ledger-ingest"
+       },
+       "unique_id": "mock-unique_id"
+      },
+      "sensitive_values": {
+       "inline_policy": [],
+       "managed_policy_arns": [],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_iam_role.scheduler",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "scheduler",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.scheduler",
+       "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+       "create_date": "mock-create_date",
+       "description": "ECS task role for the ledger batch scheduler.",
+       "force_detach_policies": false,
+       "id": "mock-aws_iam_role.scheduler",
+       "inline_policy": [],
+       "managed_policy_arns": [],
+       "max_session_duration": 3600,
+       "name": "ledger-scheduler-prod",
+       "name_prefix": "mock-name_prefix",
+       "path": "/",
+       "permissions_boundary": null,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Project": "ledger-ingest"
+       },
+       "unique_id": "mock-unique_id"
+      },
+      "sensitive_values": {
+       "inline_policy": [],
+       "managed_policy_arns": [],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_iam_role.worker",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "worker",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.worker",
+       "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+       "create_date": "mock-create_date",
+       "description": "ECS task role for the ledger ingest worker.",
+       "force_detach_policies": false,
+       "id": "mock-aws_iam_role.worker",
+       "inline_policy": [],
+       "managed_policy_arns": [],
+       "max_session_duration": 3600,
+       "name": "ledger-ingest-worker-prod",
+       "name_prefix": "mock-name_prefix",
+       "path": "/",
+       "permissions_boundary": null,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Project": "ledger-ingest"
+       },
+       "unique_id": "mock-unique_id"
+      },
+      "sensitive_values": {
+       "inline_policy": [],
+       "managed_policy_arns": [],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_iam_role_policy.api",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "api",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "mock-aws_iam_role_policy.api",
+       "name": "api",
+       "name_prefix": "mock-name_prefix",
+       "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"dynamodb:GetItem\",\"dynamodb:Query\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries\",\"arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries/index/*\"],\"Sid\":\"ReadLedgerTable\"}]}",
+       "role": "mock-aws_iam_role.api"
+      },
+      "sensitive_values": {},
+      "depends_on": [
+       "aws_iam_role.api",
+       "data.aws_iam_policy_document.ecs_tasks_assume"
+      ]
+     },
+     {
+      "address": "aws_iam_role_policy.scheduler",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "scheduler",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "mock-aws_iam_role_policy.scheduler",
+       "name": "scheduler",
+       "name_prefix": "mock-name_prefix",
+       "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"sqs:SendMessage\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:sqs:eu-west-1:268431905517:prod-ingest-worker\",\"Sid\":\"EnqueueIngestJobs\"},{\"Action\":[\"s3:ListBucket\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-ledger-raw-prod\",\"Sid\":\"ListRawStatements\"}]}",
+       "role": "mock-aws_iam_role.scheduler"
+      },
+      "sensitive_values": {},
+      "depends_on": [
+       "aws_iam_role.scheduler",
+       "data.aws_iam_policy_document.ecs_tasks_assume"
+      ]
+     },
+     {
+      "address": "aws_iam_role_policy.worker",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "worker",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "mock-aws_iam_role_policy.worker",
+       "name": "worker",
+       "name_prefix": "mock-name_prefix",
+       "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"sqs:ReceiveMessage\",\"sqs:DeleteMessage\",\"sqs:ChangeMessageVisibility\",\"sqs:GetQueueAttributes\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:sqs:eu-west-1:268431905517:prod-ingest-worker\",\"Sid\":\"ReadIngestQueue\"},{\"Action\":[\"s3:GetObject\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-ledger-raw-prod/incoming/*\",\"Sid\":\"ReadRawStatements\"},{\"Action\":[\"dynamodb:PutItem\",\"dynamodb:UpdateItem\",\"dynamodb:ConditionCheckItem\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:dynamodb:eu-west-1:268431905517:table/prod-ledger-entries\",\"Sid\":\"WriteLedgerTable\"}]}",
+       "role": "mock-aws_iam_role.worker"
+      },
+      "sensitive_values": {}
+     },
+     {
+      "address": "aws_s3_bucket.raw",
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "raw",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "acceleration_status": "mock-acceleration_status",
+       "acl": "mock-acl",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.raw",
+       "bucket": "acme-ledger-raw-prod",
+       "bucket_domain_name": "mock-bucket_domain_name",
+       "bucket_namespace": "mock-bucket_namespace",
+       "bucket_prefix": "mock-bucket_prefix",
+       "bucket_region": "mock-bucket_region",
+       "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+       "cors_rule": [],
+       "force_destroy": false,
+       "grant": [],
+       "hosted_zone_id": "mock-hosted_zone_id",
+       "id": "mock-aws_s3_bucket.raw",
+       "lifecycle_rule": [],
+       "logging": [],
+       "object_lock_configuration": [],
+       "object_lock_enabled": false,
+       "policy": "mock-policy",
+       "region": "eu-west-1",
+       "replication_configuration": [],
+       "request_payer": "mock-request_payer",
+       "server_side_encryption_configuration": [],
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Project": "ledger-ingest"
+       },
+       "timeouts": null,
+       "versioning": [],
+       "website": [],
+       "website_domain": "mock-website_domain",
+       "website_endpoint": "mock-website_endpoint"
+      },
+      "sensitive_values": {
+       "cors_rule": [],
+       "grant": [],
+       "lifecycle_rule": [],
+       "logging": [],
+       "object_lock_configuration": [],
+       "replication_configuration": [],
+       "server_side_encryption_configuration": [],
+       "tags_all": {},
+       "versioning": [],
+       "website": []
+      }
+     },
+     {
+      "address": "aws_s3_bucket_public_access_block.raw",
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "raw",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "block_public_acls": true,
+       "block_public_policy": true,
+       "bucket": "acme-ledger-raw-prod",
+       "id": "mock-aws_s3_bucket_public_access_block.raw",
+       "ignore_public_acls": true,
+       "region": "eu-west-1",
+       "restrict_public_buckets": true,
+       "skip_destroy": null
+      },
+      "sensitive_values": {},
+      "depends_on": [
+       "aws_s3_bucket.raw"
+      ]
+     },
+     {
+      "address": "aws_s3_bucket_versioning.raw",
+      "mode": "managed",
+      "type": "aws_s3_bucket_versioning",
+      "name": "raw",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "bucket": "acme-ledger-raw-prod",
+       "expected_bucket_owner": null,
+       "id": "mock-aws_s3_bucket_versioning.raw",
+       "mfa": null,
+       "region": "eu-west-1",
+       "versioning_configuration": [
+        {
+         "mfa_delete": "mock-mfa_delete",
+         "status": "Enabled"
+        }
+       ]
+      },
+      "sensitive_values": {
+       "versioning_configuration": [
+        {}
+       ]
+      },
+      "depends_on": [
+       "aws_s3_bucket.raw"
+      ]
+     },
+     {
+      "address": "aws_ssm_parameter.worker_settings",
+      "mode": "managed",
+      "type": "aws_ssm_parameter",
+      "name": "worker_settings",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "allowed_pattern": null,
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.worker_settings",
+       "data_type": "mock-data_type",
+       "description": null,
+       "has_value_wo": false,
+       "id": "mock-aws_ssm_parameter.worker_settings",
+       "insecure_value": "mock-insecure_value",
+       "key_id": "mock-key_id",
+       "name": "/ledger/prod/ingest-worker/settings",
+       "overwrite": null,
+       "region": "eu-west-1",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Project": "ledger-ingest"
+       },
+       "tier": "mock-tier",
+       "type": "String",
+       "value": "{\"batch_size\":50,\"dedupe_window_ms\":60000,\"ledger_table\":\"prod-ledger-entries\",\"max_inflight\":8,\"source_bucket\":\"acme-ledger-raw-prod\"}",
+       "value_wo": null,
+       "value_wo_version": null,
+       "version": 0
+      },
+      "sensitive_values": {
+       "tags_all": {},
+       "value": true,
+       "value_wo": true
+      }
+     }
+    ],
+    "child_modules": [
+     {
+      "resources": [
+       {
+        "address": "module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ledger/prod/audit-trail",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 14,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_metric_filter.errors",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_metric_filter",
+        "name": "errors",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "apply_on_transformed_logs": false,
+         "id": "mock-module.log_pipeline[\"audit-trail\"].aws_cloudwatch_log_metric_filter.errors",
+         "log_group_name": "/ledger/prod/audit-trail",
+         "metric_transformation": [
+          {
+           "default_value": null,
+           "dimensions": null,
+           "name": "audit-trail-errors",
+           "namespace": "Ledger/prod",
+           "unit": "None",
+           "value": "1"
+          }
+         ],
+         "name": "prod-audit-trail-errors",
+         "pattern": "?ERROR ?Exception",
+         "region": "eu-west-1"
+        },
+        "sensitive_values": {
+         "metric_transformation": [
+          {}
+         ]
+        },
+        "depends_on": [
+         "module.log_pipeline.aws_cloudwatch_log_group.this"
+        ]
+       },
+       {
+        "address": "module.log_pipeline[\"audit-trail\"].aws_sqs_queue.this",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"audit-trail\"].aws_sqs_queue.this",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.log_pipeline[\"audit-trail\"].aws_sqs_queue.this",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 1209600,
+         "name": "prod-audit-trail",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": true,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 120
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.log_pipeline[\"audit-trail\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ledger/prod/fee-calculator",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 14,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_metric_filter.errors",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_metric_filter",
+        "name": "errors",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "apply_on_transformed_logs": false,
+         "id": "mock-module.log_pipeline[\"fee-calculator\"].aws_cloudwatch_log_metric_filter.errors",
+         "log_group_name": "/ledger/prod/fee-calculator",
+         "metric_transformation": [
+          {
+           "default_value": null,
+           "dimensions": null,
+           "name": "fee-calculator-errors",
+           "namespace": "Ledger/prod",
+           "unit": "None",
+           "value": "1"
+          }
+         ],
+         "name": "prod-fee-calculator-errors",
+         "pattern": "?ERROR ?Exception",
+         "region": "eu-west-1"
+        },
+        "sensitive_values": {
+         "metric_transformation": [
+          {}
+         ]
+        },
+        "depends_on": [
+         "module.log_pipeline.aws_cloudwatch_log_group.this"
+        ]
+       },
+       {
+        "address": "module.log_pipeline[\"fee-calculator\"].aws_sqs_queue.this",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"fee-calculator\"].aws_sqs_queue.this",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.log_pipeline[\"fee-calculator\"].aws_sqs_queue.this",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 86400,
+         "name": "prod-fee-calculator",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": true,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 120
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.log_pipeline[\"fee-calculator\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ledger/prod/ingest-worker",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 14,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_metric_filter.errors",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_metric_filter",
+        "name": "errors",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "apply_on_transformed_logs": false,
+         "id": "mock-module.log_pipeline[\"ingest-worker\"].aws_cloudwatch_log_metric_filter.errors",
+         "log_group_name": "/ledger/prod/ingest-worker",
+         "metric_transformation": [
+          {
+           "default_value": null,
+           "dimensions": null,
+           "name": "ingest-worker-errors",
+           "namespace": "Ledger/prod",
+           "unit": "None",
+           "value": "1"
+          }
+         ],
+         "name": "prod-ingest-worker-errors",
+         "pattern": "?ERROR ?Exception",
+         "region": "eu-west-1"
+        },
+        "sensitive_values": {
+         "metric_transformation": [
+          {}
+         ]
+        },
+        "depends_on": [
+         "module.log_pipeline.aws_cloudwatch_log_group.this"
+        ]
+       },
+       {
+        "address": "module.log_pipeline[\"ingest-worker\"].aws_sqs_queue.this",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ingest-worker\"].aws_sqs_queue.this",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.log_pipeline[\"ingest-worker\"].aws_sqs_queue.this",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 345600,
+         "name": "prod-ingest-worker",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": true,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 120
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.log_pipeline[\"ingest-worker\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ledger/prod/ledger-api",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 14,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_metric_filter.errors",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_metric_filter",
+        "name": "errors",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "apply_on_transformed_logs": false,
+         "id": "mock-module.log_pipeline[\"ledger-api\"].aws_cloudwatch_log_metric_filter.errors",
+         "log_group_name": "/ledger/prod/ledger-api",
+         "metric_transformation": [
+          {
+           "default_value": null,
+           "dimensions": null,
+           "name": "ledger-api-errors",
+           "namespace": "Ledger/prod",
+           "unit": "None",
+           "value": "1"
+          }
+         ],
+         "name": "prod-ledger-api-errors",
+         "pattern": "?ERROR ?Exception",
+         "region": "eu-west-1"
+        },
+        "sensitive_values": {
+         "metric_transformation": [
+          {}
+         ]
+        },
+        "depends_on": [
+         "module.log_pipeline.aws_cloudwatch_log_group.this"
+        ]
+       },
+       {
+        "address": "module.log_pipeline[\"ledger-api\"].aws_sqs_queue.this",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-api\"].aws_sqs_queue.this",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.log_pipeline[\"ledger-api\"].aws_sqs_queue.this",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 86400,
+         "name": "prod-ledger-api",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": true,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 120
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.log_pipeline[\"ledger-api\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ledger/prod/ledger-scheduler",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 14,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_metric_filter.errors",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_metric_filter",
+        "name": "errors",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "apply_on_transformed_logs": false,
+         "id": "mock-module.log_pipeline[\"ledger-scheduler\"].aws_cloudwatch_log_metric_filter.errors",
+         "log_group_name": "/ledger/prod/ledger-scheduler",
+         "metric_transformation": [
+          {
+           "default_value": null,
+           "dimensions": null,
+           "name": "ledger-scheduler-errors",
+           "namespace": "Ledger/prod",
+           "unit": "None",
+           "value": "1"
+          }
+         ],
+         "name": "prod-ledger-scheduler-errors",
+         "pattern": "?ERROR ?Exception",
+         "region": "eu-west-1"
+        },
+        "sensitive_values": {
+         "metric_transformation": [
+          {}
+         ]
+        },
+        "depends_on": [
+         "module.log_pipeline.aws_cloudwatch_log_group.this"
+        ]
+       },
+       {
+        "address": "module.log_pipeline[\"ledger-scheduler\"].aws_sqs_queue.this",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"ledger-scheduler\"].aws_sqs_queue.this",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.log_pipeline[\"ledger-scheduler\"].aws_sqs_queue.this",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 345600,
+         "name": "prod-ledger-scheduler",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": true,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 120
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.log_pipeline[\"ledger-scheduler\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ledger/prod/payout-export",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 14,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_metric_filter.errors",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_metric_filter",
+        "name": "errors",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "apply_on_transformed_logs": false,
+         "id": "mock-module.log_pipeline[\"payout-export\"].aws_cloudwatch_log_metric_filter.errors",
+         "log_group_name": "/ledger/prod/payout-export",
+         "metric_transformation": [
+          {
+           "default_value": null,
+           "dimensions": null,
+           "name": "payout-export-errors",
+           "namespace": "Ledger/prod",
+           "unit": "None",
+           "value": "1"
+          }
+         ],
+         "name": "prod-payout-export-errors",
+         "pattern": "?ERROR ?Exception",
+         "region": "eu-west-1"
+        },
+        "sensitive_values": {
+         "metric_transformation": [
+          {}
+         ]
+        },
+        "depends_on": [
+         "module.log_pipeline.aws_cloudwatch_log_group.this"
+        ]
+       },
+       {
+        "address": "module.log_pipeline[\"payout-export\"].aws_sqs_queue.this",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"payout-export\"].aws_sqs_queue.this",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.log_pipeline[\"payout-export\"].aws_sqs_queue.this",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 345600,
+         "name": "prod-payout-export",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": true,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 120
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.log_pipeline[\"payout-export\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ledger/prod/reconciler",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 14,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_metric_filter.errors",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_metric_filter",
+        "name": "errors",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "apply_on_transformed_logs": false,
+         "id": "mock-module.log_pipeline[\"reconciler\"].aws_cloudwatch_log_metric_filter.errors",
+         "log_group_name": "/ledger/prod/reconciler",
+         "metric_transformation": [
+          {
+           "default_value": null,
+           "dimensions": null,
+           "name": "reconciler-errors",
+           "namespace": "Ledger/prod",
+           "unit": "None",
+           "value": "1"
+          }
+         ],
+         "name": "prod-reconciler-errors",
+         "pattern": "?ERROR ?Exception",
+         "region": "eu-west-1"
+        },
+        "sensitive_values": {
+         "metric_transformation": [
+          {}
+         ]
+        },
+        "depends_on": [
+         "module.log_pipeline.aws_cloudwatch_log_group.this"
+        ]
+       },
+       {
+        "address": "module.log_pipeline[\"reconciler\"].aws_sqs_queue.this",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"reconciler\"].aws_sqs_queue.this",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.log_pipeline[\"reconciler\"].aws_sqs_queue.this",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 345600,
+         "name": "prod-reconciler",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": true,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 120
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.log_pipeline[\"reconciler\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/ledger/prod/statement-render",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 14,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_metric_filter.errors",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_metric_filter",
+        "name": "errors",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "apply_on_transformed_logs": false,
+         "id": "mock-module.log_pipeline[\"statement-render\"].aws_cloudwatch_log_metric_filter.errors",
+         "log_group_name": "/ledger/prod/statement-render",
+         "metric_transformation": [
+          {
+           "default_value": null,
+           "dimensions": null,
+           "name": "statement-render-errors",
+           "namespace": "Ledger/prod",
+           "unit": "None",
+           "value": "1"
+          }
+         ],
+         "name": "prod-statement-render-errors",
+         "pattern": "?ERROR ?Exception",
+         "region": "eu-west-1"
+        },
+        "sensitive_values": {
+         "metric_transformation": [
+          {}
+         ]
+        },
+        "depends_on": [
+         "module.log_pipeline.aws_cloudwatch_log_group.this"
+        ]
+       },
+       {
+        "address": "module.log_pipeline[\"statement-render\"].aws_sqs_queue.this",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.log_pipeline[\"statement-render\"].aws_sqs_queue.this",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.log_pipeline[\"statement-render\"].aws_sqs_queue.this",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 86400,
+         "name": "prod-statement-render",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": true,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "data-platform",
+          "Project": "ledger-ingest"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 120
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.log_pipeline[\"statement-render\"]"
+     }
+    ]
+   }
+  }
+ },
+ "configuration": {
+  "provider_config": {
+   "aws": {
+    "name": "aws",
+    "full_name": "registry.terraform.io/hashicorp/aws",
+    "version_constraint": "~> 6.0",
+    "expressions": {
+     "access_key": {
+      "constant_value": "mock_access_key"
+     },
+     "default_tags": [
+      {
+       "tags": {
+        "references": [
+         "var.environment"
+        ]
+       }
+      }
+     ],
+     "region": {
+      "constant_value": "eu-west-1"
+     },
+     "secret_key": {
+      "constant_value": "mock_secret_key"
+     },
+     "skip_credentials_validation": {
+      "constant_value": true
+     },
+     "skip_metadata_api_check": {
+      "constant_value": true
+     },
+     "skip_region_validation": {
+      "constant_value": true
+     },
+     "skip_requesting_account_id": {
+      "constant_value": true
+     }
+    }
+   }
+  },
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_iam_role.api",
+     "mode": "managed",
+     "type": "aws_iam_role",
+     "name": "api",
+     "provider_config_key": "aws",
+     "expressions": {
+      "assume_role_policy": {
+       "references": [
+        "data.aws_iam_policy_document.ecs_tasks_assume.json",
+        "data.aws_iam_policy_document.ecs_tasks_assume"
+       ]
+      },
+      "description": {
+       "constant_value": "ECS task role for the ledger read API."
+      },
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_iam_role.scheduler",
+     "mode": "managed",
+     "type": "aws_iam_role",
+     "name": "scheduler",
+     "provider_config_key": "aws",
+     "expressions": {
+      "assume_role_policy": {
+       "references": [
+        "data.aws_iam_policy_document.ecs_tasks_assume.json",
+        "data.aws_iam_policy_document.ecs_tasks_assume"
+       ]
+      },
+      "description": {
+       "constant_value": "ECS task role for the ledger batch scheduler."
+      },
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_iam_role.worker",
+     "mode": "managed",
+     "type": "aws_iam_role",
+     "name": "worker",
+     "provider_config_key": "aws",
+     "expressions": {
+      "assume_role_policy": {
+       "references": [
+        "data.aws_iam_policy_document.ecs_tasks_assume.json",
+        "data.aws_iam_policy_document.ecs_tasks_assume"
+       ]
+      },
+      "description": {
+       "constant_value": "ECS task role for the ledger ingest worker."
+      },
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_iam_role_policy.api",
+     "mode": "managed",
+     "type": "aws_iam_role_policy",
+     "name": "api",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "constant_value": "api"
+      },
+      "policy": {
+       "references": [
+        "path.module"
+       ]
+      },
+      "role": {
+       "references": [
+        "aws_iam_role.api.id",
+        "aws_iam_role.api"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_iam_role_policy.scheduler",
+     "mode": "managed",
+     "type": "aws_iam_role_policy",
+     "name": "scheduler",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "constant_value": "scheduler"
+      },
+      "policy": {
+       "references": [
+        "path.module"
+       ]
+      },
+      "role": {
+       "references": [
+        "aws_iam_role.scheduler.id",
+        "aws_iam_role.scheduler"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_iam_role_policy.worker",
+     "mode": "managed",
+     "type": "aws_iam_role_policy",
+     "name": "worker",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "constant_value": "worker"
+      },
+      "policy": {
+       "references": [
+        "path.module"
+       ]
+      },
+      "role": {
+       "references": [
+        "aws_iam_role.worker.id",
+        "aws_iam_role.worker"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket.raw",
+     "mode": "managed",
+     "type": "aws_s3_bucket",
+     "name": "raw",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "constant_value": "acme-ledger-raw-prod"
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket_public_access_block.raw",
+     "mode": "managed",
+     "type": "aws_s3_bucket_public_access_block",
+     "name": "raw",
+     "provider_config_key": "aws",
+     "expressions": {
+      "block_public_acls": {
+       "constant_value": true
+      },
+      "block_public_policy": {
+       "constant_value": true
+      },
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.raw.bucket",
+        "aws_s3_bucket.raw"
+       ]
+      },
+      "ignore_public_acls": {
+       "constant_value": true
+      },
+      "restrict_public_buckets": {
+       "constant_value": true
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket_versioning.raw",
+     "mode": "managed",
+     "type": "aws_s3_bucket_versioning",
+     "name": "raw",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.raw.bucket",
+        "aws_s3_bucket.raw"
+       ]
+      },
+      "versioning_configuration": [
+       {
+        "status": {
+         "constant_value": "Enabled"
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_ssm_parameter.worker_settings",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "worker_settings",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      },
+      "type": {
+       "constant_value": "String"
+      },
+      "value": {}
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "data.aws_iam_policy_document.ecs_tasks_assume",
+     "mode": "data",
+     "type": "aws_iam_policy_document",
+     "name": "ecs_tasks_assume",
+     "provider_config_key": "aws",
+     "expressions": {
+      "statement": [
+       {
+        "actions": {
+         "constant_value": [
+          "sts:AssumeRole"
+         ]
+        },
+        "principals": [
+         {
+          "identifiers": {
+           "constant_value": [
+            "ecs-tasks.amazonaws.com"
+           ]
+          },
+          "type": {
+           "constant_value": "Service"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     "schema_version": 0
+    }
+   ],
+   "module_calls": {
+    "log_pipeline": {
+     "source": "./modules/log-pipeline",
+     "expressions": {
+      "environment": {
+       "references": [
+        "var.environment"
+       ]
+      },
+      "log_retention_days": {
+       "references": [
+        "var.log_retention_days"
+       ]
+      },
+      "message_retention_seconds": {
+       "references": [
+        "each.value"
+       ]
+      },
+      "name": {
+       "references": [
+        "each.key"
+       ]
+      }
+     },
+     "for_each_expression": {
+      "references": [
+       "var.pipelines"
+      ]
+     },
+     "module": {
+      "resources": [
+       {
+        "address": "aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_config_key": "aws",
+        "expressions": {
+         "name": {
+          "references": [
+           "var.environment",
+           "var.name"
+          ]
+         },
+         "retention_in_days": {
+          "references": [
+           "var.log_retention_days"
+          ]
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "aws_cloudwatch_log_metric_filter.errors",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_metric_filter",
+        "name": "errors",
+        "provider_config_key": "aws",
+        "expressions": {
+         "log_group_name": {
+          "references": [
+           "aws_cloudwatch_log_group.this.name",
+           "aws_cloudwatch_log_group.this"
+          ]
+         },
+         "metric_transformation": [
+          {
+           "name": {
+            "references": [
+             "var.name"
+            ]
+           },
+           "namespace": {
+            "references": [
+             "var.environment"
+            ]
+           },
+           "value": {
+            "constant_value": "1"
+           }
+          }
+         ],
+         "name": {
+          "references": [
+           "var.environment",
+           "var.name"
+          ]
+         },
+         "pattern": {
+          "constant_value": "?ERROR ?Exception"
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "aws_sqs_queue.this",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "this",
+        "provider_config_key": "aws",
+        "expressions": {
+         "message_retention_seconds": {
+          "references": [
+           "var.message_retention_seconds"
+          ]
+         },
+         "name": {
+          "references": [
+           "var.environment",
+           "var.name"
+          ]
+         },
+         "sqs_managed_sse_enabled": {
+          "constant_value": true
+         },
+         "visibility_timeout_seconds": {
+          "constant_value": 120
+         }
+        },
+        "schema_version": 0
+       }
+      ],
+      "variables": {
+       "environment": {},
+       "log_retention_days": {},
+       "message_retention_seconds": {},
+       "name": {}
+      }
+     }
+    }
+   },
+   "variables": {
+    "environment": {},
+    "log_retention_days": {},
+    "pipelines": {
+     "description": "Log pipelines: one log group and one subscription queue per entry."
+    }
+   }
+  }
+ },
+ "relevant_attributes": [
+  {
+   "resource": "module.log_pipeline[\"fx-rates-sync\"].aws_cloudwatch_log_group.this",
+   "attribute": [
+    "name"
+   ]
+  },
+  {
+   "resource": "data.aws_iam_policy_document.ecs_tasks_assume",
+   "attribute": [
+    "json"
+   ]
+  },
+  {
+   "resource": "aws_iam_role.worker",
+   "attribute": [
+    "id"
+   ]
+  }
+ ],
+ "timestamp": "2026-11-24T09:32:51Z",
+ "applyable": true,
+ "complete": true,
+ "errored": false
+}

@@ -1,0 +1,85 @@
+diff --git a/alarms.tf b/alarms.tf
+index ffa4b80..e594ad2 100644
+--- a/alarms.tf
++++ b/alarms.tf
+@@ -25,6 +25,11 @@ locals {
+       statistic  = "Average"
+       comparison = "GreaterThanThreshold"
+     }
++    disk_queue_depth = {
++      metric     = "DiskQueueDepth"
++      statistic  = "Average"
++      comparison = "GreaterThanThreshold"
++    }
+   }
+ }
+ 
+diff --git a/dashboard.tf b/dashboard.tf
+new file mode 100644
+index 0000000..7691314
+--- /dev/null
++++ b/dashboard.tf
+@@ -0,0 +1,24 @@
++resource "aws_cloudwatch_dashboard" "ledger_db" {
++  dashboard_name = "${var.name}-prod-db"
++  dashboard_body = jsonencode({
++    widgets = [
++      for i, key in keys(local.db_alarms) : {
++        type   = "metric"
++        x      = (i % 3) * 8
++        y      = floor(i / 3) * 6
++        width  = 8
++        height = 6
++        properties = {
++          title   = replace(key, "_", " ")
++          region  = "eu-west-1"
++          stat    = local.db_alarms[key].statistic
++          period  = 300
++          metrics = [["AWS/RDS", local.db_alarms[key].metric, "DBInstanceIdentifier", aws_db_instance.ledger.identifier]]
++          annotations = {
++            horizontal = [{ label = "alarm", value = var.alarm_thresholds[key] }]
++          }
++        }
++      }
++    ]
++  })
++}
+diff --git a/prod.auto.tfvars b/prod.auto.tfvars
+new file mode 100644
+index 0000000..8bd0bd7
+--- /dev/null
++++ b/prod.auto.tfvars
+@@ -0,0 +1,21 @@
++# Prod overrides agreed in the Q4 ledger-db review (DATA-877).
++# terraform.tfvars keeps the baseline; values here take precedence.
++
++db_backup_retention_days = 21
++
++# Org-wide multi-Region data key (SEC-1190).
++db_kms_key_arn = "arn:aws:kms:eu-west-1:210987654321:key/mrk-8d2f4c61a9b04e7f8c3d2e1f0a9b8c7d"
++
++alarm_thresholds = {
++  cpu_high         = 75
++  connections_high = 450
++  free_storage_low = 21474836480
++  read_latency     = 0.02
++  write_latency    = 0.04
++  disk_queue_depth = 64
++}
++
++extra_tags = {
++  CostCenter = "fin-ledger-0420"
++  Compliance = "sox"
++}
+diff --git a/variables.tf b/variables.tf
+index da5660f..0d6ad95 100644
+--- a/variables.tf
++++ b/variables.tf
+@@ -50,6 +50,7 @@ variable "alarm_thresholds" {
+     free_storage_low = 10737418240
+     read_latency     = 0.02
+     write_latency    = 0.05
++    disk_queue_depth = 64
+   }
+ }
+ 

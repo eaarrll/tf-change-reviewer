@@ -1,0 +1,488 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.worker["chargebacks"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "worker" {
+        id                          = "mock-aws_cloudwatch_log_group.worker[\"chargebacks\"]"
+        name                        = "/ecs/payments-prod/chargebacks"
+        tags                        = {
+            "Service" = "payments"
+        }
+      ~ tags_all                    = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_log_group.worker["ledger-sync"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "worker" {
+        id                          = "mock-aws_cloudwatch_log_group.worker[\"ledger-sync\"]"
+        name                        = "/ecs/payments-prod/ledger-sync"
+        tags                        = {
+            "Service" = "payments"
+        }
+      ~ tags_all                    = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_log_group.worker["refunds"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "worker" {
+        id                          = "mock-aws_cloudwatch_log_group.worker[\"refunds\"]"
+        name                        = "/ecs/payments-prod/refunds"
+        tags                        = {
+            "Service" = "payments"
+        }
+      ~ tags_all                    = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_log_group.worker["settlement"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "worker" {
+        id                          = "mock-aws_cloudwatch_log_group.worker[\"settlement\"]"
+        name                        = "/ecs/payments-prod/settlement"
+        tags                        = {
+            "Service" = "payments"
+        }
+      ~ tags_all                    = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.db_cpu will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "db_cpu" {
+      ~ dimensions                            = {
+          ~ "DBInstanceIdentifier" = "payments-prod" -> "prod-euw1-payments-pg"
+        }
+        id                                    = "mock-aws_cloudwatch_metric_alarm.db_cpu"
+      ~ tags_all                              = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (3 unchanged elements hidden)
+        }
+        # (13 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.db_free_storage will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "db_free_storage" {
+      ~ dimensions                            = {
+          ~ "DBInstanceIdentifier" = "payments-prod" -> "prod-euw1-payments-pg"
+        }
+        id                                    = "mock-aws_cloudwatch_metric_alarm.db_free_storage"
+      ~ tags_all                              = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (3 unchanged elements hidden)
+        }
+        # (13 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.worker["chargebacks"] will be updated in-place
+  ~ resource "aws_sqs_queue" "worker" {
+        id                                = "mock-aws_sqs_queue.worker[\"chargebacks\"]"
+        name                              = "payments-prod-chargebacks"
+        tags                              = {
+            "Service" = "payments"
+        }
+      ~ tags_all                          = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.worker["ledger-sync"] will be updated in-place
+  ~ resource "aws_sqs_queue" "worker" {
+        id                                = "mock-aws_sqs_queue.worker[\"ledger-sync\"]"
+        name                              = "payments-prod-ledger-sync"
+        tags                              = {
+            "Service" = "payments"
+        }
+      ~ tags_all                          = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.worker["refunds"] will be updated in-place
+  ~ resource "aws_sqs_queue" "worker" {
+        id                                = "mock-aws_sqs_queue.worker[\"refunds\"]"
+        name                              = "payments-prod-refunds"
+        tags                              = {
+            "Service" = "payments"
+        }
+      ~ tags_all                          = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.worker["settlement"] will be updated in-place
+  ~ resource "aws_sqs_queue" "worker" {
+        id                                = "mock-aws_sqs_queue.worker[\"settlement\"]"
+        name                              = "payments-prod-settlement"
+        tags                              = {
+            "Service" = "payments"
+        }
+      ~ tags_all                          = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.worker_dlq["chargebacks"] will be updated in-place
+  ~ resource "aws_sqs_queue" "worker_dlq" {
+        id                                = "mock-aws_sqs_queue.worker_dlq[\"chargebacks\"]"
+        name                              = "payments-prod-chargebacks-dlq"
+        tags                              = {
+            "Service" = "payments"
+        }
+      ~ tags_all                          = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.worker_dlq["ledger-sync"] will be updated in-place
+  ~ resource "aws_sqs_queue" "worker_dlq" {
+        id                                = "mock-aws_sqs_queue.worker_dlq[\"ledger-sync\"]"
+        name                              = "payments-prod-ledger-sync-dlq"
+        tags                              = {
+            "Service" = "payments"
+        }
+      ~ tags_all                          = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.worker_dlq["refunds"] will be updated in-place
+  ~ resource "aws_sqs_queue" "worker_dlq" {
+        id                                = "mock-aws_sqs_queue.worker_dlq[\"refunds\"]"
+        name                              = "payments-prod-refunds-dlq"
+        tags                              = {
+            "Service" = "payments"
+        }
+      ~ tags_all                          = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.worker_dlq["settlement"] will be updated in-place
+  ~ resource "aws_sqs_queue" "worker_dlq" {
+        id                                = "mock-aws_sqs_queue.worker_dlq[\"settlement\"]"
+        name                              = "payments-prod-settlement-dlq"
+        tags                              = {
+            "Service" = "payments"
+        }
+      ~ tags_all                          = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_ssm_parameter.db_host will be updated in-place
+  ~ resource "aws_ssm_parameter" "db_host" {
+        id             = "mock-aws_ssm_parameter.db_host"
+        name           = "/payments/prod/db/host"
+        tags           = {
+            "Service" = "payments"
+        }
+      ~ tags_all       = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # aws_ssm_parameter.db_port will be updated in-place
+  ~ resource "aws_ssm_parameter" "db_port" {
+        id             = "mock-aws_ssm_parameter.db_port"
+        name           = "/payments/prod/db/port"
+        tags           = {
+            "Service" = "payments"
+        }
+      ~ tags_all       = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # module.app_config.aws_ssm_parameter.setting["currency/default"] will be updated in-place
+  ~ resource "aws_ssm_parameter" "setting" {
+        id             = "mock-module.app_config.aws_ssm_parameter.setting[\"currency/default\"]"
+        name           = "/payments/prod/currency/default"
+      ~ tags_all       = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (3 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # module.app_config.aws_ssm_parameter.setting["fraud/review_queue"] will be created
+  + resource "aws_ssm_parameter" "setting" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/payments/prod/fraud/review_queue"
+      + region         = "eu-west-1"
+      + tags_all       = {
+          + "DataClassification" = "confidential"
+          + "Environment"        = "prod"
+          + "ManagedBy"          = "terraform"
+          + "Repo"               = "platform-infra/payments"
+          + "Team"               = "payments-platform"
+        }
+      + tier           = (known after apply)
+      + type           = "String"
+      + value          = (sensitive value)
+      + version        = (known after apply)
+    }
+
+  # module.app_config.aws_ssm_parameter.setting["fraud/score_threshold"] will be updated in-place
+  ~ resource "aws_ssm_parameter" "setting" {
+        id             = "mock-module.app_config.aws_ssm_parameter.setting[\"fraud/score_threshold\"]"
+        name           = "/payments/prod/fraud/score_threshold"
+      ~ tags_all       = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (3 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # module.app_config.aws_ssm_parameter.setting["http/timeout_ms"] will be updated in-place
+  ~ resource "aws_ssm_parameter" "setting" {
+        id             = "mock-module.app_config.aws_ssm_parameter.setting[\"http/timeout_ms\"]"
+        name           = "/payments/prod/http/timeout_ms"
+      ~ tags_all       = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (3 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # module.app_config.aws_ssm_parameter.setting["ledger/batch_size"] will be updated in-place
+  ~ resource "aws_ssm_parameter" "setting" {
+        id             = "mock-module.app_config.aws_ssm_parameter.setting[\"ledger/batch_size\"]"
+        name           = "/payments/prod/ledger/batch_size"
+      ~ tags_all       = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (3 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # module.app_config.aws_ssm_parameter.setting["payouts/min_amount"] will be created
+  + resource "aws_ssm_parameter" "setting" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/payments/prod/payouts/min_amount"
+      + region         = "eu-west-1"
+      + tags_all       = {
+          + "DataClassification" = "confidential"
+          + "Environment"        = "prod"
+          + "ManagedBy"          = "terraform"
+          + "Repo"               = "platform-infra/payments"
+          + "Team"               = "payments-platform"
+        }
+      + tier           = (known after apply)
+      + type           = "String"
+      + value          = (sensitive value)
+      + version        = (known after apply)
+    }
+
+  # module.app_config.aws_ssm_parameter.setting["payouts/schedule"] will be created
+  + resource "aws_ssm_parameter" "setting" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/payments/prod/payouts/schedule"
+      + region         = "eu-west-1"
+      + tags_all       = {
+          + "DataClassification" = "confidential"
+          + "Environment"        = "prod"
+          + "ManagedBy"          = "terraform"
+          + "Repo"               = "platform-infra/payments"
+          + "Team"               = "payments-platform"
+        }
+      + tier           = (known after apply)
+      + type           = "String"
+      + value          = (sensitive value)
+      + version        = (known after apply)
+    }
+
+  # module.app_config.aws_ssm_parameter.setting["refunds/max_auto_amount"] will be updated in-place
+  ~ resource "aws_ssm_parameter" "setting" {
+        id             = "mock-module.app_config.aws_ssm_parameter.setting[\"refunds/max_auto_amount\"]"
+        name           = "/payments/prod/refunds/max_auto_amount"
+      ~ tags_all       = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (3 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # module.app_config.aws_ssm_parameter.setting["settlement/cutoff_utc"] will be updated in-place
+  ~ resource "aws_ssm_parameter" "setting" {
+        id             = "mock-module.app_config.aws_ssm_parameter.setting[\"settlement/cutoff_utc\"]"
+        name           = "/payments/prod/settlement/cutoff_utc"
+      ~ tags_all       = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (3 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # module.app_config.aws_ssm_parameter.setting["webhooks/retry_limit"] will be created
+  + resource "aws_ssm_parameter" "setting" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/payments/prod/webhooks/retry_limit"
+      + region         = "eu-west-1"
+      + tags_all       = {
+          + "DataClassification" = "confidential"
+          + "Environment"        = "prod"
+          + "ManagedBy"          = "terraform"
+          + "Repo"               = "platform-infra/payments"
+          + "Team"               = "payments-platform"
+        }
+      + tier           = (known after apply)
+      + type           = "String"
+      + value          = (sensitive value)
+      + version        = (known after apply)
+    }
+
+  # module.payments_db.aws_db_instance.this will be updated in-place
+  ~ resource "aws_db_instance" "this" {
+        id                                    = "mock-module.payments_db.aws_db_instance.this"
+      ~ identifier                            = "payments-prod" -> "prod-euw1-payments-pg"
+        tags                                  = {
+            "Service" = "payments"
+        }
+      ~ tags_all                              = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (65 unchanged attributes hidden)
+    }
+
+  # module.payments_db.aws_db_parameter_group.this must be replaced
+-/+ resource "aws_db_parameter_group" "this" {
+      ~ arn          = "arn:aws:mock:eu-west-1:123456789012:module.payments_db.aws_db_parameter_group.this" -> (known after apply)
+      ~ description  = "Parameters for payments-prod" -> "Postgres 16 parameters for payments-prod" # forces replacement
+      ~ id           = "mock-module.payments_db.aws_db_parameter_group.this" -> (known after apply)
+        name         = "payments-prod-pg16"
+      ~ name_prefix  = "mock-name_prefix" -> (known after apply)
+        tags         = {
+            "Service" = "payments"
+        }
+      ~ tags_all     = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (3 unchanged attributes hidden)
+
+        # (3 unchanged blocks hidden)
+    }
+
+  # module.payments_db.aws_db_subnet_group.this will be updated in-place
+  ~ resource "aws_db_subnet_group" "this" {
+        id                      = "mock-module.payments_db.aws_db_subnet_group.this"
+        name                    = "payments-prod-db"
+        tags                    = {
+            "Service" = "payments"
+        }
+      ~ tags_all                = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # module.payments_db.aws_security_group.db will be updated in-place
+  ~ resource "aws_security_group" "db" {
+        id                     = "mock-module.payments_db.aws_security_group.db"
+        name                   = "payments-prod-db"
+        tags                   = {
+            "Service" = "payments"
+        }
+      ~ tags_all               = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (4 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # module.payments_db.aws_vpc_security_group_ingress_rule.clients["sg-0e8d7c6b5a4f3e2d1"] will be updated in-place
+  ~ resource "aws_vpc_security_group_ingress_rule" "clients" {
+        id                           = "mock-module.payments_db.aws_vpc_security_group_ingress_rule.clients[\"sg-0e8d7c6b5a4f3e2d1\"]"
+      ~ tags_all                     = {
+          + "DataClassification" = "confidential"
+          ~ "Repo"               = "infra-payments" -> "platform-infra/payments"
+            # (3 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+Plan: 5 to add, 26 to change, 1 to destroy.

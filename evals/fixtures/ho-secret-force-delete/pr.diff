@@ -1,0 +1,94 @@
+diff --git a/iam.tf b/iam.tf
+index 0af3b57..a0230e3 100644
+--- a/iam.tf
++++ b/iam.tf
+@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "gateway_task" {
+     resources = [
+       aws_secretsmanager_secret.db_credentials.arn,
+       aws_secretsmanager_secret.webhook_signing.arn,
+-      aws_secretsmanager_secret.acme_partner_api.arn,
++      aws_secretsmanager_secret.acme_partner_api_v2.arn,
+       aws_secretsmanager_secret.sftp_key.arn,
+     ]
+   }
+diff --git a/providers.tf b/providers.tf
+index a25c2b4..dcfab56 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -17,6 +17,7 @@ provider "aws" {
+       Environment = "production"
+       Owner       = "integrations"
+       Terraform   = "true"
++      Repository  = "partner-gateway-infra"
+     }
+   }
+ }
+diff --git a/secrets.tf b/secrets.tf
+index 8542b61..f432498 100644
+--- a/secrets.tf
++++ b/secrets.tf
+@@ -12,24 +12,11 @@ resource "aws_secretsmanager_secret" "webhook_signing" {
+   recovery_window_in_days = 30
+ }
+ 
+-resource "aws_secretsmanager_secret" "acme_partner_api" {
+-  name                    = "${var.app}/prod/acme-partner-api"
+-  description             = "OAuth client for the ACME wholesale API (legacy v1 integration)."
++resource "aws_secretsmanager_secret" "acme_partner_api_v2" {
++  name                    = "${var.app}/prod/acme-partner-api-v2"
++  description             = "OAuth client for the ACME wholesale API v2."
+   kms_key_id              = var.kms_key_arn
+-  recovery_window_in_days = 0
+-}
+-
+-resource "aws_secretsmanager_secret_version" "acme_partner_api" {
+-  secret_id = aws_secretsmanager_secret.acme_partner_api.id
+-  secret_string = jsonencode({
+-    client_id     = "REPLACE_ME"
+-    client_secret = "REPLACE_ME"
+-    token_url     = "https://auth.acme-wholesale.example/oauth2/token"
+-  })
+-
+-  lifecycle {
+-    ignore_changes = [secret_string]
+-  }
++  recovery_window_in_days = 30
+ }
+ 
+ resource "aws_secretsmanager_secret" "sftp_key" {
+diff --git a/sync.tf b/sync.tf
+index 396890d..4864d99 100644
+--- a/sync.tf
++++ b/sync.tf
+@@ -34,6 +34,6 @@ resource "aws_cloudwatch_event_target" "sync" {
+ 
+ resource "aws_cloudwatch_log_group" "gateway" {
+   name              = "/ecs/${var.app}"
+-  retention_in_days = 30
++  retention_in_days = 90
+   kms_key_id        = var.kms_key_arn
+ }
+diff --git a/terraform.tfvars b/terraform.tfvars
+index 498a8ed..7a8c9de 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -2,7 +2,7 @@ kms_key_arn = "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b
+ 
+ sync_jobs = {
+   catalog   = "cron(0 */4 * * ? *)"
+-  inventory = "rate(15 minutes)"
++  inventory = "rate(10 minutes)"
+   orders    = "rate(5 minutes)"
+   invoices  = "cron(30 2 * * ? *)"
+ }
+diff --git a/variables.tf b/variables.tf
+index 35ee498..4004a66 100644
+--- a/variables.tf
++++ b/variables.tf
+@@ -15,5 +15,5 @@ variable "sync_jobs" {
+ 
+ variable "queue_retention_seconds" {
+   type    = number
+-  default = 345600
++  default = 604800
+ }

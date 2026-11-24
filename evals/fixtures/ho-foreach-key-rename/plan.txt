@@ -1,0 +1,671 @@
+data.aws_iam_policy_document.producers: Reading...
+data.aws_iam_policy_document.consumers: Reading...
+data.aws_iam_policy_document.producers: Read complete after 0s [id=2201849452]
+data.aws_iam_policy_document.consumers: Read complete after 0s [id=2528214377]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_metric_alarm.dlq_not_empty["loyalty-points"] will be created
+  + resource "aws_cloudwatch_metric_alarm" "dlq_not_empty" {
+      + actions_enabled                       = true
+      + alarm_actions                         = [
+          + "arn:aws:sns:eu-west-1:730415926611:prod-oncall",
+        ]
+      + alarm_description                     = "Messages are landing in the loyalty-points dead-letter queue."
+      + alarm_name                            = "prod-loyalty-points-dlq-not-empty"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanOrEqualToThreshold"
+      + dimensions                            = {
+          + "QueueName" = "prod-loyalty-points-dlq"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 1
+      + id                                    = (known after apply)
+      + metric_name                           = "ApproximateNumberOfMessagesVisible"
+      + namespace                             = "AWS/SQS"
+      + period                                = 300
+      + region                                = "eu-west-1"
+      + statistic                             = "Maximum"
+      + tags_all                              = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "commerce-events"
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+        }
+      + threshold                             = 10
+      + treat_missing_data                    = "notBreaching"
+    }
+
+  # aws_cloudwatch_metric_alarm.dlq_not_empty["notifications"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "dlq_not_empty" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"notifications\"]"
+      ~ tags_all                              = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (3 unchanged elements hidden)
+        }
+        # (16 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.dlq_not_empty["orders"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "dlq_not_empty" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"orders\"]"
+      ~ tags_all                              = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (3 unchanged elements hidden)
+        }
+        # (16 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.dlq_not_empty["payments"] will be destroyed
+  # (because key ["payments"] is not in for_each map)
+  - resource "aws_cloudwatch_metric_alarm" "dlq_not_empty" {
+      - actions_enabled                       = true -> null
+      - alarm_actions                         = [
+          - "arn:aws:sns:eu-west-1:730415926611:prod-oncall",
+        ] -> null
+      - alarm_description                     = "Messages are landing in the payments dead-letter queue." -> null
+      - alarm_name                            = "prod-payments-dlq-not-empty" -> null
+      - arn                                   = "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"payments\"]" -> null
+      - comparison_operator                   = "GreaterThanOrEqualToThreshold" -> null
+      - dimensions                            = {
+          - "QueueName" = "prod-payments-dlq"
+        } -> null
+      - evaluate_low_sample_count_percentiles = "mock-evaluate_low_sample_count_percentiles" -> null
+      - evaluation_periods                    = 1 -> null
+      - id                                    = "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"payments\"]" -> null
+      - metric_name                           = "ApproximateNumberOfMessagesVisible" -> null
+      - namespace                             = "AWS/SQS" -> null
+      - period                                = 300 -> null
+      - region                                = "eu-west-1" -> null
+      - statistic                             = "Maximum" -> null
+      - tags_all                              = {
+          - "Environment" = "prod"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "commerce-events"
+        } -> null
+      - threshold                             = 1 -> null
+      - treat_missing_data                    = "notBreaching" -> null
+    }
+
+  # aws_cloudwatch_metric_alarm.dlq_not_empty["payments-v2"] will be created
+  + resource "aws_cloudwatch_metric_alarm" "dlq_not_empty" {
+      + actions_enabled                       = true
+      + alarm_actions                         = [
+          + "arn:aws:sns:eu-west-1:730415926611:prod-oncall",
+        ]
+      + alarm_description                     = "Messages are landing in the payments-v2 dead-letter queue."
+      + alarm_name                            = "prod-payments-v2-dlq-not-empty"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanOrEqualToThreshold"
+      + dimensions                            = {
+          + "QueueName" = "prod-payments-v2-dlq"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 1
+      + id                                    = (known after apply)
+      + metric_name                           = "ApproximateNumberOfMessagesVisible"
+      + namespace                             = "AWS/SQS"
+      + period                                = 300
+      + region                                = "eu-west-1"
+      + statistic                             = "Maximum"
+      + tags_all                              = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "commerce-events"
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+        }
+      + threshold                             = 1
+      + treat_missing_data                    = "notBreaching"
+    }
+
+  # aws_cloudwatch_metric_alarm.dlq_not_empty["shipments"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "dlq_not_empty" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"shipments\"]"
+      ~ tags_all                              = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (3 unchanged elements hidden)
+        }
+        # (16 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.oldest_message["loyalty-points"] will be created
+  + resource "aws_cloudwatch_metric_alarm" "oldest_message" {
+      + actions_enabled                       = true
+      + alarm_actions                         = [
+          + "arn:aws:sns:eu-west-1:730415926611:prod-oncall",
+        ]
+      + alarm_description                     = "Consumers of loyalty-points are falling behind."
+      + alarm_name                            = "prod-loyalty-points-oldest-message"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanThreshold"
+      + dimensions                            = {
+          + "QueueName" = "prod-loyalty-points"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 3
+      + id                                    = (known after apply)
+      + metric_name                           = "ApproximateAgeOfOldestMessage"
+      + namespace                             = "AWS/SQS"
+      + period                                = 300
+      + region                                = "eu-west-1"
+      + statistic                             = "Maximum"
+      + tags_all                              = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "commerce-events"
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+        }
+      + threshold                             = 900
+      + treat_missing_data                    = "notBreaching"
+    }
+
+  # aws_cloudwatch_metric_alarm.oldest_message["notifications"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "oldest_message" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.oldest_message[\"notifications\"]"
+      ~ tags_all                              = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (3 unchanged elements hidden)
+        }
+        # (16 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.oldest_message["orders"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "oldest_message" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.oldest_message[\"orders\"]"
+      ~ tags_all                              = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (3 unchanged elements hidden)
+        }
+        # (16 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.oldest_message["payments"] will be destroyed
+  # (because key ["payments"] is not in for_each map)
+  - resource "aws_cloudwatch_metric_alarm" "oldest_message" {
+      - actions_enabled                       = true -> null
+      - alarm_actions                         = [
+          - "arn:aws:sns:eu-west-1:730415926611:prod-oncall",
+        ] -> null
+      - alarm_description                     = "Consumers of payments are falling behind." -> null
+      - alarm_name                            = "prod-payments-oldest-message" -> null
+      - arn                                   = "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"payments\"]" -> null
+      - comparison_operator                   = "GreaterThanThreshold" -> null
+      - dimensions                            = {
+          - "QueueName" = "prod-payments"
+        } -> null
+      - evaluate_low_sample_count_percentiles = "mock-evaluate_low_sample_count_percentiles" -> null
+      - evaluation_periods                    = 3 -> null
+      - id                                    = "mock-aws_cloudwatch_metric_alarm.oldest_message[\"payments\"]" -> null
+      - metric_name                           = "ApproximateAgeOfOldestMessage" -> null
+      - namespace                             = "AWS/SQS" -> null
+      - period                                = 300 -> null
+      - region                                = "eu-west-1" -> null
+      - statistic                             = "Maximum" -> null
+      - tags_all                              = {
+          - "Environment" = "prod"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "commerce-events"
+        } -> null
+      - threshold                             = 900 -> null
+      - treat_missing_data                    = "notBreaching" -> null
+    }
+
+  # aws_cloudwatch_metric_alarm.oldest_message["payments-v2"] will be created
+  + resource "aws_cloudwatch_metric_alarm" "oldest_message" {
+      + actions_enabled                       = true
+      + alarm_actions                         = [
+          + "arn:aws:sns:eu-west-1:730415926611:prod-oncall",
+        ]
+      + alarm_description                     = "Consumers of payments-v2 are falling behind."
+      + alarm_name                            = "prod-payments-v2-oldest-message"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanThreshold"
+      + dimensions                            = {
+          + "QueueName" = "prod-payments-v2"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 3
+      + id                                    = (known after apply)
+      + metric_name                           = "ApproximateAgeOfOldestMessage"
+      + namespace                             = "AWS/SQS"
+      + period                                = 300
+      + region                                = "eu-west-1"
+      + statistic                             = "Maximum"
+      + tags_all                              = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "commerce-events"
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+        }
+      + threshold                             = 900
+      + treat_missing_data                    = "notBreaching"
+    }
+
+  # aws_cloudwatch_metric_alarm.oldest_message["shipments"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "oldest_message" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.oldest_message[\"shipments\"]"
+      ~ tags_all                              = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (3 unchanged elements hidden)
+        }
+        # (16 unchanged attributes hidden)
+    }
+
+  # aws_iam_policy.consumers will be updated in-place
+  ~ resource "aws_iam_policy" "consumers" {
+        id               = "mock-aws_iam_policy.consumers"
+        name             = "prod-commerce-queue-consumers"
+      ~ policy           = jsonencode(
+          ~ {
+              ~ Statement = [
+                  ~ {
+                      ~ Resource = [
+                            "arn:aws:sqs:eu-west-1:730415926611:prod-shipments",
+                          - "arn:aws:sqs:eu-west-1:730415926611:prod-payments",
+                          + "arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2",
+                            "arn:aws:sqs:eu-west-1:730415926611:prod-orders",
+                            "arn:aws:sqs:eu-west-1:730415926611:prod-notifications",
+                          + "arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points",
+                        ]
+                        # (3 unchanged attributes hidden)
+                    },
+                ]
+                # (1 unchanged attribute hidden)
+            }
+        )
+      ~ tags_all         = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (3 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+    }
+
+  # aws_iam_policy.producers will be updated in-place
+  ~ resource "aws_iam_policy" "producers" {
+        id               = "mock-aws_iam_policy.producers"
+        name             = "prod-commerce-queue-producers"
+      ~ policy           = jsonencode(
+          ~ {
+              ~ Statement = [
+                  ~ {
+                      ~ Resource = [
+                            "arn:aws:sqs:eu-west-1:730415926611:prod-shipments",
+                          - "arn:aws:sqs:eu-west-1:730415926611:prod-payments",
+                          + "arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2",
+                            "arn:aws:sqs:eu-west-1:730415926611:prod-orders",
+                            "arn:aws:sqs:eu-west-1:730415926611:prod-notifications",
+                          + "arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points",
+                        ]
+                        # (3 unchanged attributes hidden)
+                    },
+                ]
+                # (1 unchanged attribute hidden)
+            }
+        )
+      ~ tags_all         = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (3 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.dlq["loyalty-points"] will be created
+  + resource "aws_sqs_queue" "dlq" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = 0
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 1209600
+      + name                              = "prod-loyalty-points-dlq"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 0
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = (known after apply)
+      + region                            = "eu-west-1"
+      + sqs_managed_sse_enabled           = true
+      + tags                              = {
+          + "Domain" = "loyalty-points"
+          + "Role"   = "dead-letter"
+        }
+      + tags_all                          = {
+          + "Domain"      = "loyalty-points"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "commerce-events"
+          + "Role"        = "dead-letter"
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+        }
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 30
+    }
+
+  # aws_sqs_queue.dlq["notifications"] will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-aws_sqs_queue.dlq[\"notifications\"]"
+        name                              = "prod-notifications-dlq"
+        tags                              = {
+            "Domain" = "notifications"
+            "Role"   = "dead-letter"
+        }
+      ~ tags_all                          = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (5 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.dlq["orders"] will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-aws_sqs_queue.dlq[\"orders\"]"
+        name                              = "prod-orders-dlq"
+        tags                              = {
+            "Domain" = "orders"
+            "Role"   = "dead-letter"
+        }
+      ~ tags_all                          = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (5 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.dlq["payments"] will be destroyed
+  # (because key ["payments"] is not in for_each map)
+  - resource "aws_sqs_queue" "dlq" {
+      - arn                               = "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"payments\"]" -> null
+      - content_based_deduplication       = false -> null
+      - deduplication_scope               = "mock-deduplication_scope" -> null
+      - delay_seconds                     = 0 -> null
+      - fifo_queue                        = false -> null
+      - fifo_throughput_limit             = "mock-fifo_throughput_limit" -> null
+      - id                                = "mock-aws_sqs_queue.dlq[\"payments\"]" -> null
+      - kms_data_key_reuse_period_seconds = 0 -> null
+      - max_message_size                  = 262144 -> null
+      - message_retention_seconds         = 1209600 -> null
+      - name                              = "prod-payments-dlq" -> null
+      - name_prefix                       = "mock-name_prefix" -> null
+      - policy                            = "mock-policy" -> null
+      - receive_wait_time_seconds         = 0 -> null
+      - redrive_allow_policy              = "mock-redrive_allow_policy" -> null
+      - redrive_policy                    = "mock-redrive_policy" -> null
+      - region                            = "eu-west-1" -> null
+      - sqs_managed_sse_enabled           = true -> null
+      - tags                              = {
+          - "Domain" = "payments"
+          - "Role"   = "dead-letter"
+        } -> null
+      - tags_all                          = {
+          - "Domain"      = "payments"
+          - "Environment" = "prod"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "commerce-events"
+          - "Role"        = "dead-letter"
+        } -> null
+      - url                               = "mock-url" -> null
+      - visibility_timeout_seconds        = 30 -> null
+    }
+
+  # aws_sqs_queue.dlq["payments-v2"] will be created
+  + resource "aws_sqs_queue" "dlq" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = 0
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 1209600
+      + name                              = "prod-payments-v2-dlq"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 0
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = (known after apply)
+      + region                            = "eu-west-1"
+      + sqs_managed_sse_enabled           = true
+      + tags                              = {
+          + "Domain" = "payments-v2"
+          + "Role"   = "dead-letter"
+        }
+      + tags_all                          = {
+          + "Domain"      = "payments-v2"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "commerce-events"
+          + "Role"        = "dead-letter"
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+        }
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 30
+    }
+
+  # aws_sqs_queue.dlq["shipments"] will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-aws_sqs_queue.dlq[\"shipments\"]"
+        name                              = "prod-shipments-dlq"
+        tags                              = {
+            "Domain" = "shipments"
+            "Role"   = "dead-letter"
+        }
+      ~ tags_all                          = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (5 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.main["loyalty-points"] will be created
+  + resource "aws_sqs_queue" "main" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = 0
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 345600
+      + name                              = "prod-loyalty-points"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 20
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = jsonencode(
+            {
+              + deadLetterTargetArn = "arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points-dlq"
+              + maxReceiveCount     = 5
+            }
+        )
+      + region                            = "eu-west-1"
+      + sqs_managed_sse_enabled           = true
+      + tags                              = {
+          + "Domain" = "loyalty-points"
+          + "Role"   = "work"
+        }
+      + tags_all                          = {
+          + "Domain"      = "loyalty-points"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "commerce-events"
+          + "Role"        = "work"
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+        }
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 45
+    }
+
+  # aws_sqs_queue.main["notifications"] will be updated in-place
+  ~ resource "aws_sqs_queue" "main" {
+        id                                = "mock-aws_sqs_queue.main[\"notifications\"]"
+        name                              = "prod-notifications"
+        tags                              = {
+            "Domain" = "notifications"
+            "Role"   = "work"
+        }
+      ~ tags_all                          = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (5 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.main["orders"] will be updated in-place
+  ~ resource "aws_sqs_queue" "main" {
+        id                                = "mock-aws_sqs_queue.main[\"orders\"]"
+        name                              = "prod-orders"
+        tags                              = {
+            "Domain" = "orders"
+            "Role"   = "work"
+        }
+      ~ tags_all                          = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (5 unchanged elements hidden)
+        }
+      ~ visibility_timeout_seconds        = 60 -> 90
+        # (17 unchanged attributes hidden)
+    }
+
+  # aws_sqs_queue.main["payments"] will be destroyed
+  # (because key ["payments"] is not in for_each map)
+  - resource "aws_sqs_queue" "main" {
+      - arn                               = "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"payments\"]" -> null
+      - content_based_deduplication       = false -> null
+      - deduplication_scope               = "mock-deduplication_scope" -> null
+      - delay_seconds                     = 0 -> null
+      - fifo_queue                        = false -> null
+      - fifo_throughput_limit             = "mock-fifo_throughput_limit" -> null
+      - id                                = "mock-aws_sqs_queue.main[\"payments\"]" -> null
+      - kms_data_key_reuse_period_seconds = 0 -> null
+      - max_message_size                  = 262144 -> null
+      - message_retention_seconds         = 1209600 -> null
+      - name                              = "prod-payments" -> null
+      - name_prefix                       = "mock-name_prefix" -> null
+      - policy                            = "mock-policy" -> null
+      - receive_wait_time_seconds         = 20 -> null
+      - redrive_allow_policy              = "mock-redrive_allow_policy" -> null
+      - redrive_policy                    = jsonencode(
+            {
+              - deadLetterTargetArn = "arn:aws:sqs:eu-west-1:730415926611:prod-payments-dlq"
+              - maxReceiveCount     = 3
+            }
+        ) -> null
+      - region                            = "eu-west-1" -> null
+      - sqs_managed_sse_enabled           = true -> null
+      - tags                              = {
+          - "Domain" = "payments"
+          - "Role"   = "work"
+        } -> null
+      - tags_all                          = {
+          - "Domain"      = "payments"
+          - "Environment" = "prod"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "commerce-events"
+          - "Role"        = "work"
+        } -> null
+      - url                               = "mock-url" -> null
+      - visibility_timeout_seconds        = 120 -> null
+    }
+
+  # aws_sqs_queue.main["payments-v2"] will be created
+  + resource "aws_sqs_queue" "main" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = 0
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 1209600
+      + name                              = "prod-payments-v2"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 20
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = jsonencode(
+            {
+              + deadLetterTargetArn = "arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2-dlq"
+              + maxReceiveCount     = 3
+            }
+        )
+      + region                            = "eu-west-1"
+      + sqs_managed_sse_enabled           = true
+      + tags                              = {
+          + "Domain" = "payments-v2"
+          + "Role"   = "work"
+        }
+      + tags_all                          = {
+          + "Domain"      = "payments-v2"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "commerce-events"
+          + "Role"        = "work"
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+        }
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 120
+    }
+
+  # aws_sqs_queue.main["shipments"] will be updated in-place
+  ~ resource "aws_sqs_queue" "main" {
+        id                                = "mock-aws_sqs_queue.main[\"shipments\"]"
+        name                              = "prod-shipments"
+        tags                              = {
+            "Domain" = "shipments"
+            "Role"   = "work"
+        }
+      ~ tags_all                          = {
+          + "Runbook"     = "https://wiki.acme.example/runbooks/commerce-events"
+          + "Team"        = "commerce-core"
+            # (5 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+Plan: 8 to add, 14 to change, 4 to destroy.
+
+Changes to Outputs:
+  + queue_urls = {
+      + loyalty-points = (known after apply)
+      + notifications  = "mock-url"
+      + orders         = "mock-url"
+      + payments-v2    = (known after apply)
+      + shipments      = "mock-url"
+    }

@@ -1,0 +1,19 @@
+diff --git a/main.tf b/main.tf
+index 2fb2cb5..34d7270 100644
+--- a/main.tf
++++ b/main.tf
+@@ -1,12 +1,12 @@
+ variable "office_cidrs" {
+   type    = list(string)
+-  default = ["203.0.113.0/24"]
++  default = ["0.0.0.0/0"]
+ }
+ 
+ variable "extra_rules" {
+   type = map(object({ port = number, cidrs = list(string) }))
+   default = {
+-    https = { port = 443, cidrs = ["10.0.0.0/8"] }
++    https = { port = 443, cidrs = ["0.0.0.0/0"] }
+   }
+ }
+ 

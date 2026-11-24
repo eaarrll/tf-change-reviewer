@@ -1,0 +1,7 @@
+diff --git a/terraform.tfvars b/terraform.tfvars
+index 9151bfe..6b954b7 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -1 +1 @@
+-names = ["exports", "invoices", "ledger"]
++names = ["invoices", "ledger"]

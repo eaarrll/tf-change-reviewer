@@ -1,0 +1,507 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_dashboard.ledger_db will be created
+  + resource "aws_cloudwatch_dashboard" "ledger_db" {
+      + dashboard_arn  = (known after apply)
+      + dashboard_body = jsonencode(
+            {
+              + widgets = [
+                  + {
+                      + height     = 6
+                      + properties = {
+                          + annotations = {
+                              + horizontal = [
+                                  + {
+                                      + label = "alarm"
+                                      + value = 450
+                                    },
+                                ]
+                            }
+                          + metrics     = [
+                              + [
+                                  + "AWS/RDS",
+                                  + "DatabaseConnections",
+                                  + "DBInstanceIdentifier",
+                                  + "ledger-prod",
+                                ],
+                            ]
+                          + period      = 300
+                          + region      = "eu-west-1"
+                          + stat        = "Maximum"
+                          + title       = "connections high"
+                        }
+                      + type       = "metric"
+                      + width      = 8
+                      + x          = 0
+                      + y          = 0
+                    },
+                  + {
+                      + height     = 6
+                      + properties = {
+                          + annotations = {
+                              + horizontal = [
+                                  + {
+                                      + label = "alarm"
+                                      + value = 75
+                                    },
+                                ]
+                            }
+                          + metrics     = [
+                              + [
+                                  + "AWS/RDS",
+                                  + "CPUUtilization",
+                                  + "DBInstanceIdentifier",
+                                  + "ledger-prod",
+                                ],
+                            ]
+                          + period      = 300
+                          + region      = "eu-west-1"
+                          + stat        = "Average"
+                          + title       = "cpu high"
+                        }
+                      + type       = "metric"
+                      + width      = 8
+                      + x          = 8
+                      + y          = 0
+                    },
+                  + {
+                      + height     = 6
+                      + properties = {
+                          + annotations = {
+                              + horizontal = [
+                                  + {
+                                      + label = "alarm"
+                                      + value = 64
+                                    },
+                                ]
+                            }
+                          + metrics     = [
+                              + [
+                                  + "AWS/RDS",
+                                  + "DiskQueueDepth",
+                                  + "DBInstanceIdentifier",
+                                  + "ledger-prod",
+                                ],
+                            ]
+                          + period      = 300
+                          + region      = "eu-west-1"
+                          + stat        = "Average"
+                          + title       = "disk queue depth"
+                        }
+                      + type       = "metric"
+                      + width      = 8
+                      + x          = 16
+                      + y          = 0
+                    },
+                  + {
+                      + height     = 6
+                      + properties = {
+                          + annotations = {
+                              + horizontal = [
+                                  + {
+                                      + label = "alarm"
+                                      + value = 21474836480
+                                    },
+                                ]
+                            }
+                          + metrics     = [
+                              + [
+                                  + "AWS/RDS",
+                                  + "FreeStorageSpace",
+                                  + "DBInstanceIdentifier",
+                                  + "ledger-prod",
+                                ],
+                            ]
+                          + period      = 300
+                          + region      = "eu-west-1"
+                          + stat        = "Minimum"
+                          + title       = "free storage low"
+                        }
+                      + type       = "metric"
+                      + width      = 8
+                      + x          = 0
+                      + y          = 6
+                    },
+                  + {
+                      + height     = 6
+                      + properties = {
+                          + annotations = {
+                              + horizontal = [
+                                  + {
+                                      + label = "alarm"
+                                      + value = 0.02
+                                    },
+                                ]
+                            }
+                          + metrics     = [
+                              + [
+                                  + "AWS/RDS",
+                                  + "ReadLatency",
+                                  + "DBInstanceIdentifier",
+                                  + "ledger-prod",
+                                ],
+                            ]
+                          + period      = 300
+                          + region      = "eu-west-1"
+                          + stat        = "Average"
+                          + title       = "read latency"
+                        }
+                      + type       = "metric"
+                      + width      = 8
+                      + x          = 8
+                      + y          = 6
+                    },
+                  + {
+                      + height     = 6
+                      + properties = {
+                          + annotations = {
+                              + horizontal = [
+                                  + {
+                                      + label = "alarm"
+                                      + value = 0.04
+                                    },
+                                ]
+                            }
+                          + metrics     = [
+                              + [
+                                  + "AWS/RDS",
+                                  + "WriteLatency",
+                                  + "DBInstanceIdentifier",
+                                  + "ledger-prod",
+                                ],
+                            ]
+                          + period      = 300
+                          + region      = "eu-west-1"
+                          + stat        = "Average"
+                          + title       = "write latency"
+                        }
+                      + type       = "metric"
+                      + width      = 8
+                      + x          = 16
+                      + y          = 6
+                    },
+                ]
+            }
+        )
+      + dashboard_name = "ledger-prod-db"
+      + id             = (known after apply)
+      + region         = "eu-west-1"
+    }
+
+  # aws_cloudwatch_log_group.rds["error"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "rds" {
+        id                          = "mock-aws_cloudwatch_log_group.rds[\"error\"]"
+        name                        = "/aws/rds/instance/ledger-prod/error"
+      + tags                        = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all                    = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_log_group.rds["slowquery"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "rds" {
+        id                          = "mock-aws_cloudwatch_log_group.rds[\"slowquery\"]"
+        name                        = "/aws/rds/instance/ledger-prod/slowquery"
+      + tags                        = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all                    = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.db["connections_high"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "db" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.db[\"connections_high\"]"
+      + tags                                  = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all                              = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+      ~ threshold                             = 400 -> 450
+        # (15 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.db["cpu_high"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "db" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.db[\"cpu_high\"]"
+      + tags                                  = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all                              = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+      ~ threshold                             = 80 -> 75
+        # (15 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.db["disk_queue_depth"] will be created
+  + resource "aws_cloudwatch_metric_alarm" "db" {
+      + actions_enabled                       = true
+      + alarm_actions                         = [
+          + "arn:aws:sns:eu-west-1:210987654321:ops-pager",
+        ]
+      + alarm_name                            = "ledger-prod-db-disk-queue-depth"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanThreshold"
+      + dimensions                            = {
+          + "DBInstanceIdentifier" = "ledger-prod"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 3
+      + id                                    = (known after apply)
+      + metric_name                           = "DiskQueueDepth"
+      + namespace                             = "AWS/RDS"
+      + ok_actions                            = [
+          + "arn:aws:sns:eu-west-1:210987654321:ops-pager",
+        ]
+      + period                                = 300
+      + region                                = "eu-west-1"
+      + statistic                             = "Average"
+      + tags                                  = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      + tags_all                              = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "data-platform"
+          + "Stack"       = "ledger-db"
+        }
+      + threshold                             = 64
+      + treat_missing_data                    = "missing"
+    }
+
+  # aws_cloudwatch_metric_alarm.db["free_storage_low"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "db" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.db[\"free_storage_low\"]"
+      + tags                                  = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all                              = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+      ~ threshold                             = 10737418240 -> 21474836480
+        # (15 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.db["read_latency"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "db" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.db[\"read_latency\"]"
+      + tags                                  = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all                              = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+        # (16 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.db["write_latency"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "db" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.db[\"write_latency\"]"
+      + tags                                  = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all                              = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+      ~ threshold                             = 0.05 -> 0.04
+        # (15 unchanged attributes hidden)
+    }
+
+  # aws_db_event_subscription.ledger will be updated in-place
+  ~ resource "aws_db_event_subscription" "ledger" {
+        id               = "mock-aws_db_event_subscription.ledger"
+        name             = "ledger-prod-db-events"
+      + tags             = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all         = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # aws_db_instance.ledger must be replaced
+-/+ resource "aws_db_instance" "ledger" {
+      ~ address                               = "mock-address" -> (known after apply)
+      ~ arn                                   = "arn:aws:mock:eu-west-1:123456789012:aws_db_instance.ledger" -> (known after apply)
+      ~ availability_zone                     = "mock-availability_zone" -> (known after apply)
+      ~ backup_retention_period               = 14 -> 21
+      ~ backup_target                         = "mock-backup_target" -> (known after apply)
+      ~ backup_window                         = "mock-backup_window" -> (known after apply)
+      ~ ca_cert_identifier                    = "mock-ca_cert_identifier" -> (known after apply)
+      ~ character_set_name                    = "mock-character_set_name" -> (known after apply)
+      ~ database_insights_mode                = "mock-database_insights_mode" -> (known after apply)
+      ~ domain_fqdn                           = "mock-domain_fqdn" -> (known after apply)
+      ~ endpoint                              = "mock-endpoint" -> (known after apply)
+      ~ engine_lifecycle_support              = "mock-engine_lifecycle_support" -> (known after apply)
+      ~ engine_version_actual                 = "mock-engine_version_actual" -> (known after apply)
+      ~ hosted_zone_id                        = "mock-hosted_zone_id" -> (known after apply)
+      ~ id                                    = "mock-aws_db_instance.ledger" -> (known after apply)
+      ~ identifier_prefix                     = "mock-identifier_prefix" -> (known after apply)
+      ~ kms_key_id                            = "arn:aws:kms:eu-west-1:210987654321:key/3f1c9a2e-7b44-4d8e-9a61-5c2d8e0f4b17" -> "arn:aws:kms:eu-west-1:210987654321:key/mrk-8d2f4c61a9b04e7f8c3d2e1f0a9b8c7d" # forces replacement
+      ~ latest_restorable_time                = "mock-latest_restorable_time" -> (known after apply)
+      ~ license_model                         = "mock-license_model" -> (known after apply)
+      ~ listener_endpoint                     = [] -> (known after apply)
+      ~ maintenance_window                    = "mock-maintenance_window" -> (known after apply)
+      ~ master_user_secret                    = [] -> (known after apply)
+      ~ master_user_secret_kms_key_id         = "mock-master_user_secret_kms_key_id" -> (known after apply)
+      ~ monitoring_role_arn                   = "mock-monitoring_role_arn" -> (known after apply)
+      ~ multi_tenant                          = false -> (known after apply)
+      ~ nchar_character_set_name              = "mock-nchar_character_set_name" -> (known after apply)
+      ~ network_type                          = "mock-network_type" -> (known after apply)
+      ~ option_group_name                     = "mock-option_group_name" -> (known after apply)
+      ~ performance_insights_kms_key_id       = "mock-performance_insights_kms_key_id" -> (known after apply)
+      ~ performance_insights_retention_period = 0 -> (known after apply)
+      ~ port                                  = 0 -> (known after apply)
+      ~ replica_mode                          = "mock-replica_mode" -> (known after apply)
+      ~ replicas                              = [] -> (known after apply)
+      ~ resource_id                           = "mock-resource_id" -> (known after apply)
+      + snapshot_identifier                   = (known after apply)
+      ~ status                                = "mock-status" -> (known after apply)
+      ~ storage_throughput                    = 0 -> (known after apply)
+      ~ timezone                              = "mock-timezone" -> (known after apply)
+      ~ upgrade_rollout_order                 = "mock-upgrade_rollout_order" -> (known after apply)
+        # (29 unchanged attributes hidden)
+    }
+
+  # aws_s3_bucket.exports will be updated in-place
+  ~ resource "aws_s3_bucket" "exports" {
+        id                          = "mock-aws_s3_bucket.exports"
+      + tags                        = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all                    = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+        # (17 unchanged attributes hidden)
+    }
+
+  # aws_ssm_parameter.client["database"] will be updated in-place
+  ~ resource "aws_ssm_parameter" "client" {
+        id             = "mock-aws_ssm_parameter.client[\"database\"]"
+        name           = "/ledger/prod/db/database"
+      + tags           = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all       = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # aws_ssm_parameter.client["host"] will be updated in-place
+  ~ resource "aws_ssm_parameter" "client" {
+        id             = "mock-aws_ssm_parameter.client[\"host\"]"
+        name           = "/ledger/prod/db/host"
+      + tags           = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all       = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+      ~ value          = (sensitive value)
+      ~ version        = 0 -> (known after apply)
+        # (8 unchanged attributes hidden)
+    }
+
+  # aws_ssm_parameter.client["pool_max"] will be updated in-place
+  ~ resource "aws_ssm_parameter" "client" {
+        id             = "mock-aws_ssm_parameter.client[\"pool_max\"]"
+        name           = "/ledger/prod/db/pool_max"
+      + tags           = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all       = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # aws_ssm_parameter.client["port"] will be updated in-place
+  ~ resource "aws_ssm_parameter" "client" {
+        id             = "mock-aws_ssm_parameter.client[\"port\"]"
+        name           = "/ledger/prod/db/port"
+      + tags           = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all       = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+      ~ value          = (sensitive value)
+      ~ version        = 0 -> (known after apply)
+        # (8 unchanged attributes hidden)
+    }
+
+  # aws_ssm_parameter.client["tls_mode"] will be updated in-place
+  ~ resource "aws_ssm_parameter" "client" {
+        id             = "mock-aws_ssm_parameter.client[\"tls_mode\"]"
+        name           = "/ledger/prod/db/tls_mode"
+      + tags           = {
+          + "Compliance" = "sox"
+          + "CostCenter" = "fin-ledger-0420"
+        }
+      ~ tags_all       = {
+          + "Compliance"  = "sox"
+          + "CostCenter"  = "fin-ledger-0420"
+            # (4 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+Plan: 3 to add, 14 to change, 1 to destroy.

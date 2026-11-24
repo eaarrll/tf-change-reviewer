@@ -1,0 +1,11 @@
+diff --git a/modules/app/main.tf b/modules/app/main.tf
+index b4194d9..8a7eff7 100644
+--- a/modules/app/main.tf
++++ b/modules/app/main.tf
+@@ -4,5 +4,5 @@ variable "bucket_name" {
+ 
+ module "store" {
+   source = "../store"
+-  name   = var.bucket_name
++  name   = "${var.bucket_name}-v2"
+ }

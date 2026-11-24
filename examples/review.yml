@@ -1,0 +1,49 @@
+# Review every pull request that changes Terraform: plan, then let tf-change-reviewer post one
+# sticky comment with the changes that need attention and the PR lines that cause them.
+name: Terraform review
+
+on:
+  pull_request:
+    paths: ["infra/**"]
+
+permissions:
+  contents: read # read the checkout
+  pull-requests: write # post / update the review comment
+  # id-token: write          # if your cloud credentials use OIDC
+
+# One review at a time per PR, so two pushes cannot race to create two comments.
+concurrency:
+  group: tf-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15 # above the action's timeout-minutes plus plan time
+    defaults:
+      run:
+        working-directory: infra
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The PR head (not the merge commit), with history so `git diff base...head` works.
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false # the wrapper adds log lines to stdout and breaks the JSON
+
+      # Your usual credentials step goes here (e.g. aws-actions/configure-aws-credentials).
+
+      - run: terraform init -input=false
+      - run: terraform plan -input=false -lock=false -out=plan.out
+      - run: terraform show -json plan.out > plan.json
+
+      - uses: eaarrll/tf-change-reviewer@v0
+        with:
+          plan-json: infra/plan.json # repo-relative; the root module dir defaults to infra/
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }} # optional: rules-only without it
+          # fail-on: critical
+          # extra-instructions: |
+          #   infra/ is production. Anything named *-scratch is disposable.

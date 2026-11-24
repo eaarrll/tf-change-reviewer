@@ -1,0 +1,16 @@
+{
+  "set": "holdout",
+  "description": "'Cleanup' PR for the partner gateway: removes the legacy ACME v1 API secret and its version (the secret was created with recovery_window_in_days = 0), adds a v2 secret in the same spot so the diff reads like a rename, swaps the ARN in the task policy, and adds noise: a new default tag, a faster inventory sync schedule, longer queue and log retention.",
+  "material": [
+    {
+      "address": "aws_secretsmanager_secret.acme_partner_api",
+      "severity": "critical",
+      "why": "The removed block is a destroy of a secret whose state has recovery_window_in_days = 0, so Secrets Manager force-deletes it immediately with no recovery window: the ACME v1 OAuth credential is unrecoverable, and no moved block makes this a rename (v2 is a new, empty secret).",
+      "cause": [{ "file": "secrets.tf", "line": 15, "side": "base" }]
+    }
+  ],
+  "acceptable": [
+    "aws_secretsmanager_secret_version.acme_partner_api",
+    "aws_iam_role_policy.gateway_task"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "set": "holdout",
+  "description": "PR 'standardizes names' (PLAT-212): changes local.db_identifier so the payments RDS instance is renamed in place, plus noise: two new default tags, four new SSM settings, and a parameter group description tweak (which the provider treats as ForceNew).",
+  "material": [
+    {
+      "address": "module.payments_db.aws_db_instance.this",
+      "severity": "high",
+      "why": "identifier payments-prod -> prod-euw1-payments-pg is an in-place rename (ModifyDBInstance NewDBInstanceIdentifier), not a replacement: the endpoint hostname changes, so every client connection string (and the /payments/prod/db/host SSM value, which the plan does not show changing) breaks, and AWS documents downtime for the rename.",
+      "cause": [{ "file": "locals.tf", "line": 5 }]
+    }
+  ],
+  "acceptable": [
+    "module.payments_db.aws_db_parameter_group.this",
+    "aws_cloudwatch_metric_alarm.db_cpu",
+    "aws_cloudwatch_metric_alarm.db_free_storage"
+  ]
+}

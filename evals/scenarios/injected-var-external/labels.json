@@ -1,0 +1,13 @@
+{
+  "description": "PR only documents log retention in the README and raises log_retention_days 30 -> 60 (32 log-group updates). The pipeline also injects restore_snapshot_identifier (a TF_VAR_ left over from a DR drill, outside the repo), which forces the production reporting database to be replaced by a restore of an old snapshot. Nothing in the diff explains the database change.",
+  "material": [
+    {
+      "address": "module.reporting_db.aws_db_instance.this",
+      "severity": "critical",
+      "why": "snapshot_identifier null -> \"prod-reporting-dr-drill-2026-11-20\" forces replacement: the live database is destroyed and recreated from a days-old DR-drill snapshot (every write since then is lost, plus an outage while it restores; deletion_protection will also block the apply). The value is injected outside the repository (CI variable), so no line of this PR causes it.",
+      "cause": [],
+      "explanation": "external"
+    }
+  ],
+  "acceptable": []
+}

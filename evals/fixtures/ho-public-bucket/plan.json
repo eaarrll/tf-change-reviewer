@@ -1,0 +1,6535 @@
+{
+ "format_version": "1.2",
+ "terraform_version": "1.10.5",
+ "variables": {
+  "access_log_bucket_name": {
+   "value": "acme-storefront-access-logs-prod"
+  },
+  "access_log_expiry_days": {
+   "value": 400
+  },
+  "account_id": {
+   "value": "583920174466"
+  },
+  "app_log_retention_days": {
+   "value": 60
+  },
+  "asset_noncurrent_days": {
+   "value": 14
+  },
+  "customer_export_expiry_days": {
+   "value": 90
+  },
+  "environment": {
+   "value": "prod"
+  },
+  "services": {
+   "value": {
+    "account-api": {
+     "log_level": "info"
+    },
+    "cart-api": {
+     "log_level": "info",
+     "session_ttl": "3600"
+    },
+    "catalog-api": {
+     "log_level": "warn",
+     "page_size": "48"
+    },
+    "checkout-api": {
+     "log_level": "info",
+     "payment_timeout": "20"
+    },
+    "image-resizer": {
+     "log_level": "info",
+     "max_width": "2048"
+    },
+    "reporting-job": {
+     "export_prefix": "exports/customers/",
+     "log_level": "info"
+    },
+    "search-api": {
+     "log_level": "info",
+     "max_results": "200"
+    },
+    "web-frontend": {
+     "assets_base_url": "https://acme-storefront-static-prod.s3.eu-west-1.amazonaws.com/assets",
+     "log_level": "info"
+    }
+   }
+  },
+  "static_bucket_name": {
+   "value": "acme-storefront-static-prod"
+  }
+ },
+ "planned_values": {
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_cloudwatch_log_group.customer_export",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "customer_export",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.customer_export",
+      "deletion_protection_enabled": false,
+      "id": "mock-aws_cloudwatch_log_group.customer_export",
+      "kms_key_id": null,
+      "log_group_class": "mock-log_group_class",
+      "name": "/storefront/prod/customer-export",
+      "name_prefix": "mock-name_prefix",
+      "region": "eu-west-1",
+      "retention_in_days": 60,
+      "skip_destroy": false,
+      "tags": null,
+      "tags_all": {
+       "CostCenter": "cc-3310",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "storefront-web",
+       "Project": "storefront-web"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_log_group.web_deploy",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "web_deploy",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.web_deploy",
+      "deletion_protection_enabled": false,
+      "id": "mock-aws_cloudwatch_log_group.web_deploy",
+      "kms_key_id": null,
+      "log_group_class": "mock-log_group_class",
+      "name": "/storefront/prod/web-deploy",
+      "name_prefix": "mock-name_prefix",
+      "region": "eu-west-1",
+      "retention_in_days": 60,
+      "skip_destroy": false,
+      "tags": null,
+      "tags_all": {
+       "CostCenter": "cc-3310",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "storefront-web",
+       "Project": "storefront-web"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_iam_role.customer_export",
+     "mode": "managed",
+     "type": "aws_iam_role",
+     "name": "customer_export",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.customer_export",
+      "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+      "create_date": "mock-create_date",
+      "description": null,
+      "force_detach_policies": false,
+      "id": "mock-aws_iam_role.customer_export",
+      "inline_policy": [],
+      "managed_policy_arns": [],
+      "max_session_duration": 3600,
+      "name": "storefront-customer-export-prod",
+      "name_prefix": "mock-name_prefix",
+      "path": "/",
+      "permissions_boundary": null,
+      "tags": null,
+      "tags_all": {
+       "CostCenter": "cc-3310",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "storefront-web",
+       "Project": "storefront-web"
+      },
+      "unique_id": "mock-unique_id"
+     },
+     "sensitive_values": {
+      "inline_policy": [],
+      "managed_policy_arns": [],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_iam_role.web_deployer",
+     "mode": "managed",
+     "type": "aws_iam_role",
+     "name": "web_deployer",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.web_deployer",
+      "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::583920174466:role/ci-runner\"}}],\"Version\":\"2012-10-17\"}",
+      "create_date": "mock-create_date",
+      "description": null,
+      "force_detach_policies": false,
+      "id": "mock-aws_iam_role.web_deployer",
+      "inline_policy": [],
+      "managed_policy_arns": [],
+      "max_session_duration": 3600,
+      "name": "storefront-web-deployer-prod",
+      "name_prefix": "mock-name_prefix",
+      "path": "/",
+      "permissions_boundary": null,
+      "tags": null,
+      "tags_all": {
+       "CostCenter": "cc-3310",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "storefront-web",
+       "Project": "storefront-web"
+      },
+      "unique_id": "mock-unique_id"
+     },
+     "sensitive_values": {
+      "inline_policy": [],
+      "managed_policy_arns": [],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_iam_role_policy.customer_export",
+     "mode": "managed",
+     "type": "aws_iam_role_policy",
+     "name": "customer_export",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "id": "mock-aws_iam_role_policy.customer_export",
+      "name": "write-customer-exports",
+      "name_prefix": "mock-name_prefix",
+      "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":\"s3:PutObject\",\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/exports/customers/*\"}]}",
+      "role": "mock-aws_iam_role.customer_export"
+     },
+     "sensitive_values": {}
+    },
+    {
+     "address": "aws_iam_role_policy.web_deployer",
+     "mode": "managed",
+     "type": "aws_iam_role_policy",
+     "name": "web_deployer",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "id": "mock-aws_iam_role_policy.web_deployer",
+      "name": "upload-assets",
+      "name_prefix": "mock-name_prefix",
+      "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"s3:PutObject\",\"s3:DeleteObject\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/assets/*\"},{\"Action\":\"s3:ListBucket\",\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod\"}]}",
+      "role": "mock-aws_iam_role.web_deployer"
+     },
+     "sensitive_values": {}
+    },
+    {
+     "address": "aws_s3_bucket.access_logs",
+     "mode": "managed",
+     "type": "aws_s3_bucket",
+     "name": "access_logs",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "acceleration_status": "mock-acceleration_status",
+      "acl": "mock-acl",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.access_logs",
+      "bucket": "acme-storefront-access-logs-prod",
+      "bucket_domain_name": "mock-bucket_domain_name",
+      "bucket_namespace": "mock-bucket_namespace",
+      "bucket_prefix": "mock-bucket_prefix",
+      "bucket_region": "mock-bucket_region",
+      "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+      "cors_rule": [],
+      "force_destroy": false,
+      "grant": [],
+      "hosted_zone_id": "mock-hosted_zone_id",
+      "id": "mock-aws_s3_bucket.access_logs",
+      "lifecycle_rule": [],
+      "logging": [],
+      "object_lock_configuration": [],
+      "object_lock_enabled": false,
+      "policy": "mock-policy",
+      "region": "eu-west-1",
+      "replication_configuration": [],
+      "request_payer": "mock-request_payer",
+      "server_side_encryption_configuration": [],
+      "tags": null,
+      "tags_all": {
+       "CostCenter": "cc-3310",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "storefront-web",
+       "Project": "storefront-web"
+      },
+      "timeouts": null,
+      "versioning": [],
+      "website": [],
+      "website_domain": "mock-website_domain",
+      "website_endpoint": "mock-website_endpoint"
+     },
+     "sensitive_values": {
+      "cors_rule": [],
+      "grant": [],
+      "lifecycle_rule": [],
+      "logging": [],
+      "object_lock_configuration": [],
+      "replication_configuration": [],
+      "server_side_encryption_configuration": [],
+      "tags_all": {},
+      "versioning": [],
+      "website": []
+     }
+    },
+    {
+     "address": "aws_s3_bucket.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket",
+     "name": "static",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "acceleration_status": "mock-acceleration_status",
+      "acl": "mock-acl",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.static",
+      "bucket": "acme-storefront-static-prod",
+      "bucket_domain_name": "mock-bucket_domain_name",
+      "bucket_namespace": "mock-bucket_namespace",
+      "bucket_prefix": "mock-bucket_prefix",
+      "bucket_region": "mock-bucket_region",
+      "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+      "cors_rule": [],
+      "force_destroy": false,
+      "grant": [],
+      "hosted_zone_id": "mock-hosted_zone_id",
+      "id": "mock-aws_s3_bucket.static",
+      "lifecycle_rule": [],
+      "logging": [],
+      "object_lock_configuration": [],
+      "object_lock_enabled": false,
+      "policy": "mock-policy",
+      "region": "eu-west-1",
+      "replication_configuration": [],
+      "request_payer": "mock-request_payer",
+      "server_side_encryption_configuration": [],
+      "tags": {
+       "Contents": "web-assets,customer-exports"
+      },
+      "tags_all": {
+       "Contents": "web-assets,customer-exports",
+       "CostCenter": "cc-3310",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "storefront-web",
+       "Project": "storefront-web"
+      },
+      "timeouts": null,
+      "versioning": [],
+      "website": [],
+      "website_domain": "mock-website_domain",
+      "website_endpoint": "mock-website_endpoint"
+     },
+     "sensitive_values": {
+      "cors_rule": [],
+      "grant": [],
+      "lifecycle_rule": [],
+      "logging": [],
+      "object_lock_configuration": [],
+      "replication_configuration": [],
+      "server_side_encryption_configuration": [],
+      "tags": {},
+      "tags_all": {},
+      "versioning": [],
+      "website": []
+     }
+    },
+    {
+     "address": "aws_s3_bucket_cors_configuration.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_cors_configuration",
+     "name": "static",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "bucket": "acme-storefront-static-prod",
+      "cors_rule": [
+       {
+        "allowed_headers": [
+         "*"
+        ],
+        "allowed_methods": [
+         "GET",
+         "HEAD"
+        ],
+        "allowed_origins": [
+         "https://m.acme-storefront.example",
+         "https://www.acme-storefront.example"
+        ],
+        "expose_headers": [],
+        "id": "",
+        "max_age_seconds": 3600
+       }
+      ],
+      "expected_bucket_owner": null,
+      "region": "eu-west-1"
+     },
+     "sensitive_values": {
+      "cors_rule": [
+       {
+        "allowed_headers": [
+         false
+        ],
+        "allowed_methods": [
+         false,
+         false
+        ],
+        "allowed_origins": [
+         false,
+         false
+        ],
+        "expose_headers": []
+       }
+      ]
+     }
+    },
+    {
+     "address": "aws_s3_bucket_lifecycle_configuration.access_logs",
+     "mode": "managed",
+     "type": "aws_s3_bucket_lifecycle_configuration",
+     "name": "access_logs",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "bucket": "acme-storefront-access-logs-prod",
+      "expected_bucket_owner": "mock-expected_bucket_owner",
+      "id": "mock-aws_s3_bucket_lifecycle_configuration.access_logs",
+      "region": "eu-west-1",
+      "rule": [
+       {
+        "abort_incomplete_multipart_upload": [],
+        "expiration": [
+         {
+          "date": null,
+          "days": 400,
+          "expired_object_delete_marker": false
+         }
+        ],
+        "filter": [
+         {
+          "and": [],
+          "object_size_greater_than": null,
+          "object_size_less_than": null,
+          "prefix": "",
+          "tag": []
+         }
+        ],
+        "id": "expire-access-logs",
+        "noncurrent_version_expiration": [],
+        "noncurrent_version_transition": [],
+        "prefix": "",
+        "status": "Enabled",
+        "transition": [
+         {
+          "date": null,
+          "days": 30,
+          "storage_class": "STANDARD_IA"
+         }
+        ]
+       }
+      ],
+      "timeouts": null,
+      "transition_default_minimum_object_size": "all_storage_classes_128K"
+     },
+     "sensitive_values": {
+      "rule": [
+       {
+        "abort_incomplete_multipart_upload": [],
+        "expiration": [
+         {}
+        ],
+        "filter": [
+         {
+          "and": [],
+          "tag": []
+         }
+        ],
+        "noncurrent_version_expiration": [],
+        "noncurrent_version_transition": [],
+        "transition": [
+         {}
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "address": "aws_s3_bucket_lifecycle_configuration.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_lifecycle_configuration",
+     "name": "static",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "bucket": "acme-storefront-static-prod",
+      "expected_bucket_owner": "mock-expected_bucket_owner",
+      "id": "mock-aws_s3_bucket_lifecycle_configuration.static",
+      "region": "eu-west-1",
+      "rule": [
+       {
+        "abort_incomplete_multipart_upload": [],
+        "expiration": [],
+        "filter": [
+         {
+          "and": [],
+          "object_size_greater_than": null,
+          "object_size_less_than": null,
+          "prefix": "assets/",
+          "tag": []
+         }
+        ],
+        "id": "expire-old-asset-versions",
+        "noncurrent_version_expiration": [
+         {
+          "newer_noncurrent_versions": null,
+          "noncurrent_days": 14
+         }
+        ],
+        "noncurrent_version_transition": [],
+        "prefix": "",
+        "status": "Enabled",
+        "transition": []
+       },
+       {
+        "abort_incomplete_multipart_upload": [],
+        "expiration": [
+         {
+          "date": null,
+          "days": 90,
+          "expired_object_delete_marker": false
+         }
+        ],
+        "filter": [
+         {
+          "and": [],
+          "object_size_greater_than": null,
+          "object_size_less_than": null,
+          "prefix": "exports/customers/",
+          "tag": []
+         }
+        ],
+        "id": "expire-customer-exports",
+        "noncurrent_version_expiration": [
+         {
+          "newer_noncurrent_versions": null,
+          "noncurrent_days": 7
+         }
+        ],
+        "noncurrent_version_transition": [],
+        "prefix": "",
+        "status": "Enabled",
+        "transition": []
+       },
+       {
+        "abort_incomplete_multipart_upload": [
+         {
+          "days_after_initiation": 3
+         }
+        ],
+        "expiration": [],
+        "filter": [
+         {
+          "and": [],
+          "object_size_greater_than": null,
+          "object_size_less_than": null,
+          "prefix": "",
+          "tag": []
+         }
+        ],
+        "id": "abort-incomplete-uploads",
+        "noncurrent_version_expiration": [],
+        "noncurrent_version_transition": [],
+        "prefix": "",
+        "status": "Enabled",
+        "transition": []
+       }
+      ],
+      "timeouts": null,
+      "transition_default_minimum_object_size": "all_storage_classes_128K"
+     },
+     "sensitive_values": {
+      "rule": [
+       {
+        "abort_incomplete_multipart_upload": [],
+        "expiration": [],
+        "filter": [
+         {
+          "and": [],
+          "tag": []
+         }
+        ],
+        "noncurrent_version_expiration": [
+         {}
+        ],
+        "noncurrent_version_transition": [],
+        "transition": []
+       },
+       {
+        "abort_incomplete_multipart_upload": [],
+        "expiration": [
+         {}
+        ],
+        "filter": [
+         {
+          "and": [],
+          "tag": []
+         }
+        ],
+        "noncurrent_version_expiration": [
+         {}
+        ],
+        "noncurrent_version_transition": [],
+        "transition": []
+       },
+       {
+        "abort_incomplete_multipart_upload": [
+         {}
+        ],
+        "expiration": [],
+        "filter": [
+         {
+          "and": [],
+          "tag": []
+         }
+        ],
+        "noncurrent_version_expiration": [],
+        "noncurrent_version_transition": [],
+        "transition": []
+       }
+      ]
+     }
+    },
+    {
+     "address": "aws_s3_bucket_logging.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_logging",
+     "name": "static",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "bucket": "acme-storefront-static-prod",
+      "expected_bucket_owner": null,
+      "id": "mock-aws_s3_bucket_logging.static",
+      "region": "eu-west-1",
+      "target_bucket": "acme-storefront-access-logs-prod",
+      "target_grant": [],
+      "target_object_key_format": [],
+      "target_prefix": "s3/acme-storefront-static-prod/"
+     },
+     "sensitive_values": {
+      "target_grant": [],
+      "target_object_key_format": []
+     }
+    },
+    {
+     "address": "aws_s3_bucket_ownership_controls.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_ownership_controls",
+     "name": "static",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "bucket": "acme-storefront-static-prod",
+      "id": "mock-aws_s3_bucket_ownership_controls.static",
+      "region": "eu-west-1",
+      "rule": [
+       {
+        "object_ownership": "BucketOwnerEnforced"
+       }
+      ]
+     },
+     "sensitive_values": {
+      "rule": [
+       {}
+      ]
+     }
+    },
+    {
+     "address": "aws_s3_bucket_policy.static_public_read",
+     "mode": "managed",
+     "type": "aws_s3_bucket_policy",
+     "name": "static_public_read",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "bucket": "acme-storefront-static-prod",
+      "policy": "{\"Statement\":[{\"Action\":\"s3:GetObject\",\"Effect\":\"Allow\",\"Principal\":\"*\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/*\",\"Sid\":\"PublicReadStaticAssets\"}],\"Version\":\"2012-10-17\"}",
+      "region": "eu-west-1"
+     },
+     "sensitive_values": {}
+    },
+    {
+     "address": "aws_s3_bucket_public_access_block.access_logs",
+     "mode": "managed",
+     "type": "aws_s3_bucket_public_access_block",
+     "name": "access_logs",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "block_public_acls": true,
+      "block_public_policy": true,
+      "bucket": "acme-storefront-access-logs-prod",
+      "id": "mock-aws_s3_bucket_public_access_block.access_logs",
+      "ignore_public_acls": true,
+      "region": "eu-west-1",
+      "restrict_public_buckets": true,
+      "skip_destroy": null
+     },
+     "sensitive_values": {}
+    },
+    {
+     "address": "aws_s3_bucket_public_access_block.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_public_access_block",
+     "name": "static",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "block_public_acls": true,
+      "block_public_policy": false,
+      "bucket": "acme-storefront-static-prod",
+      "id": "mock-aws_s3_bucket_public_access_block.static",
+      "ignore_public_acls": true,
+      "region": "eu-west-1",
+      "restrict_public_buckets": false,
+      "skip_destroy": null
+     },
+     "sensitive_values": {}
+    },
+    {
+     "address": "aws_s3_bucket_server_side_encryption_configuration.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_server_side_encryption_configuration",
+     "name": "static",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "bucket": "acme-storefront-static-prod",
+      "expected_bucket_owner": null,
+      "id": "mock-aws_s3_bucket_server_side_encryption_configuration.static",
+      "region": "eu-west-1",
+      "rule": [
+       {
+        "apply_server_side_encryption_by_default": [
+         {
+          "kms_master_key_id": "mock-kms_master_key_id",
+          "sse_algorithm": "AES256"
+         }
+        ],
+        "blocked_encryption_types": [],
+        "bucket_key_enabled": true
+       }
+      ]
+     },
+     "sensitive_values": {
+      "rule": [
+       {
+        "apply_server_side_encryption_by_default": [
+         {}
+        ],
+        "blocked_encryption_types": []
+       }
+      ]
+     }
+    },
+    {
+     "address": "aws_s3_bucket_versioning.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_versioning",
+     "name": "static",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "bucket": "acme-storefront-static-prod",
+      "expected_bucket_owner": null,
+      "id": "mock-aws_s3_bucket_versioning.static",
+      "mfa": null,
+      "region": "eu-west-1",
+      "versioning_configuration": [
+       {
+        "mfa_delete": "mock-mfa_delete",
+        "status": "Enabled"
+       }
+      ]
+     },
+     "sensitive_values": {
+      "versioning_configuration": [
+       {}
+      ]
+     }
+    },
+    {
+     "address": "aws_ssm_parameter.export_prefix",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "export_prefix",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "allowed_pattern": null,
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.export_prefix",
+      "data_type": "mock-data_type",
+      "description": null,
+      "has_value_wo": false,
+      "id": "mock-aws_ssm_parameter.export_prefix",
+      "insecure_value": "mock-insecure_value",
+      "key_id": "mock-key_id",
+      "name": "/storefront/prod/customer-export-prefix",
+      "overwrite": null,
+      "region": "eu-west-1",
+      "tags": null,
+      "tags_all": {
+       "CostCenter": "cc-3310",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "storefront-web",
+       "Project": "storefront-web"
+      },
+      "tier": "mock-tier",
+      "type": "String",
+      "value": "s3://acme-storefront-static-prod/exports/customers/",
+      "value_wo": null,
+      "value_wo_version": null,
+      "version": 0
+     },
+     "sensitive_values": {
+      "tags_all": {},
+      "value": true,
+      "value_wo": true
+     }
+    },
+    {
+     "address": "aws_ssm_parameter.static_bucket",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "static_bucket",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "allowed_pattern": null,
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.static_bucket",
+      "data_type": "mock-data_type",
+      "description": null,
+      "has_value_wo": false,
+      "id": "mock-aws_ssm_parameter.static_bucket",
+      "insecure_value": "mock-insecure_value",
+      "key_id": "mock-key_id",
+      "name": "/storefront/prod/static-bucket",
+      "overwrite": null,
+      "region": "eu-west-1",
+      "tags": null,
+      "tags_all": {
+       "CostCenter": "cc-3310",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "storefront-web",
+       "Project": "storefront-web"
+      },
+      "tier": "mock-tier",
+      "type": "String",
+      "value": "acme-storefront-static-prod",
+      "value_wo": null,
+      "value_wo_version": null,
+      "version": 0
+     },
+     "sensitive_values": {
+      "tags_all": {},
+      "value": true,
+      "value_wo": true
+     }
+    }
+   ],
+   "child_modules": [
+    {
+     "resources": [
+      {
+       "address": "module.service_runtime[\"account-api\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"account-api\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service_runtime[\"account-api\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/storefront/prod/account-api",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 60,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service_runtime[\"account-api\"].aws_ssm_parameter.settings",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "settings",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"account-api\"].aws_ssm_parameter.settings",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.service_runtime[\"account-api\"].aws_ssm_parameter.settings",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/storefront/prod/account-api/settings",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"info\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      }
+     ],
+     "address": "module.service_runtime[\"account-api\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service_runtime[\"cart-api\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"cart-api\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service_runtime[\"cart-api\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/storefront/prod/cart-api",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 60,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service_runtime[\"cart-api\"].aws_ssm_parameter.settings",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "settings",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"cart-api\"].aws_ssm_parameter.settings",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.service_runtime[\"cart-api\"].aws_ssm_parameter.settings",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/storefront/prod/cart-api/settings",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"info\",\"session_ttl\":\"3600\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      }
+     ],
+     "address": "module.service_runtime[\"cart-api\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service_runtime[\"catalog-api\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"catalog-api\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service_runtime[\"catalog-api\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/storefront/prod/catalog-api",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 60,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service_runtime[\"catalog-api\"].aws_ssm_parameter.settings",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "settings",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"catalog-api\"].aws_ssm_parameter.settings",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.service_runtime[\"catalog-api\"].aws_ssm_parameter.settings",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/storefront/prod/catalog-api/settings",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"warn\",\"page_size\":\"48\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      }
+     ],
+     "address": "module.service_runtime[\"catalog-api\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service_runtime[\"checkout-api\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"checkout-api\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service_runtime[\"checkout-api\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/storefront/prod/checkout-api",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 60,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service_runtime[\"checkout-api\"].aws_ssm_parameter.settings",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "settings",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"checkout-api\"].aws_ssm_parameter.settings",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.service_runtime[\"checkout-api\"].aws_ssm_parameter.settings",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/storefront/prod/checkout-api/settings",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"info\",\"payment_timeout\":\"20\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      }
+     ],
+     "address": "module.service_runtime[\"checkout-api\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service_runtime[\"image-resizer\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "kms_key_id": null,
+        "name": "/storefront/prod/image-resizer",
+        "region": "eu-west-1",
+        "retention_in_days": 60,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service_runtime[\"image-resizer\"].aws_ssm_parameter.settings",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "settings",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "description": null,
+        "name": "/storefront/prod/image-resizer/settings",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        },
+        "type": "String",
+        "value": "{\"log_level\":\"info\",\"max_width\":\"2048\"}",
+        "value_wo": null,
+        "value_wo_version": null
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      }
+     ],
+     "address": "module.service_runtime[\"image-resizer\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service_runtime[\"reporting-job\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"reporting-job\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service_runtime[\"reporting-job\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/storefront/prod/reporting-job",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 60,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service_runtime[\"reporting-job\"].aws_ssm_parameter.settings",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "settings",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"reporting-job\"].aws_ssm_parameter.settings",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.service_runtime[\"reporting-job\"].aws_ssm_parameter.settings",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/storefront/prod/reporting-job/settings",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"export_prefix\":\"exports/customers/\",\"log_level\":\"info\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      }
+     ],
+     "address": "module.service_runtime[\"reporting-job\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service_runtime[\"search-api\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"search-api\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service_runtime[\"search-api\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/storefront/prod/search-api",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 60,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service_runtime[\"search-api\"].aws_ssm_parameter.settings",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "settings",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"search-api\"].aws_ssm_parameter.settings",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.service_runtime[\"search-api\"].aws_ssm_parameter.settings",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/storefront/prod/search-api/settings",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"info\",\"max_results\":\"200\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      }
+     ],
+     "address": "module.service_runtime[\"search-api\"]"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.service_runtime[\"web-frontend\"].aws_cloudwatch_log_group.this",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"web-frontend\"].aws_cloudwatch_log_group.this",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.service_runtime[\"web-frontend\"].aws_cloudwatch_log_group.this",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/storefront/prod/web-frontend",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 60,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.service_runtime[\"web-frontend\"].aws_ssm_parameter.settings",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "settings",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"web-frontend\"].aws_ssm_parameter.settings",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.service_runtime[\"web-frontend\"].aws_ssm_parameter.settings",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/storefront/prod/web-frontend/settings",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-3310",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "storefront-web",
+         "Project": "storefront-web"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"assets_base_url\":\"https://acme-storefront-static-prod.s3.eu-west-1.amazonaws.com/assets\",\"log_level\":\"info\"}",
+        "value_wo": null,
+        "value_wo_version": null
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      }
+     ],
+     "address": "module.service_runtime[\"web-frontend\"]"
+    }
+   ]
+  }
+ },
+ "resource_changes": [
+  {
+   "address": "aws_cloudwatch_log_group.customer_export",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "customer_export",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.customer_export",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.customer_export",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/customer-export",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.customer_export",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.customer_export",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/customer-export",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 60,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_log_group.web_deploy",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "web_deploy",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.web_deploy",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.web_deploy",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/web-deploy",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.web_deploy",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.web_deploy",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/web-deploy",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 60,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_iam_role.customer_export",
+   "mode": "managed",
+   "type": "aws_iam_role",
+   "name": "customer_export",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.customer_export",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": null,
+     "force_detach_policies": false,
+     "id": "mock-aws_iam_role.customer_export",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "storefront-customer-export-prod",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.customer_export",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": null,
+     "force_detach_policies": false,
+     "id": "mock-aws_iam_role.customer_export",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "storefront-customer-export-prod",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_iam_role.web_deployer",
+   "mode": "managed",
+   "type": "aws_iam_role",
+   "name": "web_deployer",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.web_deployer",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::583920174466:role/ci-runner\"}}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": null,
+     "force_detach_policies": false,
+     "id": "mock-aws_iam_role.web_deployer",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "storefront-web-deployer-prod",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.web_deployer",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::583920174466:role/ci-runner\"}}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": null,
+     "force_detach_policies": false,
+     "id": "mock-aws_iam_role.web_deployer",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "storefront-web-deployer-prod",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_iam_role_policy.customer_export",
+   "mode": "managed",
+   "type": "aws_iam_role_policy",
+   "name": "customer_export",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-aws_iam_role_policy.customer_export",
+     "name": "write-customer-exports",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":\"s3:PutObject\",\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/exports/customers/*\"}]}",
+     "role": "mock-aws_iam_role.customer_export"
+    },
+    "after": {
+     "id": "mock-aws_iam_role_policy.customer_export",
+     "name": "write-customer-exports",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":\"s3:PutObject\",\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/exports/customers/*\"}]}",
+     "role": "mock-aws_iam_role.customer_export"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "aws_iam_role_policy.web_deployer",
+   "mode": "managed",
+   "type": "aws_iam_role_policy",
+   "name": "web_deployer",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "mock-aws_iam_role_policy.web_deployer",
+     "name": "upload-assets",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"s3:PutObject\",\"s3:DeleteObject\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/assets/*\"},{\"Action\":\"s3:ListBucket\",\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod\"}]}",
+     "role": "mock-aws_iam_role.web_deployer"
+    },
+    "after": {
+     "id": "mock-aws_iam_role_policy.web_deployer",
+     "name": "upload-assets",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"s3:PutObject\",\"s3:DeleteObject\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/assets/*\"},{\"Action\":\"s3:ListBucket\",\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod\"}]}",
+     "role": "mock-aws_iam_role.web_deployer"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "aws_s3_bucket.access_logs",
+   "mode": "managed",
+   "type": "aws_s3_bucket",
+   "name": "access_logs",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "acceleration_status": "mock-acceleration_status",
+     "acl": "mock-acl",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.access_logs",
+     "bucket": "acme-storefront-access-logs-prod",
+     "bucket_domain_name": "mock-bucket_domain_name",
+     "bucket_namespace": "mock-bucket_namespace",
+     "bucket_prefix": "mock-bucket_prefix",
+     "bucket_region": "mock-bucket_region",
+     "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+     "cors_rule": [],
+     "force_destroy": false,
+     "grant": [],
+     "hosted_zone_id": "mock-hosted_zone_id",
+     "id": "mock-aws_s3_bucket.access_logs",
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "object_lock_enabled": false,
+     "policy": "mock-policy",
+     "region": "eu-west-1",
+     "replication_configuration": [],
+     "request_payer": "mock-request_payer",
+     "server_side_encryption_configuration": [],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "timeouts": null,
+     "versioning": [],
+     "website": [],
+     "website_domain": "mock-website_domain",
+     "website_endpoint": "mock-website_endpoint"
+    },
+    "after": {
+     "acceleration_status": "mock-acceleration_status",
+     "acl": "mock-acl",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.access_logs",
+     "bucket": "acme-storefront-access-logs-prod",
+     "bucket_domain_name": "mock-bucket_domain_name",
+     "bucket_namespace": "mock-bucket_namespace",
+     "bucket_prefix": "mock-bucket_prefix",
+     "bucket_region": "mock-bucket_region",
+     "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+     "cors_rule": [],
+     "force_destroy": false,
+     "grant": [],
+     "hosted_zone_id": "mock-hosted_zone_id",
+     "id": "mock-aws_s3_bucket.access_logs",
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "object_lock_enabled": false,
+     "policy": "mock-policy",
+     "region": "eu-west-1",
+     "replication_configuration": [],
+     "request_payer": "mock-request_payer",
+     "server_side_encryption_configuration": [],
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "timeouts": null,
+     "versioning": [],
+     "website": [],
+     "website_domain": "mock-website_domain",
+     "website_endpoint": "mock-website_endpoint"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "cors_rule": [],
+     "grant": [],
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "replication_configuration": [],
+     "server_side_encryption_configuration": [],
+     "tags_all": {},
+     "versioning": [],
+     "website": []
+    },
+    "after_sensitive": {
+     "cors_rule": [],
+     "grant": [],
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "replication_configuration": [],
+     "server_side_encryption_configuration": [],
+     "tags_all": {},
+     "versioning": [],
+     "website": []
+    }
+   }
+  },
+  {
+   "address": "aws_s3_bucket.static",
+   "mode": "managed",
+   "type": "aws_s3_bucket",
+   "name": "static",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "acceleration_status": "mock-acceleration_status",
+     "acl": "mock-acl",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.static",
+     "bucket": "acme-storefront-static-prod",
+     "bucket_domain_name": "mock-bucket_domain_name",
+     "bucket_namespace": "mock-bucket_namespace",
+     "bucket_prefix": "mock-bucket_prefix",
+     "bucket_region": "mock-bucket_region",
+     "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+     "cors_rule": [],
+     "force_destroy": false,
+     "grant": [],
+     "hosted_zone_id": "mock-hosted_zone_id",
+     "id": "mock-aws_s3_bucket.static",
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "object_lock_enabled": false,
+     "policy": "mock-policy",
+     "region": "eu-west-1",
+     "replication_configuration": [],
+     "request_payer": "mock-request_payer",
+     "server_side_encryption_configuration": [],
+     "tags": {
+      "Contents": "web-assets,customer-exports"
+     },
+     "tags_all": {
+      "Contents": "web-assets,customer-exports",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "timeouts": null,
+     "versioning": [],
+     "website": [],
+     "website_domain": "mock-website_domain",
+     "website_endpoint": "mock-website_endpoint"
+    },
+    "after": {
+     "acceleration_status": "mock-acceleration_status",
+     "acl": "mock-acl",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.static",
+     "bucket": "acme-storefront-static-prod",
+     "bucket_domain_name": "mock-bucket_domain_name",
+     "bucket_namespace": "mock-bucket_namespace",
+     "bucket_prefix": "mock-bucket_prefix",
+     "bucket_region": "mock-bucket_region",
+     "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+     "cors_rule": [],
+     "force_destroy": false,
+     "grant": [],
+     "hosted_zone_id": "mock-hosted_zone_id",
+     "id": "mock-aws_s3_bucket.static",
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "object_lock_enabled": false,
+     "policy": "mock-policy",
+     "region": "eu-west-1",
+     "replication_configuration": [],
+     "request_payer": "mock-request_payer",
+     "server_side_encryption_configuration": [],
+     "tags": {
+      "Contents": "web-assets,customer-exports"
+     },
+     "tags_all": {
+      "Contents": "web-assets,customer-exports",
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "timeouts": null,
+     "versioning": [],
+     "website": [],
+     "website_domain": "mock-website_domain",
+     "website_endpoint": "mock-website_endpoint"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "cors_rule": [],
+     "grant": [],
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "replication_configuration": [],
+     "server_side_encryption_configuration": [],
+     "tags": {},
+     "tags_all": {},
+     "versioning": [],
+     "website": []
+    },
+    "after_sensitive": {
+     "cors_rule": [],
+     "grant": [],
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "replication_configuration": [],
+     "server_side_encryption_configuration": [],
+     "tags": {},
+     "tags_all": {},
+     "versioning": [],
+     "website": []
+    }
+   }
+  },
+  {
+   "address": "aws_s3_bucket_cors_configuration.static",
+   "mode": "managed",
+   "type": "aws_s3_bucket_cors_configuration",
+   "name": "static",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "bucket": "acme-storefront-static-prod",
+     "cors_rule": [
+      {
+       "allowed_headers": [
+        "*"
+       ],
+       "allowed_methods": [
+        "GET",
+        "HEAD"
+       ],
+       "allowed_origins": [
+        "https://m.acme-storefront.example",
+        "https://www.acme-storefront.example"
+       ],
+       "expose_headers": [],
+       "id": "",
+       "max_age_seconds": 3600
+      }
+     ],
+     "expected_bucket_owner": null,
+     "region": "eu-west-1"
+    },
+    "after_unknown": {
+     "cors_rule": [
+      {
+       "allowed_headers": [
+        false
+       ],
+       "allowed_methods": [
+        false,
+        false
+       ],
+       "allowed_origins": [
+        false,
+        false
+       ],
+       "expose_headers": []
+      }
+     ],
+     "id": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "cors_rule": [
+      {
+       "allowed_headers": [
+        false
+       ],
+       "allowed_methods": [
+        false,
+        false
+       ],
+       "allowed_origins": [
+        false,
+        false
+       ],
+       "expose_headers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "address": "aws_s3_bucket_lifecycle_configuration.access_logs",
+   "mode": "managed",
+   "type": "aws_s3_bucket_lifecycle_configuration",
+   "name": "access_logs",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "bucket": "acme-storefront-access-logs-prod",
+     "expected_bucket_owner": "mock-expected_bucket_owner",
+     "id": "mock-aws_s3_bucket_lifecycle_configuration.access_logs",
+     "region": "eu-west-1",
+     "rule": [
+      {
+       "abort_incomplete_multipart_upload": [],
+       "expiration": [
+        {
+         "date": null,
+         "days": 365,
+         "expired_object_delete_marker": false
+        }
+       ],
+       "filter": [
+        {
+         "and": [],
+         "object_size_greater_than": null,
+         "object_size_less_than": null,
+         "prefix": "",
+         "tag": []
+        }
+       ],
+       "id": "expire-access-logs",
+       "noncurrent_version_expiration": [],
+       "noncurrent_version_transition": [],
+       "prefix": "",
+       "status": "Enabled",
+       "transition": [
+        {
+         "date": null,
+         "days": 30,
+         "storage_class": "STANDARD_IA"
+        }
+       ]
+      }
+     ],
+     "timeouts": null,
+     "transition_default_minimum_object_size": "all_storage_classes_128K"
+    },
+    "after": {
+     "bucket": "acme-storefront-access-logs-prod",
+     "expected_bucket_owner": "mock-expected_bucket_owner",
+     "id": "mock-aws_s3_bucket_lifecycle_configuration.access_logs",
+     "region": "eu-west-1",
+     "rule": [
+      {
+       "abort_incomplete_multipart_upload": [],
+       "expiration": [
+        {
+         "date": null,
+         "days": 400,
+         "expired_object_delete_marker": false
+        }
+       ],
+       "filter": [
+        {
+         "and": [],
+         "object_size_greater_than": null,
+         "object_size_less_than": null,
+         "prefix": "",
+         "tag": []
+        }
+       ],
+       "id": "expire-access-logs",
+       "noncurrent_version_expiration": [],
+       "noncurrent_version_transition": [],
+       "prefix": "",
+       "status": "Enabled",
+       "transition": [
+        {
+         "date": null,
+         "days": 30,
+         "storage_class": "STANDARD_IA"
+        }
+       ]
+      }
+     ],
+     "timeouts": null,
+     "transition_default_minimum_object_size": "all_storage_classes_128K"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "rule": [
+      {
+       "abort_incomplete_multipart_upload": [],
+       "expiration": [
+        {}
+       ],
+       "filter": [
+        {
+         "and": [],
+         "tag": []
+        }
+       ],
+       "noncurrent_version_expiration": [],
+       "noncurrent_version_transition": [],
+       "transition": [
+        {}
+       ]
+      }
+     ]
+    },
+    "after_sensitive": {
+     "rule": [
+      {
+       "abort_incomplete_multipart_upload": [],
+       "expiration": [
+        {}
+       ],
+       "filter": [
+        {
+         "and": [],
+         "tag": []
+        }
+       ],
+       "noncurrent_version_expiration": [],
+       "noncurrent_version_transition": [],
+       "transition": [
+        {}
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "address": "aws_s3_bucket_lifecycle_configuration.static",
+   "mode": "managed",
+   "type": "aws_s3_bucket_lifecycle_configuration",
+   "name": "static",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "bucket": "acme-storefront-static-prod",
+     "expected_bucket_owner": "mock-expected_bucket_owner",
+     "id": "mock-aws_s3_bucket_lifecycle_configuration.static",
+     "region": "eu-west-1",
+     "rule": [
+      {
+       "abort_incomplete_multipart_upload": [],
+       "expiration": [],
+       "filter": [
+        {
+         "and": [],
+         "object_size_greater_than": null,
+         "object_size_less_than": null,
+         "prefix": "assets/",
+         "tag": []
+        }
+       ],
+       "id": "expire-old-asset-versions",
+       "noncurrent_version_expiration": [
+        {
+         "newer_noncurrent_versions": null,
+         "noncurrent_days": 30
+        }
+       ],
+       "noncurrent_version_transition": [],
+       "prefix": "",
+       "status": "Enabled",
+       "transition": []
+      },
+      {
+       "abort_incomplete_multipart_upload": [],
+       "expiration": [
+        {
+         "date": null,
+         "days": 90,
+         "expired_object_delete_marker": false
+        }
+       ],
+       "filter": [
+        {
+         "and": [],
+         "object_size_greater_than": null,
+         "object_size_less_than": null,
+         "prefix": "exports/customers/",
+         "tag": []
+        }
+       ],
+       "id": "expire-customer-exports",
+       "noncurrent_version_expiration": [
+        {
+         "newer_noncurrent_versions": null,
+         "noncurrent_days": 7
+        }
+       ],
+       "noncurrent_version_transition": [],
+       "prefix": "",
+       "status": "Enabled",
+       "transition": []
+      },
+      {
+       "abort_incomplete_multipart_upload": [
+        {
+         "days_after_initiation": 3
+        }
+       ],
+       "expiration": [],
+       "filter": [
+        {
+         "and": [],
+         "object_size_greater_than": null,
+         "object_size_less_than": null,
+         "prefix": "",
+         "tag": []
+        }
+       ],
+       "id": "abort-incomplete-uploads",
+       "noncurrent_version_expiration": [],
+       "noncurrent_version_transition": [],
+       "prefix": "",
+       "status": "Enabled",
+       "transition": []
+      }
+     ],
+     "timeouts": null,
+     "transition_default_minimum_object_size": "all_storage_classes_128K"
+    },
+    "after": {
+     "bucket": "acme-storefront-static-prod",
+     "expected_bucket_owner": "mock-expected_bucket_owner",
+     "id": "mock-aws_s3_bucket_lifecycle_configuration.static",
+     "region": "eu-west-1",
+     "rule": [
+      {
+       "abort_incomplete_multipart_upload": [],
+       "expiration": [],
+       "filter": [
+        {
+         "and": [],
+         "object_size_greater_than": null,
+         "object_size_less_than": null,
+         "prefix": "assets/",
+         "tag": []
+        }
+       ],
+       "id": "expire-old-asset-versions",
+       "noncurrent_version_expiration": [
+        {
+         "newer_noncurrent_versions": null,
+         "noncurrent_days": 14
+        }
+       ],
+       "noncurrent_version_transition": [],
+       "prefix": "",
+       "status": "Enabled",
+       "transition": []
+      },
+      {
+       "abort_incomplete_multipart_upload": [],
+       "expiration": [
+        {
+         "date": null,
+         "days": 90,
+         "expired_object_delete_marker": false
+        }
+       ],
+       "filter": [
+        {
+         "and": [],
+         "object_size_greater_than": null,
+         "object_size_less_than": null,
+         "prefix": "exports/customers/",
+         "tag": []
+        }
+       ],
+       "id": "expire-customer-exports",
+       "noncurrent_version_expiration": [
+        {
+         "newer_noncurrent_versions": null,
+         "noncurrent_days": 7
+        }
+       ],
+       "noncurrent_version_transition": [],
+       "prefix": "",
+       "status": "Enabled",
+       "transition": []
+      },
+      {
+       "abort_incomplete_multipart_upload": [
+        {
+         "days_after_initiation": 3
+        }
+       ],
+       "expiration": [],
+       "filter": [
+        {
+         "and": [],
+         "object_size_greater_than": null,
+         "object_size_less_than": null,
+         "prefix": "",
+         "tag": []
+        }
+       ],
+       "id": "abort-incomplete-uploads",
+       "noncurrent_version_expiration": [],
+       "noncurrent_version_transition": [],
+       "prefix": "",
+       "status": "Enabled",
+       "transition": []
+      }
+     ],
+     "timeouts": null,
+     "transition_default_minimum_object_size": "all_storage_classes_128K"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "rule": [
+      {
+       "abort_incomplete_multipart_upload": [],
+       "expiration": [],
+       "filter": [
+        {
+         "and": [],
+         "tag": []
+        }
+       ],
+       "noncurrent_version_expiration": [
+        {}
+       ],
+       "noncurrent_version_transition": [],
+       "transition": []
+      },
+      {
+       "abort_incomplete_multipart_upload": [],
+       "expiration": [
+        {}
+       ],
+       "filter": [
+        {
+         "and": [],
+         "tag": []
+        }
+       ],
+       "noncurrent_version_expiration": [
+        {}
+       ],
+       "noncurrent_version_transition": [],
+       "transition": []
+      },
+      {
+       "abort_incomplete_multipart_upload": [
+        {}
+       ],
+       "expiration": [],
+       "filter": [
+        {
+         "and": [],
+         "tag": []
+        }
+       ],
+       "noncurrent_version_expiration": [],
+       "noncurrent_version_transition": [],
+       "transition": []
+      }
+     ]
+    },
+    "after_sensitive": {
+     "rule": [
+      {
+       "abort_incomplete_multipart_upload": [],
+       "expiration": [],
+       "filter": [
+        {
+         "and": [],
+         "tag": []
+        }
+       ],
+       "noncurrent_version_expiration": [
+        {}
+       ],
+       "noncurrent_version_transition": [],
+       "transition": []
+      },
+      {
+       "abort_incomplete_multipart_upload": [],
+       "expiration": [
+        {}
+       ],
+       "filter": [
+        {
+         "and": [],
+         "tag": []
+        }
+       ],
+       "noncurrent_version_expiration": [
+        {}
+       ],
+       "noncurrent_version_transition": [],
+       "transition": []
+      },
+      {
+       "abort_incomplete_multipart_upload": [
+        {}
+       ],
+       "expiration": [],
+       "filter": [
+        {
+         "and": [],
+         "tag": []
+        }
+       ],
+       "noncurrent_version_expiration": [],
+       "noncurrent_version_transition": [],
+       "transition": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "address": "aws_s3_bucket_logging.static",
+   "mode": "managed",
+   "type": "aws_s3_bucket_logging",
+   "name": "static",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "bucket": "acme-storefront-static-prod",
+     "expected_bucket_owner": null,
+     "id": "mock-aws_s3_bucket_logging.static",
+     "region": "eu-west-1",
+     "target_bucket": "acme-storefront-access-logs-prod",
+     "target_grant": [],
+     "target_object_key_format": [],
+     "target_prefix": "s3/acme-storefront-static-prod/"
+    },
+    "after": {
+     "bucket": "acme-storefront-static-prod",
+     "expected_bucket_owner": null,
+     "id": "mock-aws_s3_bucket_logging.static",
+     "region": "eu-west-1",
+     "target_bucket": "acme-storefront-access-logs-prod",
+     "target_grant": [],
+     "target_object_key_format": [],
+     "target_prefix": "s3/acme-storefront-static-prod/"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "target_grant": [],
+     "target_object_key_format": []
+    },
+    "after_sensitive": {
+     "target_grant": [],
+     "target_object_key_format": []
+    }
+   }
+  },
+  {
+   "address": "aws_s3_bucket_ownership_controls.static",
+   "mode": "managed",
+   "type": "aws_s3_bucket_ownership_controls",
+   "name": "static",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "bucket": "acme-storefront-static-prod",
+     "id": "mock-aws_s3_bucket_ownership_controls.static",
+     "region": "eu-west-1",
+     "rule": [
+      {
+       "object_ownership": "BucketOwnerEnforced"
+      }
+     ]
+    },
+    "after": {
+     "bucket": "acme-storefront-static-prod",
+     "id": "mock-aws_s3_bucket_ownership_controls.static",
+     "region": "eu-west-1",
+     "rule": [
+      {
+       "object_ownership": "BucketOwnerEnforced"
+      }
+     ]
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "rule": [
+      {}
+     ]
+    },
+    "after_sensitive": {
+     "rule": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "aws_s3_bucket_policy.static_public_read",
+   "mode": "managed",
+   "type": "aws_s3_bucket_policy",
+   "name": "static_public_read",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "bucket": "acme-storefront-static-prod",
+     "policy": "{\"Statement\":[{\"Action\":\"s3:GetObject\",\"Effect\":\"Allow\",\"Principal\":\"*\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/*\",\"Sid\":\"PublicReadStaticAssets\"}],\"Version\":\"2012-10-17\"}",
+     "region": "eu-west-1"
+    },
+    "after_unknown": {
+     "id": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "aws_s3_bucket_public_access_block.access_logs",
+   "mode": "managed",
+   "type": "aws_s3_bucket_public_access_block",
+   "name": "access_logs",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "block_public_acls": true,
+     "block_public_policy": true,
+     "bucket": "acme-storefront-access-logs-prod",
+     "id": "mock-aws_s3_bucket_public_access_block.access_logs",
+     "ignore_public_acls": true,
+     "region": "eu-west-1",
+     "restrict_public_buckets": true,
+     "skip_destroy": null
+    },
+    "after": {
+     "block_public_acls": true,
+     "block_public_policy": true,
+     "bucket": "acme-storefront-access-logs-prod",
+     "id": "mock-aws_s3_bucket_public_access_block.access_logs",
+     "ignore_public_acls": true,
+     "region": "eu-west-1",
+     "restrict_public_buckets": true,
+     "skip_destroy": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "aws_s3_bucket_public_access_block.static",
+   "mode": "managed",
+   "type": "aws_s3_bucket_public_access_block",
+   "name": "static",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "block_public_acls": true,
+     "block_public_policy": true,
+     "bucket": "acme-storefront-static-prod",
+     "id": "mock-aws_s3_bucket_public_access_block.static",
+     "ignore_public_acls": true,
+     "region": "eu-west-1",
+     "restrict_public_buckets": true,
+     "skip_destroy": null
+    },
+    "after": {
+     "block_public_acls": true,
+     "block_public_policy": false,
+     "bucket": "acme-storefront-static-prod",
+     "id": "mock-aws_s3_bucket_public_access_block.static",
+     "ignore_public_acls": true,
+     "region": "eu-west-1",
+     "restrict_public_buckets": false,
+     "skip_destroy": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "aws_s3_bucket_server_side_encryption_configuration.static",
+   "mode": "managed",
+   "type": "aws_s3_bucket_server_side_encryption_configuration",
+   "name": "static",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "bucket": "acme-storefront-static-prod",
+     "expected_bucket_owner": null,
+     "id": "mock-aws_s3_bucket_server_side_encryption_configuration.static",
+     "region": "eu-west-1",
+     "rule": [
+      {
+       "apply_server_side_encryption_by_default": [
+        {
+         "kms_master_key_id": "mock-kms_master_key_id",
+         "sse_algorithm": "AES256"
+        }
+       ],
+       "blocked_encryption_types": [],
+       "bucket_key_enabled": true
+      }
+     ]
+    },
+    "after": {
+     "bucket": "acme-storefront-static-prod",
+     "expected_bucket_owner": null,
+     "id": "mock-aws_s3_bucket_server_side_encryption_configuration.static",
+     "region": "eu-west-1",
+     "rule": [
+      {
+       "apply_server_side_encryption_by_default": [
+        {
+         "kms_master_key_id": "mock-kms_master_key_id",
+         "sse_algorithm": "AES256"
+        }
+       ],
+       "blocked_encryption_types": [],
+       "bucket_key_enabled": true
+      }
+     ]
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "rule": [
+      {
+       "apply_server_side_encryption_by_default": [
+        {}
+       ],
+       "blocked_encryption_types": []
+      }
+     ]
+    },
+    "after_sensitive": {
+     "rule": [
+      {
+       "apply_server_side_encryption_by_default": [
+        {}
+       ],
+       "blocked_encryption_types": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "address": "aws_s3_bucket_versioning.static",
+   "mode": "managed",
+   "type": "aws_s3_bucket_versioning",
+   "name": "static",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "bucket": "acme-storefront-static-prod",
+     "expected_bucket_owner": null,
+     "id": "mock-aws_s3_bucket_versioning.static",
+     "mfa": null,
+     "region": "eu-west-1",
+     "versioning_configuration": [
+      {
+       "mfa_delete": "mock-mfa_delete",
+       "status": "Enabled"
+      }
+     ]
+    },
+    "after": {
+     "bucket": "acme-storefront-static-prod",
+     "expected_bucket_owner": null,
+     "id": "mock-aws_s3_bucket_versioning.static",
+     "mfa": null,
+     "region": "eu-west-1",
+     "versioning_configuration": [
+      {
+       "mfa_delete": "mock-mfa_delete",
+       "status": "Enabled"
+      }
+     ]
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "versioning_configuration": [
+      {}
+     ]
+    },
+    "after_sensitive": {
+     "versioning_configuration": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "aws_ssm_parameter.export_prefix",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "export_prefix",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.export_prefix",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.export_prefix",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/customer-export-prefix",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "s3://acme-storefront-static-prod/exports/customers/",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.export_prefix",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.export_prefix",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/customer-export-prefix",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "s3://acme-storefront-static-prod/exports/customers/",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "aws_ssm_parameter.static_bucket",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "static_bucket",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.static_bucket",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.static_bucket",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/static-bucket",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "acme-storefront-static-prod",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.static_bucket",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.static_bucket",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/static-bucket",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "acme-storefront-static-prod",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"account-api\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service_runtime[\"account-api\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"account-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"account-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/account-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"account-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"account-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/account-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 60,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"account-api\"].aws_ssm_parameter.settings",
+   "module_address": "module.service_runtime[\"account-api\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "settings",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"account-api\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"account-api\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/account-api/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"account-api\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"account-api\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/account-api/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"cart-api\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service_runtime[\"cart-api\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"cart-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"cart-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/cart-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"cart-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"cart-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/cart-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 60,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"cart-api\"].aws_ssm_parameter.settings",
+   "module_address": "module.service_runtime[\"cart-api\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "settings",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"cart-api\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"cart-api\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/cart-api/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"session_ttl\":\"3600\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"cart-api\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"cart-api\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/cart-api/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"session_ttl\":\"3600\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"catalog-api\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service_runtime[\"catalog-api\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"catalog-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"catalog-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/catalog-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"catalog-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"catalog-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/catalog-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 60,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"catalog-api\"].aws_ssm_parameter.settings",
+   "module_address": "module.service_runtime[\"catalog-api\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "settings",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"catalog-api\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"catalog-api\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/catalog-api/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"warn\",\"page_size\":\"48\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"catalog-api\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"catalog-api\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/catalog-api/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"warn\",\"page_size\":\"48\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"checkout-api\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service_runtime[\"checkout-api\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"checkout-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"checkout-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/checkout-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"checkout-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"checkout-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/checkout-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 60,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"checkout-api\"].aws_ssm_parameter.settings",
+   "module_address": "module.service_runtime[\"checkout-api\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "settings",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"checkout-api\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"checkout-api\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/checkout-api/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"payment_timeout\":\"20\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"checkout-api\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"checkout-api\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/checkout-api/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"payment_timeout\":\"20\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"image-resizer\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service_runtime[\"image-resizer\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "kms_key_id": null,
+     "name": "/storefront/prod/image-resizer",
+     "region": "eu-west-1",
+     "retention_in_days": 60,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     }
+    },
+    "after_unknown": {
+     "arn": true,
+     "deletion_protection_enabled": true,
+     "id": true,
+     "log_group_class": true,
+     "name_prefix": true,
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"image-resizer\"].aws_ssm_parameter.settings",
+   "module_address": "module.service_runtime[\"image-resizer\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "settings",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "allowed_pattern": null,
+     "description": null,
+     "name": "/storefront/prod/image-resizer/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"max_width\":\"2048\"}",
+     "value_wo": null,
+     "value_wo_version": null
+    },
+    "after_unknown": {
+     "arn": true,
+     "data_type": true,
+     "has_value_wo": true,
+     "id": true,
+     "insecure_value": true,
+     "key_id": true,
+     "tags_all": {},
+     "tier": true,
+     "version": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"reporting-job\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service_runtime[\"reporting-job\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"reporting-job\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"reporting-job\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/reporting-job",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"reporting-job\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"reporting-job\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/reporting-job",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 60,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"reporting-job\"].aws_ssm_parameter.settings",
+   "module_address": "module.service_runtime[\"reporting-job\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "settings",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"reporting-job\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"reporting-job\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/reporting-job/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"export_prefix\":\"exports/customers/\",\"log_level\":\"info\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"reporting-job\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"reporting-job\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/reporting-job/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"export_prefix\":\"exports/customers/\",\"log_level\":\"info\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"search-api\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service_runtime[\"search-api\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"search-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"search-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/search-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"search-api\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"search-api\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/search-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 60,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"search-api\"].aws_ssm_parameter.settings",
+   "module_address": "module.service_runtime[\"search-api\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "settings",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"search-api\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"search-api\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/search-api/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"max_results\":\"200\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"search-api\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"search-api\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/search-api/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"max_results\":\"200\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"web-frontend\"].aws_cloudwatch_log_group.this",
+   "module_address": "module.service_runtime[\"web-frontend\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"web-frontend\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"web-frontend\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/web-frontend",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"web-frontend\"].aws_cloudwatch_log_group.this",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.service_runtime[\"web-frontend\"].aws_cloudwatch_log_group.this",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/storefront/prod/web-frontend",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 60,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.service_runtime[\"web-frontend\"].aws_ssm_parameter.settings",
+   "module_address": "module.service_runtime[\"web-frontend\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "settings",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"web-frontend\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"web-frontend\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/web-frontend/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "web-platform",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"assets_base_url\":\"/assets\",\"log_level\":\"info\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"web-frontend\"].aws_ssm_parameter.settings",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.service_runtime[\"web-frontend\"].aws_ssm_parameter.settings",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/storefront/prod/web-frontend/settings",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-3310",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "storefront-web",
+      "Project": "storefront-web"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"assets_base_url\":\"https://acme-storefront-static-prod.s3.eu-west-1.amazonaws.com/assets\",\"log_level\":\"info\"}",
+     "value_wo": null,
+     "value_wo_version": null
+    },
+    "after_unknown": {
+     "tags_all": {},
+     "version": true
+    },
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  }
+ ],
+ "prior_state": {
+  "format_version": "1.0",
+  "terraform_version": "1.10.5",
+  "values": {
+   "root_module": {
+    "resources": [
+     {
+      "address": "data.aws_iam_policy_document.batch_assume",
+      "mode": "data",
+      "type": "aws_iam_policy_document",
+      "name": "batch_assume",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "1077804475",
+       "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Action\": \"sts:AssumeRole\",\n      \"Principal\": {\n        \"Service\": \"ecs-tasks.amazonaws.com\"\n      }\n    }\n  ]\n}",
+       "minified_json": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":\"sts:AssumeRole\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}]}",
+       "override_json": null,
+       "override_policy_documents": null,
+       "policy_id": null,
+       "source_json": null,
+       "source_policy_documents": null,
+       "statement": [
+        {
+         "actions": [
+          "sts:AssumeRole"
+         ],
+         "condition": [],
+         "effect": "Allow",
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [
+          {
+           "identifiers": [
+            "ecs-tasks.amazonaws.com"
+           ],
+           "type": "Service"
+          }
+         ],
+         "resources": [],
+         "sid": ""
+        }
+       ],
+       "version": "2012-10-17"
+      },
+      "sensitive_values": {
+       "statement": [
+        {
+         "actions": [
+          false
+         ],
+         "condition": [],
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [
+          {
+           "identifiers": [
+            false
+           ]
+          }
+         ],
+         "resources": []
+        }
+       ]
+      }
+     },
+     {
+      "address": "data.aws_iam_policy_document.ci_assume",
+      "mode": "data",
+      "type": "aws_iam_policy_document",
+      "name": "ci_assume",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "3813011188",
+       "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Action\": \"sts:AssumeRole\",\n      \"Principal\": {\n        \"AWS\": \"arn:aws:iam::583920174466:role/ci-runner\"\n      }\n    }\n  ]\n}",
+       "minified_json": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":\"sts:AssumeRole\",\"Principal\":{\"AWS\":\"arn:aws:iam::583920174466:role/ci-runner\"}}]}",
+       "override_json": null,
+       "override_policy_documents": null,
+       "policy_id": null,
+       "source_json": null,
+       "source_policy_documents": null,
+       "statement": [
+        {
+         "actions": [
+          "sts:AssumeRole"
+         ],
+         "condition": [],
+         "effect": "Allow",
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [
+          {
+           "identifiers": [
+            "arn:aws:iam::583920174466:role/ci-runner"
+           ],
+           "type": "AWS"
+          }
+         ],
+         "resources": [],
+         "sid": ""
+        }
+       ],
+       "version": "2012-10-17"
+      },
+      "sensitive_values": {
+       "statement": [
+        {
+         "actions": [
+          false
+         ],
+         "condition": [],
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [
+          {
+           "identifiers": [
+            false
+           ]
+          }
+         ],
+         "resources": []
+        }
+       ]
+      }
+     },
+     {
+      "address": "data.aws_iam_policy_document.customer_export",
+      "mode": "data",
+      "type": "aws_iam_policy_document",
+      "name": "customer_export",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "4189965404",
+       "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Action\": \"s3:PutObject\",\n      \"Resource\": \"arn:aws:s3:::acme-storefront-static-prod/exports/customers/*\"\n    }\n  ]\n}",
+       "minified_json": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":\"s3:PutObject\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/exports/customers/*\"}]}",
+       "override_json": null,
+       "override_policy_documents": null,
+       "policy_id": null,
+       "source_json": null,
+       "source_policy_documents": null,
+       "statement": [
+        {
+         "actions": [
+          "s3:PutObject"
+         ],
+         "condition": [],
+         "effect": "Allow",
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [],
+         "resources": [
+          "arn:aws:s3:::acme-storefront-static-prod/exports/customers/*"
+         ],
+         "sid": ""
+        }
+       ],
+       "version": "2012-10-17"
+      },
+      "sensitive_values": {
+       "statement": [
+        {
+         "actions": [
+          false
+         ],
+         "condition": [],
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [],
+         "resources": [
+          false
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "address": "data.aws_iam_policy_document.static_public_read",
+      "mode": "data",
+      "type": "aws_iam_policy_document",
+      "name": "static_public_read",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "3575481759",
+       "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"PublicReadStaticAssets\",\n      \"Effect\": \"Allow\",\n      \"Action\": \"s3:GetObject\",\n      \"Resource\": \"arn:aws:s3:::acme-storefront-static-prod/*\",\n      \"Principal\": \"*\"\n    }\n  ]\n}",
+       "minified_json": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"PublicReadStaticAssets\",\"Effect\":\"Allow\",\"Action\":\"s3:GetObject\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/*\",\"Principal\":\"*\"}]}",
+       "override_json": null,
+       "override_policy_documents": null,
+       "policy_id": null,
+       "source_json": null,
+       "source_policy_documents": null,
+       "statement": [
+        {
+         "actions": [
+          "s3:GetObject"
+         ],
+         "condition": [],
+         "effect": "Allow",
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [
+          {
+           "identifiers": [
+            "*"
+           ],
+           "type": "*"
+          }
+         ],
+         "resources": [
+          "arn:aws:s3:::acme-storefront-static-prod/*"
+         ],
+         "sid": "PublicReadStaticAssets"
+        }
+       ],
+       "version": "2012-10-17"
+      },
+      "sensitive_values": {
+       "statement": [
+        {
+         "actions": [
+          false
+         ],
+         "condition": [],
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [
+          {
+           "identifiers": [
+            false
+           ]
+          }
+         ],
+         "resources": [
+          false
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "address": "data.aws_iam_policy_document.web_deployer",
+      "mode": "data",
+      "type": "aws_iam_policy_document",
+      "name": "web_deployer",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "3951361208",
+       "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Action\": [\n        \"s3:PutObject\",\n        \"s3:DeleteObject\"\n      ],\n      \"Resource\": \"arn:aws:s3:::acme-storefront-static-prod/assets/*\"\n    },\n    {\n      \"Effect\": \"Allow\",\n      \"Action\": \"s3:ListBucket\",\n      \"Resource\": \"arn:aws:s3:::acme-storefront-static-prod\"\n    }\n  ]\n}",
+       "minified_json": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":[\"s3:PutObject\",\"s3:DeleteObject\"],\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/assets/*\"},{\"Effect\":\"Allow\",\"Action\":\"s3:ListBucket\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod\"}]}",
+       "override_json": null,
+       "override_policy_documents": null,
+       "policy_id": null,
+       "source_json": null,
+       "source_policy_documents": null,
+       "statement": [
+        {
+         "actions": [
+          "s3:DeleteObject",
+          "s3:PutObject"
+         ],
+         "condition": [],
+         "effect": "Allow",
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [],
+         "resources": [
+          "arn:aws:s3:::acme-storefront-static-prod/assets/*"
+         ],
+         "sid": ""
+        },
+        {
+         "actions": [
+          "s3:ListBucket"
+         ],
+         "condition": [],
+         "effect": "Allow",
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [],
+         "resources": [
+          "arn:aws:s3:::acme-storefront-static-prod"
+         ],
+         "sid": ""
+        }
+       ],
+       "version": "2012-10-17"
+      },
+      "sensitive_values": {
+       "statement": [
+        {
+         "actions": [
+          false,
+          false
+         ],
+         "condition": [],
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [],
+         "resources": [
+          false
+         ]
+        },
+        {
+         "actions": [
+          false
+         ],
+         "condition": [],
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [],
+         "resources": [
+          false
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "address": "aws_cloudwatch_log_group.customer_export",
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "customer_export",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.customer_export",
+       "deletion_protection_enabled": false,
+       "id": "mock-aws_cloudwatch_log_group.customer_export",
+       "kms_key_id": null,
+       "log_group_class": "mock-log_group_class",
+       "name": "/storefront/prod/customer-export",
+       "name_prefix": "mock-name_prefix",
+       "region": "eu-west-1",
+       "retention_in_days": 30,
+       "skip_destroy": false,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "web-platform",
+        "Project": "storefront-web"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_cloudwatch_log_group.web_deploy",
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "web_deploy",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.web_deploy",
+       "deletion_protection_enabled": false,
+       "id": "mock-aws_cloudwatch_log_group.web_deploy",
+       "kms_key_id": null,
+       "log_group_class": "mock-log_group_class",
+       "name": "/storefront/prod/web-deploy",
+       "name_prefix": "mock-name_prefix",
+       "region": "eu-west-1",
+       "retention_in_days": 30,
+       "skip_destroy": false,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "web-platform",
+        "Project": "storefront-web"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_iam_role.customer_export",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "customer_export",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.customer_export",
+       "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+       "create_date": "mock-create_date",
+       "description": null,
+       "force_detach_policies": false,
+       "id": "mock-aws_iam_role.customer_export",
+       "inline_policy": [],
+       "managed_policy_arns": [],
+       "max_session_duration": 3600,
+       "name": "storefront-customer-export-prod",
+       "name_prefix": "mock-name_prefix",
+       "path": "/",
+       "permissions_boundary": null,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "web-platform",
+        "Project": "storefront-web"
+       },
+       "unique_id": "mock-unique_id"
+      },
+      "sensitive_values": {
+       "inline_policy": [],
+       "managed_policy_arns": [],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_iam_role.web_deployer",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "web_deployer",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.web_deployer",
+       "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::583920174466:role/ci-runner\"}}],\"Version\":\"2012-10-17\"}",
+       "create_date": "mock-create_date",
+       "description": null,
+       "force_detach_policies": false,
+       "id": "mock-aws_iam_role.web_deployer",
+       "inline_policy": [],
+       "managed_policy_arns": [],
+       "max_session_duration": 3600,
+       "name": "storefront-web-deployer-prod",
+       "name_prefix": "mock-name_prefix",
+       "path": "/",
+       "permissions_boundary": null,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "web-platform",
+        "Project": "storefront-web"
+       },
+       "unique_id": "mock-unique_id"
+      },
+      "sensitive_values": {
+       "inline_policy": [],
+       "managed_policy_arns": [],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_iam_role_policy.customer_export",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "customer_export",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "mock-aws_iam_role_policy.customer_export",
+       "name": "write-customer-exports",
+       "name_prefix": "mock-name_prefix",
+       "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":\"s3:PutObject\",\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/exports/customers/*\"}]}",
+       "role": "mock-aws_iam_role.customer_export"
+      },
+      "sensitive_values": {},
+      "depends_on": [
+       "aws_iam_role.customer_export",
+       "data.aws_iam_policy_document.batch_assume",
+       "data.aws_iam_policy_document.customer_export"
+      ]
+     },
+     {
+      "address": "aws_iam_role_policy.web_deployer",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "web_deployer",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "mock-aws_iam_role_policy.web_deployer",
+       "name": "upload-assets",
+       "name_prefix": "mock-name_prefix",
+       "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"s3:PutObject\",\"s3:DeleteObject\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod/assets/*\"},{\"Action\":\"s3:ListBucket\",\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::acme-storefront-static-prod\"}]}",
+       "role": "mock-aws_iam_role.web_deployer"
+      },
+      "sensitive_values": {},
+      "depends_on": [
+       "aws_iam_role.web_deployer",
+       "data.aws_iam_policy_document.ci_assume",
+       "data.aws_iam_policy_document.web_deployer"
+      ]
+     },
+     {
+      "address": "aws_s3_bucket.access_logs",
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "access_logs",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "acceleration_status": "mock-acceleration_status",
+       "acl": "mock-acl",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.access_logs",
+       "bucket": "acme-storefront-access-logs-prod",
+       "bucket_domain_name": "mock-bucket_domain_name",
+       "bucket_namespace": "mock-bucket_namespace",
+       "bucket_prefix": "mock-bucket_prefix",
+       "bucket_region": "mock-bucket_region",
+       "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+       "cors_rule": [],
+       "force_destroy": false,
+       "grant": [],
+       "hosted_zone_id": "mock-hosted_zone_id",
+       "id": "mock-aws_s3_bucket.access_logs",
+       "lifecycle_rule": [],
+       "logging": [],
+       "object_lock_configuration": [],
+       "object_lock_enabled": false,
+       "policy": "mock-policy",
+       "region": "eu-west-1",
+       "replication_configuration": [],
+       "request_payer": "mock-request_payer",
+       "server_side_encryption_configuration": [],
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "web-platform",
+        "Project": "storefront-web"
+       },
+       "timeouts": null,
+       "versioning": [],
+       "website": [],
+       "website_domain": "mock-website_domain",
+       "website_endpoint": "mock-website_endpoint"
+      },
+      "sensitive_values": {
+       "cors_rule": [],
+       "grant": [],
+       "lifecycle_rule": [],
+       "logging": [],
+       "object_lock_configuration": [],
+       "replication_configuration": [],
+       "server_side_encryption_configuration": [],
+       "tags_all": {},
+       "versioning": [],
+       "website": []
+      }
+     },
+     {
+      "address": "aws_s3_bucket.static",
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "static",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "acceleration_status": "mock-acceleration_status",
+       "acl": "mock-acl",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.static",
+       "bucket": "acme-storefront-static-prod",
+       "bucket_domain_name": "mock-bucket_domain_name",
+       "bucket_namespace": "mock-bucket_namespace",
+       "bucket_prefix": "mock-bucket_prefix",
+       "bucket_region": "mock-bucket_region",
+       "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+       "cors_rule": [],
+       "force_destroy": false,
+       "grant": [],
+       "hosted_zone_id": "mock-hosted_zone_id",
+       "id": "mock-aws_s3_bucket.static",
+       "lifecycle_rule": [],
+       "logging": [],
+       "object_lock_configuration": [],
+       "object_lock_enabled": false,
+       "policy": "mock-policy",
+       "region": "eu-west-1",
+       "replication_configuration": [],
+       "request_payer": "mock-request_payer",
+       "server_side_encryption_configuration": [],
+       "tags": {
+        "Contents": "web-assets,customer-exports"
+       },
+       "tags_all": {
+        "Contents": "web-assets,customer-exports",
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "web-platform",
+        "Project": "storefront-web"
+       },
+       "timeouts": null,
+       "versioning": [],
+       "website": [],
+       "website_domain": "mock-website_domain",
+       "website_endpoint": "mock-website_endpoint"
+      },
+      "sensitive_values": {
+       "cors_rule": [],
+       "grant": [],
+       "lifecycle_rule": [],
+       "logging": [],
+       "object_lock_configuration": [],
+       "replication_configuration": [],
+       "server_side_encryption_configuration": [],
+       "tags": {},
+       "tags_all": {},
+       "versioning": [],
+       "website": []
+      }
+     },
+     {
+      "address": "aws_s3_bucket_lifecycle_configuration.access_logs",
+      "mode": "managed",
+      "type": "aws_s3_bucket_lifecycle_configuration",
+      "name": "access_logs",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "bucket": "acme-storefront-access-logs-prod",
+       "expected_bucket_owner": "mock-expected_bucket_owner",
+       "id": "mock-aws_s3_bucket_lifecycle_configuration.access_logs",
+       "region": "eu-west-1",
+       "rule": [
+        {
+         "abort_incomplete_multipart_upload": [],
+         "expiration": [
+          {
+           "date": null,
+           "days": 365,
+           "expired_object_delete_marker": false
+          }
+         ],
+         "filter": [
+          {
+           "and": [],
+           "object_size_greater_than": null,
+           "object_size_less_than": null,
+           "prefix": "",
+           "tag": []
+          }
+         ],
+         "id": "expire-access-logs",
+         "noncurrent_version_expiration": [],
+         "noncurrent_version_transition": [],
+         "prefix": "",
+         "status": "Enabled",
+         "transition": [
+          {
+           "date": null,
+           "days": 30,
+           "storage_class": "STANDARD_IA"
+          }
+         ]
+        }
+       ],
+       "timeouts": null,
+       "transition_default_minimum_object_size": "all_storage_classes_128K"
+      },
+      "sensitive_values": {
+       "rule": [
+        {
+         "abort_incomplete_multipart_upload": [],
+         "expiration": [
+          {}
+         ],
+         "filter": [
+          {
+           "and": [],
+           "tag": []
+          }
+         ],
+         "noncurrent_version_expiration": [],
+         "noncurrent_version_transition": [],
+         "transition": [
+          {}
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "address": "aws_s3_bucket_lifecycle_configuration.static",
+      "mode": "managed",
+      "type": "aws_s3_bucket_lifecycle_configuration",
+      "name": "static",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "bucket": "acme-storefront-static-prod",
+       "expected_bucket_owner": "mock-expected_bucket_owner",
+       "id": "mock-aws_s3_bucket_lifecycle_configuration.static",
+       "region": "eu-west-1",
+       "rule": [
+        {
+         "abort_incomplete_multipart_upload": [],
+         "expiration": [],
+         "filter": [
+          {
+           "and": [],
+           "object_size_greater_than": null,
+           "object_size_less_than": null,
+           "prefix": "assets/",
+           "tag": []
+          }
+         ],
+         "id": "expire-old-asset-versions",
+         "noncurrent_version_expiration": [
+          {
+           "newer_noncurrent_versions": null,
+           "noncurrent_days": 30
+          }
+         ],
+         "noncurrent_version_transition": [],
+         "prefix": "",
+         "status": "Enabled",
+         "transition": []
+        },
+        {
+         "abort_incomplete_multipart_upload": [],
+         "expiration": [
+          {
+           "date": null,
+           "days": 90,
+           "expired_object_delete_marker": false
+          }
+         ],
+         "filter": [
+          {
+           "and": [],
+           "object_size_greater_than": null,
+           "object_size_less_than": null,
+           "prefix": "exports/customers/",
+           "tag": []
+          }
+         ],
+         "id": "expire-customer-exports",
+         "noncurrent_version_expiration": [
+          {
+           "newer_noncurrent_versions": null,
+           "noncurrent_days": 7
+          }
+         ],
+         "noncurrent_version_transition": [],
+         "prefix": "",
+         "status": "Enabled",
+         "transition": []
+        },
+        {
+         "abort_incomplete_multipart_upload": [
+          {
+           "days_after_initiation": 3
+          }
+         ],
+         "expiration": [],
+         "filter": [
+          {
+           "and": [],
+           "object_size_greater_than": null,
+           "object_size_less_than": null,
+           "prefix": "",
+           "tag": []
+          }
+         ],
+         "id": "abort-incomplete-uploads",
+         "noncurrent_version_expiration": [],
+         "noncurrent_version_transition": [],
+         "prefix": "",
+         "status": "Enabled",
+         "transition": []
+        }
+       ],
+       "timeouts": null,
+       "transition_default_minimum_object_size": "all_storage_classes_128K"
+      },
+      "sensitive_values": {
+       "rule": [
+        {
+         "abort_incomplete_multipart_upload": [],
+         "expiration": [],
+         "filter": [
+          {
+           "and": [],
+           "tag": []
+          }
+         ],
+         "noncurrent_version_expiration": [
+          {}
+         ],
+         "noncurrent_version_transition": [],
+         "transition": []
+        },
+        {
+         "abort_incomplete_multipart_upload": [],
+         "expiration": [
+          {}
+         ],
+         "filter": [
+          {
+           "and": [],
+           "tag": []
+          }
+         ],
+         "noncurrent_version_expiration": [
+          {}
+         ],
+         "noncurrent_version_transition": [],
+         "transition": []
+        },
+        {
+         "abort_incomplete_multipart_upload": [
+          {}
+         ],
+         "expiration": [],
+         "filter": [
+          {
+           "and": [],
+           "tag": []
+          }
+         ],
+         "noncurrent_version_expiration": [],
+         "noncurrent_version_transition": [],
+         "transition": []
+        }
+       ]
+      }
+     },
+     {
+      "address": "aws_s3_bucket_logging.static",
+      "mode": "managed",
+      "type": "aws_s3_bucket_logging",
+      "name": "static",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "bucket": "acme-storefront-static-prod",
+       "expected_bucket_owner": null,
+       "id": "mock-aws_s3_bucket_logging.static",
+       "region": "eu-west-1",
+       "target_bucket": "acme-storefront-access-logs-prod",
+       "target_grant": [],
+       "target_object_key_format": [],
+       "target_prefix": "s3/acme-storefront-static-prod/"
+      },
+      "sensitive_values": {
+       "target_grant": [],
+       "target_object_key_format": []
+      },
+      "depends_on": [
+       "aws_s3_bucket.access_logs",
+       "aws_s3_bucket.static"
+      ]
+     },
+     {
+      "address": "aws_s3_bucket_ownership_controls.static",
+      "mode": "managed",
+      "type": "aws_s3_bucket_ownership_controls",
+      "name": "static",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "bucket": "acme-storefront-static-prod",
+       "id": "mock-aws_s3_bucket_ownership_controls.static",
+       "region": "eu-west-1",
+       "rule": [
+        {
+         "object_ownership": "BucketOwnerEnforced"
+        }
+       ]
+      },
+      "sensitive_values": {
+       "rule": [
+        {}
+       ]
+      },
+      "depends_on": [
+       "aws_s3_bucket.static"
+      ]
+     },
+     {
+      "address": "aws_s3_bucket_public_access_block.access_logs",
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "access_logs",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "block_public_acls": true,
+       "block_public_policy": true,
+       "bucket": "acme-storefront-access-logs-prod",
+       "id": "mock-aws_s3_bucket_public_access_block.access_logs",
+       "ignore_public_acls": true,
+       "region": "eu-west-1",
+       "restrict_public_buckets": true,
+       "skip_destroy": null
+      },
+      "sensitive_values": {},
+      "depends_on": [
+       "aws_s3_bucket.access_logs"
+      ]
+     },
+     {
+      "address": "aws_s3_bucket_public_access_block.static",
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "static",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "block_public_acls": true,
+       "block_public_policy": true,
+       "bucket": "acme-storefront-static-prod",
+       "id": "mock-aws_s3_bucket_public_access_block.static",
+       "ignore_public_acls": true,
+       "region": "eu-west-1",
+       "restrict_public_buckets": true,
+       "skip_destroy": null
+      },
+      "sensitive_values": {}
+     },
+     {
+      "address": "aws_s3_bucket_server_side_encryption_configuration.static",
+      "mode": "managed",
+      "type": "aws_s3_bucket_server_side_encryption_configuration",
+      "name": "static",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "bucket": "acme-storefront-static-prod",
+       "expected_bucket_owner": null,
+       "id": "mock-aws_s3_bucket_server_side_encryption_configuration.static",
+       "region": "eu-west-1",
+       "rule": [
+        {
+         "apply_server_side_encryption_by_default": [
+          {
+           "kms_master_key_id": "mock-kms_master_key_id",
+           "sse_algorithm": "AES256"
+          }
+         ],
+         "blocked_encryption_types": [],
+         "bucket_key_enabled": true
+        }
+       ]
+      },
+      "sensitive_values": {
+       "rule": [
+        {
+         "apply_server_side_encryption_by_default": [
+          {}
+         ],
+         "blocked_encryption_types": []
+        }
+       ]
+      },
+      "depends_on": [
+       "aws_s3_bucket.static"
+      ]
+     },
+     {
+      "address": "aws_s3_bucket_versioning.static",
+      "mode": "managed",
+      "type": "aws_s3_bucket_versioning",
+      "name": "static",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "bucket": "acme-storefront-static-prod",
+       "expected_bucket_owner": null,
+       "id": "mock-aws_s3_bucket_versioning.static",
+       "mfa": null,
+       "region": "eu-west-1",
+       "versioning_configuration": [
+        {
+         "mfa_delete": "mock-mfa_delete",
+         "status": "Enabled"
+        }
+       ]
+      },
+      "sensitive_values": {
+       "versioning_configuration": [
+        {}
+       ]
+      },
+      "depends_on": [
+       "aws_s3_bucket.static"
+      ]
+     },
+     {
+      "address": "aws_ssm_parameter.export_prefix",
+      "mode": "managed",
+      "type": "aws_ssm_parameter",
+      "name": "export_prefix",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "allowed_pattern": null,
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.export_prefix",
+       "data_type": "mock-data_type",
+       "description": null,
+       "has_value_wo": false,
+       "id": "mock-aws_ssm_parameter.export_prefix",
+       "insecure_value": "mock-insecure_value",
+       "key_id": "mock-key_id",
+       "name": "/storefront/prod/customer-export-prefix",
+       "overwrite": null,
+       "region": "eu-west-1",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "web-platform",
+        "Project": "storefront-web"
+       },
+       "tier": "mock-tier",
+       "type": "String",
+       "value": "s3://acme-storefront-static-prod/exports/customers/",
+       "value_wo": null,
+       "value_wo_version": null,
+       "version": 0
+      },
+      "sensitive_values": {
+       "tags_all": {},
+       "value": true,
+       "value_wo": true
+      }
+     },
+     {
+      "address": "aws_ssm_parameter.static_bucket",
+      "mode": "managed",
+      "type": "aws_ssm_parameter",
+      "name": "static_bucket",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "allowed_pattern": null,
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.static_bucket",
+       "data_type": "mock-data_type",
+       "description": null,
+       "has_value_wo": false,
+       "id": "mock-aws_ssm_parameter.static_bucket",
+       "insecure_value": "mock-insecure_value",
+       "key_id": "mock-key_id",
+       "name": "/storefront/prod/static-bucket",
+       "overwrite": null,
+       "region": "eu-west-1",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "web-platform",
+        "Project": "storefront-web"
+       },
+       "tier": "mock-tier",
+       "type": "String",
+       "value": "acme-storefront-static-prod",
+       "value_wo": null,
+       "value_wo_version": null,
+       "version": 0
+      },
+      "sensitive_values": {
+       "tags_all": {},
+       "value": true,
+       "value_wo": true
+      }
+     }
+    ],
+    "child_modules": [
+     {
+      "resources": [
+       {
+        "address": "module.service_runtime[\"account-api\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"account-api\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service_runtime[\"account-api\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/storefront/prod/account-api",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service_runtime[\"account-api\"].aws_ssm_parameter.settings",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "settings",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"account-api\"].aws_ssm_parameter.settings",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.service_runtime[\"account-api\"].aws_ssm_parameter.settings",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/storefront/prod/account-api/settings",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"info\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       }
+      ],
+      "address": "module.service_runtime[\"account-api\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service_runtime[\"cart-api\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"cart-api\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service_runtime[\"cart-api\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/storefront/prod/cart-api",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service_runtime[\"cart-api\"].aws_ssm_parameter.settings",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "settings",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"cart-api\"].aws_ssm_parameter.settings",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.service_runtime[\"cart-api\"].aws_ssm_parameter.settings",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/storefront/prod/cart-api/settings",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"info\",\"session_ttl\":\"3600\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       }
+      ],
+      "address": "module.service_runtime[\"cart-api\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service_runtime[\"catalog-api\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"catalog-api\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service_runtime[\"catalog-api\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/storefront/prod/catalog-api",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service_runtime[\"catalog-api\"].aws_ssm_parameter.settings",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "settings",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"catalog-api\"].aws_ssm_parameter.settings",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.service_runtime[\"catalog-api\"].aws_ssm_parameter.settings",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/storefront/prod/catalog-api/settings",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"warn\",\"page_size\":\"48\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       }
+      ],
+      "address": "module.service_runtime[\"catalog-api\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service_runtime[\"checkout-api\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"checkout-api\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service_runtime[\"checkout-api\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/storefront/prod/checkout-api",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service_runtime[\"checkout-api\"].aws_ssm_parameter.settings",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "settings",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"checkout-api\"].aws_ssm_parameter.settings",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.service_runtime[\"checkout-api\"].aws_ssm_parameter.settings",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/storefront/prod/checkout-api/settings",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"info\",\"payment_timeout\":\"20\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       }
+      ],
+      "address": "module.service_runtime[\"checkout-api\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service_runtime[\"reporting-job\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"reporting-job\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service_runtime[\"reporting-job\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/storefront/prod/reporting-job",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service_runtime[\"reporting-job\"].aws_ssm_parameter.settings",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "settings",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"reporting-job\"].aws_ssm_parameter.settings",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.service_runtime[\"reporting-job\"].aws_ssm_parameter.settings",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/storefront/prod/reporting-job/settings",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"export_prefix\":\"exports/customers/\",\"log_level\":\"info\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       }
+      ],
+      "address": "module.service_runtime[\"reporting-job\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service_runtime[\"search-api\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"search-api\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service_runtime[\"search-api\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/storefront/prod/search-api",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service_runtime[\"search-api\"].aws_ssm_parameter.settings",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "settings",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"search-api\"].aws_ssm_parameter.settings",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.service_runtime[\"search-api\"].aws_ssm_parameter.settings",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/storefront/prod/search-api/settings",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"info\",\"max_results\":\"200\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       }
+      ],
+      "address": "module.service_runtime[\"search-api\"]"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.service_runtime[\"web-frontend\"].aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"web-frontend\"].aws_cloudwatch_log_group.this",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.service_runtime[\"web-frontend\"].aws_cloudwatch_log_group.this",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/storefront/prod/web-frontend",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.service_runtime[\"web-frontend\"].aws_ssm_parameter.settings",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "settings",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.service_runtime[\"web-frontend\"].aws_ssm_parameter.settings",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.service_runtime[\"web-frontend\"].aws_ssm_parameter.settings",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/storefront/prod/web-frontend/settings",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Owner": "web-platform",
+          "Project": "storefront-web"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"assets_base_url\":\"/assets\",\"log_level\":\"info\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       }
+      ],
+      "address": "module.service_runtime[\"web-frontend\"]"
+     }
+    ]
+   }
+  }
+ },
+ "configuration": {
+  "provider_config": {
+   "aws": {
+    "name": "aws",
+    "full_name": "registry.terraform.io/hashicorp/aws",
+    "version_constraint": "~> 6.0",
+    "expressions": {
+     "access_key": {
+      "constant_value": "mock_access_key"
+     },
+     "default_tags": [
+      {
+       "tags": {
+        "references": [
+         "var.environment"
+        ]
+       }
+      }
+     ],
+     "region": {
+      "constant_value": "eu-west-1"
+     },
+     "secret_key": {
+      "constant_value": "mock_secret_key"
+     },
+     "skip_credentials_validation": {
+      "constant_value": true
+     },
+     "skip_metadata_api_check": {
+      "constant_value": true
+     },
+     "skip_region_validation": {
+      "constant_value": true
+     },
+     "skip_requesting_account_id": {
+      "constant_value": true
+     }
+    }
+   }
+  },
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_cloudwatch_log_group.customer_export",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "customer_export",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      },
+      "retention_in_days": {
+       "references": [
+        "var.app_log_retention_days"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_cloudwatch_log_group.web_deploy",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "web_deploy",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      },
+      "retention_in_days": {
+       "references": [
+        "var.app_log_retention_days"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_iam_role.customer_export",
+     "mode": "managed",
+     "type": "aws_iam_role",
+     "name": "customer_export",
+     "provider_config_key": "aws",
+     "expressions": {
+      "assume_role_policy": {
+       "references": [
+        "data.aws_iam_policy_document.batch_assume.json",
+        "data.aws_iam_policy_document.batch_assume"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_iam_role.web_deployer",
+     "mode": "managed",
+     "type": "aws_iam_role",
+     "name": "web_deployer",
+     "provider_config_key": "aws",
+     "expressions": {
+      "assume_role_policy": {
+       "references": [
+        "data.aws_iam_policy_document.ci_assume.json",
+        "data.aws_iam_policy_document.ci_assume"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_iam_role_policy.customer_export",
+     "mode": "managed",
+     "type": "aws_iam_role_policy",
+     "name": "customer_export",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "constant_value": "write-customer-exports"
+      },
+      "policy": {
+       "references": [
+        "data.aws_iam_policy_document.customer_export.json",
+        "data.aws_iam_policy_document.customer_export"
+       ]
+      },
+      "role": {
+       "references": [
+        "aws_iam_role.customer_export.id",
+        "aws_iam_role.customer_export"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_iam_role_policy.web_deployer",
+     "mode": "managed",
+     "type": "aws_iam_role_policy",
+     "name": "web_deployer",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "constant_value": "upload-assets"
+      },
+      "policy": {
+       "references": [
+        "data.aws_iam_policy_document.web_deployer.json",
+        "data.aws_iam_policy_document.web_deployer"
+       ]
+      },
+      "role": {
+       "references": [
+        "aws_iam_role.web_deployer.id",
+        "aws_iam_role.web_deployer"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket.access_logs",
+     "mode": "managed",
+     "type": "aws_s3_bucket",
+     "name": "access_logs",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "var.access_log_bucket_name"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket",
+     "name": "static",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "var.static_bucket_name"
+       ]
+      },
+      "tags": {
+       "constant_value": {
+        "Contents": "web-assets,customer-exports"
+       }
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket_cors_configuration.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_cors_configuration",
+     "name": "static",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.static.bucket",
+        "aws_s3_bucket.static"
+       ]
+      },
+      "cors_rule": [
+       {
+        "allowed_headers": {
+         "constant_value": [
+          "*"
+         ]
+        },
+        "allowed_methods": {
+         "constant_value": [
+          "GET",
+          "HEAD"
+         ]
+        },
+        "allowed_origins": {
+         "constant_value": [
+          "https://www.acme-storefront.example",
+          "https://m.acme-storefront.example"
+         ]
+        },
+        "max_age_seconds": {
+         "constant_value": 3600
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket_lifecycle_configuration.access_logs",
+     "mode": "managed",
+     "type": "aws_s3_bucket_lifecycle_configuration",
+     "name": "access_logs",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.access_logs.bucket",
+        "aws_s3_bucket.access_logs"
+       ]
+      },
+      "rule": [
+       {
+        "expiration": [
+         {
+          "days": {
+           "references": [
+            "var.access_log_expiry_days"
+           ]
+          }
+         }
+        ],
+        "filter": [
+         {}
+        ],
+        "id": {
+         "constant_value": "expire-access-logs"
+        },
+        "status": {
+         "constant_value": "Enabled"
+        },
+        "transition": [
+         {
+          "days": {
+           "constant_value": 30
+          },
+          "storage_class": {
+           "constant_value": "STANDARD_IA"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     "schema_version": 1
+    },
+    {
+     "address": "aws_s3_bucket_lifecycle_configuration.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_lifecycle_configuration",
+     "name": "static",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.static.bucket",
+        "aws_s3_bucket.static"
+       ]
+      },
+      "rule": [
+       {
+        "filter": [
+         {
+          "prefix": {
+           "constant_value": "assets/"
+          }
+         }
+        ],
+        "id": {
+         "constant_value": "expire-old-asset-versions"
+        },
+        "noncurrent_version_expiration": [
+         {
+          "noncurrent_days": {
+           "references": [
+            "var.asset_noncurrent_days"
+           ]
+          }
+         }
+        ],
+        "status": {
+         "constant_value": "Enabled"
+        }
+       },
+       {
+        "expiration": [
+         {
+          "days": {
+           "references": [
+            "var.customer_export_expiry_days"
+           ]
+          }
+         }
+        ],
+        "filter": [
+         {
+          "prefix": {
+           "constant_value": "exports/customers/"
+          }
+         }
+        ],
+        "id": {
+         "constant_value": "expire-customer-exports"
+        },
+        "noncurrent_version_expiration": [
+         {
+          "noncurrent_days": {
+           "constant_value": 7
+          }
+         }
+        ],
+        "status": {
+         "constant_value": "Enabled"
+        }
+       },
+       {
+        "abort_incomplete_multipart_upload": [
+         {
+          "days_after_initiation": {
+           "constant_value": 3
+          }
+         }
+        ],
+        "filter": [
+         {}
+        ],
+        "id": {
+         "constant_value": "abort-incomplete-uploads"
+        },
+        "status": {
+         "constant_value": "Enabled"
+        }
+       }
+      ]
+     },
+     "schema_version": 1
+    },
+    {
+     "address": "aws_s3_bucket_logging.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_logging",
+     "name": "static",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.static.bucket",
+        "aws_s3_bucket.static"
+       ]
+      },
+      "target_bucket": {
+       "references": [
+        "aws_s3_bucket.access_logs.bucket",
+        "aws_s3_bucket.access_logs"
+       ]
+      },
+      "target_prefix": {
+       "references": [
+        "var.static_bucket_name"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket_ownership_controls.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_ownership_controls",
+     "name": "static",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.static.bucket",
+        "aws_s3_bucket.static"
+       ]
+      },
+      "rule": [
+       {
+        "object_ownership": {
+         "constant_value": "BucketOwnerEnforced"
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket_policy.static_public_read",
+     "mode": "managed",
+     "type": "aws_s3_bucket_policy",
+     "name": "static_public_read",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.static.bucket",
+        "aws_s3_bucket.static"
+       ]
+      },
+      "policy": {
+       "references": [
+        "data.aws_iam_policy_document.static_public_read.json",
+        "data.aws_iam_policy_document.static_public_read"
+       ]
+      }
+     },
+     "schema_version": 0,
+     "depends_on": [
+      "aws_s3_bucket_public_access_block.static"
+     ]
+    },
+    {
+     "address": "aws_s3_bucket_public_access_block.access_logs",
+     "mode": "managed",
+     "type": "aws_s3_bucket_public_access_block",
+     "name": "access_logs",
+     "provider_config_key": "aws",
+     "expressions": {
+      "block_public_acls": {
+       "constant_value": true
+      },
+      "block_public_policy": {
+       "constant_value": true
+      },
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.access_logs.bucket",
+        "aws_s3_bucket.access_logs"
+       ]
+      },
+      "ignore_public_acls": {
+       "constant_value": true
+      },
+      "restrict_public_buckets": {
+       "constant_value": true
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket_public_access_block.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_public_access_block",
+     "name": "static",
+     "provider_config_key": "aws",
+     "expressions": {
+      "block_public_acls": {
+       "constant_value": true
+      },
+      "block_public_policy": {
+       "constant_value": false
+      },
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.static.bucket",
+        "aws_s3_bucket.static"
+       ]
+      },
+      "ignore_public_acls": {
+       "constant_value": true
+      },
+      "restrict_public_buckets": {
+       "constant_value": false
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket_server_side_encryption_configuration.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_server_side_encryption_configuration",
+     "name": "static",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.static.bucket",
+        "aws_s3_bucket.static"
+       ]
+      },
+      "rule": [
+       {
+        "apply_server_side_encryption_by_default": [
+         {
+          "sse_algorithm": {
+           "constant_value": "AES256"
+          }
+         }
+        ],
+        "bucket_key_enabled": {
+         "constant_value": true
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket_versioning.static",
+     "mode": "managed",
+     "type": "aws_s3_bucket_versioning",
+     "name": "static",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.static.bucket",
+        "aws_s3_bucket.static"
+       ]
+      },
+      "versioning_configuration": [
+       {
+        "status": {
+         "constant_value": "Enabled"
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_ssm_parameter.export_prefix",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "export_prefix",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      },
+      "type": {
+       "constant_value": "String"
+      },
+      "value": {
+       "references": [
+        "var.static_bucket_name"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_ssm_parameter.static_bucket",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "static_bucket",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.environment"
+       ]
+      },
+      "type": {
+       "constant_value": "String"
+      },
+      "value": {
+       "references": [
+        "var.static_bucket_name"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "data.aws_iam_policy_document.batch_assume",
+     "mode": "data",
+     "type": "aws_iam_policy_document",
+     "name": "batch_assume",
+     "provider_config_key": "aws",
+     "expressions": {
+      "statement": [
+       {
+        "actions": {
+         "constant_value": [
+          "sts:AssumeRole"
+         ]
+        },
+        "principals": [
+         {
+          "identifiers": {
+           "constant_value": [
+            "ecs-tasks.amazonaws.com"
+           ]
+          },
+          "type": {
+           "constant_value": "Service"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "data.aws_iam_policy_document.ci_assume",
+     "mode": "data",
+     "type": "aws_iam_policy_document",
+     "name": "ci_assume",
+     "provider_config_key": "aws",
+     "expressions": {
+      "statement": [
+       {
+        "actions": {
+         "constant_value": [
+          "sts:AssumeRole"
+         ]
+        },
+        "principals": [
+         {
+          "identifiers": {
+           "references": [
+            "var.account_id"
+           ]
+          },
+          "type": {
+           "constant_value": "AWS"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "data.aws_iam_policy_document.customer_export",
+     "mode": "data",
+     "type": "aws_iam_policy_document",
+     "name": "customer_export",
+     "provider_config_key": "aws",
+     "expressions": {
+      "statement": [
+       {
+        "actions": {
+         "constant_value": [
+          "s3:PutObject"
+         ]
+        },
+        "resources": {
+         "references": [
+          "local.static_bucket_arn"
+         ]
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "data.aws_iam_policy_document.static_public_read",
+     "mode": "data",
+     "type": "aws_iam_policy_document",
+     "name": "static_public_read",
+     "provider_config_key": "aws",
+     "expressions": {
+      "statement": [
+       {
+        "actions": {
+         "constant_value": [
+          "s3:GetObject"
+         ]
+        },
+        "effect": {
+         "constant_value": "Allow"
+        },
+        "principals": [
+         {
+          "identifiers": {
+           "constant_value": [
+            "*"
+           ]
+          },
+          "type": {
+           "constant_value": "*"
+          }
+         }
+        ],
+        "resources": {
+         "references": [
+          "local.static_bucket_arn"
+         ]
+        },
+        "sid": {
+         "constant_value": "PublicReadStaticAssets"
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "data.aws_iam_policy_document.web_deployer",
+     "mode": "data",
+     "type": "aws_iam_policy_document",
+     "name": "web_deployer",
+     "provider_config_key": "aws",
+     "expressions": {
+      "statement": [
+       {
+        "actions": {
+         "constant_value": [
+          "s3:PutObject",
+          "s3:DeleteObject"
+         ]
+        },
+        "resources": {
+         "references": [
+          "local.static_bucket_arn"
+         ]
+        }
+       },
+       {
+        "actions": {
+         "constant_value": [
+          "s3:ListBucket"
+         ]
+        },
+        "resources": {
+         "references": [
+          "local.static_bucket_arn"
+         ]
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    }
+   ],
+   "module_calls": {
+    "service_runtime": {
+     "source": "./modules/service-runtime",
+     "expressions": {
+      "environment": {
+       "references": [
+        "var.environment"
+       ]
+      },
+      "log_retention_days": {
+       "references": [
+        "var.app_log_retention_days"
+       ]
+      },
+      "service": {
+       "references": [
+        "each.key"
+       ]
+      },
+      "settings": {
+       "references": [
+        "each.value"
+       ]
+      }
+     },
+     "for_each_expression": {
+      "references": [
+       "var.services"
+      ]
+     },
+     "module": {
+      "resources": [
+       {
+        "address": "aws_cloudwatch_log_group.this",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "this",
+        "provider_config_key": "aws",
+        "expressions": {
+         "name": {
+          "references": [
+           "var.environment",
+           "var.service"
+          ]
+         },
+         "retention_in_days": {
+          "references": [
+           "var.log_retention_days"
+          ]
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "aws_ssm_parameter.settings",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "settings",
+        "provider_config_key": "aws",
+        "expressions": {
+         "name": {
+          "references": [
+           "var.environment",
+           "var.service"
+          ]
+         },
+         "type": {
+          "constant_value": "String"
+         },
+         "value": {
+          "references": [
+           "var.settings"
+          ]
+         }
+        },
+        "schema_version": 0
+       }
+      ],
+      "variables": {
+       "environment": {},
+       "log_retention_days": {},
+       "service": {},
+       "settings": {}
+      }
+     }
+    }
+   },
+   "variables": {
+    "access_log_bucket_name": {},
+    "access_log_expiry_days": {
+     "default": 400
+    },
+    "account_id": {},
+    "app_log_retention_days": {
+     "default": 60
+    },
+    "asset_noncurrent_days": {
+     "default": 14
+    },
+    "customer_export_expiry_days": {
+     "default": 90,
+     "description": "How long nightly customer exports (PII: names, emails, order totals) are kept."
+    },
+    "environment": {},
+    "services": {
+     "description": "Storefront services and their runtime settings (published to SSM)."
+    },
+    "static_bucket_name": {
+     "description": "Bucket for front-end build output. Historically also receives the nightly customer exports (see storage.tf)."
+    }
+   }
+  }
+ },
+ "relevant_attributes": [
+  {
+   "resource": "data.aws_iam_policy_document.batch_assume",
+   "attribute": [
+    "json"
+   ]
+  },
+  {
+   "resource": "aws_s3_bucket.static",
+   "attribute": [
+    "bucket"
+   ]
+  },
+  {
+   "resource": "data.aws_iam_policy_document.static_public_read",
+   "attribute": [
+    "json"
+   ]
+  },
+  {
+   "resource": "aws_s3_bucket.access_logs",
+   "attribute": [
+    "bucket"
+   ]
+  },
+  {
+   "resource": "data.aws_iam_policy_document.ci_assume",
+   "attribute": [
+    "json"
+   ]
+  }
+ ],
+ "timestamp": "2026-11-24T09:31:57Z",
+ "applyable": true,
+ "complete": true,
+ "errored": false
+}

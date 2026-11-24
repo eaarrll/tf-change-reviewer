@@ -1,0 +1,25 @@
+diff --git a/providers.tf b/providers.tf
+index aee73fd..f916fa9 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -16,6 +16,7 @@ provider "aws" {
+       Project     = "data-platform"
+       Environment = var.environment
+       ManagedBy   = "terraform"
++      Owner       = "data-eng"
+     }
+   }
+ }
+diff --git a/terraform.tfvars b/terraform.tfvars
+index dd61814..63a125d 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -1,6 +1,6 @@
+ environment        = "prod"
+-data_buckets       = ["exports", "invoices", "receipts", "statements", "ledger"]
+-log_retention_days = 30
++data_buckets       = ["invoices", "receipts", "statements", "ledger"]
++log_retention_days = 14
+ 
+ pipelines = {
+   "orders-ingest"      = { visibility_timeout = 60, max_backlog = 5000 }

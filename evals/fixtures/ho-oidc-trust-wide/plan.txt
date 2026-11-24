@@ -1,0 +1,483 @@
+module.github_deploy_role.data.aws_iam_policy_document.trust: Reading...
+module.github_deploy_role.data.aws_iam_policy_document.trust: Read complete after 0s [id=3455963953]
+module.github_deploy_role.data.aws_iam_policy_document.deploy: Reading...
+module.github_deploy_role.data.aws_iam_policy_document.deploy: Read complete after 0s [id=3617285200]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.deploy_audit will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "deploy_audit" {
+        id                          = "mock-aws_cloudwatch_log_group.deploy_audit"
+        name                        = "/ci/prod/deploys"
+      ~ retention_in_days           = 90 -> 180
+      ~ tags_all                    = {
+          + "CostCenter"  = "cc-2207"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # aws_ssm_parameter.deploy_role_arn will be updated in-place
+  ~ resource "aws_ssm_parameter" "deploy_role_arn" {
+        id             = "mock-aws_ssm_parameter.deploy_role_arn"
+        name           = "/ci/prod/deploy-role-arn"
+      ~ tags_all       = {
+          + "CostCenter"  = "cc-2207"
+            # (4 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # module.ecr.aws_ecr_lifecycle_policy.this["checkout-api"] must be replaced
+-/+ resource "aws_ecr_lifecycle_policy" "this" {
+      ~ id          = "mock-module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-api\"]" -> (known after apply)
+      ~ policy      = jsonencode(
+          ~ {
+              ~ rules = [
+                    {
+                        action       = {
+                            type = "expire"
+                        }
+                        description  = "Expire untagged images after 7 days"
+                        rulePriority = 1
+                        selection    = {
+                            countNumber = 7
+                            countType   = "sinceImagePushed"
+                            countUnit   = "days"
+                            tagStatus   = "untagged"
+                        }
+                    },
+                  ~ {
+                      ~ description  = "Keep the last 30 images" -> "Keep the last 50 images"
+                      ~ selection    = {
+                          ~ countNumber = 30 -> 50
+                            # (2 unchanged attributes hidden)
+                        }
+                        # (2 unchanged attributes hidden)
+                    },
+                ]
+            } # forces replacement
+        )
+      ~ registry_id = "mock-registry_id" -> (known after apply)
+        # (2 unchanged attributes hidden)
+    }
+
+  # module.ecr.aws_ecr_lifecycle_policy.this["loyalty-api"] will be created
+  + resource "aws_ecr_lifecycle_policy" "this" {
+      + id          = (known after apply)
+      + policy      = jsonencode(
+            {
+              + rules = [
+                  + {
+                      + action       = {
+                          + type = "expire"
+                        }
+                      + description  = "Expire untagged images after 7 days"
+                      + rulePriority = 1
+                      + selection    = {
+                          + countNumber = 7
+                          + countType   = "sinceImagePushed"
+                          + countUnit   = "days"
+                          + tagStatus   = "untagged"
+                        }
+                    },
+                  + {
+                      + action       = {
+                          + type = "expire"
+                        }
+                      + description  = "Keep the last 30 images"
+                      + rulePriority = 2
+                      + selection    = {
+                          + countNumber = 30
+                          + countType   = "imageCountMoreThan"
+                          + tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      + region      = "eu-west-1"
+      + registry_id = (known after apply)
+      + repository  = "acme/loyalty-api"
+    }
+
+  # module.ecr.aws_ecr_lifecycle_policy.this["loyalty-worker"] will be created
+  + resource "aws_ecr_lifecycle_policy" "this" {
+      + id          = (known after apply)
+      + policy      = jsonencode(
+            {
+              + rules = [
+                  + {
+                      + action       = {
+                          + type = "expire"
+                        }
+                      + description  = "Expire untagged images after 7 days"
+                      + rulePriority = 1
+                      + selection    = {
+                          + countNumber = 7
+                          + countType   = "sinceImagePushed"
+                          + countUnit   = "days"
+                          + tagStatus   = "untagged"
+                        }
+                    },
+                  + {
+                      + action       = {
+                          + type = "expire"
+                        }
+                      + description  = "Keep the last 20 images"
+                      + rulePriority = 2
+                      + selection    = {
+                          + countNumber = 20
+                          + countType   = "imageCountMoreThan"
+                          + tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      + region      = "eu-west-1"
+      + registry_id = (known after apply)
+      + repository  = "acme/loyalty-worker"
+    }
+
+  # module.ecr.aws_ecr_lifecycle_policy.this["pricing-engine"] will be created
+  + resource "aws_ecr_lifecycle_policy" "this" {
+      + id          = (known after apply)
+      + policy      = jsonencode(
+            {
+              + rules = [
+                  + {
+                      + action       = {
+                          + type = "expire"
+                        }
+                      + description  = "Expire untagged images after 7 days"
+                      + rulePriority = 1
+                      + selection    = {
+                          + countNumber = 7
+                          + countType   = "sinceImagePushed"
+                          + countUnit   = "days"
+                          + tagStatus   = "untagged"
+                        }
+                    },
+                  + {
+                      + action       = {
+                          + type = "expire"
+                        }
+                      + description  = "Keep the last 30 images"
+                      + rulePriority = 2
+                      + selection    = {
+                          + countNumber = 30
+                          + countType   = "imageCountMoreThan"
+                          + tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      + region      = "eu-west-1"
+      + registry_id = (known after apply)
+      + repository  = "acme/pricing-engine"
+    }
+
+  # module.ecr.aws_ecr_repository.this["catalog-api"] will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.ecr.aws_ecr_repository.this[\"catalog-api\"]"
+        name                 = "acme/catalog-api"
+        tags                 = {
+            "Service" = "catalog-api"
+        }
+      ~ tags_all             = {
+          + "CostCenter"  = "cc-2207"
+            # (5 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (2 unchanged blocks hidden)
+    }
+
+  # module.ecr.aws_ecr_repository.this["catalog-indexer"] will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.ecr.aws_ecr_repository.this[\"catalog-indexer\"]"
+        name                 = "acme/catalog-indexer"
+        tags                 = {
+            "Service" = "catalog-indexer"
+        }
+      ~ tags_all             = {
+          + "CostCenter"  = "cc-2207"
+            # (5 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (2 unchanged blocks hidden)
+    }
+
+  # module.ecr.aws_ecr_repository.this["checkout-api"] will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.ecr.aws_ecr_repository.this[\"checkout-api\"]"
+        name                 = "acme/checkout-api"
+        tags                 = {
+            "Service" = "checkout-api"
+        }
+      ~ tags_all             = {
+          + "CostCenter"  = "cc-2207"
+            # (5 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (2 unchanged blocks hidden)
+    }
+
+  # module.ecr.aws_ecr_repository.this["checkout-worker"] will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.ecr.aws_ecr_repository.this[\"checkout-worker\"]"
+        name                 = "acme/checkout-worker"
+        tags                 = {
+            "Service" = "checkout-worker"
+        }
+      ~ tags_all             = {
+          + "CostCenter"  = "cc-2207"
+            # (5 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (2 unchanged blocks hidden)
+    }
+
+  # module.ecr.aws_ecr_repository.this["loyalty-api"] will be created
+  + resource "aws_ecr_repository" "this" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "IMMUTABLE"
+      + name                 = "acme/loyalty-api"
+      + region               = "eu-west-1"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags                 = {
+          + "Service" = "loyalty-api"
+        }
+      + tags_all             = {
+          + "CostCenter"  = "cc-2207"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "delivery-platform"
+          + "Repository"  = "acme-platform/infra-ci"
+          + "Service"     = "loyalty-api"
+        }
+
+      + encryption_configuration {
+          + encryption_type = "AES256"
+          + kms_key         = (known after apply)
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # module.ecr.aws_ecr_repository.this["loyalty-worker"] will be created
+  + resource "aws_ecr_repository" "this" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "IMMUTABLE"
+      + name                 = "acme/loyalty-worker"
+      + region               = "eu-west-1"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags                 = {
+          + "Service" = "loyalty-worker"
+        }
+      + tags_all             = {
+          + "CostCenter"  = "cc-2207"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "delivery-platform"
+          + "Repository"  = "acme-platform/infra-ci"
+          + "Service"     = "loyalty-worker"
+        }
+
+      + encryption_configuration {
+          + encryption_type = "AES256"
+          + kms_key         = (known after apply)
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # module.ecr.aws_ecr_repository.this["notifications"] will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.ecr.aws_ecr_repository.this[\"notifications\"]"
+        name                 = "acme/notifications"
+        tags                 = {
+            "Service" = "notifications"
+        }
+      ~ tags_all             = {
+          + "CostCenter"  = "cc-2207"
+            # (5 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (2 unchanged blocks hidden)
+    }
+
+  # module.ecr.aws_ecr_repository.this["payments-gateway"] will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.ecr.aws_ecr_repository.this[\"payments-gateway\"]"
+        name                 = "acme/payments-gateway"
+        tags                 = {
+            "Service" = "payments-gateway"
+        }
+      ~ tags_all             = {
+          + "CostCenter"  = "cc-2207"
+            # (5 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (2 unchanged blocks hidden)
+    }
+
+  # module.ecr.aws_ecr_repository.this["pricing-engine"] will be created
+  + resource "aws_ecr_repository" "this" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "IMMUTABLE"
+      + name                 = "acme/pricing-engine"
+      + region               = "eu-west-1"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags                 = {
+          + "Service" = "pricing-engine"
+        }
+      + tags_all             = {
+          + "CostCenter"  = "cc-2207"
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "delivery-platform"
+          + "Repository"  = "acme-platform/infra-ci"
+          + "Service"     = "pricing-engine"
+        }
+
+      + encryption_configuration {
+          + encryption_type = "AES256"
+          + kms_key         = (known after apply)
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # module.ecr.aws_ecr_repository.this["search-api"] will be updated in-place
+  ~ resource "aws_ecr_repository" "this" {
+        id                   = "mock-module.ecr.aws_ecr_repository.this[\"search-api\"]"
+        name                 = "acme/search-api"
+        tags                 = {
+            "Service" = "search-api"
+        }
+      ~ tags_all             = {
+          + "CostCenter"  = "cc-2207"
+            # (5 unchanged elements hidden)
+        }
+        # (5 unchanged attributes hidden)
+
+        # (2 unchanged blocks hidden)
+    }
+
+  # module.github_deploy_role.aws_iam_role.this will be updated in-place
+  ~ resource "aws_iam_role" "this" {
+      ~ assume_role_policy    = jsonencode(
+          ~ {
+              ~ Statement = [
+                  ~ {
+                      ~ Condition = {
+                          ~ StringLike   = {
+                              ~ "token.actions.githubusercontent.com:sub" = "repo:acme-platform/checkout-app:ref:refs/heads/main" -> "repo:*"
+                            }
+                            # (1 unchanged attribute hidden)
+                        }
+                        # (4 unchanged attributes hidden)
+                    },
+                ]
+                # (1 unchanged attribute hidden)
+            }
+        )
+        id                    = "mock-module.github_deploy_role.aws_iam_role.this"
+        name                  = "gha-deploy-prod"
+      ~ tags_all              = {
+          + "CostCenter"  = "cc-2207"
+            # (4 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # module.github_deploy_role.aws_iam_role_policy.deploy will be updated in-place
+  ~ resource "aws_iam_role_policy" "deploy" {
+        id          = "mock-module.github_deploy_role.aws_iam_role_policy.deploy"
+        name        = "deploy"
+      ~ policy      = jsonencode(
+          ~ {
+              ~ Statement = [
+                    {
+                        Action   = "ecr:GetAuthorizationToken"
+                        Effect   = "Allow"
+                        Resource = "*"
+                        Sid      = "EcrAuth"
+                    },
+                  ~ {
+                      ~ Resource = [
+                            "arn:aws:ecr:eu-west-1:*:repository/acme/search-api",
+                          + "arn:aws:ecr:eu-west-1:*:repository/acme/pricing-engine",
+                            "arn:aws:ecr:eu-west-1:*:repository/acme/payments-gateway",
+                            "arn:aws:ecr:eu-west-1:*:repository/acme/notifications",
+                          + "arn:aws:ecr:eu-west-1:*:repository/acme/loyalty-worker",
+                          + "arn:aws:ecr:eu-west-1:*:repository/acme/loyalty-api",
+                            "arn:aws:ecr:eu-west-1:*:repository/acme/checkout-worker",
+                            # (3 unchanged elements hidden)
+                        ]
+                        # (3 unchanged attributes hidden)
+                    },
+                    {
+                        Action    = [
+                            "ecs:UpdateService",
+                            "ecs:RegisterTaskDefinition",
+                            "ecs:DescribeServices",
+                        ]
+                        Condition = {
+                            ArnEquals = {
+                                "ecs:cluster" = "arn:aws:ecs:eu-west-1:412093857261:cluster/prod-apps"
+                            }
+                        }
+                        Effect    = "Allow"
+                        Resource  = "*"
+                        Sid       = "EcsDeploy"
+                    },
+                ]
+                # (1 unchanged attribute hidden)
+            }
+        )
+        # (2 unchanged attributes hidden)
+    }
+
+Plan: 7 to add, 11 to change, 1 to destroy.
+
+Changes to Outputs:
+  + deploy_role_name    = "gha-deploy-prod"
+  + ecr_repository_urls = {
+      + catalog-api      = "mock-repository_url"
+      + catalog-indexer  = "mock-repository_url"
+      + checkout-api     = "mock-repository_url"
+      + checkout-worker  = "mock-repository_url"
+      + loyalty-api      = (known after apply)
+      + loyalty-worker   = (known after apply)
+      + notifications    = "mock-repository_url"
+      + payments-gateway = "mock-repository_url"
+      + pricing-engine   = (known after apply)
+      + search-api       = "mock-repository_url"
+    }

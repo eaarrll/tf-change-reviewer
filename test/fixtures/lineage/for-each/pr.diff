@@ -1,0 +1,13 @@
+diff --git a/terraform.tfvars b/terraform.tfvars
+index c735ce8..c53d3d6 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -1,6 +1,5 @@
+-base_services = ["billing", "ledger", "legacy"]
++base_services = ["billing", "ledger", "payouts"]
+ 
+ queues = {
+-  orders  = { visibility = 30 }
+-  refunds = { visibility = 60 }
++  orders = { visibility = 30 }
+ }

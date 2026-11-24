@@ -1,0 +1,25 @@
+{
+  "description": "Refactor PR renames aws_dynamodb_table.orders to orders_table without a moved block (Terraform destroys the live orders table and creates an empty one with the same name) and renames the exports bucket with a correct moved block (no-op apart from the new tag). Noise: an Owner default tag on every resource, a new giftcards service queue/log group/parameter, the IAM policy re-rendered with the new table ARN.",
+  "material": [
+    {
+      "address": "aws_dynamodb_table.orders",
+      "severity": "critical",
+      "why": "The resource was renamed without a moved block, so Terraform destroys the production orders table and creates a new empty table with the same name: every order item is gone, recoverable only by restoring the PITR system backup into a new table. The create may also fail at apply with ResourceInUseException if it runs before the delete finishes, leaving no table at all.",
+      "cause": [
+        {
+          "file": "storage.tf",
+          "line": 1,
+          "side": "base"
+        },
+        {
+          "file": "storage.tf",
+          "line": 1
+        }
+      ]
+    }
+  ],
+  "acceptable": [
+    "aws_dynamodb_table.orders_table",
+    "aws_iam_policy.orders_rw"
+  ]
+}

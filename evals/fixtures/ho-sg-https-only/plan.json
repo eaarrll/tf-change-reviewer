@@ -1,0 +1,5198 @@
+{
+ "format_version": "1.2",
+ "terraform_version": "1.10.5",
+ "variables": {
+  "alarm_topic_arn": {
+   "value": "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+  },
+  "app_port": {
+   "value": 8080
+  },
+  "certificate_arn": {
+   "value": "arn:aws:acm:eu-west-1:345678901234:certificate/0b7e5a42-1c9d-4f3e-8a26-7d5c4b3a2e10"
+  },
+  "environment": {
+   "value": "prod"
+  },
+  "frontends": {
+   "value": [
+    "web",
+    "checkout",
+    "account"
+   ]
+  },
+  "public_subnet_ids": {
+   "value": [
+    "subnet-0d1e2f3a4b5c6d701",
+    "subnet-0d1e2f3a4b5c6d702",
+    "subnet-0d1e2f3a4b5c6d703"
+   ]
+  },
+  "region": {
+   "value": "eu-west-1"
+  },
+  "site_name": {
+   "value": "storefront"
+  },
+  "vpc_cidr": {
+   "value": "10.20.0.0/16"
+  },
+  "vpc_id": {
+   "value": "vpc-0f3e2d1c0b9a87654"
+  }
+ },
+ "planned_values": {
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_cloudwatch_log_group.edge[\"access\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "edge",
+     "index": "access",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "kms_key_id": null,
+      "name": "/storefront/prod/access",
+      "region": "eu-west-1",
+      "retention_in_days": 90,
+      "skip_destroy": false,
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_log_group.edge[\"csp-report\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "edge",
+     "index": "csp-report",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "kms_key_id": null,
+      "name": "/storefront/prod/csp-report",
+      "region": "eu-west-1",
+      "retention_in_days": 14,
+      "skip_destroy": false,
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_log_group.edge[\"edge-auth\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "edge",
+     "index": "edge-auth",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "kms_key_id": null,
+      "name": "/storefront/prod/edge-auth",
+      "region": "eu-west-1",
+      "retention_in_days": 14,
+      "skip_destroy": false,
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_log_group.frontend[\"account\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "frontend",
+     "index": "account",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.frontend[\"account\"]",
+      "deletion_protection_enabled": false,
+      "id": "mock-aws_cloudwatch_log_group.frontend[\"account\"]",
+      "kms_key_id": null,
+      "log_group_class": "mock-log_group_class",
+      "name": "/ecs/storefront/account",
+      "name_prefix": "mock-name_prefix",
+      "region": "eu-west-1",
+      "retention_in_days": 30,
+      "skip_destroy": false,
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_log_group.frontend[\"checkout\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "frontend",
+     "index": "checkout",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.frontend[\"checkout\"]",
+      "deletion_protection_enabled": false,
+      "id": "mock-aws_cloudwatch_log_group.frontend[\"checkout\"]",
+      "kms_key_id": null,
+      "log_group_class": "mock-log_group_class",
+      "name": "/ecs/storefront/checkout",
+      "name_prefix": "mock-name_prefix",
+      "region": "eu-west-1",
+      "retention_in_days": 30,
+      "skip_destroy": false,
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_log_group.frontend[\"web\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "frontend",
+     "index": "web",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.frontend[\"web\"]",
+      "deletion_protection_enabled": false,
+      "id": "mock-aws_cloudwatch_log_group.frontend[\"web\"]",
+      "kms_key_id": null,
+      "log_group_class": "mock-log_group_class",
+      "name": "/ecs/storefront/web",
+      "name_prefix": "mock-name_prefix",
+      "region": "eu-west-1",
+      "retention_in_days": 30,
+      "skip_destroy": false,
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.alb_5xx",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "alb_5xx",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+      ],
+      "alarm_description": null,
+      "alarm_name": "storefront-prod-alb-5xx",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.alb_5xx",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "LoadBalancer": "mock-arn_suffix"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.alb_5xx",
+      "insufficient_data_actions": null,
+      "metric_name": "HTTPCode_ELB_5XX_Count",
+      "metric_query": [],
+      "namespace": "AWS/ApplicationELB",
+      "ok_actions": null,
+      "period": 60,
+      "region": "eu-west-1",
+      "statistic": "Sum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      },
+      "threshold": 25,
+      "threshold_metric_id": null,
+      "treat_missing_data": "notBreaching",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.target_latency[\"account\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "target_latency",
+     "index": "account",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+      ],
+      "alarm_description": null,
+      "alarm_name": "storefront-prod-account-latency",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.target_latency[\"account\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "LoadBalancer": "mock-arn_suffix",
+       "TargetGroup": "mock-arn_suffix"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 5,
+      "evaluation_window": [],
+      "extended_statistic": "p95",
+      "id": "mock-aws_cloudwatch_metric_alarm.target_latency[\"account\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "TargetResponseTime",
+      "metric_query": [],
+      "namespace": "AWS/ApplicationELB",
+      "ok_actions": null,
+      "period": 60,
+      "region": "eu-west-1",
+      "statistic": null,
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      },
+      "threshold": 1.2,
+      "threshold_metric_id": null,
+      "treat_missing_data": "missing",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.target_latency[\"checkout\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "target_latency",
+     "index": "checkout",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+      ],
+      "alarm_description": null,
+      "alarm_name": "storefront-prod-checkout-latency",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.target_latency[\"checkout\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "LoadBalancer": "mock-arn_suffix",
+       "TargetGroup": "mock-arn_suffix"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 5,
+      "evaluation_window": [],
+      "extended_statistic": "p95",
+      "id": "mock-aws_cloudwatch_metric_alarm.target_latency[\"checkout\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "TargetResponseTime",
+      "metric_query": [],
+      "namespace": "AWS/ApplicationELB",
+      "ok_actions": null,
+      "period": 60,
+      "region": "eu-west-1",
+      "statistic": null,
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      },
+      "threshold": 1.2,
+      "threshold_metric_id": null,
+      "treat_missing_data": "missing",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.target_latency[\"web\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "target_latency",
+     "index": "web",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+      ],
+      "alarm_description": null,
+      "alarm_name": "storefront-prod-web-latency",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.target_latency[\"web\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "LoadBalancer": "mock-arn_suffix",
+       "TargetGroup": "mock-arn_suffix"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 5,
+      "evaluation_window": [],
+      "extended_statistic": "p95",
+      "id": "mock-aws_cloudwatch_metric_alarm.target_latency[\"web\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "TargetResponseTime",
+      "metric_query": [],
+      "namespace": "AWS/ApplicationELB",
+      "ok_actions": null,
+      "period": 60,
+      "region": "eu-west-1",
+      "statistic": null,
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      },
+      "threshold": 1.2,
+      "threshold_metric_id": null,
+      "treat_missing_data": "missing",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.unhealthy_hosts[\"account\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "unhealthy_hosts",
+     "index": "account",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+      ],
+      "alarm_description": null,
+      "alarm_name": "storefront-prod-account-unhealthy",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.unhealthy_hosts[\"account\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "LoadBalancer": "mock-arn_suffix",
+       "TargetGroup": "mock-arn_suffix"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"account\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "UnHealthyHostCount",
+      "metric_query": [],
+      "namespace": "AWS/ApplicationELB",
+      "ok_actions": null,
+      "period": 60,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      },
+      "threshold": 0,
+      "threshold_metric_id": null,
+      "treat_missing_data": "missing",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.unhealthy_hosts[\"checkout\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "unhealthy_hosts",
+     "index": "checkout",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+      ],
+      "alarm_description": null,
+      "alarm_name": "storefront-prod-checkout-unhealthy",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.unhealthy_hosts[\"checkout\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "LoadBalancer": "mock-arn_suffix",
+       "TargetGroup": "mock-arn_suffix"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"checkout\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "UnHealthyHostCount",
+      "metric_query": [],
+      "namespace": "AWS/ApplicationELB",
+      "ok_actions": null,
+      "period": 60,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      },
+      "threshold": 0,
+      "threshold_metric_id": null,
+      "treat_missing_data": "missing",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.unhealthy_hosts[\"web\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "unhealthy_hosts",
+     "index": "web",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+      ],
+      "alarm_description": null,
+      "alarm_name": "storefront-prod-web-unhealthy",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.unhealthy_hosts[\"web\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "LoadBalancer": "mock-arn_suffix",
+       "TargetGroup": "mock-arn_suffix"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"web\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "UnHealthyHostCount",
+      "metric_query": [],
+      "namespace": "AWS/ApplicationELB",
+      "ok_actions": null,
+      "period": 60,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Service": "storefront",
+       "Team": "web-experience",
+       "Tier": "public-edge"
+      },
+      "threshold": 0,
+      "threshold_metric_id": null,
+      "treat_missing_data": "missing",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    }
+   ],
+   "child_modules": [
+    {
+     "resources": [
+      {
+       "address": "module.alb.aws_lb.this",
+       "mode": "managed",
+       "type": "aws_lb",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "access_logs": [],
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb.this",
+        "arn_suffix": "mock-arn_suffix",
+        "client_keep_alive": 3600,
+        "connection_logs": [],
+        "customer_owned_ipv4_pool": null,
+        "desync_mitigation_mode": "defensive",
+        "dns_name": "mock-dns_name",
+        "dns_record_client_routing_policy": null,
+        "drop_invalid_header_fields": true,
+        "enable_cross_zone_load_balancing": null,
+        "enable_deletion_protection": false,
+        "enable_http2": true,
+        "enable_prefix_for_ipv6_source_nat": "mock-enable_prefix_for_ipv6_source_nat",
+        "enable_tls_version_and_cipher_suite_headers": false,
+        "enable_waf_fail_open": false,
+        "enable_xff_client_port": false,
+        "enable_zonal_shift": false,
+        "enforce_security_group_inbound_rules_on_private_link_traffic": "mock-enforce_security_group_inbound_rules_on_private_link_traffic",
+        "health_check_logs": [],
+        "id": "mock-module.alb.aws_lb.this",
+        "idle_timeout": 60,
+        "internal": false,
+        "ip_address_type": "mock-ip_address_type",
+        "ipam_pools": [],
+        "load_balancer_type": "application",
+        "minimum_load_balancer_capacity": [],
+        "name": "storefront-prod-alb",
+        "name_prefix": "mock-name_prefix",
+        "preserve_host_header": false,
+        "region": "eu-west-1",
+        "secondary_ips_auto_assigned_per_subnet": 0,
+        "security_groups": [
+         "mock-module.alb.aws_security_group.alb"
+        ],
+        "subnet_mapping": [],
+        "subnets": [
+         "subnet-0d1e2f3a4b5c6d701",
+         "subnet-0d1e2f3a4b5c6d702",
+         "subnet-0d1e2f3a4b5c6d703"
+        ],
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Service": "storefront",
+         "Team": "web-experience",
+         "Tier": "public-edge"
+        },
+        "timeouts": null,
+        "vpc_id": "mock-vpc_id",
+        "xff_header_processing_mode": "append",
+        "zone_id": "mock-zone_id"
+       },
+       "sensitive_values": {
+        "access_logs": [],
+        "connection_logs": [],
+        "health_check_logs": [],
+        "ipam_pools": [],
+        "minimum_load_balancer_capacity": [],
+        "security_groups": [
+         false
+        ],
+        "subnet_mapping": [],
+        "subnets": [
+         false,
+         false,
+         false
+        ],
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.alb.aws_lb_listener.http",
+       "mode": "managed",
+       "type": "aws_lb_listener",
+       "name": "http",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "alpn_policy": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_listener.http",
+        "certificate_arn": null,
+        "default_action": [
+         {
+          "authenticate_cognito": [],
+          "authenticate_oidc": [],
+          "fixed_response": [],
+          "forward": [],
+          "jwt_validation": [],
+          "order": 0,
+          "redirect": [],
+          "target_group_arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"web\"]",
+          "type": "forward"
+         }
+        ],
+        "id": "mock-module.alb.aws_lb_listener.http",
+        "load_balancer_arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb.this",
+        "mutual_authentication": [],
+        "port": 80,
+        "protocol": "HTTP",
+        "region": "eu-west-1",
+        "routing_http_request_x_amzn_mtls_clientcert_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_header_name",
+        "routing_http_request_x_amzn_mtls_clientcert_issuer_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_issuer_header_name",
+        "routing_http_request_x_amzn_mtls_clientcert_leaf_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_leaf_header_name",
+        "routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name",
+        "routing_http_request_x_amzn_mtls_clientcert_subject_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_subject_header_name",
+        "routing_http_request_x_amzn_mtls_clientcert_validity_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_validity_header_name",
+        "routing_http_request_x_amzn_tls_cipher_suite_header_name": "mock-routing_http_request_x_amzn_tls_cipher_suite_header_name",
+        "routing_http_request_x_amzn_tls_version_header_name": "mock-routing_http_request_x_amzn_tls_version_header_name",
+        "routing_http_response_access_control_allow_credentials_header_value": "mock-routing_http_response_access_control_allow_credentials_header_value",
+        "routing_http_response_access_control_allow_headers_header_value": "mock-routing_http_response_access_control_allow_headers_header_value",
+        "routing_http_response_access_control_allow_methods_header_value": "mock-routing_http_response_access_control_allow_methods_header_value",
+        "routing_http_response_access_control_allow_origin_header_value": "mock-routing_http_response_access_control_allow_origin_header_value",
+        "routing_http_response_access_control_expose_headers_header_value": "mock-routing_http_response_access_control_expose_headers_header_value",
+        "routing_http_response_access_control_max_age_header_value": "mock-routing_http_response_access_control_max_age_header_value",
+        "routing_http_response_content_security_policy_header_value": "mock-routing_http_response_content_security_policy_header_value",
+        "routing_http_response_server_enabled": false,
+        "routing_http_response_strict_transport_security_header_value": "mock-routing_http_response_strict_transport_security_header_value",
+        "routing_http_response_x_content_type_options_header_value": "mock-routing_http_response_x_content_type_options_header_value",
+        "routing_http_response_x_frame_options_header_value": "mock-routing_http_response_x_frame_options_header_value",
+        "ssl_policy": "mock-ssl_policy",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Service": "storefront",
+         "Team": "web-experience",
+         "Tier": "public-edge"
+        },
+        "tcp_idle_timeout_seconds": 0,
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "default_action": [
+         {
+          "authenticate_cognito": [],
+          "authenticate_oidc": [],
+          "fixed_response": [],
+          "forward": [],
+          "jwt_validation": [],
+          "redirect": []
+         }
+        ],
+        "mutual_authentication": [],
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.alb.aws_lb_listener.https",
+       "mode": "managed",
+       "type": "aws_lb_listener",
+       "name": "https",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "alpn_policy": null,
+        "certificate_arn": "arn:aws:acm:eu-west-1:345678901234:certificate/0b7e5a42-1c9d-4f3e-8a26-7d5c4b3a2e10",
+        "default_action": [
+         {
+          "authenticate_cognito": [],
+          "authenticate_oidc": [],
+          "fixed_response": [],
+          "forward": [],
+          "jwt_validation": [],
+          "redirect": [],
+          "target_group_arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"web\"]",
+          "type": "forward"
+         }
+        ],
+        "load_balancer_arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb.this",
+        "port": 443,
+        "protocol": "HTTPS",
+        "region": "eu-west-1",
+        "ssl_policy": "ELBSecurityPolicy-TLS13-1-2-2021-06",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Service": "storefront",
+         "Team": "web-experience",
+         "Tier": "public-edge"
+        },
+        "timeouts": null
+       },
+       "sensitive_values": {
+        "default_action": [
+         {
+          "authenticate_cognito": [],
+          "authenticate_oidc": [],
+          "fixed_response": [],
+          "forward": [],
+          "jwt_validation": [],
+          "redirect": []
+         }
+        ],
+        "mutual_authentication": [],
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.alb.aws_lb_target_group.svc[\"account\"]",
+       "mode": "managed",
+       "type": "aws_lb_target_group",
+       "name": "svc",
+       "index": "account",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"account\"]",
+        "arn_suffix": "mock-arn_suffix",
+        "connection_termination": false,
+        "deregistration_delay": "30",
+        "health_check": [
+         {
+          "enabled": true,
+          "healthy_threshold": 2,
+          "interval": 15,
+          "matcher": "200",
+          "path": "/healthz",
+          "port": "traffic-port",
+          "protocol": "HTTP",
+          "timeout": 0,
+          "unhealthy_threshold": 3
+         }
+        ],
+        "id": "mock-module.alb.aws_lb_target_group.svc[\"account\"]",
+        "ip_address_type": "mock-ip_address_type",
+        "lambda_multi_value_headers_enabled": false,
+        "load_balancer_arns": [],
+        "load_balancing_algorithm_type": "mock-load_balancing_algorithm_type",
+        "load_balancing_anomaly_mitigation": "mock-load_balancing_anomaly_mitigation",
+        "load_balancing_cross_zone_enabled": "mock-load_balancing_cross_zone_enabled",
+        "name": "storefront-prod-account",
+        "name_prefix": "mock-name_prefix",
+        "port": 8080,
+        "preserve_client_ip": "mock-preserve_client_ip",
+        "protocol": "HTTP",
+        "protocol_version": "HTTP1",
+        "proxy_protocol_v2": false,
+        "region": "eu-west-1",
+        "slow_start": 0,
+        "stickiness": [],
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Service": "storefront",
+         "Team": "web-experience",
+         "Tier": "public-edge"
+        },
+        "target_control_port": null,
+        "target_failover": [],
+        "target_group_health": [],
+        "target_health_state": [],
+        "target_type": "ip",
+        "vpc_id": "vpc-0f3e2d1c0b9a87654"
+       },
+       "sensitive_values": {
+        "health_check": [
+         {}
+        ],
+        "load_balancer_arns": [],
+        "stickiness": [],
+        "tags_all": {},
+        "target_failover": [],
+        "target_group_health": [],
+        "target_health_state": []
+       }
+      },
+      {
+       "address": "module.alb.aws_lb_target_group.svc[\"checkout\"]",
+       "mode": "managed",
+       "type": "aws_lb_target_group",
+       "name": "svc",
+       "index": "checkout",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"checkout\"]",
+        "arn_suffix": "mock-arn_suffix",
+        "connection_termination": false,
+        "deregistration_delay": "30",
+        "health_check": [
+         {
+          "enabled": true,
+          "healthy_threshold": 2,
+          "interval": 15,
+          "matcher": "200",
+          "path": "/healthz",
+          "port": "traffic-port",
+          "protocol": "HTTP",
+          "timeout": 0,
+          "unhealthy_threshold": 3
+         }
+        ],
+        "id": "mock-module.alb.aws_lb_target_group.svc[\"checkout\"]",
+        "ip_address_type": "mock-ip_address_type",
+        "lambda_multi_value_headers_enabled": false,
+        "load_balancer_arns": [],
+        "load_balancing_algorithm_type": "mock-load_balancing_algorithm_type",
+        "load_balancing_anomaly_mitigation": "mock-load_balancing_anomaly_mitigation",
+        "load_balancing_cross_zone_enabled": "mock-load_balancing_cross_zone_enabled",
+        "name": "storefront-prod-checkout",
+        "name_prefix": "mock-name_prefix",
+        "port": 8080,
+        "preserve_client_ip": "mock-preserve_client_ip",
+        "protocol": "HTTP",
+        "protocol_version": "HTTP1",
+        "proxy_protocol_v2": false,
+        "region": "eu-west-1",
+        "slow_start": 0,
+        "stickiness": [],
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Service": "storefront",
+         "Team": "web-experience",
+         "Tier": "public-edge"
+        },
+        "target_control_port": null,
+        "target_failover": [],
+        "target_group_health": [],
+        "target_health_state": [],
+        "target_type": "ip",
+        "vpc_id": "vpc-0f3e2d1c0b9a87654"
+       },
+       "sensitive_values": {
+        "health_check": [
+         {}
+        ],
+        "load_balancer_arns": [],
+        "stickiness": [],
+        "tags_all": {},
+        "target_failover": [],
+        "target_group_health": [],
+        "target_health_state": []
+       }
+      },
+      {
+       "address": "module.alb.aws_lb_target_group.svc[\"web\"]",
+       "mode": "managed",
+       "type": "aws_lb_target_group",
+       "name": "svc",
+       "index": "web",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"web\"]",
+        "arn_suffix": "mock-arn_suffix",
+        "connection_termination": false,
+        "deregistration_delay": "30",
+        "health_check": [
+         {
+          "enabled": true,
+          "healthy_threshold": 2,
+          "interval": 15,
+          "matcher": "200",
+          "path": "/healthz",
+          "port": "traffic-port",
+          "protocol": "HTTP",
+          "timeout": 0,
+          "unhealthy_threshold": 3
+         }
+        ],
+        "id": "mock-module.alb.aws_lb_target_group.svc[\"web\"]",
+        "ip_address_type": "mock-ip_address_type",
+        "lambda_multi_value_headers_enabled": false,
+        "load_balancer_arns": [],
+        "load_balancing_algorithm_type": "mock-load_balancing_algorithm_type",
+        "load_balancing_anomaly_mitigation": "mock-load_balancing_anomaly_mitigation",
+        "load_balancing_cross_zone_enabled": "mock-load_balancing_cross_zone_enabled",
+        "name": "storefront-prod-web",
+        "name_prefix": "mock-name_prefix",
+        "port": 8080,
+        "preserve_client_ip": "mock-preserve_client_ip",
+        "protocol": "HTTP",
+        "protocol_version": "HTTP1",
+        "proxy_protocol_v2": false,
+        "region": "eu-west-1",
+        "slow_start": 0,
+        "stickiness": [],
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Service": "storefront",
+         "Team": "web-experience",
+         "Tier": "public-edge"
+        },
+        "target_control_port": null,
+        "target_failover": [],
+        "target_group_health": [],
+        "target_health_state": [],
+        "target_type": "ip",
+        "vpc_id": "vpc-0f3e2d1c0b9a87654"
+       },
+       "sensitive_values": {
+        "health_check": [
+         {}
+        ],
+        "load_balancer_arns": [],
+        "stickiness": [],
+        "tags_all": {},
+        "target_failover": [],
+        "target_group_health": [],
+        "target_health_state": []
+       }
+      },
+      {
+       "address": "module.alb.aws_security_group.alb",
+       "mode": "managed",
+       "type": "aws_security_group",
+       "name": "alb",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 1,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_security_group.alb",
+        "description": "Public ALB for storefront-prod",
+        "egress": [],
+        "id": "mock-module.alb.aws_security_group.alb",
+        "ingress": [],
+        "name": "storefront-prod-alb",
+        "name_prefix": "mock-name_prefix",
+        "owner_id": "mock-owner_id",
+        "region": "eu-west-1",
+        "revoke_rules_on_delete": false,
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Service": "storefront",
+         "Team": "web-experience",
+         "Tier": "public-edge"
+        },
+        "timeouts": null,
+        "vpc_id": "vpc-0f3e2d1c0b9a87654"
+       },
+       "sensitive_values": {
+        "egress": [],
+        "ingress": [],
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.alb.aws_vpc_security_group_egress_rule.to_tasks",
+       "mode": "managed",
+       "type": "aws_vpc_security_group_egress_rule",
+       "name": "to_tasks",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_vpc_security_group_egress_rule.to_tasks",
+        "cidr_ipv4": "10.20.0.0/16",
+        "cidr_ipv6": null,
+        "description": "To ECS tasks",
+        "from_port": 8080,
+        "id": "mock-module.alb.aws_vpc_security_group_egress_rule.to_tasks",
+        "ip_protocol": "tcp",
+        "prefix_list_id": null,
+        "referenced_security_group_id": null,
+        "region": "eu-west-1",
+        "security_group_id": "mock-module.alb.aws_security_group.alb",
+        "security_group_rule_id": "mock-security_group_rule_id",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Service": "storefront",
+         "Team": "web-experience",
+         "Tier": "public-edge"
+        },
+        "to_port": 8080
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.alb.aws_vpc_security_group_ingress_rule.http",
+       "mode": "managed",
+       "type": "aws_vpc_security_group_ingress_rule",
+       "name": "http",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_vpc_security_group_ingress_rule.http",
+        "cidr_ipv4": "0.0.0.0/0",
+        "cidr_ipv6": null,
+        "description": "HTTP from the internet",
+        "from_port": 80,
+        "id": "mock-module.alb.aws_vpc_security_group_ingress_rule.http",
+        "ip_protocol": "tcp",
+        "prefix_list_id": null,
+        "referenced_security_group_id": null,
+        "region": "eu-west-1",
+        "security_group_id": "mock-module.alb.aws_security_group.alb",
+        "security_group_rule_id": "mock-security_group_rule_id",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Service": "storefront",
+         "Team": "web-experience",
+         "Tier": "public-edge"
+        },
+        "to_port": 80
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.alb.aws_vpc_security_group_ingress_rule.https",
+       "mode": "managed",
+       "type": "aws_vpc_security_group_ingress_rule",
+       "name": "https",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "cidr_ipv4": "0.0.0.0/0",
+        "cidr_ipv6": null,
+        "description": "HTTPS from the internet",
+        "from_port": 443,
+        "ip_protocol": "tcp",
+        "prefix_list_id": null,
+        "referenced_security_group_id": null,
+        "region": "eu-west-1",
+        "security_group_id": "mock-module.alb.aws_security_group.alb",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Service": "storefront",
+         "Team": "web-experience",
+         "Tier": "public-edge"
+        },
+        "to_port": 443
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.alb.aws_vpc_security_group_ingress_rule.https_v6",
+       "mode": "managed",
+       "type": "aws_vpc_security_group_ingress_rule",
+       "name": "https_v6",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "cidr_ipv4": null,
+        "cidr_ipv6": "::/0",
+        "description": "HTTPS from the internet (IPv6)",
+        "from_port": 443,
+        "ip_protocol": "tcp",
+        "prefix_list_id": null,
+        "referenced_security_group_id": null,
+        "region": "eu-west-1",
+        "security_group_id": "mock-module.alb.aws_security_group.alb",
+        "tags": null,
+        "tags_all": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Service": "storefront",
+         "Team": "web-experience",
+         "Tier": "public-edge"
+        },
+        "to_port": 443
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      }
+     ],
+     "address": "module.alb"
+    }
+   ]
+  }
+ },
+ "resource_changes": [
+  {
+   "address": "aws_cloudwatch_log_group.edge[\"access\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "edge",
+   "index": "access",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "kms_key_id": null,
+     "name": "/storefront/prod/access",
+     "region": "eu-west-1",
+     "retention_in_days": 90,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     }
+    },
+    "after_unknown": {
+     "arn": true,
+     "deletion_protection_enabled": true,
+     "id": true,
+     "log_group_class": true,
+     "name_prefix": true,
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_log_group.edge[\"csp-report\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "edge",
+   "index": "csp-report",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "kms_key_id": null,
+     "name": "/storefront/prod/csp-report",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     }
+    },
+    "after_unknown": {
+     "arn": true,
+     "deletion_protection_enabled": true,
+     "id": true,
+     "log_group_class": true,
+     "name_prefix": true,
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_log_group.edge[\"edge-auth\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "edge",
+   "index": "edge-auth",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "kms_key_id": null,
+     "name": "/storefront/prod/edge-auth",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     }
+    },
+    "after_unknown": {
+     "arn": true,
+     "deletion_protection_enabled": true,
+     "id": true,
+     "log_group_class": true,
+     "name_prefix": true,
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_log_group.frontend[\"account\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "frontend",
+   "index": "account",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.frontend[\"account\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.frontend[\"account\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/storefront/account",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.frontend[\"account\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.frontend[\"account\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/storefront/account",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_log_group.frontend[\"checkout\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "frontend",
+   "index": "checkout",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.frontend[\"checkout\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.frontend[\"checkout\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/storefront/checkout",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.frontend[\"checkout\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.frontend[\"checkout\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/storefront/checkout",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_log_group.frontend[\"web\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "frontend",
+   "index": "web",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.frontend[\"web\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.frontend[\"web\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/storefront/web",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.frontend[\"web\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.frontend[\"web\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/storefront/web",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.alb_5xx",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "alb_5xx",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-alb-5xx",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.alb_5xx",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 5,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.alb_5xx",
+     "insufficient_data_actions": null,
+     "metric_name": "HTTPCode_ELB_5XX_Count",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": "Sum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "threshold": 50,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-alb-5xx",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.alb_5xx",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.alb_5xx",
+     "insufficient_data_actions": null,
+     "metric_name": "HTTPCode_ELB_5XX_Count",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": "Sum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "threshold": 25,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.target_latency[\"account\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "target_latency",
+   "index": "account",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-account-latency",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.target_latency[\"account\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix",
+      "TargetGroup": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 5,
+     "evaluation_window": [],
+     "extended_statistic": "p95",
+     "id": "mock-aws_cloudwatch_metric_alarm.target_latency[\"account\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "TargetResponseTime",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": null,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "threshold": 1.5,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-account-latency",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.target_latency[\"account\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix",
+      "TargetGroup": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 5,
+     "evaluation_window": [],
+     "extended_statistic": "p95",
+     "id": "mock-aws_cloudwatch_metric_alarm.target_latency[\"account\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "TargetResponseTime",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": null,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "threshold": 1.2,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.target_latency[\"checkout\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "target_latency",
+   "index": "checkout",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-checkout-latency",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.target_latency[\"checkout\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix",
+      "TargetGroup": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 5,
+     "evaluation_window": [],
+     "extended_statistic": "p95",
+     "id": "mock-aws_cloudwatch_metric_alarm.target_latency[\"checkout\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "TargetResponseTime",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": null,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "threshold": 1.5,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-checkout-latency",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.target_latency[\"checkout\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix",
+      "TargetGroup": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 5,
+     "evaluation_window": [],
+     "extended_statistic": "p95",
+     "id": "mock-aws_cloudwatch_metric_alarm.target_latency[\"checkout\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "TargetResponseTime",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": null,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "threshold": 1.2,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.target_latency[\"web\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "target_latency",
+   "index": "web",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-web-latency",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.target_latency[\"web\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix",
+      "TargetGroup": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 5,
+     "evaluation_window": [],
+     "extended_statistic": "p95",
+     "id": "mock-aws_cloudwatch_metric_alarm.target_latency[\"web\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "TargetResponseTime",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": null,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "threshold": 1.5,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-web-latency",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.target_latency[\"web\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix",
+      "TargetGroup": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 5,
+     "evaluation_window": [],
+     "extended_statistic": "p95",
+     "id": "mock-aws_cloudwatch_metric_alarm.target_latency[\"web\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "TargetResponseTime",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": null,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "threshold": 1.2,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.unhealthy_hosts[\"account\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "unhealthy_hosts",
+   "index": "account",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-account-unhealthy",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.unhealthy_hosts[\"account\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix",
+      "TargetGroup": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"account\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "UnHealthyHostCount",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "threshold": 0,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-account-unhealthy",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.unhealthy_hosts[\"account\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix",
+      "TargetGroup": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"account\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "UnHealthyHostCount",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "threshold": 0,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.unhealthy_hosts[\"checkout\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "unhealthy_hosts",
+   "index": "checkout",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-checkout-unhealthy",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.unhealthy_hosts[\"checkout\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix",
+      "TargetGroup": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"checkout\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "UnHealthyHostCount",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "threshold": 0,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-checkout-unhealthy",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.unhealthy_hosts[\"checkout\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix",
+      "TargetGroup": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"checkout\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "UnHealthyHostCount",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "threshold": 0,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.unhealthy_hosts[\"web\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "unhealthy_hosts",
+   "index": "web",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-web-unhealthy",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.unhealthy_hosts[\"web\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix",
+      "TargetGroup": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"web\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "UnHealthyHostCount",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "threshold": 0,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+     ],
+     "alarm_description": null,
+     "alarm_name": "storefront-prod-web-unhealthy",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.unhealthy_hosts[\"web\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "LoadBalancer": "mock-arn_suffix",
+      "TargetGroup": "mock-arn_suffix"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"web\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "UnHealthyHostCount",
+     "metric_query": [],
+     "namespace": "AWS/ApplicationELB",
+     "ok_actions": null,
+     "period": 60,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "threshold": 0,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "module.alb.aws_lb.this",
+   "module_address": "module.alb",
+   "mode": "managed",
+   "type": "aws_lb",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "access_logs": [],
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb.this",
+     "arn_suffix": "mock-arn_suffix",
+     "client_keep_alive": 3600,
+     "connection_logs": [],
+     "customer_owned_ipv4_pool": null,
+     "desync_mitigation_mode": "defensive",
+     "dns_name": "mock-dns_name",
+     "dns_record_client_routing_policy": null,
+     "drop_invalid_header_fields": true,
+     "enable_cross_zone_load_balancing": null,
+     "enable_deletion_protection": false,
+     "enable_http2": true,
+     "enable_prefix_for_ipv6_source_nat": "mock-enable_prefix_for_ipv6_source_nat",
+     "enable_tls_version_and_cipher_suite_headers": false,
+     "enable_waf_fail_open": false,
+     "enable_xff_client_port": false,
+     "enable_zonal_shift": false,
+     "enforce_security_group_inbound_rules_on_private_link_traffic": "mock-enforce_security_group_inbound_rules_on_private_link_traffic",
+     "health_check_logs": [],
+     "id": "mock-module.alb.aws_lb.this",
+     "idle_timeout": 60,
+     "internal": false,
+     "ip_address_type": "mock-ip_address_type",
+     "ipam_pools": [],
+     "load_balancer_type": "application",
+     "minimum_load_balancer_capacity": [],
+     "name": "storefront-prod-alb",
+     "name_prefix": "mock-name_prefix",
+     "preserve_host_header": false,
+     "region": "eu-west-1",
+     "secondary_ips_auto_assigned_per_subnet": 0,
+     "security_groups": [
+      "mock-module.alb.aws_security_group.alb"
+     ],
+     "subnet_mapping": [],
+     "subnets": [
+      "subnet-0d1e2f3a4b5c6d701",
+      "subnet-0d1e2f3a4b5c6d702",
+      "subnet-0d1e2f3a4b5c6d703"
+     ],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "timeouts": null,
+     "vpc_id": "mock-vpc_id",
+     "xff_header_processing_mode": "append",
+     "zone_id": "mock-zone_id"
+    },
+    "after": {
+     "access_logs": [],
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb.this",
+     "arn_suffix": "mock-arn_suffix",
+     "client_keep_alive": 3600,
+     "connection_logs": [],
+     "customer_owned_ipv4_pool": null,
+     "desync_mitigation_mode": "defensive",
+     "dns_name": "mock-dns_name",
+     "dns_record_client_routing_policy": null,
+     "drop_invalid_header_fields": true,
+     "enable_cross_zone_load_balancing": null,
+     "enable_deletion_protection": false,
+     "enable_http2": true,
+     "enable_prefix_for_ipv6_source_nat": "mock-enable_prefix_for_ipv6_source_nat",
+     "enable_tls_version_and_cipher_suite_headers": false,
+     "enable_waf_fail_open": false,
+     "enable_xff_client_port": false,
+     "enable_zonal_shift": false,
+     "enforce_security_group_inbound_rules_on_private_link_traffic": "mock-enforce_security_group_inbound_rules_on_private_link_traffic",
+     "health_check_logs": [],
+     "id": "mock-module.alb.aws_lb.this",
+     "idle_timeout": 60,
+     "internal": false,
+     "ip_address_type": "mock-ip_address_type",
+     "ipam_pools": [],
+     "load_balancer_type": "application",
+     "minimum_load_balancer_capacity": [],
+     "name": "storefront-prod-alb",
+     "name_prefix": "mock-name_prefix",
+     "preserve_host_header": false,
+     "region": "eu-west-1",
+     "secondary_ips_auto_assigned_per_subnet": 0,
+     "security_groups": [
+      "mock-module.alb.aws_security_group.alb"
+     ],
+     "subnet_mapping": [],
+     "subnets": [
+      "subnet-0d1e2f3a4b5c6d701",
+      "subnet-0d1e2f3a4b5c6d702",
+      "subnet-0d1e2f3a4b5c6d703"
+     ],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "timeouts": null,
+     "vpc_id": "mock-vpc_id",
+     "xff_header_processing_mode": "append",
+     "zone_id": "mock-zone_id"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "access_logs": [],
+     "connection_logs": [],
+     "health_check_logs": [],
+     "ipam_pools": [],
+     "minimum_load_balancer_capacity": [],
+     "security_groups": [
+      false
+     ],
+     "subnet_mapping": [],
+     "subnets": [
+      false,
+      false,
+      false
+     ],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "access_logs": [],
+     "connection_logs": [],
+     "health_check_logs": [],
+     "ipam_pools": [],
+     "minimum_load_balancer_capacity": [],
+     "security_groups": [
+      false
+     ],
+     "subnet_mapping": [],
+     "subnets": [
+      false,
+      false,
+      false
+     ],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.alb.aws_lb_listener.http",
+   "module_address": "module.alb",
+   "mode": "managed",
+   "type": "aws_lb_listener",
+   "name": "http",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "alpn_policy": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_listener.http",
+     "certificate_arn": null,
+     "default_action": [
+      {
+       "authenticate_cognito": [],
+       "authenticate_oidc": [],
+       "fixed_response": [],
+       "forward": [],
+       "jwt_validation": [],
+       "order": 0,
+       "redirect": [],
+       "target_group_arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"web\"]",
+       "type": "forward"
+      }
+     ],
+     "id": "mock-module.alb.aws_lb_listener.http",
+     "load_balancer_arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb.this",
+     "mutual_authentication": [],
+     "port": 80,
+     "protocol": "HTTP",
+     "region": "eu-west-1",
+     "routing_http_request_x_amzn_mtls_clientcert_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_header_name",
+     "routing_http_request_x_amzn_mtls_clientcert_issuer_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_issuer_header_name",
+     "routing_http_request_x_amzn_mtls_clientcert_leaf_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_leaf_header_name",
+     "routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name",
+     "routing_http_request_x_amzn_mtls_clientcert_subject_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_subject_header_name",
+     "routing_http_request_x_amzn_mtls_clientcert_validity_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_validity_header_name",
+     "routing_http_request_x_amzn_tls_cipher_suite_header_name": "mock-routing_http_request_x_amzn_tls_cipher_suite_header_name",
+     "routing_http_request_x_amzn_tls_version_header_name": "mock-routing_http_request_x_amzn_tls_version_header_name",
+     "routing_http_response_access_control_allow_credentials_header_value": "mock-routing_http_response_access_control_allow_credentials_header_value",
+     "routing_http_response_access_control_allow_headers_header_value": "mock-routing_http_response_access_control_allow_headers_header_value",
+     "routing_http_response_access_control_allow_methods_header_value": "mock-routing_http_response_access_control_allow_methods_header_value",
+     "routing_http_response_access_control_allow_origin_header_value": "mock-routing_http_response_access_control_allow_origin_header_value",
+     "routing_http_response_access_control_expose_headers_header_value": "mock-routing_http_response_access_control_expose_headers_header_value",
+     "routing_http_response_access_control_max_age_header_value": "mock-routing_http_response_access_control_max_age_header_value",
+     "routing_http_response_content_security_policy_header_value": "mock-routing_http_response_content_security_policy_header_value",
+     "routing_http_response_server_enabled": false,
+     "routing_http_response_strict_transport_security_header_value": "mock-routing_http_response_strict_transport_security_header_value",
+     "routing_http_response_x_content_type_options_header_value": "mock-routing_http_response_x_content_type_options_header_value",
+     "routing_http_response_x_frame_options_header_value": "mock-routing_http_response_x_frame_options_header_value",
+     "ssl_policy": "mock-ssl_policy",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "tcp_idle_timeout_seconds": 0,
+     "timeouts": null
+    },
+    "after": {
+     "alpn_policy": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_listener.http",
+     "certificate_arn": null,
+     "default_action": [
+      {
+       "authenticate_cognito": [],
+       "authenticate_oidc": [],
+       "fixed_response": [],
+       "forward": [],
+       "jwt_validation": [],
+       "order": 0,
+       "redirect": [],
+       "target_group_arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"web\"]",
+       "type": "forward"
+      }
+     ],
+     "id": "mock-module.alb.aws_lb_listener.http",
+     "load_balancer_arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb.this",
+     "mutual_authentication": [],
+     "port": 80,
+     "protocol": "HTTP",
+     "region": "eu-west-1",
+     "routing_http_request_x_amzn_mtls_clientcert_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_header_name",
+     "routing_http_request_x_amzn_mtls_clientcert_issuer_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_issuer_header_name",
+     "routing_http_request_x_amzn_mtls_clientcert_leaf_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_leaf_header_name",
+     "routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name",
+     "routing_http_request_x_amzn_mtls_clientcert_subject_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_subject_header_name",
+     "routing_http_request_x_amzn_mtls_clientcert_validity_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_validity_header_name",
+     "routing_http_request_x_amzn_tls_cipher_suite_header_name": "mock-routing_http_request_x_amzn_tls_cipher_suite_header_name",
+     "routing_http_request_x_amzn_tls_version_header_name": "mock-routing_http_request_x_amzn_tls_version_header_name",
+     "routing_http_response_access_control_allow_credentials_header_value": "mock-routing_http_response_access_control_allow_credentials_header_value",
+     "routing_http_response_access_control_allow_headers_header_value": "mock-routing_http_response_access_control_allow_headers_header_value",
+     "routing_http_response_access_control_allow_methods_header_value": "mock-routing_http_response_access_control_allow_methods_header_value",
+     "routing_http_response_access_control_allow_origin_header_value": "mock-routing_http_response_access_control_allow_origin_header_value",
+     "routing_http_response_access_control_expose_headers_header_value": "mock-routing_http_response_access_control_expose_headers_header_value",
+     "routing_http_response_access_control_max_age_header_value": "mock-routing_http_response_access_control_max_age_header_value",
+     "routing_http_response_content_security_policy_header_value": "mock-routing_http_response_content_security_policy_header_value",
+     "routing_http_response_server_enabled": false,
+     "routing_http_response_strict_transport_security_header_value": "mock-routing_http_response_strict_transport_security_header_value",
+     "routing_http_response_x_content_type_options_header_value": "mock-routing_http_response_x_content_type_options_header_value",
+     "routing_http_response_x_frame_options_header_value": "mock-routing_http_response_x_frame_options_header_value",
+     "ssl_policy": "mock-ssl_policy",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "tcp_idle_timeout_seconds": 0,
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "default_action": [
+      {
+       "authenticate_cognito": [],
+       "authenticate_oidc": [],
+       "fixed_response": [],
+       "forward": [],
+       "jwt_validation": [],
+       "redirect": []
+      }
+     ],
+     "mutual_authentication": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "default_action": [
+      {
+       "authenticate_cognito": [],
+       "authenticate_oidc": [],
+       "fixed_response": [],
+       "forward": [],
+       "jwt_validation": [],
+       "redirect": []
+      }
+     ],
+     "mutual_authentication": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.alb.aws_lb_listener.https",
+   "module_address": "module.alb",
+   "mode": "managed",
+   "type": "aws_lb_listener",
+   "name": "https",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "alpn_policy": null,
+     "certificate_arn": "arn:aws:acm:eu-west-1:345678901234:certificate/0b7e5a42-1c9d-4f3e-8a26-7d5c4b3a2e10",
+     "default_action": [
+      {
+       "authenticate_cognito": [],
+       "authenticate_oidc": [],
+       "fixed_response": [],
+       "forward": [],
+       "jwt_validation": [],
+       "redirect": [],
+       "target_group_arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"web\"]",
+       "type": "forward"
+      }
+     ],
+     "load_balancer_arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb.this",
+     "port": 443,
+     "protocol": "HTTPS",
+     "region": "eu-west-1",
+     "ssl_policy": "ELBSecurityPolicy-TLS13-1-2-2021-06",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {
+     "arn": true,
+     "default_action": [
+      {
+       "authenticate_cognito": [],
+       "authenticate_oidc": [],
+       "fixed_response": [],
+       "forward": [],
+       "jwt_validation": [],
+       "order": true,
+       "redirect": []
+      }
+     ],
+     "id": true,
+     "mutual_authentication": true,
+     "routing_http_request_x_amzn_mtls_clientcert_header_name": true,
+     "routing_http_request_x_amzn_mtls_clientcert_issuer_header_name": true,
+     "routing_http_request_x_amzn_mtls_clientcert_leaf_header_name": true,
+     "routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name": true,
+     "routing_http_request_x_amzn_mtls_clientcert_subject_header_name": true,
+     "routing_http_request_x_amzn_mtls_clientcert_validity_header_name": true,
+     "routing_http_request_x_amzn_tls_cipher_suite_header_name": true,
+     "routing_http_request_x_amzn_tls_version_header_name": true,
+     "routing_http_response_access_control_allow_credentials_header_value": true,
+     "routing_http_response_access_control_allow_headers_header_value": true,
+     "routing_http_response_access_control_allow_methods_header_value": true,
+     "routing_http_response_access_control_allow_origin_header_value": true,
+     "routing_http_response_access_control_expose_headers_header_value": true,
+     "routing_http_response_access_control_max_age_header_value": true,
+     "routing_http_response_content_security_policy_header_value": true,
+     "routing_http_response_server_enabled": true,
+     "routing_http_response_strict_transport_security_header_value": true,
+     "routing_http_response_x_content_type_options_header_value": true,
+     "routing_http_response_x_frame_options_header_value": true,
+     "tags_all": {},
+     "tcp_idle_timeout_seconds": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "default_action": [
+      {
+       "authenticate_cognito": [],
+       "authenticate_oidc": [],
+       "fixed_response": [],
+       "forward": [],
+       "jwt_validation": [],
+       "redirect": []
+      }
+     ],
+     "mutual_authentication": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.alb.aws_lb_target_group.svc[\"account\"]",
+   "module_address": "module.alb",
+   "mode": "managed",
+   "type": "aws_lb_target_group",
+   "name": "svc",
+   "index": "account",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"account\"]",
+     "arn_suffix": "mock-arn_suffix",
+     "connection_termination": false,
+     "deregistration_delay": "30",
+     "health_check": [
+      {
+       "enabled": true,
+       "healthy_threshold": 2,
+       "interval": 15,
+       "matcher": "200",
+       "path": "/healthz",
+       "port": "traffic-port",
+       "protocol": "HTTP",
+       "timeout": 0,
+       "unhealthy_threshold": 3
+      }
+     ],
+     "id": "mock-module.alb.aws_lb_target_group.svc[\"account\"]",
+     "ip_address_type": "mock-ip_address_type",
+     "lambda_multi_value_headers_enabled": false,
+     "load_balancer_arns": [],
+     "load_balancing_algorithm_type": "mock-load_balancing_algorithm_type",
+     "load_balancing_anomaly_mitigation": "mock-load_balancing_anomaly_mitigation",
+     "load_balancing_cross_zone_enabled": "mock-load_balancing_cross_zone_enabled",
+     "name": "storefront-prod-account",
+     "name_prefix": "mock-name_prefix",
+     "port": 8080,
+     "preserve_client_ip": "mock-preserve_client_ip",
+     "protocol": "HTTP",
+     "protocol_version": "HTTP1",
+     "proxy_protocol_v2": false,
+     "region": "eu-west-1",
+     "slow_start": 0,
+     "stickiness": [],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "target_control_port": null,
+     "target_failover": [],
+     "target_group_health": [],
+     "target_health_state": [],
+     "target_type": "ip",
+     "vpc_id": "vpc-0f3e2d1c0b9a87654"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"account\"]",
+     "arn_suffix": "mock-arn_suffix",
+     "connection_termination": false,
+     "deregistration_delay": "30",
+     "health_check": [
+      {
+       "enabled": true,
+       "healthy_threshold": 2,
+       "interval": 15,
+       "matcher": "200",
+       "path": "/healthz",
+       "port": "traffic-port",
+       "protocol": "HTTP",
+       "timeout": 0,
+       "unhealthy_threshold": 3
+      }
+     ],
+     "id": "mock-module.alb.aws_lb_target_group.svc[\"account\"]",
+     "ip_address_type": "mock-ip_address_type",
+     "lambda_multi_value_headers_enabled": false,
+     "load_balancer_arns": [],
+     "load_balancing_algorithm_type": "mock-load_balancing_algorithm_type",
+     "load_balancing_anomaly_mitigation": "mock-load_balancing_anomaly_mitigation",
+     "load_balancing_cross_zone_enabled": "mock-load_balancing_cross_zone_enabled",
+     "name": "storefront-prod-account",
+     "name_prefix": "mock-name_prefix",
+     "port": 8080,
+     "preserve_client_ip": "mock-preserve_client_ip",
+     "protocol": "HTTP",
+     "protocol_version": "HTTP1",
+     "proxy_protocol_v2": false,
+     "region": "eu-west-1",
+     "slow_start": 0,
+     "stickiness": [],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "target_control_port": null,
+     "target_failover": [],
+     "target_group_health": [],
+     "target_health_state": [],
+     "target_type": "ip",
+     "vpc_id": "vpc-0f3e2d1c0b9a87654"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "health_check": [
+      {}
+     ],
+     "load_balancer_arns": [],
+     "stickiness": [],
+     "tags_all": {},
+     "target_failover": [],
+     "target_group_health": [],
+     "target_health_state": []
+    },
+    "after_sensitive": {
+     "health_check": [
+      {}
+     ],
+     "load_balancer_arns": [],
+     "stickiness": [],
+     "tags_all": {},
+     "target_failover": [],
+     "target_group_health": [],
+     "target_health_state": []
+    }
+   }
+  },
+  {
+   "address": "module.alb.aws_lb_target_group.svc[\"checkout\"]",
+   "module_address": "module.alb",
+   "mode": "managed",
+   "type": "aws_lb_target_group",
+   "name": "svc",
+   "index": "checkout",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"checkout\"]",
+     "arn_suffix": "mock-arn_suffix",
+     "connection_termination": false,
+     "deregistration_delay": "30",
+     "health_check": [
+      {
+       "enabled": true,
+       "healthy_threshold": 2,
+       "interval": 15,
+       "matcher": "200",
+       "path": "/healthz",
+       "port": "traffic-port",
+       "protocol": "HTTP",
+       "timeout": 0,
+       "unhealthy_threshold": 3
+      }
+     ],
+     "id": "mock-module.alb.aws_lb_target_group.svc[\"checkout\"]",
+     "ip_address_type": "mock-ip_address_type",
+     "lambda_multi_value_headers_enabled": false,
+     "load_balancer_arns": [],
+     "load_balancing_algorithm_type": "mock-load_balancing_algorithm_type",
+     "load_balancing_anomaly_mitigation": "mock-load_balancing_anomaly_mitigation",
+     "load_balancing_cross_zone_enabled": "mock-load_balancing_cross_zone_enabled",
+     "name": "storefront-prod-checkout",
+     "name_prefix": "mock-name_prefix",
+     "port": 8080,
+     "preserve_client_ip": "mock-preserve_client_ip",
+     "protocol": "HTTP",
+     "protocol_version": "HTTP1",
+     "proxy_protocol_v2": false,
+     "region": "eu-west-1",
+     "slow_start": 0,
+     "stickiness": [],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "target_control_port": null,
+     "target_failover": [],
+     "target_group_health": [],
+     "target_health_state": [],
+     "target_type": "ip",
+     "vpc_id": "vpc-0f3e2d1c0b9a87654"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"checkout\"]",
+     "arn_suffix": "mock-arn_suffix",
+     "connection_termination": false,
+     "deregistration_delay": "30",
+     "health_check": [
+      {
+       "enabled": true,
+       "healthy_threshold": 2,
+       "interval": 15,
+       "matcher": "200",
+       "path": "/healthz",
+       "port": "traffic-port",
+       "protocol": "HTTP",
+       "timeout": 0,
+       "unhealthy_threshold": 3
+      }
+     ],
+     "id": "mock-module.alb.aws_lb_target_group.svc[\"checkout\"]",
+     "ip_address_type": "mock-ip_address_type",
+     "lambda_multi_value_headers_enabled": false,
+     "load_balancer_arns": [],
+     "load_balancing_algorithm_type": "mock-load_balancing_algorithm_type",
+     "load_balancing_anomaly_mitigation": "mock-load_balancing_anomaly_mitigation",
+     "load_balancing_cross_zone_enabled": "mock-load_balancing_cross_zone_enabled",
+     "name": "storefront-prod-checkout",
+     "name_prefix": "mock-name_prefix",
+     "port": 8080,
+     "preserve_client_ip": "mock-preserve_client_ip",
+     "protocol": "HTTP",
+     "protocol_version": "HTTP1",
+     "proxy_protocol_v2": false,
+     "region": "eu-west-1",
+     "slow_start": 0,
+     "stickiness": [],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "target_control_port": null,
+     "target_failover": [],
+     "target_group_health": [],
+     "target_health_state": [],
+     "target_type": "ip",
+     "vpc_id": "vpc-0f3e2d1c0b9a87654"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "health_check": [
+      {}
+     ],
+     "load_balancer_arns": [],
+     "stickiness": [],
+     "tags_all": {},
+     "target_failover": [],
+     "target_group_health": [],
+     "target_health_state": []
+    },
+    "after_sensitive": {
+     "health_check": [
+      {}
+     ],
+     "load_balancer_arns": [],
+     "stickiness": [],
+     "tags_all": {},
+     "target_failover": [],
+     "target_group_health": [],
+     "target_health_state": []
+    }
+   }
+  },
+  {
+   "address": "module.alb.aws_lb_target_group.svc[\"web\"]",
+   "module_address": "module.alb",
+   "mode": "managed",
+   "type": "aws_lb_target_group",
+   "name": "svc",
+   "index": "web",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"web\"]",
+     "arn_suffix": "mock-arn_suffix",
+     "connection_termination": false,
+     "deregistration_delay": "30",
+     "health_check": [
+      {
+       "enabled": true,
+       "healthy_threshold": 2,
+       "interval": 15,
+       "matcher": "200",
+       "path": "/healthz",
+       "port": "traffic-port",
+       "protocol": "HTTP",
+       "timeout": 0,
+       "unhealthy_threshold": 3
+      }
+     ],
+     "id": "mock-module.alb.aws_lb_target_group.svc[\"web\"]",
+     "ip_address_type": "mock-ip_address_type",
+     "lambda_multi_value_headers_enabled": false,
+     "load_balancer_arns": [],
+     "load_balancing_algorithm_type": "mock-load_balancing_algorithm_type",
+     "load_balancing_anomaly_mitigation": "mock-load_balancing_anomaly_mitigation",
+     "load_balancing_cross_zone_enabled": "mock-load_balancing_cross_zone_enabled",
+     "name": "storefront-prod-web",
+     "name_prefix": "mock-name_prefix",
+     "port": 8080,
+     "preserve_client_ip": "mock-preserve_client_ip",
+     "protocol": "HTTP",
+     "protocol_version": "HTTP1",
+     "proxy_protocol_v2": false,
+     "region": "eu-west-1",
+     "slow_start": 0,
+     "stickiness": [],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "target_control_port": null,
+     "target_failover": [],
+     "target_group_health": [],
+     "target_health_state": [],
+     "target_type": "ip",
+     "vpc_id": "vpc-0f3e2d1c0b9a87654"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"web\"]",
+     "arn_suffix": "mock-arn_suffix",
+     "connection_termination": false,
+     "deregistration_delay": "30",
+     "health_check": [
+      {
+       "enabled": true,
+       "healthy_threshold": 2,
+       "interval": 15,
+       "matcher": "200",
+       "path": "/healthz",
+       "port": "traffic-port",
+       "protocol": "HTTP",
+       "timeout": 0,
+       "unhealthy_threshold": 3
+      }
+     ],
+     "id": "mock-module.alb.aws_lb_target_group.svc[\"web\"]",
+     "ip_address_type": "mock-ip_address_type",
+     "lambda_multi_value_headers_enabled": false,
+     "load_balancer_arns": [],
+     "load_balancing_algorithm_type": "mock-load_balancing_algorithm_type",
+     "load_balancing_anomaly_mitigation": "mock-load_balancing_anomaly_mitigation",
+     "load_balancing_cross_zone_enabled": "mock-load_balancing_cross_zone_enabled",
+     "name": "storefront-prod-web",
+     "name_prefix": "mock-name_prefix",
+     "port": 8080,
+     "preserve_client_ip": "mock-preserve_client_ip",
+     "protocol": "HTTP",
+     "protocol_version": "HTTP1",
+     "proxy_protocol_v2": false,
+     "region": "eu-west-1",
+     "slow_start": 0,
+     "stickiness": [],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "target_control_port": null,
+     "target_failover": [],
+     "target_group_health": [],
+     "target_health_state": [],
+     "target_type": "ip",
+     "vpc_id": "vpc-0f3e2d1c0b9a87654"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "health_check": [
+      {}
+     ],
+     "load_balancer_arns": [],
+     "stickiness": [],
+     "tags_all": {},
+     "target_failover": [],
+     "target_group_health": [],
+     "target_health_state": []
+    },
+    "after_sensitive": {
+     "health_check": [
+      {}
+     ],
+     "load_balancer_arns": [],
+     "stickiness": [],
+     "tags_all": {},
+     "target_failover": [],
+     "target_group_health": [],
+     "target_health_state": []
+    }
+   }
+  },
+  {
+   "address": "module.alb.aws_security_group.alb",
+   "module_address": "module.alb",
+   "mode": "managed",
+   "type": "aws_security_group",
+   "name": "alb",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_security_group.alb",
+     "description": "Public ALB for storefront-prod",
+     "egress": [],
+     "id": "mock-module.alb.aws_security_group.alb",
+     "ingress": [],
+     "name": "storefront-prod-alb",
+     "name_prefix": "mock-name_prefix",
+     "owner_id": "mock-owner_id",
+     "region": "eu-west-1",
+     "revoke_rules_on_delete": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "timeouts": null,
+     "vpc_id": "vpc-0f3e2d1c0b9a87654"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_security_group.alb",
+     "description": "Public ALB for storefront-prod",
+     "egress": [],
+     "id": "mock-module.alb.aws_security_group.alb",
+     "ingress": [],
+     "name": "storefront-prod-alb",
+     "name_prefix": "mock-name_prefix",
+     "owner_id": "mock-owner_id",
+     "region": "eu-west-1",
+     "revoke_rules_on_delete": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "timeouts": null,
+     "vpc_id": "vpc-0f3e2d1c0b9a87654"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "egress": [],
+     "ingress": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "egress": [],
+     "ingress": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.alb.aws_vpc_security_group_egress_rule.to_tasks",
+   "module_address": "module.alb",
+   "mode": "managed",
+   "type": "aws_vpc_security_group_egress_rule",
+   "name": "to_tasks",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_vpc_security_group_egress_rule.to_tasks",
+     "cidr_ipv4": "10.20.0.0/16",
+     "cidr_ipv6": null,
+     "description": "To ECS tasks",
+     "from_port": 8080,
+     "id": "mock-module.alb.aws_vpc_security_group_egress_rule.to_tasks",
+     "ip_protocol": "tcp",
+     "prefix_list_id": null,
+     "referenced_security_group_id": null,
+     "region": "eu-west-1",
+     "security_group_id": "mock-module.alb.aws_security_group.alb",
+     "security_group_rule_id": "mock-security_group_rule_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "to_port": 8080
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_vpc_security_group_egress_rule.to_tasks",
+     "cidr_ipv4": "10.20.0.0/16",
+     "cidr_ipv6": null,
+     "description": "To ECS tasks",
+     "from_port": 8080,
+     "id": "mock-module.alb.aws_vpc_security_group_egress_rule.to_tasks",
+     "ip_protocol": "tcp",
+     "prefix_list_id": null,
+     "referenced_security_group_id": null,
+     "region": "eu-west-1",
+     "security_group_id": "mock-module.alb.aws_security_group.alb",
+     "security_group_rule_id": "mock-security_group_rule_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "to_port": 8080
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.alb.aws_vpc_security_group_ingress_rule.http",
+   "module_address": "module.alb",
+   "mode": "managed",
+   "type": "aws_vpc_security_group_ingress_rule",
+   "name": "http",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_vpc_security_group_ingress_rule.http",
+     "cidr_ipv4": "0.0.0.0/0",
+     "cidr_ipv6": null,
+     "description": "HTTP from the internet",
+     "from_port": 80,
+     "id": "mock-module.alb.aws_vpc_security_group_ingress_rule.http",
+     "ip_protocol": "tcp",
+     "prefix_list_id": null,
+     "referenced_security_group_id": null,
+     "region": "eu-west-1",
+     "security_group_id": "mock-module.alb.aws_security_group.alb",
+     "security_group_rule_id": "mock-security_group_rule_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Team": "web-experience"
+     },
+     "to_port": 80
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_vpc_security_group_ingress_rule.http",
+     "cidr_ipv4": "0.0.0.0/0",
+     "cidr_ipv6": null,
+     "description": "HTTP from the internet",
+     "from_port": 80,
+     "id": "mock-module.alb.aws_vpc_security_group_ingress_rule.http",
+     "ip_protocol": "tcp",
+     "prefix_list_id": null,
+     "referenced_security_group_id": null,
+     "region": "eu-west-1",
+     "security_group_id": "mock-module.alb.aws_security_group.alb",
+     "security_group_rule_id": "mock-security_group_rule_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "to_port": 80
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.alb.aws_vpc_security_group_ingress_rule.https",
+   "module_address": "module.alb",
+   "mode": "managed",
+   "type": "aws_vpc_security_group_ingress_rule",
+   "name": "https",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "cidr_ipv4": "0.0.0.0/0",
+     "cidr_ipv6": null,
+     "description": "HTTPS from the internet",
+     "from_port": 443,
+     "ip_protocol": "tcp",
+     "prefix_list_id": null,
+     "referenced_security_group_id": null,
+     "region": "eu-west-1",
+     "security_group_id": "mock-module.alb.aws_security_group.alb",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "to_port": 443
+    },
+    "after_unknown": {
+     "arn": true,
+     "id": true,
+     "security_group_rule_id": true,
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.alb.aws_vpc_security_group_ingress_rule.https_v6",
+   "module_address": "module.alb",
+   "mode": "managed",
+   "type": "aws_vpc_security_group_ingress_rule",
+   "name": "https_v6",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "cidr_ipv4": null,
+     "cidr_ipv6": "::/0",
+     "description": "HTTPS from the internet (IPv6)",
+     "from_port": 443,
+     "ip_protocol": "tcp",
+     "prefix_list_id": null,
+     "referenced_security_group_id": null,
+     "region": "eu-west-1",
+     "security_group_id": "mock-module.alb.aws_security_group.alb",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Service": "storefront",
+      "Team": "web-experience",
+      "Tier": "public-edge"
+     },
+     "to_port": 443
+    },
+    "after_unknown": {
+     "arn": true,
+     "id": true,
+     "security_group_rule_id": true,
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  }
+ ],
+ "prior_state": {
+  "format_version": "1.0",
+  "terraform_version": "1.10.5",
+  "values": {
+   "root_module": {
+    "resources": [
+     {
+      "address": "aws_cloudwatch_log_group.frontend[\"account\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "frontend",
+      "index": "account",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.frontend[\"account\"]",
+       "deletion_protection_enabled": false,
+       "id": "mock-aws_cloudwatch_log_group.frontend[\"account\"]",
+       "kms_key_id": null,
+       "log_group_class": "mock-log_group_class",
+       "name": "/ecs/storefront/account",
+       "name_prefix": "mock-name_prefix",
+       "region": "eu-west-1",
+       "retention_in_days": 30,
+       "skip_destroy": false,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Team": "web-experience"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_cloudwatch_log_group.frontend[\"checkout\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "frontend",
+      "index": "checkout",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.frontend[\"checkout\"]",
+       "deletion_protection_enabled": false,
+       "id": "mock-aws_cloudwatch_log_group.frontend[\"checkout\"]",
+       "kms_key_id": null,
+       "log_group_class": "mock-log_group_class",
+       "name": "/ecs/storefront/checkout",
+       "name_prefix": "mock-name_prefix",
+       "region": "eu-west-1",
+       "retention_in_days": 30,
+       "skip_destroy": false,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Team": "web-experience"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_cloudwatch_log_group.frontend[\"web\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "frontend",
+      "index": "web",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.frontend[\"web\"]",
+       "deletion_protection_enabled": false,
+       "id": "mock-aws_cloudwatch_log_group.frontend[\"web\"]",
+       "kms_key_id": null,
+       "log_group_class": "mock-log_group_class",
+       "name": "/ecs/storefront/web",
+       "name_prefix": "mock-name_prefix",
+       "region": "eu-west-1",
+       "retention_in_days": 30,
+       "skip_destroy": false,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Team": "web-experience"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.alb_5xx",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "alb_5xx",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+       ],
+       "alarm_description": null,
+       "alarm_name": "storefront-prod-alb-5xx",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.alb_5xx",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "LoadBalancer": "mock-arn_suffix"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 5,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.alb_5xx",
+       "insufficient_data_actions": null,
+       "metric_name": "HTTPCode_ELB_5XX_Count",
+       "metric_query": [],
+       "namespace": "AWS/ApplicationELB",
+       "ok_actions": null,
+       "period": 60,
+       "region": "eu-west-1",
+       "statistic": "Sum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Team": "web-experience"
+       },
+       "threshold": 50,
+       "threshold_metric_id": null,
+       "treat_missing_data": "notBreaching",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.target_latency[\"account\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "target_latency",
+      "index": "account",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+       ],
+       "alarm_description": null,
+       "alarm_name": "storefront-prod-account-latency",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.target_latency[\"account\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "LoadBalancer": "mock-arn_suffix",
+        "TargetGroup": "mock-arn_suffix"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 5,
+       "evaluation_window": [],
+       "extended_statistic": "p95",
+       "id": "mock-aws_cloudwatch_metric_alarm.target_latency[\"account\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "TargetResponseTime",
+       "metric_query": [],
+       "namespace": "AWS/ApplicationELB",
+       "ok_actions": null,
+       "period": 60,
+       "region": "eu-west-1",
+       "statistic": null,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Team": "web-experience"
+       },
+       "threshold": 1.5,
+       "threshold_metric_id": null,
+       "treat_missing_data": "missing",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.target_latency[\"checkout\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "target_latency",
+      "index": "checkout",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+       ],
+       "alarm_description": null,
+       "alarm_name": "storefront-prod-checkout-latency",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.target_latency[\"checkout\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "LoadBalancer": "mock-arn_suffix",
+        "TargetGroup": "mock-arn_suffix"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 5,
+       "evaluation_window": [],
+       "extended_statistic": "p95",
+       "id": "mock-aws_cloudwatch_metric_alarm.target_latency[\"checkout\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "TargetResponseTime",
+       "metric_query": [],
+       "namespace": "AWS/ApplicationELB",
+       "ok_actions": null,
+       "period": 60,
+       "region": "eu-west-1",
+       "statistic": null,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Team": "web-experience"
+       },
+       "threshold": 1.5,
+       "threshold_metric_id": null,
+       "treat_missing_data": "missing",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.target_latency[\"web\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "target_latency",
+      "index": "web",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+       ],
+       "alarm_description": null,
+       "alarm_name": "storefront-prod-web-latency",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.target_latency[\"web\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "LoadBalancer": "mock-arn_suffix",
+        "TargetGroup": "mock-arn_suffix"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 5,
+       "evaluation_window": [],
+       "extended_statistic": "p95",
+       "id": "mock-aws_cloudwatch_metric_alarm.target_latency[\"web\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "TargetResponseTime",
+       "metric_query": [],
+       "namespace": "AWS/ApplicationELB",
+       "ok_actions": null,
+       "period": 60,
+       "region": "eu-west-1",
+       "statistic": null,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Team": "web-experience"
+       },
+       "threshold": 1.5,
+       "threshold_metric_id": null,
+       "treat_missing_data": "missing",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.unhealthy_hosts[\"account\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "unhealthy_hosts",
+      "index": "account",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+       ],
+       "alarm_description": null,
+       "alarm_name": "storefront-prod-account-unhealthy",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.unhealthy_hosts[\"account\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "LoadBalancer": "mock-arn_suffix",
+        "TargetGroup": "mock-arn_suffix"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 3,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"account\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "UnHealthyHostCount",
+       "metric_query": [],
+       "namespace": "AWS/ApplicationELB",
+       "ok_actions": null,
+       "period": 60,
+       "region": "eu-west-1",
+       "statistic": "Maximum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Team": "web-experience"
+       },
+       "threshold": 0,
+       "threshold_metric_id": null,
+       "treat_missing_data": "missing",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.unhealthy_hosts[\"checkout\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "unhealthy_hosts",
+      "index": "checkout",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+       ],
+       "alarm_description": null,
+       "alarm_name": "storefront-prod-checkout-unhealthy",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.unhealthy_hosts[\"checkout\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "LoadBalancer": "mock-arn_suffix",
+        "TargetGroup": "mock-arn_suffix"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 3,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"checkout\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "UnHealthyHostCount",
+       "metric_query": [],
+       "namespace": "AWS/ApplicationELB",
+       "ok_actions": null,
+       "period": 60,
+       "region": "eu-west-1",
+       "statistic": "Maximum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Team": "web-experience"
+       },
+       "threshold": 0,
+       "threshold_metric_id": null,
+       "treat_missing_data": "missing",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.unhealthy_hosts[\"web\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "unhealthy_hosts",
+      "index": "web",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:345678901234:web-oncall"
+       ],
+       "alarm_description": null,
+       "alarm_name": "storefront-prod-web-unhealthy",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.unhealthy_hosts[\"web\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "LoadBalancer": "mock-arn_suffix",
+        "TargetGroup": "mock-arn_suffix"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 3,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"web\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "UnHealthyHostCount",
+       "metric_query": [],
+       "namespace": "AWS/ApplicationELB",
+       "ok_actions": null,
+       "period": 60,
+       "region": "eu-west-1",
+       "statistic": "Maximum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Team": "web-experience"
+       },
+       "threshold": 0,
+       "threshold_metric_id": null,
+       "treat_missing_data": "missing",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     }
+    ],
+    "child_modules": [
+     {
+      "resources": [
+       {
+        "address": "module.alb.aws_lb.this",
+        "mode": "managed",
+        "type": "aws_lb",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "access_logs": [],
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb.this",
+         "arn_suffix": "mock-arn_suffix",
+         "client_keep_alive": 3600,
+         "connection_logs": [],
+         "customer_owned_ipv4_pool": null,
+         "desync_mitigation_mode": "defensive",
+         "dns_name": "mock-dns_name",
+         "dns_record_client_routing_policy": null,
+         "drop_invalid_header_fields": true,
+         "enable_cross_zone_load_balancing": null,
+         "enable_deletion_protection": false,
+         "enable_http2": true,
+         "enable_prefix_for_ipv6_source_nat": "mock-enable_prefix_for_ipv6_source_nat",
+         "enable_tls_version_and_cipher_suite_headers": false,
+         "enable_waf_fail_open": false,
+         "enable_xff_client_port": false,
+         "enable_zonal_shift": false,
+         "enforce_security_group_inbound_rules_on_private_link_traffic": "mock-enforce_security_group_inbound_rules_on_private_link_traffic",
+         "health_check_logs": [],
+         "id": "mock-module.alb.aws_lb.this",
+         "idle_timeout": 60,
+         "internal": false,
+         "ip_address_type": "mock-ip_address_type",
+         "ipam_pools": [],
+         "load_balancer_type": "application",
+         "minimum_load_balancer_capacity": [],
+         "name": "storefront-prod-alb",
+         "name_prefix": "mock-name_prefix",
+         "preserve_host_header": false,
+         "region": "eu-west-1",
+         "secondary_ips_auto_assigned_per_subnet": 0,
+         "security_groups": [
+          "mock-module.alb.aws_security_group.alb"
+         ],
+         "subnet_mapping": [],
+         "subnets": [
+          "subnet-0d1e2f3a4b5c6d701",
+          "subnet-0d1e2f3a4b5c6d702",
+          "subnet-0d1e2f3a4b5c6d703"
+         ],
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Team": "web-experience"
+         },
+         "timeouts": null,
+         "vpc_id": "mock-vpc_id",
+         "xff_header_processing_mode": "append",
+         "zone_id": "mock-zone_id"
+        },
+        "sensitive_values": {
+         "access_logs": [],
+         "connection_logs": [],
+         "health_check_logs": [],
+         "ipam_pools": [],
+         "minimum_load_balancer_capacity": [],
+         "security_groups": [
+          false
+         ],
+         "subnet_mapping": [],
+         "subnets": [
+          false,
+          false,
+          false
+         ],
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.alb.aws_lb_listener.http",
+        "mode": "managed",
+        "type": "aws_lb_listener",
+        "name": "http",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "alpn_policy": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_listener.http",
+         "certificate_arn": null,
+         "default_action": [
+          {
+           "authenticate_cognito": [],
+           "authenticate_oidc": [],
+           "fixed_response": [],
+           "forward": [],
+           "jwt_validation": [],
+           "order": 0,
+           "redirect": [],
+           "target_group_arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"web\"]",
+           "type": "forward"
+          }
+         ],
+         "id": "mock-module.alb.aws_lb_listener.http",
+         "load_balancer_arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb.this",
+         "mutual_authentication": [],
+         "port": 80,
+         "protocol": "HTTP",
+         "region": "eu-west-1",
+         "routing_http_request_x_amzn_mtls_clientcert_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_header_name",
+         "routing_http_request_x_amzn_mtls_clientcert_issuer_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_issuer_header_name",
+         "routing_http_request_x_amzn_mtls_clientcert_leaf_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_leaf_header_name",
+         "routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name",
+         "routing_http_request_x_amzn_mtls_clientcert_subject_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_subject_header_name",
+         "routing_http_request_x_amzn_mtls_clientcert_validity_header_name": "mock-routing_http_request_x_amzn_mtls_clientcert_validity_header_name",
+         "routing_http_request_x_amzn_tls_cipher_suite_header_name": "mock-routing_http_request_x_amzn_tls_cipher_suite_header_name",
+         "routing_http_request_x_amzn_tls_version_header_name": "mock-routing_http_request_x_amzn_tls_version_header_name",
+         "routing_http_response_access_control_allow_credentials_header_value": "mock-routing_http_response_access_control_allow_credentials_header_value",
+         "routing_http_response_access_control_allow_headers_header_value": "mock-routing_http_response_access_control_allow_headers_header_value",
+         "routing_http_response_access_control_allow_methods_header_value": "mock-routing_http_response_access_control_allow_methods_header_value",
+         "routing_http_response_access_control_allow_origin_header_value": "mock-routing_http_response_access_control_allow_origin_header_value",
+         "routing_http_response_access_control_expose_headers_header_value": "mock-routing_http_response_access_control_expose_headers_header_value",
+         "routing_http_response_access_control_max_age_header_value": "mock-routing_http_response_access_control_max_age_header_value",
+         "routing_http_response_content_security_policy_header_value": "mock-routing_http_response_content_security_policy_header_value",
+         "routing_http_response_server_enabled": false,
+         "routing_http_response_strict_transport_security_header_value": "mock-routing_http_response_strict_transport_security_header_value",
+         "routing_http_response_x_content_type_options_header_value": "mock-routing_http_response_x_content_type_options_header_value",
+         "routing_http_response_x_frame_options_header_value": "mock-routing_http_response_x_frame_options_header_value",
+         "ssl_policy": "mock-ssl_policy",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Team": "web-experience"
+         },
+         "tcp_idle_timeout_seconds": 0,
+         "timeouts": null
+        },
+        "sensitive_values": {
+         "default_action": [
+          {
+           "authenticate_cognito": [],
+           "authenticate_oidc": [],
+           "fixed_response": [],
+           "forward": [],
+           "jwt_validation": [],
+           "redirect": []
+          }
+         ],
+         "mutual_authentication": [],
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.alb.aws_lb_target_group.svc[\"account\"]",
+        "mode": "managed",
+        "type": "aws_lb_target_group",
+        "name": "svc",
+        "index": "account",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"account\"]",
+         "arn_suffix": "mock-arn_suffix",
+         "connection_termination": false,
+         "deregistration_delay": "30",
+         "health_check": [
+          {
+           "enabled": true,
+           "healthy_threshold": 2,
+           "interval": 15,
+           "matcher": "200",
+           "path": "/healthz",
+           "port": "traffic-port",
+           "protocol": "HTTP",
+           "timeout": 0,
+           "unhealthy_threshold": 3
+          }
+         ],
+         "id": "mock-module.alb.aws_lb_target_group.svc[\"account\"]",
+         "ip_address_type": "mock-ip_address_type",
+         "lambda_multi_value_headers_enabled": false,
+         "load_balancer_arns": [],
+         "load_balancing_algorithm_type": "mock-load_balancing_algorithm_type",
+         "load_balancing_anomaly_mitigation": "mock-load_balancing_anomaly_mitigation",
+         "load_balancing_cross_zone_enabled": "mock-load_balancing_cross_zone_enabled",
+         "name": "storefront-prod-account",
+         "name_prefix": "mock-name_prefix",
+         "port": 8080,
+         "preserve_client_ip": "mock-preserve_client_ip",
+         "protocol": "HTTP",
+         "protocol_version": "HTTP1",
+         "proxy_protocol_v2": false,
+         "region": "eu-west-1",
+         "slow_start": 0,
+         "stickiness": [],
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Team": "web-experience"
+         },
+         "target_control_port": null,
+         "target_failover": [],
+         "target_group_health": [],
+         "target_health_state": [],
+         "target_type": "ip",
+         "vpc_id": "vpc-0f3e2d1c0b9a87654"
+        },
+        "sensitive_values": {
+         "health_check": [
+          {}
+         ],
+         "load_balancer_arns": [],
+         "stickiness": [],
+         "tags_all": {},
+         "target_failover": [],
+         "target_group_health": [],
+         "target_health_state": []
+        }
+       },
+       {
+        "address": "module.alb.aws_lb_target_group.svc[\"checkout\"]",
+        "mode": "managed",
+        "type": "aws_lb_target_group",
+        "name": "svc",
+        "index": "checkout",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"checkout\"]",
+         "arn_suffix": "mock-arn_suffix",
+         "connection_termination": false,
+         "deregistration_delay": "30",
+         "health_check": [
+          {
+           "enabled": true,
+           "healthy_threshold": 2,
+           "interval": 15,
+           "matcher": "200",
+           "path": "/healthz",
+           "port": "traffic-port",
+           "protocol": "HTTP",
+           "timeout": 0,
+           "unhealthy_threshold": 3
+          }
+         ],
+         "id": "mock-module.alb.aws_lb_target_group.svc[\"checkout\"]",
+         "ip_address_type": "mock-ip_address_type",
+         "lambda_multi_value_headers_enabled": false,
+         "load_balancer_arns": [],
+         "load_balancing_algorithm_type": "mock-load_balancing_algorithm_type",
+         "load_balancing_anomaly_mitigation": "mock-load_balancing_anomaly_mitigation",
+         "load_balancing_cross_zone_enabled": "mock-load_balancing_cross_zone_enabled",
+         "name": "storefront-prod-checkout",
+         "name_prefix": "mock-name_prefix",
+         "port": 8080,
+         "preserve_client_ip": "mock-preserve_client_ip",
+         "protocol": "HTTP",
+         "protocol_version": "HTTP1",
+         "proxy_protocol_v2": false,
+         "region": "eu-west-1",
+         "slow_start": 0,
+         "stickiness": [],
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Team": "web-experience"
+         },
+         "target_control_port": null,
+         "target_failover": [],
+         "target_group_health": [],
+         "target_health_state": [],
+         "target_type": "ip",
+         "vpc_id": "vpc-0f3e2d1c0b9a87654"
+        },
+        "sensitive_values": {
+         "health_check": [
+          {}
+         ],
+         "load_balancer_arns": [],
+         "stickiness": [],
+         "tags_all": {},
+         "target_failover": [],
+         "target_group_health": [],
+         "target_health_state": []
+        }
+       },
+       {
+        "address": "module.alb.aws_lb_target_group.svc[\"web\"]",
+        "mode": "managed",
+        "type": "aws_lb_target_group",
+        "name": "svc",
+        "index": "web",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"web\"]",
+         "arn_suffix": "mock-arn_suffix",
+         "connection_termination": false,
+         "deregistration_delay": "30",
+         "health_check": [
+          {
+           "enabled": true,
+           "healthy_threshold": 2,
+           "interval": 15,
+           "matcher": "200",
+           "path": "/healthz",
+           "port": "traffic-port",
+           "protocol": "HTTP",
+           "timeout": 0,
+           "unhealthy_threshold": 3
+          }
+         ],
+         "id": "mock-module.alb.aws_lb_target_group.svc[\"web\"]",
+         "ip_address_type": "mock-ip_address_type",
+         "lambda_multi_value_headers_enabled": false,
+         "load_balancer_arns": [],
+         "load_balancing_algorithm_type": "mock-load_balancing_algorithm_type",
+         "load_balancing_anomaly_mitigation": "mock-load_balancing_anomaly_mitigation",
+         "load_balancing_cross_zone_enabled": "mock-load_balancing_cross_zone_enabled",
+         "name": "storefront-prod-web",
+         "name_prefix": "mock-name_prefix",
+         "port": 8080,
+         "preserve_client_ip": "mock-preserve_client_ip",
+         "protocol": "HTTP",
+         "protocol_version": "HTTP1",
+         "proxy_protocol_v2": false,
+         "region": "eu-west-1",
+         "slow_start": 0,
+         "stickiness": [],
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Team": "web-experience"
+         },
+         "target_control_port": null,
+         "target_failover": [],
+         "target_group_health": [],
+         "target_health_state": [],
+         "target_type": "ip",
+         "vpc_id": "vpc-0f3e2d1c0b9a87654"
+        },
+        "sensitive_values": {
+         "health_check": [
+          {}
+         ],
+         "load_balancer_arns": [],
+         "stickiness": [],
+         "tags_all": {},
+         "target_failover": [],
+         "target_group_health": [],
+         "target_health_state": []
+        }
+       },
+       {
+        "address": "module.alb.aws_security_group.alb",
+        "mode": "managed",
+        "type": "aws_security_group",
+        "name": "alb",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 1,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_security_group.alb",
+         "description": "Public ALB for storefront-prod",
+         "egress": [],
+         "id": "mock-module.alb.aws_security_group.alb",
+         "ingress": [],
+         "name": "storefront-prod-alb",
+         "name_prefix": "mock-name_prefix",
+         "owner_id": "mock-owner_id",
+         "region": "eu-west-1",
+         "revoke_rules_on_delete": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Team": "web-experience"
+         },
+         "timeouts": null,
+         "vpc_id": "vpc-0f3e2d1c0b9a87654"
+        },
+        "sensitive_values": {
+         "egress": [],
+         "ingress": [],
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.alb.aws_vpc_security_group_egress_rule.to_tasks",
+        "mode": "managed",
+        "type": "aws_vpc_security_group_egress_rule",
+        "name": "to_tasks",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_vpc_security_group_egress_rule.to_tasks",
+         "cidr_ipv4": "10.20.0.0/16",
+         "cidr_ipv6": null,
+         "description": "To ECS tasks",
+         "from_port": 8080,
+         "id": "mock-module.alb.aws_vpc_security_group_egress_rule.to_tasks",
+         "ip_protocol": "tcp",
+         "prefix_list_id": null,
+         "referenced_security_group_id": null,
+         "region": "eu-west-1",
+         "security_group_id": "mock-module.alb.aws_security_group.alb",
+         "security_group_rule_id": "mock-security_group_rule_id",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Team": "web-experience"
+         },
+         "to_port": 8080
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.alb.aws_vpc_security_group_ingress_rule.http",
+        "mode": "managed",
+        "type": "aws_vpc_security_group_ingress_rule",
+        "name": "http",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_vpc_security_group_ingress_rule.http",
+         "cidr_ipv4": "0.0.0.0/0",
+         "cidr_ipv6": null,
+         "description": "HTTP from the internet",
+         "from_port": 80,
+         "id": "mock-module.alb.aws_vpc_security_group_ingress_rule.http",
+         "ip_protocol": "tcp",
+         "prefix_list_id": null,
+         "referenced_security_group_id": null,
+         "region": "eu-west-1",
+         "security_group_id": "mock-module.alb.aws_security_group.alb",
+         "security_group_rule_id": "mock-security_group_rule_id",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Team": "web-experience"
+         },
+         "to_port": 80
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       }
+      ],
+      "address": "module.alb"
+     }
+    ]
+   }
+  }
+ },
+ "configuration": {
+  "provider_config": {
+   "aws": {
+    "name": "aws",
+    "full_name": "registry.terraform.io/hashicorp/aws",
+    "version_constraint": "~> 6.0",
+    "expressions": {
+     "access_key": {
+      "constant_value": "mock_access_key"
+     },
+     "default_tags": [
+      {
+       "tags": {
+        "references": [
+         "var.environment",
+         "var.site_name"
+        ]
+       }
+      }
+     ],
+     "region": {
+      "references": [
+       "var.region"
+      ]
+     },
+     "secret_key": {
+      "constant_value": "mock_secret_key"
+     },
+     "skip_credentials_validation": {
+      "constant_value": true
+     },
+     "skip_metadata_api_check": {
+      "constant_value": true
+     },
+     "skip_region_validation": {
+      "constant_value": true
+     },
+     "skip_requesting_account_id": {
+      "constant_value": true
+     }
+    }
+   }
+  },
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_cloudwatch_log_group.edge",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "edge",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.site_name",
+        "var.environment",
+        "each.key"
+       ]
+      },
+      "retention_in_days": {
+       "references": [
+        "each.value"
+       ]
+      }
+     },
+     "schema_version": 0,
+     "for_each_expression": {
+      "constant_value": {
+       "access": 90,
+       "csp-report": 14,
+       "edge-auth": 14
+      }
+     }
+    },
+    {
+     "address": "aws_cloudwatch_log_group.frontend",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "frontend",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.site_name",
+        "each.key"
+       ]
+      },
+      "retention_in_days": {
+       "constant_value": 30
+      }
+     },
+     "schema_version": 0,
+     "for_each_expression": {
+      "references": [
+       "var.frontends"
+      ]
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.alb_5xx",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "alb_5xx",
+     "provider_config_key": "aws",
+     "expressions": {
+      "alarm_actions": {
+       "references": [
+        "var.alarm_topic_arn"
+       ]
+      },
+      "alarm_name": {
+       "references": [
+        "var.site_name",
+        "var.environment"
+       ]
+      },
+      "comparison_operator": {
+       "constant_value": "GreaterThanThreshold"
+      },
+      "dimensions": {
+       "references": [
+        "module.alb.arn_suffix",
+        "module.alb"
+       ]
+      },
+      "evaluation_periods": {
+       "constant_value": 3
+      },
+      "metric_name": {
+       "constant_value": "HTTPCode_ELB_5XX_Count"
+      },
+      "namespace": {
+       "constant_value": "AWS/ApplicationELB"
+      },
+      "period": {
+       "constant_value": 60
+      },
+      "statistic": {
+       "constant_value": "Sum"
+      },
+      "threshold": {
+       "constant_value": 25
+      },
+      "treat_missing_data": {
+       "constant_value": "notBreaching"
+      }
+     },
+     "schema_version": 1
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.target_latency",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "target_latency",
+     "provider_config_key": "aws",
+     "expressions": {
+      "alarm_actions": {
+       "references": [
+        "var.alarm_topic_arn"
+       ]
+      },
+      "alarm_name": {
+       "references": [
+        "var.site_name",
+        "var.environment",
+        "each.key"
+       ]
+      },
+      "comparison_operator": {
+       "constant_value": "GreaterThanThreshold"
+      },
+      "dimensions": {
+       "references": [
+        "module.alb.arn_suffix",
+        "module.alb",
+        "each.value"
+       ]
+      },
+      "evaluation_periods": {
+       "constant_value": 5
+      },
+      "extended_statistic": {
+       "constant_value": "p95"
+      },
+      "metric_name": {
+       "constant_value": "TargetResponseTime"
+      },
+      "namespace": {
+       "constant_value": "AWS/ApplicationELB"
+      },
+      "period": {
+       "constant_value": 60
+      },
+      "threshold": {
+       "constant_value": 1.2
+      }
+     },
+     "schema_version": 1,
+     "for_each_expression": {
+      "references": [
+       "module.alb.target_group_arn_suffixes",
+       "module.alb"
+      ]
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.unhealthy_hosts",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "unhealthy_hosts",
+     "provider_config_key": "aws",
+     "expressions": {
+      "alarm_actions": {
+       "references": [
+        "var.alarm_topic_arn"
+       ]
+      },
+      "alarm_name": {
+       "references": [
+        "var.site_name",
+        "var.environment",
+        "each.key"
+       ]
+      },
+      "comparison_operator": {
+       "constant_value": "GreaterThanThreshold"
+      },
+      "dimensions": {
+       "references": [
+        "module.alb.arn_suffix",
+        "module.alb",
+        "each.value"
+       ]
+      },
+      "evaluation_periods": {
+       "constant_value": 3
+      },
+      "metric_name": {
+       "constant_value": "UnHealthyHostCount"
+      },
+      "namespace": {
+       "constant_value": "AWS/ApplicationELB"
+      },
+      "period": {
+       "constant_value": 60
+      },
+      "statistic": {
+       "constant_value": "Maximum"
+      },
+      "threshold": {
+       "constant_value": 0
+      }
+     },
+     "schema_version": 1,
+     "for_each_expression": {
+      "references": [
+       "module.alb.target_group_arn_suffixes",
+       "module.alb"
+      ]
+     }
+    }
+   ],
+   "module_calls": {
+    "alb": {
+     "source": "./modules/public-alb",
+     "expressions": {
+      "app_port": {
+       "references": [
+        "var.app_port"
+       ]
+      },
+      "certificate_arn": {
+       "references": [
+        "var.certificate_arn"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.site_name",
+        "var.environment"
+       ]
+      },
+      "services": {
+       "references": [
+        "var.frontends"
+       ]
+      },
+      "subnet_ids": {
+       "references": [
+        "var.public_subnet_ids"
+       ]
+      },
+      "vpc_cidr": {
+       "references": [
+        "var.vpc_cidr"
+       ]
+      },
+      "vpc_id": {
+       "references": [
+        "var.vpc_id"
+       ]
+      }
+     },
+     "module": {
+      "outputs": {
+       "arn_suffix": {
+        "expression": {
+         "references": [
+          "aws_lb.this.arn_suffix",
+          "aws_lb.this"
+         ]
+        }
+       },
+       "security_group_id": {
+        "expression": {
+         "references": [
+          "aws_security_group.alb.id",
+          "aws_security_group.alb"
+         ]
+        }
+       },
+       "target_group_arn_suffixes": {
+        "expression": {
+         "references": [
+          "aws_lb_target_group.svc"
+         ]
+        }
+       }
+      },
+      "resources": [
+       {
+        "address": "aws_lb.this",
+        "mode": "managed",
+        "type": "aws_lb",
+        "name": "this",
+        "provider_config_key": "aws",
+        "expressions": {
+         "drop_invalid_header_fields": {
+          "constant_value": true
+         },
+         "idle_timeout": {
+          "constant_value": 60
+         },
+         "internal": {
+          "constant_value": false
+         },
+         "load_balancer_type": {
+          "constant_value": "application"
+         },
+         "name": {
+          "references": [
+           "var.name"
+          ]
+         },
+         "security_groups": {
+          "references": [
+           "aws_security_group.alb.id",
+           "aws_security_group.alb"
+          ]
+         },
+         "subnets": {
+          "references": [
+           "var.subnet_ids"
+          ]
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "aws_lb_listener.http",
+        "mode": "managed",
+        "type": "aws_lb_listener",
+        "name": "http",
+        "provider_config_key": "aws",
+        "expressions": {
+         "default_action": [
+          {
+           "target_group_arn": {
+            "references": [
+             "aws_lb_target_group.svc[\"web\"].arn",
+             "aws_lb_target_group.svc[\"web\"]",
+             "aws_lb_target_group.svc"
+            ]
+           },
+           "type": {
+            "constant_value": "forward"
+           }
+          }
+         ],
+         "load_balancer_arn": {
+          "references": [
+           "aws_lb.this.arn",
+           "aws_lb.this"
+          ]
+         },
+         "port": {
+          "constant_value": 80
+         },
+         "protocol": {
+          "constant_value": "HTTP"
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "aws_lb_listener.https",
+        "mode": "managed",
+        "type": "aws_lb_listener",
+        "name": "https",
+        "provider_config_key": "aws",
+        "expressions": {
+         "certificate_arn": {
+          "references": [
+           "var.certificate_arn"
+          ]
+         },
+         "default_action": [
+          {
+           "target_group_arn": {
+            "references": [
+             "aws_lb_target_group.svc[\"web\"].arn",
+             "aws_lb_target_group.svc[\"web\"]",
+             "aws_lb_target_group.svc"
+            ]
+           },
+           "type": {
+            "constant_value": "forward"
+           }
+          }
+         ],
+         "load_balancer_arn": {
+          "references": [
+           "aws_lb.this.arn",
+           "aws_lb.this"
+          ]
+         },
+         "port": {
+          "constant_value": 443
+         },
+         "protocol": {
+          "constant_value": "HTTPS"
+         },
+         "ssl_policy": {
+          "constant_value": "ELBSecurityPolicy-TLS13-1-2-2021-06"
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "aws_lb_target_group.svc",
+        "mode": "managed",
+        "type": "aws_lb_target_group",
+        "name": "svc",
+        "provider_config_key": "aws",
+        "expressions": {
+         "deregistration_delay": {
+          "constant_value": 30
+         },
+         "health_check": [
+          {
+           "healthy_threshold": {
+            "constant_value": 2
+           },
+           "interval": {
+            "constant_value": 15
+           },
+           "matcher": {
+            "constant_value": "200"
+           },
+           "path": {
+            "constant_value": "/healthz"
+           },
+           "unhealthy_threshold": {
+            "constant_value": 3
+           }
+          }
+         ],
+         "name": {
+          "references": [
+           "var.name",
+           "each.key"
+          ]
+         },
+         "port": {
+          "references": [
+           "var.app_port"
+          ]
+         },
+         "protocol": {
+          "constant_value": "HTTP"
+         },
+         "protocol_version": {
+          "constant_value": "HTTP1"
+         },
+         "target_type": {
+          "constant_value": "ip"
+         },
+         "vpc_id": {
+          "references": [
+           "var.vpc_id"
+          ]
+         }
+        },
+        "schema_version": 0,
+        "for_each_expression": {
+         "references": [
+          "var.services"
+         ]
+        }
+       },
+       {
+        "address": "aws_security_group.alb",
+        "mode": "managed",
+        "type": "aws_security_group",
+        "name": "alb",
+        "provider_config_key": "aws",
+        "expressions": {
+         "description": {
+          "references": [
+           "var.name"
+          ]
+         },
+         "name": {
+          "references": [
+           "var.name"
+          ]
+         },
+         "vpc_id": {
+          "references": [
+           "var.vpc_id"
+          ]
+         }
+        },
+        "schema_version": 1
+       },
+       {
+        "address": "aws_vpc_security_group_egress_rule.to_tasks",
+        "mode": "managed",
+        "type": "aws_vpc_security_group_egress_rule",
+        "name": "to_tasks",
+        "provider_config_key": "aws",
+        "expressions": {
+         "cidr_ipv4": {
+          "references": [
+           "var.vpc_cidr"
+          ]
+         },
+         "description": {
+          "constant_value": "To ECS tasks"
+         },
+         "from_port": {
+          "references": [
+           "var.app_port"
+          ]
+         },
+         "ip_protocol": {
+          "constant_value": "tcp"
+         },
+         "security_group_id": {
+          "references": [
+           "aws_security_group.alb.id",
+           "aws_security_group.alb"
+          ]
+         },
+         "to_port": {
+          "references": [
+           "var.app_port"
+          ]
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "aws_vpc_security_group_ingress_rule.http",
+        "mode": "managed",
+        "type": "aws_vpc_security_group_ingress_rule",
+        "name": "http",
+        "provider_config_key": "aws",
+        "expressions": {
+         "cidr_ipv4": {
+          "constant_value": "0.0.0.0/0"
+         },
+         "description": {
+          "constant_value": "HTTP from the internet"
+         },
+         "from_port": {
+          "constant_value": 80
+         },
+         "ip_protocol": {
+          "constant_value": "tcp"
+         },
+         "security_group_id": {
+          "references": [
+           "aws_security_group.alb.id",
+           "aws_security_group.alb"
+          ]
+         },
+         "to_port": {
+          "constant_value": 80
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "aws_vpc_security_group_ingress_rule.https",
+        "mode": "managed",
+        "type": "aws_vpc_security_group_ingress_rule",
+        "name": "https",
+        "provider_config_key": "aws",
+        "expressions": {
+         "cidr_ipv4": {
+          "constant_value": "0.0.0.0/0"
+         },
+         "description": {
+          "constant_value": "HTTPS from the internet"
+         },
+         "from_port": {
+          "constant_value": 443
+         },
+         "ip_protocol": {
+          "constant_value": "tcp"
+         },
+         "security_group_id": {
+          "references": [
+           "aws_security_group.alb.id",
+           "aws_security_group.alb"
+          ]
+         },
+         "to_port": {
+          "constant_value": 443
+         }
+        },
+        "schema_version": 0
+       },
+       {
+        "address": "aws_vpc_security_group_ingress_rule.https_v6",
+        "mode": "managed",
+        "type": "aws_vpc_security_group_ingress_rule",
+        "name": "https_v6",
+        "provider_config_key": "aws",
+        "expressions": {
+         "cidr_ipv6": {
+          "constant_value": "::/0"
+         },
+         "description": {
+          "constant_value": "HTTPS from the internet (IPv6)"
+         },
+         "from_port": {
+          "constant_value": 443
+         },
+         "ip_protocol": {
+          "constant_value": "tcp"
+         },
+         "security_group_id": {
+          "references": [
+           "aws_security_group.alb.id",
+           "aws_security_group.alb"
+          ]
+         },
+         "to_port": {
+          "constant_value": 443
+         }
+        },
+        "schema_version": 0
+       }
+      ],
+      "variables": {
+       "app_port": {},
+       "certificate_arn": {},
+       "name": {},
+       "services": {},
+       "subnet_ids": {},
+       "vpc_cidr": {},
+       "vpc_id": {}
+      }
+     }
+    }
+   },
+   "variables": {
+    "alarm_topic_arn": {},
+    "app_port": {
+     "default": 8080
+    },
+    "certificate_arn": {
+     "description": "ACM certificate for www (issued by the dns stack)."
+    },
+    "environment": {},
+    "frontends": {
+     "description": "Frontend services behind the ALB."
+    },
+    "public_subnet_ids": {},
+    "region": {
+     "default": "eu-west-1"
+    },
+    "site_name": {},
+    "vpc_cidr": {},
+    "vpc_id": {}
+   }
+  }
+ },
+ "relevant_attributes": [
+  {
+   "resource": "module.alb.aws_security_group.alb",
+   "attribute": [
+    "id"
+   ]
+  },
+  {
+   "resource": "module.alb.aws_lb.this",
+   "attribute": [
+    "arn"
+   ]
+  },
+  {
+   "resource": "module.alb.aws_lb_target_group.svc[\"web\"]",
+   "attribute": [
+    "arn"
+   ]
+  },
+  {
+   "resource": "module.alb.aws_lb_target_group.svc",
+   "attribute": []
+  },
+  {
+   "resource": "module.alb.aws_lb.this",
+   "attribute": [
+    "arn_suffix"
+   ]
+  }
+ ],
+ "timestamp": "2026-11-24T09:33:44Z",
+ "applyable": true,
+ "complete": true,
+ "errored": false
+}

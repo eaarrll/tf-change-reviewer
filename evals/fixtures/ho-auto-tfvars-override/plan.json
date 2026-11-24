@@ -1,0 +1,5387 @@
+{
+ "format_version": "1.2",
+ "terraform_version": "1.10.5",
+ "variables": {
+  "alarm_thresholds": {
+   "value": {
+    "connections_high": 450,
+    "cpu_high": 75,
+    "disk_queue_depth": 64,
+    "free_storage_low": 21474836480,
+    "read_latency": 0.02,
+    "write_latency": 0.04
+   }
+  },
+  "alarm_topic_arn": {
+   "value": "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+  },
+  "allowed_cidrs": {
+   "value": [
+    "10.40.16.0/20",
+    "10.40.32.0/20",
+    "10.40.48.0/20"
+   ]
+  },
+  "db_allocated_storage": {
+   "value": 500
+  },
+  "db_backup_retention_days": {
+   "value": 21
+  },
+  "db_engine_version": {
+   "value": "8.0.39"
+  },
+  "db_instance_class": {
+   "value": "db.m6g.2xlarge"
+  },
+  "db_kms_key_arn": {
+   "value": "arn:aws:kms:eu-west-1:210987654321:key/mrk-8d2f4c61a9b04e7f8c3d2e1f0a9b8c7d"
+  },
+  "db_subnet_ids": {
+   "value": [
+    "subnet-04a1b2c3d4e5f6071",
+    "subnet-04a1b2c3d4e5f6072",
+    "subnet-04a1b2c3d4e5f6073"
+   ]
+  },
+  "extra_tags": {
+   "value": {
+    "Compliance": "sox",
+    "CostCenter": "fin-ledger-0420"
+   }
+  },
+  "name": {
+   "value": "ledger"
+  },
+  "vpc_id": {
+   "value": "vpc-07d1c2b3a4e5f6a71"
+  }
+ },
+ "planned_values": {
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_cloudwatch_dashboard.ledger_db",
+     "mode": "managed",
+     "type": "aws_cloudwatch_dashboard",
+     "name": "ledger_db",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "dashboard_body": "{\"widgets\":[{\"height\":6,\"properties\":{\"annotations\":{\"horizontal\":[{\"label\":\"alarm\",\"value\":450}]},\"metrics\":[[\"AWS/RDS\",\"DatabaseConnections\",\"DBInstanceIdentifier\",\"ledger-prod\"]],\"period\":300,\"region\":\"eu-west-1\",\"stat\":\"Maximum\",\"title\":\"connections high\"},\"type\":\"metric\",\"width\":8,\"x\":0,\"y\":0},{\"height\":6,\"properties\":{\"annotations\":{\"horizontal\":[{\"label\":\"alarm\",\"value\":75}]},\"metrics\":[[\"AWS/RDS\",\"CPUUtilization\",\"DBInstanceIdentifier\",\"ledger-prod\"]],\"period\":300,\"region\":\"eu-west-1\",\"stat\":\"Average\",\"title\":\"cpu high\"},\"type\":\"metric\",\"width\":8,\"x\":8,\"y\":0},{\"height\":6,\"properties\":{\"annotations\":{\"horizontal\":[{\"label\":\"alarm\",\"value\":64}]},\"metrics\":[[\"AWS/RDS\",\"DiskQueueDepth\",\"DBInstanceIdentifier\",\"ledger-prod\"]],\"period\":300,\"region\":\"eu-west-1\",\"stat\":\"Average\",\"title\":\"disk queue depth\"},\"type\":\"metric\",\"width\":8,\"x\":16,\"y\":0},{\"height\":6,\"properties\":{\"annotations\":{\"horizontal\":[{\"label\":\"alarm\",\"value\":21474836480}]},\"metrics\":[[\"AWS/RDS\",\"FreeStorageSpace\",\"DBInstanceIdentifier\",\"ledger-prod\"]],\"period\":300,\"region\":\"eu-west-1\",\"stat\":\"Minimum\",\"title\":\"free storage low\"},\"type\":\"metric\",\"width\":8,\"x\":0,\"y\":6},{\"height\":6,\"properties\":{\"annotations\":{\"horizontal\":[{\"label\":\"alarm\",\"value\":0.02}]},\"metrics\":[[\"AWS/RDS\",\"ReadLatency\",\"DBInstanceIdentifier\",\"ledger-prod\"]],\"period\":300,\"region\":\"eu-west-1\",\"stat\":\"Average\",\"title\":\"read latency\"},\"type\":\"metric\",\"width\":8,\"x\":8,\"y\":6},{\"height\":6,\"properties\":{\"annotations\":{\"horizontal\":[{\"label\":\"alarm\",\"value\":0.04}]},\"metrics\":[[\"AWS/RDS\",\"WriteLatency\",\"DBInstanceIdentifier\",\"ledger-prod\"]],\"period\":300,\"region\":\"eu-west-1\",\"stat\":\"Average\",\"title\":\"write latency\"},\"type\":\"metric\",\"width\":8,\"x\":16,\"y\":6}]}",
+      "dashboard_name": "ledger-prod-db",
+      "region": "eu-west-1"
+     },
+     "sensitive_values": {}
+    },
+    {
+     "address": "aws_cloudwatch_log_group.rds[\"error\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "rds",
+     "index": "error",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.rds[\"error\"]",
+      "deletion_protection_enabled": false,
+      "id": "mock-aws_cloudwatch_log_group.rds[\"error\"]",
+      "kms_key_id": null,
+      "log_group_class": "mock-log_group_class",
+      "name": "/aws/rds/instance/ledger-prod/error",
+      "name_prefix": "mock-name_prefix",
+      "region": "eu-west-1",
+      "retention_in_days": 90,
+      "skip_destroy": false,
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      }
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_log_group.rds[\"slowquery\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "rds",
+     "index": "slowquery",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.rds[\"slowquery\"]",
+      "deletion_protection_enabled": false,
+      "id": "mock-aws_cloudwatch_log_group.rds[\"slowquery\"]",
+      "kms_key_id": null,
+      "log_group_class": "mock-log_group_class",
+      "name": "/aws/rds/instance/ledger-prod/slowquery",
+      "name_prefix": "mock-name_prefix",
+      "region": "eu-west-1",
+      "retention_in_days": 90,
+      "skip_destroy": false,
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      }
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.db[\"connections_high\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "db",
+     "index": "connections_high",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+      ],
+      "alarm_description": null,
+      "alarm_name": "ledger-prod-db-connections-high",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"connections_high\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "DBInstanceIdentifier": "ledger-prod"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.db[\"connections_high\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "DatabaseConnections",
+      "metric_query": [],
+      "namespace": "AWS/RDS",
+      "ok_actions": [
+       "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+      ],
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "threshold": 450,
+      "threshold_metric_id": null,
+      "treat_missing_data": "missing",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "ok_actions": [
+       false
+      ],
+      "tags": {},
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.db[\"cpu_high\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "db",
+     "index": "cpu_high",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+      ],
+      "alarm_description": null,
+      "alarm_name": "ledger-prod-db-cpu-high",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"cpu_high\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "DBInstanceIdentifier": "ledger-prod"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.db[\"cpu_high\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "CPUUtilization",
+      "metric_query": [],
+      "namespace": "AWS/RDS",
+      "ok_actions": [
+       "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+      ],
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Average",
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "threshold": 75,
+      "threshold_metric_id": null,
+      "treat_missing_data": "missing",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "ok_actions": [
+       false
+      ],
+      "tags": {},
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.db[\"disk_queue_depth\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "db",
+     "index": "disk_queue_depth",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+      ],
+      "alarm_description": null,
+      "alarm_name": "ledger-prod-db-disk-queue-depth",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "DBInstanceIdentifier": "ledger-prod"
+      },
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "insufficient_data_actions": null,
+      "metric_name": "DiskQueueDepth",
+      "metric_query": [],
+      "namespace": "AWS/RDS",
+      "ok_actions": [
+       "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+      ],
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Average",
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "threshold": 64,
+      "threshold_metric_id": null,
+      "treat_missing_data": "missing",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "ok_actions": [
+       false
+      ],
+      "tags": {},
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.db[\"free_storage_low\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "db",
+     "index": "free_storage_low",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+      ],
+      "alarm_description": null,
+      "alarm_name": "ledger-prod-db-free-storage-low",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"free_storage_low\"]",
+      "comparison_operator": "LessThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "DBInstanceIdentifier": "ledger-prod"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.db[\"free_storage_low\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "FreeStorageSpace",
+      "metric_query": [],
+      "namespace": "AWS/RDS",
+      "ok_actions": [
+       "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+      ],
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Minimum",
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "threshold": 21474836480,
+      "threshold_metric_id": null,
+      "treat_missing_data": "missing",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "ok_actions": [
+       false
+      ],
+      "tags": {},
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.db[\"read_latency\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "db",
+     "index": "read_latency",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+      ],
+      "alarm_description": null,
+      "alarm_name": "ledger-prod-db-read-latency",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"read_latency\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "DBInstanceIdentifier": "ledger-prod"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.db[\"read_latency\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "ReadLatency",
+      "metric_query": [],
+      "namespace": "AWS/RDS",
+      "ok_actions": [
+       "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+      ],
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Average",
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "threshold": 0.02,
+      "threshold_metric_id": null,
+      "treat_missing_data": "missing",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "ok_actions": [
+       false
+      ],
+      "tags": {},
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.db[\"write_latency\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "db",
+     "index": "write_latency",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+      ],
+      "alarm_description": null,
+      "alarm_name": "ledger-prod-db-write-latency",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"write_latency\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "DBInstanceIdentifier": "ledger-prod"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.db[\"write_latency\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "WriteLatency",
+      "metric_query": [],
+      "namespace": "AWS/RDS",
+      "ok_actions": [
+       "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+      ],
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Average",
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "threshold": 0.04,
+      "threshold_metric_id": null,
+      "treat_missing_data": "missing",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "ok_actions": [
+       false
+      ],
+      "tags": {},
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_db_event_subscription.ledger",
+     "mode": "managed",
+     "type": "aws_db_event_subscription",
+     "name": "ledger",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_event_subscription.ledger",
+      "customer_aws_id": "mock-customer_aws_id",
+      "enabled": true,
+      "event_categories": [
+       "availability",
+       "failover",
+       "failure",
+       "low storage",
+       "maintenance"
+      ],
+      "id": "mock-aws_db_event_subscription.ledger",
+      "name": "ledger-prod-db-events",
+      "name_prefix": "mock-name_prefix",
+      "region": "eu-west-1",
+      "sns_topic": "arn:aws:sns:eu-west-1:210987654321:ops-pager",
+      "source_ids": [
+       "ledger-prod"
+      ],
+      "source_type": "db-instance",
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "timeouts": null
+     },
+     "sensitive_values": {
+      "event_categories": [
+       false,
+       false,
+       false,
+       false,
+       false
+      ],
+      "source_ids": [
+       false
+      ],
+      "tags": {},
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_db_instance.ledger",
+     "mode": "managed",
+     "type": "aws_db_instance",
+     "name": "ledger",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 2,
+     "values": {
+      "allocated_storage": 500,
+      "allow_major_version_upgrade": null,
+      "apply_immediately": false,
+      "auto_minor_version_upgrade": true,
+      "backup_retention_period": 21,
+      "blue_green_update": [],
+      "copy_tags_to_snapshot": false,
+      "custom_iam_instance_profile": null,
+      "customer_owned_ip_enabled": null,
+      "db_name": "ledger",
+      "db_subnet_group_name": "ledger-mysql",
+      "dedicated_log_volume": false,
+      "delete_automated_backups": true,
+      "deletion_protection": true,
+      "domain": null,
+      "domain_auth_secret_arn": null,
+      "domain_dns_ips": null,
+      "domain_iam_role_name": null,
+      "domain_ou": null,
+      "enabled_cloudwatch_logs_exports": [
+       "error",
+       "slowquery"
+      ],
+      "engine": "mysql",
+      "engine_version": "8.0.39",
+      "final_snapshot_identifier": "ledger-prod-final",
+      "iam_database_authentication_enabled": null,
+      "identifier": "ledger-prod",
+      "instance_class": "db.m6g.2xlarge",
+      "iops": 6000,
+      "kms_key_id": "arn:aws:kms:eu-west-1:210987654321:key/mrk-8d2f4c61a9b04e7f8c3d2e1f0a9b8c7d",
+      "manage_master_user_password": true,
+      "max_allocated_storage": null,
+      "monitoring_interval": 0,
+      "multi_az": true,
+      "parameter_group_name": "mock-name",
+      "password": null,
+      "password_wo": null,
+      "password_wo_version": null,
+      "performance_insights_enabled": false,
+      "publicly_accessible": false,
+      "region": "eu-west-1",
+      "replicate_source_db": null,
+      "replicate_source_db_cluster": null,
+      "restore_to_point_in_time": [],
+      "s3_import": [],
+      "skip_final_snapshot": false,
+      "storage_encrypted": true,
+      "storage_type": "io1",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "timeouts": null,
+      "upgrade_storage_config": null,
+      "username": "ledger_admin",
+      "vpc_security_group_ids": [
+       "mock-aws_security_group.ledger_db"
+      ],
+      "warning_event_categories": null
+     },
+     "sensitive_values": {
+      "blue_green_update": [],
+      "enabled_cloudwatch_logs_exports": [
+       false,
+       false
+      ],
+      "listener_endpoint": [],
+      "master_user_secret": [],
+      "replicas": [],
+      "restore_to_point_in_time": [],
+      "s3_import": [],
+      "tags_all": {},
+      "vpc_security_group_ids": [
+       false
+      ]
+     }
+    },
+    {
+     "address": "aws_db_parameter_group.ledger",
+     "mode": "managed",
+     "type": "aws_db_parameter_group",
+     "name": "ledger",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_parameter_group.ledger",
+      "description": "ledger MySQL 8.0",
+      "family": "mysql8.0",
+      "id": "mock-aws_db_parameter_group.ledger",
+      "name": "mock-name",
+      "name_prefix": "ledger-mysql80-",
+      "parameter": [
+       {
+        "apply_method": "immediate",
+        "name": "long_query_time",
+        "value": "2"
+       },
+       {
+        "apply_method": "immediate",
+        "name": "slow_query_log",
+        "value": "1"
+       },
+       {
+        "apply_method": "pending-reboot",
+        "name": "binlog_format",
+        "value": "ROW"
+       }
+      ],
+      "region": "eu-west-1",
+      "skip_destroy": false,
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      }
+     },
+     "sensitive_values": {
+      "parameter": [
+       {},
+       {},
+       {}
+      ],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_db_subnet_group.ledger",
+     "mode": "managed",
+     "type": "aws_db_subnet_group",
+     "name": "ledger",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_subnet_group.ledger",
+      "description": "Managed by Terraform",
+      "id": "mock-aws_db_subnet_group.ledger",
+      "name": "ledger-mysql",
+      "name_prefix": "mock-name_prefix",
+      "region": "eu-west-1",
+      "subnet_ids": [
+       "subnet-04a1b2c3d4e5f6071",
+       "subnet-04a1b2c3d4e5f6072",
+       "subnet-04a1b2c3d4e5f6073"
+      ],
+      "supported_network_types": [],
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "vpc_id": "mock-vpc_id"
+     },
+     "sensitive_values": {
+      "subnet_ids": [
+       false,
+       false,
+       false
+      ],
+      "supported_network_types": [],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_s3_bucket.exports",
+     "mode": "managed",
+     "type": "aws_s3_bucket",
+     "name": "exports",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "acceleration_status": "mock-acceleration_status",
+      "acl": "mock-acl",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.exports",
+      "bucket": "ledger-prod-db-exports-210987654321",
+      "bucket_domain_name": "mock-bucket_domain_name",
+      "bucket_namespace": "mock-bucket_namespace",
+      "bucket_prefix": "mock-bucket_prefix",
+      "bucket_region": "mock-bucket_region",
+      "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+      "cors_rule": [],
+      "force_destroy": false,
+      "grant": [],
+      "hosted_zone_id": "mock-hosted_zone_id",
+      "id": "mock-aws_s3_bucket.exports",
+      "lifecycle_rule": [],
+      "logging": [],
+      "object_lock_configuration": [],
+      "object_lock_enabled": false,
+      "policy": "mock-policy",
+      "region": "eu-west-1",
+      "replication_configuration": [],
+      "request_payer": "mock-request_payer",
+      "server_side_encryption_configuration": [],
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "timeouts": null,
+      "versioning": [],
+      "website": [],
+      "website_domain": "mock-website_domain",
+      "website_endpoint": "mock-website_endpoint"
+     },
+     "sensitive_values": {
+      "cors_rule": [],
+      "grant": [],
+      "lifecycle_rule": [],
+      "logging": [],
+      "object_lock_configuration": [],
+      "replication_configuration": [],
+      "server_side_encryption_configuration": [],
+      "tags": {},
+      "tags_all": {},
+      "versioning": [],
+      "website": []
+     }
+    },
+    {
+     "address": "aws_s3_bucket_public_access_block.exports",
+     "mode": "managed",
+     "type": "aws_s3_bucket_public_access_block",
+     "name": "exports",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "block_public_acls": true,
+      "block_public_policy": true,
+      "bucket": "mock-aws_s3_bucket.exports",
+      "id": "mock-aws_s3_bucket_public_access_block.exports",
+      "ignore_public_acls": true,
+      "region": "eu-west-1",
+      "restrict_public_buckets": true,
+      "skip_destroy": null
+     },
+     "sensitive_values": {}
+    },
+    {
+     "address": "aws_s3_bucket_versioning.exports",
+     "mode": "managed",
+     "type": "aws_s3_bucket_versioning",
+     "name": "exports",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "bucket": "mock-aws_s3_bucket.exports",
+      "expected_bucket_owner": null,
+      "id": "mock-aws_s3_bucket_versioning.exports",
+      "mfa": null,
+      "region": "eu-west-1",
+      "versioning_configuration": [
+       {
+        "mfa_delete": "mock-mfa_delete",
+        "status": "Enabled"
+       }
+      ]
+     },
+     "sensitive_values": {
+      "versioning_configuration": [
+       {}
+      ]
+     }
+    },
+    {
+     "address": "aws_security_group.ledger_db",
+     "mode": "managed",
+     "type": "aws_security_group",
+     "name": "ledger_db",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_security_group.ledger_db",
+      "description": "MySQL for ledger",
+      "egress": [],
+      "id": "mock-aws_security_group.ledger_db",
+      "ingress": [],
+      "name": "ledger-mysql",
+      "name_prefix": "mock-name_prefix",
+      "owner_id": "mock-owner_id",
+      "region": "eu-west-1",
+      "revoke_rules_on_delete": false,
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "timeouts": null,
+      "vpc_id": "vpc-07d1c2b3a4e5f6a71"
+     },
+     "sensitive_values": {
+      "egress": [],
+      "ingress": [],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_ssm_parameter.client[\"database\"]",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "client",
+     "index": "database",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "allowed_pattern": null,
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"database\"]",
+      "data_type": "mock-data_type",
+      "description": null,
+      "has_value_wo": false,
+      "id": "mock-aws_ssm_parameter.client[\"database\"]",
+      "insecure_value": "mock-insecure_value",
+      "key_id": "mock-key_id",
+      "name": "/ledger/prod/db/database",
+      "overwrite": null,
+      "region": "eu-west-1",
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "tier": "mock-tier",
+      "type": "String",
+      "value": "ledger",
+      "value_wo": null,
+      "value_wo_version": null,
+      "version": 0
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {},
+      "value": true,
+      "value_wo": true
+     }
+    },
+    {
+     "address": "aws_ssm_parameter.client[\"host\"]",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "client",
+     "index": "host",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "allowed_pattern": null,
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"host\"]",
+      "data_type": "mock-data_type",
+      "description": null,
+      "has_value_wo": false,
+      "id": "mock-aws_ssm_parameter.client[\"host\"]",
+      "insecure_value": "mock-insecure_value",
+      "key_id": "mock-key_id",
+      "name": "/ledger/prod/db/host",
+      "overwrite": null,
+      "region": "eu-west-1",
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "tier": "mock-tier",
+      "type": "String",
+      "value_wo": null,
+      "value_wo_version": null
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {},
+      "value": true,
+      "value_wo": true
+     }
+    },
+    {
+     "address": "aws_ssm_parameter.client[\"pool_max\"]",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "client",
+     "index": "pool_max",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "allowed_pattern": null,
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"pool_max\"]",
+      "data_type": "mock-data_type",
+      "description": null,
+      "has_value_wo": false,
+      "id": "mock-aws_ssm_parameter.client[\"pool_max\"]",
+      "insecure_value": "mock-insecure_value",
+      "key_id": "mock-key_id",
+      "name": "/ledger/prod/db/pool_max",
+      "overwrite": null,
+      "region": "eu-west-1",
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "tier": "mock-tier",
+      "type": "String",
+      "value": "40",
+      "value_wo": null,
+      "value_wo_version": null,
+      "version": 0
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {},
+      "value": true,
+      "value_wo": true
+     }
+    },
+    {
+     "address": "aws_ssm_parameter.client[\"port\"]",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "client",
+     "index": "port",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "allowed_pattern": null,
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"port\"]",
+      "data_type": "mock-data_type",
+      "description": null,
+      "has_value_wo": false,
+      "id": "mock-aws_ssm_parameter.client[\"port\"]",
+      "insecure_value": "mock-insecure_value",
+      "key_id": "mock-key_id",
+      "name": "/ledger/prod/db/port",
+      "overwrite": null,
+      "region": "eu-west-1",
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "tier": "mock-tier",
+      "type": "String",
+      "value_wo": null,
+      "value_wo_version": null
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {},
+      "value": true,
+      "value_wo": true
+     }
+    },
+    {
+     "address": "aws_ssm_parameter.client[\"tls_mode\"]",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "client",
+     "index": "tls_mode",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "allowed_pattern": null,
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"tls_mode\"]",
+      "data_type": "mock-data_type",
+      "description": null,
+      "has_value_wo": false,
+      "id": "mock-aws_ssm_parameter.client[\"tls_mode\"]",
+      "insecure_value": "mock-insecure_value",
+      "key_id": "mock-key_id",
+      "name": "/ledger/prod/db/tls_mode",
+      "overwrite": null,
+      "region": "eu-west-1",
+      "tags": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420"
+      },
+      "tags_all": {
+       "Compliance": "sox",
+       "CostCenter": "fin-ledger-0420",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "tier": "mock-tier",
+      "type": "String",
+      "value": "VERIFY_IDENTITY",
+      "value_wo": null,
+      "value_wo_version": null,
+      "version": 0
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {},
+      "value": true,
+      "value_wo": true
+     }
+    },
+    {
+     "address": "aws_vpc_security_group_ingress_rule.app[\"10.40.16.0/20\"]",
+     "mode": "managed",
+     "type": "aws_vpc_security_group_ingress_rule",
+     "name": "app",
+     "index": "10.40.16.0/20",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_vpc_security_group_ingress_rule.app[\"10.40.16.0/20\"]",
+      "cidr_ipv4": "10.40.16.0/20",
+      "cidr_ipv6": null,
+      "description": "MySQL from app subnet 10.40.16.0/20",
+      "from_port": 3306,
+      "id": "mock-aws_vpc_security_group_ingress_rule.app[\"10.40.16.0/20\"]",
+      "ip_protocol": "tcp",
+      "prefix_list_id": null,
+      "referenced_security_group_id": null,
+      "region": "eu-west-1",
+      "security_group_id": "mock-aws_security_group.ledger_db",
+      "security_group_rule_id": "mock-security_group_rule_id",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "to_port": 3306
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_vpc_security_group_ingress_rule.app[\"10.40.32.0/20\"]",
+     "mode": "managed",
+     "type": "aws_vpc_security_group_ingress_rule",
+     "name": "app",
+     "index": "10.40.32.0/20",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_vpc_security_group_ingress_rule.app[\"10.40.32.0/20\"]",
+      "cidr_ipv4": "10.40.32.0/20",
+      "cidr_ipv6": null,
+      "description": "MySQL from app subnet 10.40.32.0/20",
+      "from_port": 3306,
+      "id": "mock-aws_vpc_security_group_ingress_rule.app[\"10.40.32.0/20\"]",
+      "ip_protocol": "tcp",
+      "prefix_list_id": null,
+      "referenced_security_group_id": null,
+      "region": "eu-west-1",
+      "security_group_id": "mock-aws_security_group.ledger_db",
+      "security_group_rule_id": "mock-security_group_rule_id",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "to_port": 3306
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_vpc_security_group_ingress_rule.app[\"10.40.48.0/20\"]",
+     "mode": "managed",
+     "type": "aws_vpc_security_group_ingress_rule",
+     "name": "app",
+     "index": "10.40.48.0/20",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_vpc_security_group_ingress_rule.app[\"10.40.48.0/20\"]",
+      "cidr_ipv4": "10.40.48.0/20",
+      "cidr_ipv6": null,
+      "description": "MySQL from app subnet 10.40.48.0/20",
+      "from_port": 3306,
+      "id": "mock-aws_vpc_security_group_ingress_rule.app[\"10.40.48.0/20\"]",
+      "ip_protocol": "tcp",
+      "prefix_list_id": null,
+      "referenced_security_group_id": null,
+      "region": "eu-west-1",
+      "security_group_id": "mock-aws_security_group.ledger_db",
+      "security_group_rule_id": "mock-security_group_rule_id",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Owner": "data-platform",
+       "Stack": "ledger-db"
+      },
+      "to_port": 3306
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    }
+   ]
+  }
+ },
+ "resource_changes": [
+  {
+   "address": "aws_cloudwatch_dashboard.ledger_db",
+   "mode": "managed",
+   "type": "aws_cloudwatch_dashboard",
+   "name": "ledger_db",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "dashboard_body": "{\"widgets\":[{\"height\":6,\"properties\":{\"annotations\":{\"horizontal\":[{\"label\":\"alarm\",\"value\":450}]},\"metrics\":[[\"AWS/RDS\",\"DatabaseConnections\",\"DBInstanceIdentifier\",\"ledger-prod\"]],\"period\":300,\"region\":\"eu-west-1\",\"stat\":\"Maximum\",\"title\":\"connections high\"},\"type\":\"metric\",\"width\":8,\"x\":0,\"y\":0},{\"height\":6,\"properties\":{\"annotations\":{\"horizontal\":[{\"label\":\"alarm\",\"value\":75}]},\"metrics\":[[\"AWS/RDS\",\"CPUUtilization\",\"DBInstanceIdentifier\",\"ledger-prod\"]],\"period\":300,\"region\":\"eu-west-1\",\"stat\":\"Average\",\"title\":\"cpu high\"},\"type\":\"metric\",\"width\":8,\"x\":8,\"y\":0},{\"height\":6,\"properties\":{\"annotations\":{\"horizontal\":[{\"label\":\"alarm\",\"value\":64}]},\"metrics\":[[\"AWS/RDS\",\"DiskQueueDepth\",\"DBInstanceIdentifier\",\"ledger-prod\"]],\"period\":300,\"region\":\"eu-west-1\",\"stat\":\"Average\",\"title\":\"disk queue depth\"},\"type\":\"metric\",\"width\":8,\"x\":16,\"y\":0},{\"height\":6,\"properties\":{\"annotations\":{\"horizontal\":[{\"label\":\"alarm\",\"value\":21474836480}]},\"metrics\":[[\"AWS/RDS\",\"FreeStorageSpace\",\"DBInstanceIdentifier\",\"ledger-prod\"]],\"period\":300,\"region\":\"eu-west-1\",\"stat\":\"Minimum\",\"title\":\"free storage low\"},\"type\":\"metric\",\"width\":8,\"x\":0,\"y\":6},{\"height\":6,\"properties\":{\"annotations\":{\"horizontal\":[{\"label\":\"alarm\",\"value\":0.02}]},\"metrics\":[[\"AWS/RDS\",\"ReadLatency\",\"DBInstanceIdentifier\",\"ledger-prod\"]],\"period\":300,\"region\":\"eu-west-1\",\"stat\":\"Average\",\"title\":\"read latency\"},\"type\":\"metric\",\"width\":8,\"x\":8,\"y\":6},{\"height\":6,\"properties\":{\"annotations\":{\"horizontal\":[{\"label\":\"alarm\",\"value\":0.04}]},\"metrics\":[[\"AWS/RDS\",\"WriteLatency\",\"DBInstanceIdentifier\",\"ledger-prod\"]],\"period\":300,\"region\":\"eu-west-1\",\"stat\":\"Average\",\"title\":\"write latency\"},\"type\":\"metric\",\"width\":8,\"x\":16,\"y\":6}]}",
+     "dashboard_name": "ledger-prod-db",
+     "region": "eu-west-1"
+    },
+    "after_unknown": {
+     "dashboard_arn": true,
+     "id": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "aws_cloudwatch_log_group.rds[\"error\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "rds",
+   "index": "error",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.rds[\"error\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.rds[\"error\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/aws/rds/instance/ledger-prod/error",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 90,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.rds[\"error\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.rds[\"error\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/aws/rds/instance/ledger-prod/error",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 90,
+     "skip_destroy": false,
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_log_group.rds[\"slowquery\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "rds",
+   "index": "slowquery",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.rds[\"slowquery\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.rds[\"slowquery\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/aws/rds/instance/ledger-prod/slowquery",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 90,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.rds[\"slowquery\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.rds[\"slowquery\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/aws/rds/instance/ledger-prod/slowquery",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 90,
+     "skip_destroy": false,
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.db[\"connections_high\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "db",
+   "index": "connections_high",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "alarm_description": null,
+     "alarm_name": "ledger-prod-db-connections-high",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"connections_high\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "DBInstanceIdentifier": "ledger-prod"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.db[\"connections_high\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "DatabaseConnections",
+     "metric_query": [],
+     "namespace": "AWS/RDS",
+     "ok_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "threshold": 400,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "alarm_description": null,
+     "alarm_name": "ledger-prod-db-connections-high",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"connections_high\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "DBInstanceIdentifier": "ledger-prod"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.db[\"connections_high\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "DatabaseConnections",
+     "metric_query": [],
+     "namespace": "AWS/RDS",
+     "ok_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "threshold": 450,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "ok_actions": [
+      false
+     ],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "ok_actions": [
+      false
+     ],
+     "tags": {},
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.db[\"cpu_high\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "db",
+   "index": "cpu_high",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "alarm_description": null,
+     "alarm_name": "ledger-prod-db-cpu-high",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"cpu_high\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "DBInstanceIdentifier": "ledger-prod"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.db[\"cpu_high\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "CPUUtilization",
+     "metric_query": [],
+     "namespace": "AWS/RDS",
+     "ok_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Average",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "threshold": 80,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "alarm_description": null,
+     "alarm_name": "ledger-prod-db-cpu-high",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"cpu_high\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "DBInstanceIdentifier": "ledger-prod"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.db[\"cpu_high\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "CPUUtilization",
+     "metric_query": [],
+     "namespace": "AWS/RDS",
+     "ok_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Average",
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "threshold": 75,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "ok_actions": [
+      false
+     ],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "ok_actions": [
+      false
+     ],
+     "tags": {},
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.db[\"disk_queue_depth\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "db",
+   "index": "disk_queue_depth",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "alarm_description": null,
+     "alarm_name": "ledger-prod-db-disk-queue-depth",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "DBInstanceIdentifier": "ledger-prod"
+     },
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "insufficient_data_actions": null,
+     "metric_name": "DiskQueueDepth",
+     "metric_query": [],
+     "namespace": "AWS/RDS",
+     "ok_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Average",
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "threshold": 64,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {
+     "alarm_actions": [
+      false
+     ],
+     "arn": true,
+     "dimensions": {},
+     "evaluate_low_sample_count_percentiles": true,
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "id": true,
+     "metric_query": [],
+     "ok_actions": [
+      false
+     ],
+     "tags": {},
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "ok_actions": [
+      false
+     ],
+     "tags": {},
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.db[\"free_storage_low\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "db",
+   "index": "free_storage_low",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "alarm_description": null,
+     "alarm_name": "ledger-prod-db-free-storage-low",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"free_storage_low\"]",
+     "comparison_operator": "LessThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "DBInstanceIdentifier": "ledger-prod"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.db[\"free_storage_low\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "FreeStorageSpace",
+     "metric_query": [],
+     "namespace": "AWS/RDS",
+     "ok_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Minimum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "threshold": 10737418240,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "alarm_description": null,
+     "alarm_name": "ledger-prod-db-free-storage-low",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"free_storage_low\"]",
+     "comparison_operator": "LessThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "DBInstanceIdentifier": "ledger-prod"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.db[\"free_storage_low\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "FreeStorageSpace",
+     "metric_query": [],
+     "namespace": "AWS/RDS",
+     "ok_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Minimum",
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "threshold": 21474836480,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "ok_actions": [
+      false
+     ],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "ok_actions": [
+      false
+     ],
+     "tags": {},
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.db[\"read_latency\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "db",
+   "index": "read_latency",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "alarm_description": null,
+     "alarm_name": "ledger-prod-db-read-latency",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"read_latency\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "DBInstanceIdentifier": "ledger-prod"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.db[\"read_latency\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ReadLatency",
+     "metric_query": [],
+     "namespace": "AWS/RDS",
+     "ok_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Average",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "threshold": 0.02,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "alarm_description": null,
+     "alarm_name": "ledger-prod-db-read-latency",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"read_latency\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "DBInstanceIdentifier": "ledger-prod"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.db[\"read_latency\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ReadLatency",
+     "metric_query": [],
+     "namespace": "AWS/RDS",
+     "ok_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Average",
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "threshold": 0.02,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "ok_actions": [
+      false
+     ],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "ok_actions": [
+      false
+     ],
+     "tags": {},
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.db[\"write_latency\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "db",
+   "index": "write_latency",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "alarm_description": null,
+     "alarm_name": "ledger-prod-db-write-latency",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"write_latency\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "DBInstanceIdentifier": "ledger-prod"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.db[\"write_latency\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "WriteLatency",
+     "metric_query": [],
+     "namespace": "AWS/RDS",
+     "ok_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Average",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "threshold": 0.05,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "alarm_description": null,
+     "alarm_name": "ledger-prod-db-write-latency",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"write_latency\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "DBInstanceIdentifier": "ledger-prod"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.db[\"write_latency\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "WriteLatency",
+     "metric_query": [],
+     "namespace": "AWS/RDS",
+     "ok_actions": [
+      "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+     ],
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Average",
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "threshold": 0.04,
+     "threshold_metric_id": null,
+     "treat_missing_data": "missing",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "ok_actions": [
+      false
+     ],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "ok_actions": [
+      false
+     ],
+     "tags": {},
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_db_event_subscription.ledger",
+   "mode": "managed",
+   "type": "aws_db_event_subscription",
+   "name": "ledger",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_event_subscription.ledger",
+     "customer_aws_id": "mock-customer_aws_id",
+     "enabled": true,
+     "event_categories": [
+      "availability",
+      "failover",
+      "failure",
+      "low storage",
+      "maintenance"
+     ],
+     "id": "mock-aws_db_event_subscription.ledger",
+     "name": "ledger-prod-db-events",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "sns_topic": "arn:aws:sns:eu-west-1:210987654321:ops-pager",
+     "source_ids": [
+      "ledger-prod"
+     ],
+     "source_type": "db-instance",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "timeouts": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_event_subscription.ledger",
+     "customer_aws_id": "mock-customer_aws_id",
+     "enabled": true,
+     "event_categories": [
+      "availability",
+      "failover",
+      "failure",
+      "low storage",
+      "maintenance"
+     ],
+     "id": "mock-aws_db_event_subscription.ledger",
+     "name": "ledger-prod-db-events",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "sns_topic": "arn:aws:sns:eu-west-1:210987654321:ops-pager",
+     "source_ids": [
+      "ledger-prod"
+     ],
+     "source_type": "db-instance",
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "event_categories": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "source_ids": [
+      false
+     ],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "event_categories": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "source_ids": [
+      false
+     ],
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_db_instance.ledger",
+   "mode": "managed",
+   "type": "aws_db_instance",
+   "name": "ledger",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "delete",
+     "create"
+    ],
+    "before": {
+     "address": "mock-address",
+     "allocated_storage": 500,
+     "allow_major_version_upgrade": null,
+     "apply_immediately": false,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_instance.ledger",
+     "auto_minor_version_upgrade": true,
+     "availability_zone": "mock-availability_zone",
+     "backup_retention_period": 14,
+     "backup_target": "mock-backup_target",
+     "backup_window": "mock-backup_window",
+     "blue_green_update": [],
+     "ca_cert_identifier": "mock-ca_cert_identifier",
+     "character_set_name": "mock-character_set_name",
+     "copy_tags_to_snapshot": false,
+     "custom_iam_instance_profile": null,
+     "customer_owned_ip_enabled": null,
+     "database_insights_mode": "mock-database_insights_mode",
+     "db_name": "ledger",
+     "db_subnet_group_name": "ledger-mysql",
+     "dedicated_log_volume": false,
+     "delete_automated_backups": true,
+     "deletion_protection": true,
+     "domain": null,
+     "domain_auth_secret_arn": null,
+     "domain_dns_ips": null,
+     "domain_fqdn": "mock-domain_fqdn",
+     "domain_iam_role_name": null,
+     "domain_ou": null,
+     "enabled_cloudwatch_logs_exports": [
+      "error",
+      "slowquery"
+     ],
+     "endpoint": "mock-endpoint",
+     "engine": "mysql",
+     "engine_lifecycle_support": "mock-engine_lifecycle_support",
+     "engine_version": "8.0.39",
+     "engine_version_actual": "mock-engine_version_actual",
+     "final_snapshot_identifier": "ledger-prod-final",
+     "hosted_zone_id": "mock-hosted_zone_id",
+     "iam_database_authentication_enabled": null,
+     "id": "mock-aws_db_instance.ledger",
+     "identifier": "ledger-prod",
+     "identifier_prefix": "mock-identifier_prefix",
+     "instance_class": "db.m6g.2xlarge",
+     "iops": 6000,
+     "kms_key_id": "arn:aws:kms:eu-west-1:210987654321:key/3f1c9a2e-7b44-4d8e-9a61-5c2d8e0f4b17",
+     "latest_restorable_time": "mock-latest_restorable_time",
+     "license_model": "mock-license_model",
+     "listener_endpoint": [],
+     "maintenance_window": "mock-maintenance_window",
+     "manage_master_user_password": true,
+     "master_user_secret": [],
+     "master_user_secret_kms_key_id": "mock-master_user_secret_kms_key_id",
+     "max_allocated_storage": null,
+     "monitoring_interval": 0,
+     "monitoring_role_arn": "mock-monitoring_role_arn",
+     "multi_az": true,
+     "multi_tenant": false,
+     "nchar_character_set_name": "mock-nchar_character_set_name",
+     "network_type": "mock-network_type",
+     "option_group_name": "mock-option_group_name",
+     "parameter_group_name": "mock-name",
+     "password": null,
+     "password_wo": null,
+     "password_wo_version": null,
+     "performance_insights_enabled": false,
+     "performance_insights_kms_key_id": "mock-performance_insights_kms_key_id",
+     "performance_insights_retention_period": 0,
+     "port": 0,
+     "publicly_accessible": false,
+     "region": "eu-west-1",
+     "replica_mode": "mock-replica_mode",
+     "replicas": [],
+     "replicate_source_db": null,
+     "replicate_source_db_cluster": null,
+     "resource_id": "mock-resource_id",
+     "restore_to_point_in_time": [],
+     "s3_import": [],
+     "skip_final_snapshot": false,
+     "snapshot_identifier": null,
+     "status": "mock-status",
+     "storage_encrypted": true,
+     "storage_throughput": 0,
+     "storage_type": "io1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "timeouts": null,
+     "timezone": "mock-timezone",
+     "upgrade_rollout_order": "mock-upgrade_rollout_order",
+     "upgrade_storage_config": null,
+     "username": "ledger_admin",
+     "vpc_security_group_ids": [
+      "mock-aws_security_group.ledger_db"
+     ],
+     "warning_event_categories": null
+    },
+    "after": {
+     "allocated_storage": 500,
+     "allow_major_version_upgrade": null,
+     "apply_immediately": false,
+     "auto_minor_version_upgrade": true,
+     "backup_retention_period": 21,
+     "blue_green_update": [],
+     "copy_tags_to_snapshot": false,
+     "custom_iam_instance_profile": null,
+     "customer_owned_ip_enabled": null,
+     "db_name": "ledger",
+     "db_subnet_group_name": "ledger-mysql",
+     "dedicated_log_volume": false,
+     "delete_automated_backups": true,
+     "deletion_protection": true,
+     "domain": null,
+     "domain_auth_secret_arn": null,
+     "domain_dns_ips": null,
+     "domain_iam_role_name": null,
+     "domain_ou": null,
+     "enabled_cloudwatch_logs_exports": [
+      "error",
+      "slowquery"
+     ],
+     "engine": "mysql",
+     "engine_version": "8.0.39",
+     "final_snapshot_identifier": "ledger-prod-final",
+     "iam_database_authentication_enabled": null,
+     "identifier": "ledger-prod",
+     "instance_class": "db.m6g.2xlarge",
+     "iops": 6000,
+     "kms_key_id": "arn:aws:kms:eu-west-1:210987654321:key/mrk-8d2f4c61a9b04e7f8c3d2e1f0a9b8c7d",
+     "manage_master_user_password": true,
+     "max_allocated_storage": null,
+     "monitoring_interval": 0,
+     "multi_az": true,
+     "parameter_group_name": "mock-name",
+     "password": null,
+     "password_wo": null,
+     "password_wo_version": null,
+     "performance_insights_enabled": false,
+     "publicly_accessible": false,
+     "region": "eu-west-1",
+     "replicate_source_db": null,
+     "replicate_source_db_cluster": null,
+     "restore_to_point_in_time": [],
+     "s3_import": [],
+     "skip_final_snapshot": false,
+     "storage_encrypted": true,
+     "storage_type": "io1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "timeouts": null,
+     "upgrade_storage_config": null,
+     "username": "ledger_admin",
+     "vpc_security_group_ids": [
+      "mock-aws_security_group.ledger_db"
+     ],
+     "warning_event_categories": null
+    },
+    "after_unknown": {
+     "address": true,
+     "arn": true,
+     "availability_zone": true,
+     "backup_target": true,
+     "backup_window": true,
+     "blue_green_update": [],
+     "ca_cert_identifier": true,
+     "character_set_name": true,
+     "database_insights_mode": true,
+     "domain_fqdn": true,
+     "enabled_cloudwatch_logs_exports": [
+      false,
+      false
+     ],
+     "endpoint": true,
+     "engine_lifecycle_support": true,
+     "engine_version_actual": true,
+     "hosted_zone_id": true,
+     "id": true,
+     "identifier_prefix": true,
+     "latest_restorable_time": true,
+     "license_model": true,
+     "listener_endpoint": true,
+     "maintenance_window": true,
+     "master_user_secret": true,
+     "master_user_secret_kms_key_id": true,
+     "monitoring_role_arn": true,
+     "multi_tenant": true,
+     "nchar_character_set_name": true,
+     "network_type": true,
+     "option_group_name": true,
+     "performance_insights_kms_key_id": true,
+     "performance_insights_retention_period": true,
+     "port": true,
+     "replica_mode": true,
+     "replicas": true,
+     "resource_id": true,
+     "restore_to_point_in_time": [],
+     "s3_import": [],
+     "snapshot_identifier": true,
+     "status": true,
+     "storage_throughput": true,
+     "tags_all": {},
+     "timezone": true,
+     "upgrade_rollout_order": true,
+     "vpc_security_group_ids": [
+      false
+     ]
+    },
+    "before_sensitive": {
+     "blue_green_update": [],
+     "enabled_cloudwatch_logs_exports": [
+      false,
+      false
+     ],
+     "listener_endpoint": [],
+     "master_user_secret": [],
+     "password": true,
+     "password_wo": true,
+     "replicas": [],
+     "restore_to_point_in_time": [],
+     "s3_import": [],
+     "tags_all": {},
+     "vpc_security_group_ids": [
+      false
+     ]
+    },
+    "after_sensitive": {
+     "blue_green_update": [],
+     "enabled_cloudwatch_logs_exports": [
+      false,
+      false
+     ],
+     "listener_endpoint": [],
+     "master_user_secret": [],
+     "password": true,
+     "password_wo": true,
+     "replicas": [],
+     "restore_to_point_in_time": [],
+     "s3_import": [],
+     "tags_all": {},
+     "vpc_security_group_ids": [
+      false
+     ]
+    },
+    "replace_paths": [
+     [
+      "kms_key_id"
+     ]
+    ]
+   },
+   "action_reason": "replace_because_cannot_update"
+  },
+  {
+   "address": "aws_db_parameter_group.ledger",
+   "mode": "managed",
+   "type": "aws_db_parameter_group",
+   "name": "ledger",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_parameter_group.ledger",
+     "description": "ledger MySQL 8.0",
+     "family": "mysql8.0",
+     "id": "mock-aws_db_parameter_group.ledger",
+     "name": "mock-name",
+     "name_prefix": "ledger-mysql80-",
+     "parameter": [
+      {
+       "apply_method": "immediate",
+       "name": "long_query_time",
+       "value": "2"
+      },
+      {
+       "apply_method": "immediate",
+       "name": "slow_query_log",
+       "value": "1"
+      },
+      {
+       "apply_method": "pending-reboot",
+       "name": "binlog_format",
+       "value": "ROW"
+      }
+     ],
+     "region": "eu-west-1",
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_parameter_group.ledger",
+     "description": "ledger MySQL 8.0",
+     "family": "mysql8.0",
+     "id": "mock-aws_db_parameter_group.ledger",
+     "name": "mock-name",
+     "name_prefix": "ledger-mysql80-",
+     "parameter": [
+      {
+       "apply_method": "immediate",
+       "name": "long_query_time",
+       "value": "2"
+      },
+      {
+       "apply_method": "immediate",
+       "name": "slow_query_log",
+       "value": "1"
+      },
+      {
+       "apply_method": "pending-reboot",
+       "name": "binlog_format",
+       "value": "ROW"
+      }
+     ],
+     "region": "eu-west-1",
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "parameter": [
+      {},
+      {},
+      {}
+     ],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "parameter": [
+      {},
+      {},
+      {}
+     ],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_db_subnet_group.ledger",
+   "mode": "managed",
+   "type": "aws_db_subnet_group",
+   "name": "ledger",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_subnet_group.ledger",
+     "description": "Managed by Terraform",
+     "id": "mock-aws_db_subnet_group.ledger",
+     "name": "ledger-mysql",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "subnet_ids": [
+      "subnet-04a1b2c3d4e5f6071",
+      "subnet-04a1b2c3d4e5f6072",
+      "subnet-04a1b2c3d4e5f6073"
+     ],
+     "supported_network_types": [],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "vpc_id": "mock-vpc_id"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_subnet_group.ledger",
+     "description": "Managed by Terraform",
+     "id": "mock-aws_db_subnet_group.ledger",
+     "name": "ledger-mysql",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "subnet_ids": [
+      "subnet-04a1b2c3d4e5f6071",
+      "subnet-04a1b2c3d4e5f6072",
+      "subnet-04a1b2c3d4e5f6073"
+     ],
+     "supported_network_types": [],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "vpc_id": "mock-vpc_id"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "subnet_ids": [
+      false,
+      false,
+      false
+     ],
+     "supported_network_types": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "subnet_ids": [
+      false,
+      false,
+      false
+     ],
+     "supported_network_types": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_s3_bucket.exports",
+   "mode": "managed",
+   "type": "aws_s3_bucket",
+   "name": "exports",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "acceleration_status": "mock-acceleration_status",
+     "acl": "mock-acl",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.exports",
+     "bucket": "ledger-prod-db-exports-210987654321",
+     "bucket_domain_name": "mock-bucket_domain_name",
+     "bucket_namespace": "mock-bucket_namespace",
+     "bucket_prefix": "mock-bucket_prefix",
+     "bucket_region": "mock-bucket_region",
+     "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+     "cors_rule": [],
+     "force_destroy": false,
+     "grant": [],
+     "hosted_zone_id": "mock-hosted_zone_id",
+     "id": "mock-aws_s3_bucket.exports",
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "object_lock_enabled": false,
+     "policy": "mock-policy",
+     "region": "eu-west-1",
+     "replication_configuration": [],
+     "request_payer": "mock-request_payer",
+     "server_side_encryption_configuration": [],
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "timeouts": null,
+     "versioning": [],
+     "website": [],
+     "website_domain": "mock-website_domain",
+     "website_endpoint": "mock-website_endpoint"
+    },
+    "after": {
+     "acceleration_status": "mock-acceleration_status",
+     "acl": "mock-acl",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.exports",
+     "bucket": "ledger-prod-db-exports-210987654321",
+     "bucket_domain_name": "mock-bucket_domain_name",
+     "bucket_namespace": "mock-bucket_namespace",
+     "bucket_prefix": "mock-bucket_prefix",
+     "bucket_region": "mock-bucket_region",
+     "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+     "cors_rule": [],
+     "force_destroy": false,
+     "grant": [],
+     "hosted_zone_id": "mock-hosted_zone_id",
+     "id": "mock-aws_s3_bucket.exports",
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "object_lock_enabled": false,
+     "policy": "mock-policy",
+     "region": "eu-west-1",
+     "replication_configuration": [],
+     "request_payer": "mock-request_payer",
+     "server_side_encryption_configuration": [],
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "timeouts": null,
+     "versioning": [],
+     "website": [],
+     "website_domain": "mock-website_domain",
+     "website_endpoint": "mock-website_endpoint"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "cors_rule": [],
+     "grant": [],
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "replication_configuration": [],
+     "server_side_encryption_configuration": [],
+     "tags_all": {},
+     "versioning": [],
+     "website": []
+    },
+    "after_sensitive": {
+     "cors_rule": [],
+     "grant": [],
+     "lifecycle_rule": [],
+     "logging": [],
+     "object_lock_configuration": [],
+     "replication_configuration": [],
+     "server_side_encryption_configuration": [],
+     "tags": {},
+     "tags_all": {},
+     "versioning": [],
+     "website": []
+    }
+   }
+  },
+  {
+   "address": "aws_s3_bucket_public_access_block.exports",
+   "mode": "managed",
+   "type": "aws_s3_bucket_public_access_block",
+   "name": "exports",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "block_public_acls": true,
+     "block_public_policy": true,
+     "bucket": "mock-aws_s3_bucket.exports",
+     "id": "mock-aws_s3_bucket_public_access_block.exports",
+     "ignore_public_acls": true,
+     "region": "eu-west-1",
+     "restrict_public_buckets": true,
+     "skip_destroy": null
+    },
+    "after": {
+     "block_public_acls": true,
+     "block_public_policy": true,
+     "bucket": "mock-aws_s3_bucket.exports",
+     "id": "mock-aws_s3_bucket_public_access_block.exports",
+     "ignore_public_acls": true,
+     "region": "eu-west-1",
+     "restrict_public_buckets": true,
+     "skip_destroy": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "aws_s3_bucket_versioning.exports",
+   "mode": "managed",
+   "type": "aws_s3_bucket_versioning",
+   "name": "exports",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "bucket": "mock-aws_s3_bucket.exports",
+     "expected_bucket_owner": null,
+     "id": "mock-aws_s3_bucket_versioning.exports",
+     "mfa": null,
+     "region": "eu-west-1",
+     "versioning_configuration": [
+      {
+       "mfa_delete": "mock-mfa_delete",
+       "status": "Enabled"
+      }
+     ]
+    },
+    "after": {
+     "bucket": "mock-aws_s3_bucket.exports",
+     "expected_bucket_owner": null,
+     "id": "mock-aws_s3_bucket_versioning.exports",
+     "mfa": null,
+     "region": "eu-west-1",
+     "versioning_configuration": [
+      {
+       "mfa_delete": "mock-mfa_delete",
+       "status": "Enabled"
+      }
+     ]
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "versioning_configuration": [
+      {}
+     ]
+    },
+    "after_sensitive": {
+     "versioning_configuration": [
+      {}
+     ]
+    }
+   }
+  },
+  {
+   "address": "aws_security_group.ledger_db",
+   "mode": "managed",
+   "type": "aws_security_group",
+   "name": "ledger_db",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_security_group.ledger_db",
+     "description": "MySQL for ledger",
+     "egress": [],
+     "id": "mock-aws_security_group.ledger_db",
+     "ingress": [],
+     "name": "ledger-mysql",
+     "name_prefix": "mock-name_prefix",
+     "owner_id": "mock-owner_id",
+     "region": "eu-west-1",
+     "revoke_rules_on_delete": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "timeouts": null,
+     "vpc_id": "vpc-07d1c2b3a4e5f6a71"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_security_group.ledger_db",
+     "description": "MySQL for ledger",
+     "egress": [],
+     "id": "mock-aws_security_group.ledger_db",
+     "ingress": [],
+     "name": "ledger-mysql",
+     "name_prefix": "mock-name_prefix",
+     "owner_id": "mock-owner_id",
+     "region": "eu-west-1",
+     "revoke_rules_on_delete": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "timeouts": null,
+     "vpc_id": "vpc-07d1c2b3a4e5f6a71"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "egress": [],
+     "ingress": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "egress": [],
+     "ingress": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_ssm_parameter.client[\"database\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "client",
+   "index": "database",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"database\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.client[\"database\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ledger/prod/db/database",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "ledger",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"database\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.client[\"database\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ledger/prod/db/database",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "ledger",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "aws_ssm_parameter.client[\"host\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "client",
+   "index": "host",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"host\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.client[\"host\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ledger/prod/db/host",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "mock-address",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"host\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.client[\"host\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ledger/prod/db/host",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value_wo": null,
+     "value_wo_version": null
+    },
+    "after_unknown": {
+     "tags": {},
+     "tags_all": {},
+     "value": true,
+     "version": true
+    },
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "aws_ssm_parameter.client[\"pool_max\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "client",
+   "index": "pool_max",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"pool_max\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.client[\"pool_max\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ledger/prod/db/pool_max",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "40",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"pool_max\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.client[\"pool_max\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ledger/prod/db/pool_max",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "40",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "aws_ssm_parameter.client[\"port\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "client",
+   "index": "port",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"port\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.client[\"port\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ledger/prod/db/port",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "0",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"port\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.client[\"port\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ledger/prod/db/port",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value_wo": null,
+     "value_wo_version": null
+    },
+    "after_unknown": {
+     "tags": {},
+     "tags_all": {},
+     "value": true,
+     "version": true
+    },
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "aws_ssm_parameter.client[\"tls_mode\"]",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "client",
+   "index": "tls_mode",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"tls_mode\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.client[\"tls_mode\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ledger/prod/db/tls_mode",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "VERIFY_IDENTITY",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"tls_mode\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-aws_ssm_parameter.client[\"tls_mode\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/ledger/prod/db/tls_mode",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420"
+     },
+     "tags_all": {
+      "Compliance": "sox",
+      "CostCenter": "fin-ledger-0420",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "VERIFY_IDENTITY",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "aws_vpc_security_group_ingress_rule.app[\"10.40.16.0/20\"]",
+   "mode": "managed",
+   "type": "aws_vpc_security_group_ingress_rule",
+   "name": "app",
+   "index": "10.40.16.0/20",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_vpc_security_group_ingress_rule.app[\"10.40.16.0/20\"]",
+     "cidr_ipv4": "10.40.16.0/20",
+     "cidr_ipv6": null,
+     "description": "MySQL from app subnet 10.40.16.0/20",
+     "from_port": 3306,
+     "id": "mock-aws_vpc_security_group_ingress_rule.app[\"10.40.16.0/20\"]",
+     "ip_protocol": "tcp",
+     "prefix_list_id": null,
+     "referenced_security_group_id": null,
+     "region": "eu-west-1",
+     "security_group_id": "mock-aws_security_group.ledger_db",
+     "security_group_rule_id": "mock-security_group_rule_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "to_port": 3306
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_vpc_security_group_ingress_rule.app[\"10.40.16.0/20\"]",
+     "cidr_ipv4": "10.40.16.0/20",
+     "cidr_ipv6": null,
+     "description": "MySQL from app subnet 10.40.16.0/20",
+     "from_port": 3306,
+     "id": "mock-aws_vpc_security_group_ingress_rule.app[\"10.40.16.0/20\"]",
+     "ip_protocol": "tcp",
+     "prefix_list_id": null,
+     "referenced_security_group_id": null,
+     "region": "eu-west-1",
+     "security_group_id": "mock-aws_security_group.ledger_db",
+     "security_group_rule_id": "mock-security_group_rule_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "to_port": 3306
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_vpc_security_group_ingress_rule.app[\"10.40.32.0/20\"]",
+   "mode": "managed",
+   "type": "aws_vpc_security_group_ingress_rule",
+   "name": "app",
+   "index": "10.40.32.0/20",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_vpc_security_group_ingress_rule.app[\"10.40.32.0/20\"]",
+     "cidr_ipv4": "10.40.32.0/20",
+     "cidr_ipv6": null,
+     "description": "MySQL from app subnet 10.40.32.0/20",
+     "from_port": 3306,
+     "id": "mock-aws_vpc_security_group_ingress_rule.app[\"10.40.32.0/20\"]",
+     "ip_protocol": "tcp",
+     "prefix_list_id": null,
+     "referenced_security_group_id": null,
+     "region": "eu-west-1",
+     "security_group_id": "mock-aws_security_group.ledger_db",
+     "security_group_rule_id": "mock-security_group_rule_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "to_port": 3306
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_vpc_security_group_ingress_rule.app[\"10.40.32.0/20\"]",
+     "cidr_ipv4": "10.40.32.0/20",
+     "cidr_ipv6": null,
+     "description": "MySQL from app subnet 10.40.32.0/20",
+     "from_port": 3306,
+     "id": "mock-aws_vpc_security_group_ingress_rule.app[\"10.40.32.0/20\"]",
+     "ip_protocol": "tcp",
+     "prefix_list_id": null,
+     "referenced_security_group_id": null,
+     "region": "eu-west-1",
+     "security_group_id": "mock-aws_security_group.ledger_db",
+     "security_group_rule_id": "mock-security_group_rule_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "to_port": 3306
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_vpc_security_group_ingress_rule.app[\"10.40.48.0/20\"]",
+   "mode": "managed",
+   "type": "aws_vpc_security_group_ingress_rule",
+   "name": "app",
+   "index": "10.40.48.0/20",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_vpc_security_group_ingress_rule.app[\"10.40.48.0/20\"]",
+     "cidr_ipv4": "10.40.48.0/20",
+     "cidr_ipv6": null,
+     "description": "MySQL from app subnet 10.40.48.0/20",
+     "from_port": 3306,
+     "id": "mock-aws_vpc_security_group_ingress_rule.app[\"10.40.48.0/20\"]",
+     "ip_protocol": "tcp",
+     "prefix_list_id": null,
+     "referenced_security_group_id": null,
+     "region": "eu-west-1",
+     "security_group_id": "mock-aws_security_group.ledger_db",
+     "security_group_rule_id": "mock-security_group_rule_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "to_port": 3306
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_vpc_security_group_ingress_rule.app[\"10.40.48.0/20\"]",
+     "cidr_ipv4": "10.40.48.0/20",
+     "cidr_ipv6": null,
+     "description": "MySQL from app subnet 10.40.48.0/20",
+     "from_port": 3306,
+     "id": "mock-aws_vpc_security_group_ingress_rule.app[\"10.40.48.0/20\"]",
+     "ip_protocol": "tcp",
+     "prefix_list_id": null,
+     "referenced_security_group_id": null,
+     "region": "eu-west-1",
+     "security_group_id": "mock-aws_security_group.ledger_db",
+     "security_group_rule_id": "mock-security_group_rule_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Owner": "data-platform",
+      "Stack": "ledger-db"
+     },
+     "to_port": 3306
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  }
+ ],
+ "prior_state": {
+  "format_version": "1.0",
+  "terraform_version": "1.10.5",
+  "values": {
+   "root_module": {
+    "resources": [
+     {
+      "address": "aws_cloudwatch_log_group.rds[\"error\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "rds",
+      "index": "error",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.rds[\"error\"]",
+       "deletion_protection_enabled": false,
+       "id": "mock-aws_cloudwatch_log_group.rds[\"error\"]",
+       "kms_key_id": null,
+       "log_group_class": "mock-log_group_class",
+       "name": "/aws/rds/instance/ledger-prod/error",
+       "name_prefix": "mock-name_prefix",
+       "region": "eu-west-1",
+       "retention_in_days": 90,
+       "skip_destroy": false,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_cloudwatch_log_group.rds[\"slowquery\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "rds",
+      "index": "slowquery",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.rds[\"slowquery\"]",
+       "deletion_protection_enabled": false,
+       "id": "mock-aws_cloudwatch_log_group.rds[\"slowquery\"]",
+       "kms_key_id": null,
+       "log_group_class": "mock-log_group_class",
+       "name": "/aws/rds/instance/ledger-prod/slowquery",
+       "name_prefix": "mock-name_prefix",
+       "region": "eu-west-1",
+       "retention_in_days": 90,
+       "skip_destroy": false,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.db[\"connections_high\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "db",
+      "index": "connections_high",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+       ],
+       "alarm_description": null,
+       "alarm_name": "ledger-prod-db-connections-high",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"connections_high\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "DBInstanceIdentifier": "ledger-prod"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 3,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.db[\"connections_high\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "DatabaseConnections",
+       "metric_query": [],
+       "namespace": "AWS/RDS",
+       "ok_actions": [
+        "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+       ],
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Maximum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "threshold": 400,
+       "threshold_metric_id": null,
+       "treat_missing_data": "missing",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "ok_actions": [
+        false
+       ],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.db[\"cpu_high\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "db",
+      "index": "cpu_high",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+       ],
+       "alarm_description": null,
+       "alarm_name": "ledger-prod-db-cpu-high",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"cpu_high\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "DBInstanceIdentifier": "ledger-prod"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 3,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.db[\"cpu_high\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "CPUUtilization",
+       "metric_query": [],
+       "namespace": "AWS/RDS",
+       "ok_actions": [
+        "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+       ],
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Average",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "threshold": 80,
+       "threshold_metric_id": null,
+       "treat_missing_data": "missing",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "ok_actions": [
+        false
+       ],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.db[\"free_storage_low\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "db",
+      "index": "free_storage_low",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+       ],
+       "alarm_description": null,
+       "alarm_name": "ledger-prod-db-free-storage-low",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"free_storage_low\"]",
+       "comparison_operator": "LessThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "DBInstanceIdentifier": "ledger-prod"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 3,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.db[\"free_storage_low\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "FreeStorageSpace",
+       "metric_query": [],
+       "namespace": "AWS/RDS",
+       "ok_actions": [
+        "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+       ],
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Minimum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "threshold": 10737418240,
+       "threshold_metric_id": null,
+       "treat_missing_data": "missing",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "ok_actions": [
+        false
+       ],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.db[\"read_latency\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "db",
+      "index": "read_latency",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+       ],
+       "alarm_description": null,
+       "alarm_name": "ledger-prod-db-read-latency",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"read_latency\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "DBInstanceIdentifier": "ledger-prod"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 3,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.db[\"read_latency\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "ReadLatency",
+       "metric_query": [],
+       "namespace": "AWS/RDS",
+       "ok_actions": [
+        "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+       ],
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Average",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "threshold": 0.02,
+       "threshold_metric_id": null,
+       "treat_missing_data": "missing",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "ok_actions": [
+        false
+       ],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.db[\"write_latency\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "db",
+      "index": "write_latency",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+       ],
+       "alarm_description": null,
+       "alarm_name": "ledger-prod-db-write-latency",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.db[\"write_latency\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "DBInstanceIdentifier": "ledger-prod"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 3,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.db[\"write_latency\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "WriteLatency",
+       "metric_query": [],
+       "namespace": "AWS/RDS",
+       "ok_actions": [
+        "arn:aws:sns:eu-west-1:210987654321:ops-pager"
+       ],
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Average",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "threshold": 0.05,
+       "threshold_metric_id": null,
+       "treat_missing_data": "missing",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "ok_actions": [
+        false
+       ],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_db_event_subscription.ledger",
+      "mode": "managed",
+      "type": "aws_db_event_subscription",
+      "name": "ledger",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_event_subscription.ledger",
+       "customer_aws_id": "mock-customer_aws_id",
+       "enabled": true,
+       "event_categories": [
+        "availability",
+        "failover",
+        "failure",
+        "low storage",
+        "maintenance"
+       ],
+       "id": "mock-aws_db_event_subscription.ledger",
+       "name": "ledger-prod-db-events",
+       "name_prefix": "mock-name_prefix",
+       "region": "eu-west-1",
+       "sns_topic": "arn:aws:sns:eu-west-1:210987654321:ops-pager",
+       "source_ids": [
+        "ledger-prod"
+       ],
+       "source_type": "db-instance",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "timeouts": null
+      },
+      "sensitive_values": {
+       "event_categories": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ],
+       "source_ids": [
+        false
+       ],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_db_instance.ledger",
+      "mode": "managed",
+      "type": "aws_db_instance",
+      "name": "ledger",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 2,
+      "values": {
+       "address": "mock-address",
+       "allocated_storage": 500,
+       "allow_major_version_upgrade": null,
+       "apply_immediately": false,
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_instance.ledger",
+       "auto_minor_version_upgrade": true,
+       "availability_zone": "mock-availability_zone",
+       "backup_retention_period": 14,
+       "backup_target": "mock-backup_target",
+       "backup_window": "mock-backup_window",
+       "blue_green_update": [],
+       "ca_cert_identifier": "mock-ca_cert_identifier",
+       "character_set_name": "mock-character_set_name",
+       "copy_tags_to_snapshot": false,
+       "custom_iam_instance_profile": null,
+       "customer_owned_ip_enabled": null,
+       "database_insights_mode": "mock-database_insights_mode",
+       "db_name": "ledger",
+       "db_subnet_group_name": "ledger-mysql",
+       "dedicated_log_volume": false,
+       "delete_automated_backups": true,
+       "deletion_protection": true,
+       "domain": null,
+       "domain_auth_secret_arn": null,
+       "domain_dns_ips": null,
+       "domain_fqdn": "mock-domain_fqdn",
+       "domain_iam_role_name": null,
+       "domain_ou": null,
+       "enabled_cloudwatch_logs_exports": [
+        "error",
+        "slowquery"
+       ],
+       "endpoint": "mock-endpoint",
+       "engine": "mysql",
+       "engine_lifecycle_support": "mock-engine_lifecycle_support",
+       "engine_version": "8.0.39",
+       "engine_version_actual": "mock-engine_version_actual",
+       "final_snapshot_identifier": "ledger-prod-final",
+       "hosted_zone_id": "mock-hosted_zone_id",
+       "iam_database_authentication_enabled": null,
+       "id": "mock-aws_db_instance.ledger",
+       "identifier": "ledger-prod",
+       "identifier_prefix": "mock-identifier_prefix",
+       "instance_class": "db.m6g.2xlarge",
+       "iops": 6000,
+       "kms_key_id": "arn:aws:kms:eu-west-1:210987654321:key/3f1c9a2e-7b44-4d8e-9a61-5c2d8e0f4b17",
+       "latest_restorable_time": "mock-latest_restorable_time",
+       "license_model": "mock-license_model",
+       "listener_endpoint": [],
+       "maintenance_window": "mock-maintenance_window",
+       "manage_master_user_password": true,
+       "master_user_secret": [],
+       "master_user_secret_kms_key_id": "mock-master_user_secret_kms_key_id",
+       "max_allocated_storage": null,
+       "monitoring_interval": 0,
+       "monitoring_role_arn": "mock-monitoring_role_arn",
+       "multi_az": true,
+       "multi_tenant": false,
+       "nchar_character_set_name": "mock-nchar_character_set_name",
+       "network_type": "mock-network_type",
+       "option_group_name": "mock-option_group_name",
+       "parameter_group_name": "mock-name",
+       "password": null,
+       "password_wo": null,
+       "password_wo_version": null,
+       "performance_insights_enabled": false,
+       "performance_insights_kms_key_id": "mock-performance_insights_kms_key_id",
+       "performance_insights_retention_period": 0,
+       "port": 0,
+       "publicly_accessible": false,
+       "region": "eu-west-1",
+       "replica_mode": "mock-replica_mode",
+       "replicas": [],
+       "replicate_source_db": null,
+       "replicate_source_db_cluster": null,
+       "resource_id": "mock-resource_id",
+       "restore_to_point_in_time": [],
+       "s3_import": [],
+       "skip_final_snapshot": false,
+       "snapshot_identifier": null,
+       "status": "mock-status",
+       "storage_encrypted": true,
+       "storage_throughput": 0,
+       "storage_type": "io1",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "timeouts": null,
+       "timezone": "mock-timezone",
+       "upgrade_rollout_order": "mock-upgrade_rollout_order",
+       "upgrade_storage_config": null,
+       "username": "ledger_admin",
+       "vpc_security_group_ids": [
+        "mock-aws_security_group.ledger_db"
+       ],
+       "warning_event_categories": null
+      },
+      "sensitive_values": {
+       "blue_green_update": [],
+       "enabled_cloudwatch_logs_exports": [
+        false,
+        false
+       ],
+       "listener_endpoint": [],
+       "master_user_secret": [],
+       "password": true,
+       "password_wo": true,
+       "replicas": [],
+       "restore_to_point_in_time": [],
+       "s3_import": [],
+       "tags_all": {},
+       "vpc_security_group_ids": [
+        false
+       ]
+      }
+     },
+     {
+      "address": "aws_db_parameter_group.ledger",
+      "mode": "managed",
+      "type": "aws_db_parameter_group",
+      "name": "ledger",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_parameter_group.ledger",
+       "description": "ledger MySQL 8.0",
+       "family": "mysql8.0",
+       "id": "mock-aws_db_parameter_group.ledger",
+       "name": "mock-name",
+       "name_prefix": "ledger-mysql80-",
+       "parameter": [
+        {
+         "apply_method": "immediate",
+         "name": "long_query_time",
+         "value": "2"
+        },
+        {
+         "apply_method": "immediate",
+         "name": "slow_query_log",
+         "value": "1"
+        },
+        {
+         "apply_method": "pending-reboot",
+         "name": "binlog_format",
+         "value": "ROW"
+        }
+       ],
+       "region": "eu-west-1",
+       "skip_destroy": false,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       }
+      },
+      "sensitive_values": {
+       "parameter": [
+        {},
+        {},
+        {}
+       ],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_db_subnet_group.ledger",
+      "mode": "managed",
+      "type": "aws_db_subnet_group",
+      "name": "ledger",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_db_subnet_group.ledger",
+       "description": "Managed by Terraform",
+       "id": "mock-aws_db_subnet_group.ledger",
+       "name": "ledger-mysql",
+       "name_prefix": "mock-name_prefix",
+       "region": "eu-west-1",
+       "subnet_ids": [
+        "subnet-04a1b2c3d4e5f6071",
+        "subnet-04a1b2c3d4e5f6072",
+        "subnet-04a1b2c3d4e5f6073"
+       ],
+       "supported_network_types": [],
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "vpc_id": "mock-vpc_id"
+      },
+      "sensitive_values": {
+       "subnet_ids": [
+        false,
+        false,
+        false
+       ],
+       "supported_network_types": [],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_s3_bucket.exports",
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "exports",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "acceleration_status": "mock-acceleration_status",
+       "acl": "mock-acl",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_s3_bucket.exports",
+       "bucket": "ledger-prod-db-exports-210987654321",
+       "bucket_domain_name": "mock-bucket_domain_name",
+       "bucket_namespace": "mock-bucket_namespace",
+       "bucket_prefix": "mock-bucket_prefix",
+       "bucket_region": "mock-bucket_region",
+       "bucket_regional_domain_name": "mock-bucket_regional_domain_name",
+       "cors_rule": [],
+       "force_destroy": false,
+       "grant": [],
+       "hosted_zone_id": "mock-hosted_zone_id",
+       "id": "mock-aws_s3_bucket.exports",
+       "lifecycle_rule": [],
+       "logging": [],
+       "object_lock_configuration": [],
+       "object_lock_enabled": false,
+       "policy": "mock-policy",
+       "region": "eu-west-1",
+       "replication_configuration": [],
+       "request_payer": "mock-request_payer",
+       "server_side_encryption_configuration": [],
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "timeouts": null,
+       "versioning": [],
+       "website": [],
+       "website_domain": "mock-website_domain",
+       "website_endpoint": "mock-website_endpoint"
+      },
+      "sensitive_values": {
+       "cors_rule": [],
+       "grant": [],
+       "lifecycle_rule": [],
+       "logging": [],
+       "object_lock_configuration": [],
+       "replication_configuration": [],
+       "server_side_encryption_configuration": [],
+       "tags_all": {},
+       "versioning": [],
+       "website": []
+      }
+     },
+     {
+      "address": "aws_s3_bucket_public_access_block.exports",
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "exports",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "block_public_acls": true,
+       "block_public_policy": true,
+       "bucket": "mock-aws_s3_bucket.exports",
+       "id": "mock-aws_s3_bucket_public_access_block.exports",
+       "ignore_public_acls": true,
+       "region": "eu-west-1",
+       "restrict_public_buckets": true,
+       "skip_destroy": null
+      },
+      "sensitive_values": {},
+      "depends_on": [
+       "aws_s3_bucket.exports"
+      ]
+     },
+     {
+      "address": "aws_s3_bucket_versioning.exports",
+      "mode": "managed",
+      "type": "aws_s3_bucket_versioning",
+      "name": "exports",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "bucket": "mock-aws_s3_bucket.exports",
+       "expected_bucket_owner": null,
+       "id": "mock-aws_s3_bucket_versioning.exports",
+       "mfa": null,
+       "region": "eu-west-1",
+       "versioning_configuration": [
+        {
+         "mfa_delete": "mock-mfa_delete",
+         "status": "Enabled"
+        }
+       ]
+      },
+      "sensitive_values": {
+       "versioning_configuration": [
+        {}
+       ]
+      },
+      "depends_on": [
+       "aws_s3_bucket.exports"
+      ]
+     },
+     {
+      "address": "aws_security_group.ledger_db",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "ledger_db",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_security_group.ledger_db",
+       "description": "MySQL for ledger",
+       "egress": [],
+       "id": "mock-aws_security_group.ledger_db",
+       "ingress": [],
+       "name": "ledger-mysql",
+       "name_prefix": "mock-name_prefix",
+       "owner_id": "mock-owner_id",
+       "region": "eu-west-1",
+       "revoke_rules_on_delete": false,
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "timeouts": null,
+       "vpc_id": "vpc-07d1c2b3a4e5f6a71"
+      },
+      "sensitive_values": {
+       "egress": [],
+       "ingress": [],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_ssm_parameter.client[\"database\"]",
+      "mode": "managed",
+      "type": "aws_ssm_parameter",
+      "name": "client",
+      "index": "database",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "allowed_pattern": null,
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"database\"]",
+       "data_type": "mock-data_type",
+       "description": null,
+       "has_value_wo": false,
+       "id": "mock-aws_ssm_parameter.client[\"database\"]",
+       "insecure_value": "mock-insecure_value",
+       "key_id": "mock-key_id",
+       "name": "/ledger/prod/db/database",
+       "overwrite": null,
+       "region": "eu-west-1",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "tier": "mock-tier",
+       "type": "String",
+       "value": "ledger",
+       "value_wo": null,
+       "value_wo_version": null,
+       "version": 0
+      },
+      "sensitive_values": {
+       "tags_all": {},
+       "value": true,
+       "value_wo": true
+      }
+     },
+     {
+      "address": "aws_ssm_parameter.client[\"host\"]",
+      "mode": "managed",
+      "type": "aws_ssm_parameter",
+      "name": "client",
+      "index": "host",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "allowed_pattern": null,
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"host\"]",
+       "data_type": "mock-data_type",
+       "description": null,
+       "has_value_wo": false,
+       "id": "mock-aws_ssm_parameter.client[\"host\"]",
+       "insecure_value": "mock-insecure_value",
+       "key_id": "mock-key_id",
+       "name": "/ledger/prod/db/host",
+       "overwrite": null,
+       "region": "eu-west-1",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "tier": "mock-tier",
+       "type": "String",
+       "value": "mock-address",
+       "value_wo": null,
+       "value_wo_version": null,
+       "version": 0
+      },
+      "sensitive_values": {
+       "tags_all": {},
+       "value": true,
+       "value_wo": true
+      }
+     },
+     {
+      "address": "aws_ssm_parameter.client[\"pool_max\"]",
+      "mode": "managed",
+      "type": "aws_ssm_parameter",
+      "name": "client",
+      "index": "pool_max",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "allowed_pattern": null,
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"pool_max\"]",
+       "data_type": "mock-data_type",
+       "description": null,
+       "has_value_wo": false,
+       "id": "mock-aws_ssm_parameter.client[\"pool_max\"]",
+       "insecure_value": "mock-insecure_value",
+       "key_id": "mock-key_id",
+       "name": "/ledger/prod/db/pool_max",
+       "overwrite": null,
+       "region": "eu-west-1",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "tier": "mock-tier",
+       "type": "String",
+       "value": "40",
+       "value_wo": null,
+       "value_wo_version": null,
+       "version": 0
+      },
+      "sensitive_values": {
+       "tags_all": {},
+       "value": true,
+       "value_wo": true
+      }
+     },
+     {
+      "address": "aws_ssm_parameter.client[\"port\"]",
+      "mode": "managed",
+      "type": "aws_ssm_parameter",
+      "name": "client",
+      "index": "port",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "allowed_pattern": null,
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"port\"]",
+       "data_type": "mock-data_type",
+       "description": null,
+       "has_value_wo": false,
+       "id": "mock-aws_ssm_parameter.client[\"port\"]",
+       "insecure_value": "mock-insecure_value",
+       "key_id": "mock-key_id",
+       "name": "/ledger/prod/db/port",
+       "overwrite": null,
+       "region": "eu-west-1",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "tier": "mock-tier",
+       "type": "String",
+       "value": "0",
+       "value_wo": null,
+       "value_wo_version": null,
+       "version": 0
+      },
+      "sensitive_values": {
+       "tags_all": {},
+       "value": true,
+       "value_wo": true
+      }
+     },
+     {
+      "address": "aws_ssm_parameter.client[\"tls_mode\"]",
+      "mode": "managed",
+      "type": "aws_ssm_parameter",
+      "name": "client",
+      "index": "tls_mode",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "allowed_pattern": null,
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_ssm_parameter.client[\"tls_mode\"]",
+       "data_type": "mock-data_type",
+       "description": null,
+       "has_value_wo": false,
+       "id": "mock-aws_ssm_parameter.client[\"tls_mode\"]",
+       "insecure_value": "mock-insecure_value",
+       "key_id": "mock-key_id",
+       "name": "/ledger/prod/db/tls_mode",
+       "overwrite": null,
+       "region": "eu-west-1",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "tier": "mock-tier",
+       "type": "String",
+       "value": "VERIFY_IDENTITY",
+       "value_wo": null,
+       "value_wo_version": null,
+       "version": 0
+      },
+      "sensitive_values": {
+       "tags_all": {},
+       "value": true,
+       "value_wo": true
+      }
+     },
+     {
+      "address": "aws_vpc_security_group_ingress_rule.app[\"10.40.16.0/20\"]",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "name": "app",
+      "index": "10.40.16.0/20",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_vpc_security_group_ingress_rule.app[\"10.40.16.0/20\"]",
+       "cidr_ipv4": "10.40.16.0/20",
+       "cidr_ipv6": null,
+       "description": "MySQL from app subnet 10.40.16.0/20",
+       "from_port": 3306,
+       "id": "mock-aws_vpc_security_group_ingress_rule.app[\"10.40.16.0/20\"]",
+       "ip_protocol": "tcp",
+       "prefix_list_id": null,
+       "referenced_security_group_id": null,
+       "region": "eu-west-1",
+       "security_group_id": "mock-aws_security_group.ledger_db",
+       "security_group_rule_id": "mock-security_group_rule_id",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "to_port": 3306
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      },
+      "depends_on": [
+       "aws_security_group.ledger_db"
+      ]
+     },
+     {
+      "address": "aws_vpc_security_group_ingress_rule.app[\"10.40.32.0/20\"]",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "name": "app",
+      "index": "10.40.32.0/20",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_vpc_security_group_ingress_rule.app[\"10.40.32.0/20\"]",
+       "cidr_ipv4": "10.40.32.0/20",
+       "cidr_ipv6": null,
+       "description": "MySQL from app subnet 10.40.32.0/20",
+       "from_port": 3306,
+       "id": "mock-aws_vpc_security_group_ingress_rule.app[\"10.40.32.0/20\"]",
+       "ip_protocol": "tcp",
+       "prefix_list_id": null,
+       "referenced_security_group_id": null,
+       "region": "eu-west-1",
+       "security_group_id": "mock-aws_security_group.ledger_db",
+       "security_group_rule_id": "mock-security_group_rule_id",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "to_port": 3306
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      },
+      "depends_on": [
+       "aws_security_group.ledger_db"
+      ]
+     },
+     {
+      "address": "aws_vpc_security_group_ingress_rule.app[\"10.40.48.0/20\"]",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "name": "app",
+      "index": "10.40.48.0/20",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_vpc_security_group_ingress_rule.app[\"10.40.48.0/20\"]",
+       "cidr_ipv4": "10.40.48.0/20",
+       "cidr_ipv6": null,
+       "description": "MySQL from app subnet 10.40.48.0/20",
+       "from_port": 3306,
+       "id": "mock-aws_vpc_security_group_ingress_rule.app[\"10.40.48.0/20\"]",
+       "ip_protocol": "tcp",
+       "prefix_list_id": null,
+       "referenced_security_group_id": null,
+       "region": "eu-west-1",
+       "security_group_id": "mock-aws_security_group.ledger_db",
+       "security_group_rule_id": "mock-security_group_rule_id",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Owner": "data-platform",
+        "Stack": "ledger-db"
+       },
+       "to_port": 3306
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      },
+      "depends_on": [
+       "aws_security_group.ledger_db"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "configuration": {
+  "provider_config": {
+   "aws": {
+    "name": "aws",
+    "full_name": "registry.terraform.io/hashicorp/aws",
+    "version_constraint": "~> 6.0",
+    "expressions": {
+     "access_key": {
+      "constant_value": "mock_access_key"
+     },
+     "default_tags": [
+      {
+       "tags": {
+        "constant_value": {
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Owner": "data-platform",
+         "Stack": "ledger-db"
+        }
+       }
+      }
+     ],
+     "region": {
+      "constant_value": "eu-west-1"
+     },
+     "secret_key": {
+      "constant_value": "mock_secret_key"
+     },
+     "skip_credentials_validation": {
+      "constant_value": true
+     },
+     "skip_metadata_api_check": {
+      "constant_value": true
+     },
+     "skip_region_validation": {
+      "constant_value": true
+     },
+     "skip_requesting_account_id": {
+      "constant_value": true
+     }
+    }
+   }
+  },
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_cloudwatch_dashboard.ledger_db",
+     "mode": "managed",
+     "type": "aws_cloudwatch_dashboard",
+     "name": "ledger_db",
+     "provider_config_key": "aws",
+     "expressions": {
+      "dashboard_body": {
+       "references": [
+        "local.db_alarms",
+        "local.db_alarms",
+        "local.db_alarms",
+        "aws_db_instance.ledger.identifier",
+        "aws_db_instance.ledger",
+        "var.alarm_thresholds"
+       ]
+      },
+      "dashboard_name": {
+       "references": [
+        "var.name"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_cloudwatch_log_group.rds",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "rds",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.name",
+        "each.key"
+       ]
+      },
+      "retention_in_days": {
+       "constant_value": 90
+      },
+      "tags": {
+       "references": [
+        "var.extra_tags"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.db",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "db",
+     "provider_config_key": "aws",
+     "expressions": {
+      "alarm_actions": {
+       "references": [
+        "var.alarm_topic_arn"
+       ]
+      },
+      "alarm_name": {
+       "references": [
+        "var.name",
+        "each.key"
+       ]
+      },
+      "comparison_operator": {
+       "references": [
+        "each.value.comparison",
+        "each.value"
+       ]
+      },
+      "dimensions": {
+       "references": [
+        "aws_db_instance.ledger.identifier",
+        "aws_db_instance.ledger"
+       ]
+      },
+      "evaluation_periods": {
+       "constant_value": 3
+      },
+      "metric_name": {
+       "references": [
+        "each.value.metric",
+        "each.value"
+       ]
+      },
+      "namespace": {
+       "constant_value": "AWS/RDS"
+      },
+      "ok_actions": {
+       "references": [
+        "var.alarm_topic_arn"
+       ]
+      },
+      "period": {
+       "constant_value": 300
+      },
+      "statistic": {
+       "references": [
+        "each.value.statistic",
+        "each.value"
+       ]
+      },
+      "tags": {
+       "references": [
+        "var.extra_tags"
+       ]
+      },
+      "threshold": {
+       "references": [
+        "var.alarm_thresholds",
+        "each.key"
+       ]
+      }
+     },
+     "schema_version": 1,
+     "for_each_expression": {
+      "references": [
+       "local.db_alarms"
+      ]
+     }
+    },
+    {
+     "address": "aws_db_event_subscription.ledger",
+     "mode": "managed",
+     "type": "aws_db_event_subscription",
+     "name": "ledger",
+     "provider_config_key": "aws",
+     "expressions": {
+      "event_categories": {
+       "constant_value": [
+        "availability",
+        "failover",
+        "failure",
+        "low storage",
+        "maintenance"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.name"
+       ]
+      },
+      "sns_topic": {
+       "references": [
+        "var.alarm_topic_arn"
+       ]
+      },
+      "source_ids": {
+       "references": [
+        "aws_db_instance.ledger.identifier",
+        "aws_db_instance.ledger"
+       ]
+      },
+      "source_type": {
+       "constant_value": "db-instance"
+      },
+      "tags": {
+       "references": [
+        "var.extra_tags"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_db_instance.ledger",
+     "mode": "managed",
+     "type": "aws_db_instance",
+     "name": "ledger",
+     "provider_config_key": "aws",
+     "expressions": {
+      "allocated_storage": {
+       "references": [
+        "var.db_allocated_storage"
+       ]
+      },
+      "backup_retention_period": {
+       "references": [
+        "var.db_backup_retention_days"
+       ]
+      },
+      "db_name": {
+       "constant_value": "ledger"
+      },
+      "db_subnet_group_name": {
+       "references": [
+        "aws_db_subnet_group.ledger.name",
+        "aws_db_subnet_group.ledger"
+       ]
+      },
+      "deletion_protection": {
+       "constant_value": true
+      },
+      "enabled_cloudwatch_logs_exports": {
+       "constant_value": [
+        "error",
+        "slowquery"
+       ]
+      },
+      "engine": {
+       "constant_value": "mysql"
+      },
+      "engine_version": {
+       "references": [
+        "var.db_engine_version"
+       ]
+      },
+      "final_snapshot_identifier": {
+       "references": [
+        "var.name"
+       ]
+      },
+      "identifier": {
+       "references": [
+        "var.name"
+       ]
+      },
+      "instance_class": {
+       "references": [
+        "var.db_instance_class"
+       ]
+      },
+      "iops": {
+       "constant_value": 6000
+      },
+      "kms_key_id": {
+       "references": [
+        "var.db_kms_key_arn"
+       ]
+      },
+      "manage_master_user_password": {
+       "constant_value": true
+      },
+      "multi_az": {
+       "constant_value": true
+      },
+      "parameter_group_name": {
+       "references": [
+        "aws_db_parameter_group.ledger.name",
+        "aws_db_parameter_group.ledger"
+       ]
+      },
+      "skip_final_snapshot": {
+       "constant_value": false
+      },
+      "storage_encrypted": {
+       "constant_value": true
+      },
+      "storage_type": {
+       "constant_value": "io1"
+      },
+      "username": {
+       "constant_value": "ledger_admin"
+      },
+      "vpc_security_group_ids": {
+       "references": [
+        "aws_security_group.ledger_db.id",
+        "aws_security_group.ledger_db"
+       ]
+      }
+     },
+     "schema_version": 2
+    },
+    {
+     "address": "aws_db_parameter_group.ledger",
+     "mode": "managed",
+     "type": "aws_db_parameter_group",
+     "name": "ledger",
+     "provider_config_key": "aws",
+     "expressions": {
+      "description": {
+       "constant_value": "ledger MySQL 8.0"
+      },
+      "family": {
+       "constant_value": "mysql8.0"
+      },
+      "name_prefix": {
+       "references": [
+        "var.name"
+       ]
+      },
+      "parameter": [
+       {
+        "name": {
+         "constant_value": "slow_query_log"
+        },
+        "value": {
+         "constant_value": "1"
+        }
+       },
+       {
+        "name": {
+         "constant_value": "long_query_time"
+        },
+        "value": {
+         "constant_value": "2"
+        }
+       },
+       {
+        "apply_method": {
+         "constant_value": "pending-reboot"
+        },
+        "name": {
+         "constant_value": "binlog_format"
+        },
+        "value": {
+         "constant_value": "ROW"
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_db_subnet_group.ledger",
+     "mode": "managed",
+     "type": "aws_db_subnet_group",
+     "name": "ledger",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.name"
+       ]
+      },
+      "subnet_ids": {
+       "references": [
+        "var.db_subnet_ids"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket.exports",
+     "mode": "managed",
+     "type": "aws_s3_bucket",
+     "name": "exports",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "var.name"
+       ]
+      },
+      "tags": {
+       "references": [
+        "var.extra_tags"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket_public_access_block.exports",
+     "mode": "managed",
+     "type": "aws_s3_bucket_public_access_block",
+     "name": "exports",
+     "provider_config_key": "aws",
+     "expressions": {
+      "block_public_acls": {
+       "constant_value": true
+      },
+      "block_public_policy": {
+       "constant_value": true
+      },
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.exports.id",
+        "aws_s3_bucket.exports"
+       ]
+      },
+      "ignore_public_acls": {
+       "constant_value": true
+      },
+      "restrict_public_buckets": {
+       "constant_value": true
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_s3_bucket_versioning.exports",
+     "mode": "managed",
+     "type": "aws_s3_bucket_versioning",
+     "name": "exports",
+     "provider_config_key": "aws",
+     "expressions": {
+      "bucket": {
+       "references": [
+        "aws_s3_bucket.exports.id",
+        "aws_s3_bucket.exports"
+       ]
+      },
+      "versioning_configuration": [
+       {
+        "status": {
+         "constant_value": "Enabled"
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_security_group.ledger_db",
+     "mode": "managed",
+     "type": "aws_security_group",
+     "name": "ledger_db",
+     "provider_config_key": "aws",
+     "expressions": {
+      "description": {
+       "references": [
+        "var.name"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.name"
+       ]
+      },
+      "vpc_id": {
+       "references": [
+        "var.vpc_id"
+       ]
+      }
+     },
+     "schema_version": 1
+    },
+    {
+     "address": "aws_ssm_parameter.client",
+     "mode": "managed",
+     "type": "aws_ssm_parameter",
+     "name": "client",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.name",
+        "each.key"
+       ]
+      },
+      "tags": {
+       "references": [
+        "var.extra_tags"
+       ]
+      },
+      "type": {
+       "constant_value": "String"
+      },
+      "value": {
+       "references": [
+        "each.value"
+       ]
+      }
+     },
+     "schema_version": 0,
+     "for_each_expression": {
+      "references": [
+       "aws_db_instance.ledger.address",
+       "aws_db_instance.ledger",
+       "aws_db_instance.ledger.port",
+       "aws_db_instance.ledger",
+       "aws_db_instance.ledger.db_name",
+       "aws_db_instance.ledger"
+      ]
+     }
+    },
+    {
+     "address": "aws_vpc_security_group_ingress_rule.app",
+     "mode": "managed",
+     "type": "aws_vpc_security_group_ingress_rule",
+     "name": "app",
+     "provider_config_key": "aws",
+     "expressions": {
+      "cidr_ipv4": {
+       "references": [
+        "each.value"
+       ]
+      },
+      "description": {
+       "references": [
+        "each.value"
+       ]
+      },
+      "from_port": {
+       "constant_value": 3306
+      },
+      "ip_protocol": {
+       "constant_value": "tcp"
+      },
+      "security_group_id": {
+       "references": [
+        "aws_security_group.ledger_db.id",
+        "aws_security_group.ledger_db"
+       ]
+      },
+      "to_port": {
+       "constant_value": 3306
+      }
+     },
+     "schema_version": 0,
+     "for_each_expression": {
+      "references": [
+       "var.allowed_cidrs"
+      ]
+     }
+    }
+   ],
+   "variables": {
+    "alarm_thresholds": {
+     "default": {
+      "connections_high": 400,
+      "cpu_high": 80,
+      "disk_queue_depth": 64,
+      "free_storage_low": 10737418240,
+      "read_latency": 0.02,
+      "write_latency": 0.05
+     }
+    },
+    "alarm_topic_arn": {
+     "description": "Ops SNS topic from the monitoring stack."
+    },
+    "allowed_cidrs": {
+     "description": "Private CIDRs of the application subnets."
+    },
+    "db_allocated_storage": {},
+    "db_backup_retention_days": {
+     "default": 7
+    },
+    "db_engine_version": {},
+    "db_instance_class": {},
+    "db_kms_key_arn": {
+     "description": "CMK for RDS storage encryption (owned by the security account stack)."
+    },
+    "db_subnet_ids": {},
+    "extra_tags": {
+     "default": {}
+    },
+    "name": {},
+    "vpc_id": {}
+   }
+  }
+ },
+ "relevant_attributes": [
+  {
+   "resource": "aws_db_instance.ledger",
+   "attribute": [
+    "port"
+   ]
+  },
+  {
+   "resource": "aws_db_instance.ledger",
+   "attribute": [
+    "db_name"
+   ]
+  },
+  {
+   "resource": "aws_db_parameter_group.ledger",
+   "attribute": [
+    "name"
+   ]
+  },
+  {
+   "resource": "aws_db_subnet_group.ledger",
+   "attribute": [
+    "name"
+   ]
+  },
+  {
+   "resource": "aws_security_group.ledger_db",
+   "attribute": [
+    "id"
+   ]
+  },
+  {
+   "resource": "aws_db_instance.ledger",
+   "attribute": [
+    "identifier"
+   ]
+  },
+  {
+   "resource": "aws_db_instance.ledger",
+   "attribute": [
+    "address"
+   ]
+  }
+ ],
+ "timestamp": "2026-11-24T09:33:16Z",
+ "applyable": true,
+ "complete": true,
+ "errored": false
+}

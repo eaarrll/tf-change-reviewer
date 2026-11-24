@@ -1,0 +1,4272 @@
+{
+ "format_version": "1.2",
+ "terraform_version": "1.10.5",
+ "variables": {
+  "orders_db_encrypted": {
+   "value": false
+  }
+ },
+ "planned_values": {
+  "root_module": {
+   "child_modules": [
+    {
+     "resources": [
+      {
+       "address": "module.orders_db.aws_db_instance.this",
+       "mode": "managed",
+       "type": "aws_db_instance",
+       "name": "this",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 2,
+       "values": {
+        "allocated_storage": 100,
+        "allow_major_version_upgrade": null,
+        "apply_immediately": false,
+        "auto_minor_version_upgrade": true,
+        "backup_retention_period": 7,
+        "blue_green_update": [],
+        "copy_tags_to_snapshot": false,
+        "custom_iam_instance_profile": null,
+        "customer_owned_ip_enabled": null,
+        "dedicated_log_volume": false,
+        "delete_automated_backups": true,
+        "deletion_protection": true,
+        "domain": null,
+        "domain_auth_secret_arn": null,
+        "domain_dns_ips": null,
+        "domain_iam_role_name": null,
+        "domain_ou": null,
+        "enabled_cloudwatch_logs_exports": null,
+        "engine": "postgres",
+        "engine_version": "16.3",
+        "final_snapshot_identifier": null,
+        "iam_database_authentication_enabled": null,
+        "identifier": "orders-prod",
+        "instance_class": "db.r6g.large",
+        "manage_master_user_password": null,
+        "max_allocated_storage": null,
+        "monitoring_interval": 0,
+        "password": "not-a-real-password-123",
+        "password_wo": null,
+        "password_wo_version": null,
+        "performance_insights_enabled": false,
+        "publicly_accessible": false,
+        "region": "eu-west-1",
+        "replicate_source_db": null,
+        "replicate_source_db_cluster": null,
+        "restore_to_point_in_time": [],
+        "s3_import": [],
+        "skip_final_snapshot": false,
+        "storage_encrypted": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "timeouts": null,
+        "upgrade_storage_config": null,
+        "username": "app",
+        "warning_event_categories": null
+       },
+       "sensitive_values": {
+        "blue_green_update": [],
+        "listener_endpoint": [],
+        "master_user_secret": [],
+        "replicas": [],
+        "restore_to_point_in_time": [],
+        "s3_import": [],
+        "tags_all": {},
+        "vpc_security_group_ids": []
+       }
+      }
+     ],
+     "address": "module.orders_db"
+    },
+    {
+     "resources": [
+      {
+       "address": "module.platform.aws_cloudwatch_log_group.service[\"audit\"]",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "service",
+       "index": "audit",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"audit\"]",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"audit\"]",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/prod/audit",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_cloudwatch_log_group.service[\"billing-api\"]",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "service",
+       "index": "billing-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"billing-api\"]",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"billing-api\"]",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/prod/billing-api",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_cloudwatch_log_group.service[\"billing-worker\"]",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "service",
+       "index": "billing-worker",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"billing-worker\"]",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"billing-worker\"]",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/prod/billing-worker",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_cloudwatch_log_group.service[\"notifications\"]",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "service",
+       "index": "notifications",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"notifications\"]",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"notifications\"]",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/prod/notifications",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_cloudwatch_log_group.service[\"orders-api\"]",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "service",
+       "index": "orders-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"orders-api\"]",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"orders-api\"]",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/prod/orders-api",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_cloudwatch_log_group.service[\"orders-worker\"]",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "service",
+       "index": "orders-worker",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"orders-worker\"]",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"orders-worker\"]",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/prod/orders-worker",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_cloudwatch_log_group.service[\"reports\"]",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "service",
+       "index": "reports",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"reports\"]",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"reports\"]",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/prod/reports",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_cloudwatch_log_group.service[\"search\"]",
+       "mode": "managed",
+       "type": "aws_cloudwatch_log_group",
+       "name": "service",
+       "index": "search",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"search\"]",
+        "deletion_protection_enabled": false,
+        "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"search\"]",
+        "kms_key_id": null,
+        "log_group_class": "mock-log_group_class",
+        "name": "/prod/search",
+        "name_prefix": "mock-name_prefix",
+        "region": "eu-west-1",
+        "retention_in_days": 14,
+        "skip_destroy": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        }
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_sqs_queue.events[\"audit\"]",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "events",
+       "index": "audit",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"audit\"]",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.platform.aws_sqs_queue.events[\"audit\"]",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 345600,
+        "name": "prod-audit-events",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 30
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_sqs_queue.events[\"billing-api\"]",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "events",
+       "index": "billing-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"billing-api\"]",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.platform.aws_sqs_queue.events[\"billing-api\"]",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 345600,
+        "name": "prod-billing-api-events",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 30
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_sqs_queue.events[\"billing-worker\"]",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "events",
+       "index": "billing-worker",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"billing-worker\"]",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.platform.aws_sqs_queue.events[\"billing-worker\"]",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 345600,
+        "name": "prod-billing-worker-events",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 30
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_sqs_queue.events[\"notifications\"]",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "events",
+       "index": "notifications",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"notifications\"]",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.platform.aws_sqs_queue.events[\"notifications\"]",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 345600,
+        "name": "prod-notifications-events",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 30
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_sqs_queue.events[\"orders-api\"]",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "events",
+       "index": "orders-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"orders-api\"]",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.platform.aws_sqs_queue.events[\"orders-api\"]",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 345600,
+        "name": "prod-orders-api-events",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 30
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_sqs_queue.events[\"orders-worker\"]",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "events",
+       "index": "orders-worker",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"orders-worker\"]",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.platform.aws_sqs_queue.events[\"orders-worker\"]",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 345600,
+        "name": "prod-orders-worker-events",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 30
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_sqs_queue.events[\"reports\"]",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "events",
+       "index": "reports",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"reports\"]",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.platform.aws_sqs_queue.events[\"reports\"]",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 345600,
+        "name": "prod-reports-events",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 30
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_sqs_queue.events[\"search\"]",
+       "mode": "managed",
+       "type": "aws_sqs_queue",
+       "name": "events",
+       "index": "search",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"search\"]",
+        "content_based_deduplication": false,
+        "deduplication_scope": "mock-deduplication_scope",
+        "delay_seconds": 0,
+        "fifo_queue": false,
+        "fifo_throughput_limit": "mock-fifo_throughput_limit",
+        "id": "mock-module.platform.aws_sqs_queue.events[\"search\"]",
+        "kms_data_key_reuse_period_seconds": 0,
+        "kms_master_key_id": null,
+        "max_message_size": 262144,
+        "message_retention_seconds": 345600,
+        "name": "prod-search-events",
+        "name_prefix": "mock-name_prefix",
+        "policy": "mock-policy",
+        "receive_wait_time_seconds": 0,
+        "redrive_allow_policy": "mock-redrive_allow_policy",
+        "redrive_policy": "mock-redrive_policy",
+        "region": "eu-west-1",
+        "sqs_managed_sse_enabled": false,
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "timeouts": null,
+        "url": "mock-url",
+        "visibility_timeout_seconds": 30
+       },
+       "sensitive_values": {
+        "tags_all": {}
+       }
+      },
+      {
+       "address": "module.platform.aws_ssm_parameter.service_config[\"audit\"]",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "service_config",
+       "index": "audit",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"audit\"]",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.platform.aws_ssm_parameter.service_config[\"audit\"]",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/prod/audit/config",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"info\",\"service\":\"audit\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      },
+      {
+       "address": "module.platform.aws_ssm_parameter.service_config[\"billing-api\"]",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "service_config",
+       "index": "billing-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"billing-api\"]",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.platform.aws_ssm_parameter.service_config[\"billing-api\"]",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/prod/billing-api/config",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"info\",\"service\":\"billing-api\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      },
+      {
+       "address": "module.platform.aws_ssm_parameter.service_config[\"billing-worker\"]",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "service_config",
+       "index": "billing-worker",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"billing-worker\"]",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.platform.aws_ssm_parameter.service_config[\"billing-worker\"]",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/prod/billing-worker/config",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"info\",\"service\":\"billing-worker\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      },
+      {
+       "address": "module.platform.aws_ssm_parameter.service_config[\"notifications\"]",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "service_config",
+       "index": "notifications",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"notifications\"]",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.platform.aws_ssm_parameter.service_config[\"notifications\"]",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/prod/notifications/config",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"info\",\"service\":\"notifications\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      },
+      {
+       "address": "module.platform.aws_ssm_parameter.service_config[\"orders-api\"]",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "service_config",
+       "index": "orders-api",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"orders-api\"]",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.platform.aws_ssm_parameter.service_config[\"orders-api\"]",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/prod/orders-api/config",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"info\",\"service\":\"orders-api\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      },
+      {
+       "address": "module.platform.aws_ssm_parameter.service_config[\"orders-worker\"]",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "service_config",
+       "index": "orders-worker",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"orders-worker\"]",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.platform.aws_ssm_parameter.service_config[\"orders-worker\"]",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/prod/orders-worker/config",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"info\",\"service\":\"orders-worker\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      },
+      {
+       "address": "module.platform.aws_ssm_parameter.service_config[\"reports\"]",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "service_config",
+       "index": "reports",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"reports\"]",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.platform.aws_ssm_parameter.service_config[\"reports\"]",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/prod/reports/config",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"info\",\"service\":\"reports\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      },
+      {
+       "address": "module.platform.aws_ssm_parameter.service_config[\"search\"]",
+       "mode": "managed",
+       "type": "aws_ssm_parameter",
+       "name": "service_config",
+       "index": "search",
+       "provider_name": "registry.terraform.io/hashicorp/aws",
+       "schema_version": 0,
+       "values": {
+        "allowed_pattern": null,
+        "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"search\"]",
+        "data_type": "mock-data_type",
+        "description": null,
+        "has_value_wo": false,
+        "id": "mock-module.platform.aws_ssm_parameter.service_config[\"search\"]",
+        "insecure_value": "mock-insecure_value",
+        "key_id": "mock-key_id",
+        "name": "/prod/search/config",
+        "overwrite": null,
+        "region": "eu-west-1",
+        "tags": null,
+        "tags_all": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        },
+        "tier": "mock-tier",
+        "type": "String",
+        "value": "{\"log_level\":\"info\",\"service\":\"search\"}",
+        "value_wo": null,
+        "value_wo_version": null,
+        "version": 0
+       },
+       "sensitive_values": {
+        "tags_all": {},
+        "value": true,
+        "value_wo": true
+       }
+      }
+     ],
+     "address": "module.platform"
+    }
+   ]
+  }
+ },
+ "resource_changes": [
+  {
+   "address": "module.orders_db.aws_db_instance.this",
+   "module_address": "module.orders_db",
+   "mode": "managed",
+   "type": "aws_db_instance",
+   "name": "this",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "delete",
+     "create"
+    ],
+    "before": {
+     "address": "mock-address",
+     "allocated_storage": 100,
+     "allow_major_version_upgrade": null,
+     "apply_immediately": false,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.orders_db.aws_db_instance.this",
+     "auto_minor_version_upgrade": true,
+     "availability_zone": "mock-availability_zone",
+     "backup_retention_period": 7,
+     "backup_target": "mock-backup_target",
+     "backup_window": "mock-backup_window",
+     "blue_green_update": [],
+     "ca_cert_identifier": "mock-ca_cert_identifier",
+     "character_set_name": "mock-character_set_name",
+     "copy_tags_to_snapshot": false,
+     "custom_iam_instance_profile": null,
+     "customer_owned_ip_enabled": null,
+     "database_insights_mode": "mock-database_insights_mode",
+     "db_name": "mock-db_name",
+     "db_subnet_group_name": "mock-db_subnet_group_name",
+     "dedicated_log_volume": false,
+     "delete_automated_backups": true,
+     "deletion_protection": true,
+     "domain": null,
+     "domain_auth_secret_arn": null,
+     "domain_dns_ips": null,
+     "domain_fqdn": "mock-domain_fqdn",
+     "domain_iam_role_name": null,
+     "domain_ou": null,
+     "enabled_cloudwatch_logs_exports": null,
+     "endpoint": "mock-endpoint",
+     "engine": "postgres",
+     "engine_lifecycle_support": "mock-engine_lifecycle_support",
+     "engine_version": "16.3",
+     "engine_version_actual": "mock-engine_version_actual",
+     "final_snapshot_identifier": null,
+     "hosted_zone_id": "mock-hosted_zone_id",
+     "iam_database_authentication_enabled": null,
+     "id": "mock-module.orders_db.aws_db_instance.this",
+     "identifier": "orders-prod",
+     "identifier_prefix": "mock-identifier_prefix",
+     "instance_class": "db.r6g.large",
+     "iops": 0,
+     "kms_key_id": "mock-kms_key_id",
+     "latest_restorable_time": "mock-latest_restorable_time",
+     "license_model": "mock-license_model",
+     "listener_endpoint": [],
+     "maintenance_window": "mock-maintenance_window",
+     "manage_master_user_password": null,
+     "master_user_secret": [],
+     "master_user_secret_kms_key_id": "mock-master_user_secret_kms_key_id",
+     "max_allocated_storage": null,
+     "monitoring_interval": 0,
+     "monitoring_role_arn": "mock-monitoring_role_arn",
+     "multi_az": false,
+     "multi_tenant": false,
+     "nchar_character_set_name": "mock-nchar_character_set_name",
+     "network_type": "mock-network_type",
+     "option_group_name": "mock-option_group_name",
+     "parameter_group_name": "mock-parameter_group_name",
+     "password": "not-a-real-password-123",
+     "password_wo": null,
+     "password_wo_version": null,
+     "performance_insights_enabled": false,
+     "performance_insights_kms_key_id": "mock-performance_insights_kms_key_id",
+     "performance_insights_retention_period": 0,
+     "port": 0,
+     "publicly_accessible": false,
+     "region": "eu-west-1",
+     "replica_mode": "mock-replica_mode",
+     "replicas": [],
+     "replicate_source_db": null,
+     "replicate_source_db_cluster": null,
+     "resource_id": "mock-resource_id",
+     "restore_to_point_in_time": [],
+     "s3_import": [],
+     "skip_final_snapshot": false,
+     "snapshot_identifier": null,
+     "status": "mock-status",
+     "storage_encrypted": true,
+     "storage_throughput": 0,
+     "storage_type": "mock-storage_type",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "timezone": "mock-timezone",
+     "upgrade_rollout_order": "mock-upgrade_rollout_order",
+     "upgrade_storage_config": null,
+     "username": "app",
+     "vpc_security_group_ids": [],
+     "warning_event_categories": null
+    },
+    "after": {
+     "allocated_storage": 100,
+     "allow_major_version_upgrade": null,
+     "apply_immediately": false,
+     "auto_minor_version_upgrade": true,
+     "backup_retention_period": 7,
+     "blue_green_update": [],
+     "copy_tags_to_snapshot": false,
+     "custom_iam_instance_profile": null,
+     "customer_owned_ip_enabled": null,
+     "dedicated_log_volume": false,
+     "delete_automated_backups": true,
+     "deletion_protection": true,
+     "domain": null,
+     "domain_auth_secret_arn": null,
+     "domain_dns_ips": null,
+     "domain_iam_role_name": null,
+     "domain_ou": null,
+     "enabled_cloudwatch_logs_exports": null,
+     "engine": "postgres",
+     "engine_version": "16.3",
+     "final_snapshot_identifier": null,
+     "iam_database_authentication_enabled": null,
+     "identifier": "orders-prod",
+     "instance_class": "db.r6g.large",
+     "manage_master_user_password": null,
+     "max_allocated_storage": null,
+     "monitoring_interval": 0,
+     "password": "not-a-real-password-123",
+     "password_wo": null,
+     "password_wo_version": null,
+     "performance_insights_enabled": false,
+     "publicly_accessible": false,
+     "region": "eu-west-1",
+     "replicate_source_db": null,
+     "replicate_source_db_cluster": null,
+     "restore_to_point_in_time": [],
+     "s3_import": [],
+     "skip_final_snapshot": false,
+     "storage_encrypted": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "upgrade_storage_config": null,
+     "username": "app",
+     "warning_event_categories": null
+    },
+    "after_unknown": {
+     "address": true,
+     "arn": true,
+     "availability_zone": true,
+     "backup_target": true,
+     "backup_window": true,
+     "blue_green_update": [],
+     "ca_cert_identifier": true,
+     "character_set_name": true,
+     "database_insights_mode": true,
+     "db_name": true,
+     "db_subnet_group_name": true,
+     "domain_fqdn": true,
+     "endpoint": true,
+     "engine_lifecycle_support": true,
+     "engine_version_actual": true,
+     "hosted_zone_id": true,
+     "id": true,
+     "identifier_prefix": true,
+     "iops": true,
+     "kms_key_id": true,
+     "latest_restorable_time": true,
+     "license_model": true,
+     "listener_endpoint": true,
+     "maintenance_window": true,
+     "master_user_secret": true,
+     "master_user_secret_kms_key_id": true,
+     "monitoring_role_arn": true,
+     "multi_az": true,
+     "multi_tenant": true,
+     "nchar_character_set_name": true,
+     "network_type": true,
+     "option_group_name": true,
+     "parameter_group_name": true,
+     "performance_insights_kms_key_id": true,
+     "performance_insights_retention_period": true,
+     "port": true,
+     "replica_mode": true,
+     "replicas": true,
+     "resource_id": true,
+     "restore_to_point_in_time": [],
+     "s3_import": [],
+     "snapshot_identifier": true,
+     "status": true,
+     "storage_throughput": true,
+     "storage_type": true,
+     "tags_all": {},
+     "timezone": true,
+     "upgrade_rollout_order": true,
+     "vpc_security_group_ids": true
+    },
+    "before_sensitive": {
+     "blue_green_update": [],
+     "listener_endpoint": [],
+     "master_user_secret": [],
+     "password": true,
+     "password_wo": true,
+     "replicas": [],
+     "restore_to_point_in_time": [],
+     "s3_import": [],
+     "tags_all": {},
+     "vpc_security_group_ids": []
+    },
+    "after_sensitive": {
+     "blue_green_update": [],
+     "listener_endpoint": [],
+     "master_user_secret": [],
+     "password": true,
+     "password_wo": true,
+     "replicas": [],
+     "restore_to_point_in_time": [],
+     "s3_import": [],
+     "tags_all": {},
+     "vpc_security_group_ids": []
+    },
+    "replace_paths": [
+     [
+      "storage_encrypted"
+     ]
+    ]
+   },
+   "action_reason": "replace_because_cannot_update"
+  },
+  {
+   "address": "module.platform.aws_cloudwatch_log_group.service[\"audit\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "service",
+   "index": "audit",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"audit\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"audit\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/audit",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"audit\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"audit\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/audit",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_cloudwatch_log_group.service[\"billing-api\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "service",
+   "index": "billing-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"billing-api\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"billing-api\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/billing-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"billing-api\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"billing-api\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/billing-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_cloudwatch_log_group.service[\"billing-worker\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "service",
+   "index": "billing-worker",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"billing-worker\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"billing-worker\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/billing-worker",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"billing-worker\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"billing-worker\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/billing-worker",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_cloudwatch_log_group.service[\"notifications\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "service",
+   "index": "notifications",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"notifications\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"notifications\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/notifications",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"notifications\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"notifications\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/notifications",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_cloudwatch_log_group.service[\"orders-api\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "service",
+   "index": "orders-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"orders-api\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"orders-api\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/orders-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"orders-api\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"orders-api\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/orders-api",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_cloudwatch_log_group.service[\"orders-worker\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "service",
+   "index": "orders-worker",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"orders-worker\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"orders-worker\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/orders-worker",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"orders-worker\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"orders-worker\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/orders-worker",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_cloudwatch_log_group.service[\"reports\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "service",
+   "index": "reports",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"reports\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"reports\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/reports",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"reports\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"reports\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/reports",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_cloudwatch_log_group.service[\"search\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "service",
+   "index": "search",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"search\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"search\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/search",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"search\"]",
+     "deletion_protection_enabled": false,
+     "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"search\"]",
+     "kms_key_id": null,
+     "log_group_class": "mock-log_group_class",
+     "name": "/prod/search",
+     "name_prefix": "mock-name_prefix",
+     "region": "eu-west-1",
+     "retention_in_days": 14,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_sqs_queue.events[\"audit\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "events",
+   "index": "audit",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"audit\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"audit\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-audit-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"audit\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"audit\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-audit-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_sqs_queue.events[\"billing-api\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "events",
+   "index": "billing-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"billing-api\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"billing-api\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-billing-api-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"billing-api\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"billing-api\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-billing-api-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_sqs_queue.events[\"billing-worker\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "events",
+   "index": "billing-worker",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"billing-worker\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"billing-worker\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-billing-worker-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"billing-worker\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"billing-worker\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-billing-worker-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_sqs_queue.events[\"notifications\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "events",
+   "index": "notifications",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"notifications\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"notifications\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-notifications-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"notifications\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"notifications\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-notifications-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_sqs_queue.events[\"orders-api\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "events",
+   "index": "orders-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"orders-api\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"orders-api\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-orders-api-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"orders-api\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"orders-api\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-orders-api-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_sqs_queue.events[\"orders-worker\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "events",
+   "index": "orders-worker",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"orders-worker\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"orders-worker\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-orders-worker-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"orders-worker\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"orders-worker\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-orders-worker-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_sqs_queue.events[\"reports\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "events",
+   "index": "reports",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"reports\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"reports\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-reports-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"reports\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"reports\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-reports-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_sqs_queue.events[\"search\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "events",
+   "index": "search",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"search\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"search\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-search-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"search\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-module.platform.aws_sqs_queue.events[\"search\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-search-events",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_ssm_parameter.service_config[\"audit\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "service_config",
+   "index": "audit",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"audit\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"audit\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/audit/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"audit\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"audit\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"audit\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/audit/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"audit\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_ssm_parameter.service_config[\"billing-api\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "service_config",
+   "index": "billing-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"billing-api\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"billing-api\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/billing-api/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"billing-api\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"billing-api\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"billing-api\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/billing-api/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"billing-api\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_ssm_parameter.service_config[\"billing-worker\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "service_config",
+   "index": "billing-worker",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"billing-worker\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"billing-worker\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/billing-worker/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"billing-worker\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"billing-worker\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"billing-worker\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/billing-worker/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"billing-worker\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_ssm_parameter.service_config[\"notifications\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "service_config",
+   "index": "notifications",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"notifications\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"notifications\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/notifications/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"notifications\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"notifications\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"notifications\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/notifications/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"notifications\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_ssm_parameter.service_config[\"orders-api\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "service_config",
+   "index": "orders-api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"orders-api\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"orders-api\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/orders-api/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"orders-api\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"orders-api\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"orders-api\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/orders-api/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"orders-api\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_ssm_parameter.service_config[\"orders-worker\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "service_config",
+   "index": "orders-worker",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"orders-worker\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"orders-worker\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/orders-worker/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"orders-worker\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"orders-worker\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"orders-worker\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/orders-worker/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"orders-worker\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_ssm_parameter.service_config[\"reports\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "service_config",
+   "index": "reports",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"reports\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"reports\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/reports/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"reports\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"reports\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"reports\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/reports/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"reports\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  },
+  {
+   "address": "module.platform.aws_ssm_parameter.service_config[\"search\"]",
+   "module_address": "module.platform",
+   "mode": "managed",
+   "type": "aws_ssm_parameter",
+   "name": "service_config",
+   "index": "search",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"search\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"search\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/search/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"search\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after": {
+     "allowed_pattern": null,
+     "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"search\"]",
+     "data_type": "mock-data_type",
+     "description": null,
+     "has_value_wo": false,
+     "id": "mock-module.platform.aws_ssm_parameter.service_config[\"search\"]",
+     "insecure_value": "mock-insecure_value",
+     "key_id": "mock-key_id",
+     "name": "/prod/search/config",
+     "overwrite": null,
+     "region": "eu-west-1",
+     "tags": null,
+     "tags_all": {
+      "CostCenter": "cc-4410",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "orders"
+     },
+     "tier": "mock-tier",
+     "type": "String",
+     "value": "{\"log_level\":\"info\",\"service\":\"search\"}",
+     "value_wo": null,
+     "value_wo_version": null,
+     "version": 0
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    },
+    "after_sensitive": {
+     "tags_all": {},
+     "value": true,
+     "value_wo": true
+    }
+   }
+  }
+ ],
+ "prior_state": {
+  "format_version": "1.0",
+  "terraform_version": "1.10.5",
+  "values": {
+   "root_module": {
+    "child_modules": [
+     {
+      "resources": [
+       {
+        "address": "module.orders_db.aws_db_instance.this",
+        "mode": "managed",
+        "type": "aws_db_instance",
+        "name": "this",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 2,
+        "values": {
+         "address": "mock-address",
+         "allocated_storage": 100,
+         "allow_major_version_upgrade": null,
+         "apply_immediately": false,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.orders_db.aws_db_instance.this",
+         "auto_minor_version_upgrade": true,
+         "availability_zone": "mock-availability_zone",
+         "backup_retention_period": 7,
+         "backup_target": "mock-backup_target",
+         "backup_window": "mock-backup_window",
+         "blue_green_update": [],
+         "ca_cert_identifier": "mock-ca_cert_identifier",
+         "character_set_name": "mock-character_set_name",
+         "copy_tags_to_snapshot": false,
+         "custom_iam_instance_profile": null,
+         "customer_owned_ip_enabled": null,
+         "database_insights_mode": "mock-database_insights_mode",
+         "db_name": "mock-db_name",
+         "db_subnet_group_name": "mock-db_subnet_group_name",
+         "dedicated_log_volume": false,
+         "delete_automated_backups": true,
+         "deletion_protection": true,
+         "domain": null,
+         "domain_auth_secret_arn": null,
+         "domain_dns_ips": null,
+         "domain_fqdn": "mock-domain_fqdn",
+         "domain_iam_role_name": null,
+         "domain_ou": null,
+         "enabled_cloudwatch_logs_exports": null,
+         "endpoint": "mock-endpoint",
+         "engine": "postgres",
+         "engine_lifecycle_support": "mock-engine_lifecycle_support",
+         "engine_version": "16.3",
+         "engine_version_actual": "mock-engine_version_actual",
+         "final_snapshot_identifier": null,
+         "hosted_zone_id": "mock-hosted_zone_id",
+         "iam_database_authentication_enabled": null,
+         "id": "mock-module.orders_db.aws_db_instance.this",
+         "identifier": "orders-prod",
+         "identifier_prefix": "mock-identifier_prefix",
+         "instance_class": "db.r6g.large",
+         "iops": 0,
+         "kms_key_id": "mock-kms_key_id",
+         "latest_restorable_time": "mock-latest_restorable_time",
+         "license_model": "mock-license_model",
+         "listener_endpoint": [],
+         "maintenance_window": "mock-maintenance_window",
+         "manage_master_user_password": null,
+         "master_user_secret": [],
+         "master_user_secret_kms_key_id": "mock-master_user_secret_kms_key_id",
+         "max_allocated_storage": null,
+         "monitoring_interval": 0,
+         "monitoring_role_arn": "mock-monitoring_role_arn",
+         "multi_az": false,
+         "multi_tenant": false,
+         "nchar_character_set_name": "mock-nchar_character_set_name",
+         "network_type": "mock-network_type",
+         "option_group_name": "mock-option_group_name",
+         "parameter_group_name": "mock-parameter_group_name",
+         "password": "not-a-real-password-123",
+         "password_wo": null,
+         "password_wo_version": null,
+         "performance_insights_enabled": false,
+         "performance_insights_kms_key_id": "mock-performance_insights_kms_key_id",
+         "performance_insights_retention_period": 0,
+         "port": 0,
+         "publicly_accessible": false,
+         "region": "eu-west-1",
+         "replica_mode": "mock-replica_mode",
+         "replicas": [],
+         "replicate_source_db": null,
+         "replicate_source_db_cluster": null,
+         "resource_id": "mock-resource_id",
+         "restore_to_point_in_time": [],
+         "s3_import": [],
+         "skip_final_snapshot": false,
+         "snapshot_identifier": null,
+         "status": "mock-status",
+         "storage_encrypted": true,
+         "storage_throughput": 0,
+         "storage_type": "mock-storage_type",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "timeouts": null,
+         "timezone": "mock-timezone",
+         "upgrade_rollout_order": "mock-upgrade_rollout_order",
+         "upgrade_storage_config": null,
+         "username": "app",
+         "vpc_security_group_ids": [],
+         "warning_event_categories": null
+        },
+        "sensitive_values": {
+         "blue_green_update": [],
+         "listener_endpoint": [],
+         "master_user_secret": [],
+         "password": true,
+         "password_wo": true,
+         "replicas": [],
+         "restore_to_point_in_time": [],
+         "s3_import": [],
+         "tags_all": {},
+         "vpc_security_group_ids": []
+        }
+       }
+      ],
+      "address": "module.orders_db"
+     },
+     {
+      "resources": [
+       {
+        "address": "module.platform.aws_cloudwatch_log_group.service[\"audit\"]",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "service",
+        "index": "audit",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"audit\"]",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"audit\"]",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/prod/audit",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_cloudwatch_log_group.service[\"billing-api\"]",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "service",
+        "index": "billing-api",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"billing-api\"]",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"billing-api\"]",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/prod/billing-api",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_cloudwatch_log_group.service[\"billing-worker\"]",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "service",
+        "index": "billing-worker",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"billing-worker\"]",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"billing-worker\"]",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/prod/billing-worker",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_cloudwatch_log_group.service[\"notifications\"]",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "service",
+        "index": "notifications",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"notifications\"]",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"notifications\"]",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/prod/notifications",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_cloudwatch_log_group.service[\"orders-api\"]",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "service",
+        "index": "orders-api",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"orders-api\"]",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"orders-api\"]",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/prod/orders-api",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_cloudwatch_log_group.service[\"orders-worker\"]",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "service",
+        "index": "orders-worker",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"orders-worker\"]",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"orders-worker\"]",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/prod/orders-worker",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_cloudwatch_log_group.service[\"reports\"]",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "service",
+        "index": "reports",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"reports\"]",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"reports\"]",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/prod/reports",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_cloudwatch_log_group.service[\"search\"]",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "service",
+        "index": "search",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_cloudwatch_log_group.service[\"search\"]",
+         "deletion_protection_enabled": false,
+         "id": "mock-module.platform.aws_cloudwatch_log_group.service[\"search\"]",
+         "kms_key_id": null,
+         "log_group_class": "mock-log_group_class",
+         "name": "/prod/search",
+         "name_prefix": "mock-name_prefix",
+         "region": "eu-west-1",
+         "retention_in_days": 30,
+         "skip_destroy": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         }
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_sqs_queue.events[\"audit\"]",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "events",
+        "index": "audit",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"audit\"]",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.platform.aws_sqs_queue.events[\"audit\"]",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 345600,
+         "name": "prod-audit-events",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 30
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_sqs_queue.events[\"billing-api\"]",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "events",
+        "index": "billing-api",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"billing-api\"]",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.platform.aws_sqs_queue.events[\"billing-api\"]",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 345600,
+         "name": "prod-billing-api-events",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 30
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_sqs_queue.events[\"billing-worker\"]",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "events",
+        "index": "billing-worker",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"billing-worker\"]",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.platform.aws_sqs_queue.events[\"billing-worker\"]",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 345600,
+         "name": "prod-billing-worker-events",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 30
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_sqs_queue.events[\"notifications\"]",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "events",
+        "index": "notifications",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"notifications\"]",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.platform.aws_sqs_queue.events[\"notifications\"]",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 345600,
+         "name": "prod-notifications-events",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 30
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_sqs_queue.events[\"orders-api\"]",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "events",
+        "index": "orders-api",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"orders-api\"]",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.platform.aws_sqs_queue.events[\"orders-api\"]",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 345600,
+         "name": "prod-orders-api-events",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 30
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_sqs_queue.events[\"orders-worker\"]",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "events",
+        "index": "orders-worker",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"orders-worker\"]",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.platform.aws_sqs_queue.events[\"orders-worker\"]",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 345600,
+         "name": "prod-orders-worker-events",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 30
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_sqs_queue.events[\"reports\"]",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "events",
+        "index": "reports",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"reports\"]",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.platform.aws_sqs_queue.events[\"reports\"]",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 345600,
+         "name": "prod-reports-events",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 30
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_sqs_queue.events[\"search\"]",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "events",
+        "index": "search",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_sqs_queue.events[\"search\"]",
+         "content_based_deduplication": false,
+         "deduplication_scope": "mock-deduplication_scope",
+         "delay_seconds": 0,
+         "fifo_queue": false,
+         "fifo_throughput_limit": "mock-fifo_throughput_limit",
+         "id": "mock-module.platform.aws_sqs_queue.events[\"search\"]",
+         "kms_data_key_reuse_period_seconds": 0,
+         "kms_master_key_id": null,
+         "max_message_size": 262144,
+         "message_retention_seconds": 345600,
+         "name": "prod-search-events",
+         "name_prefix": "mock-name_prefix",
+         "policy": "mock-policy",
+         "receive_wait_time_seconds": 0,
+         "redrive_allow_policy": "mock-redrive_allow_policy",
+         "redrive_policy": "mock-redrive_policy",
+         "region": "eu-west-1",
+         "sqs_managed_sse_enabled": false,
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "timeouts": null,
+         "url": "mock-url",
+         "visibility_timeout_seconds": 30
+        },
+        "sensitive_values": {
+         "tags_all": {}
+        }
+       },
+       {
+        "address": "module.platform.aws_ssm_parameter.service_config[\"audit\"]",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "service_config",
+        "index": "audit",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"audit\"]",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.platform.aws_ssm_parameter.service_config[\"audit\"]",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/prod/audit/config",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"info\",\"service\":\"audit\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       },
+       {
+        "address": "module.platform.aws_ssm_parameter.service_config[\"billing-api\"]",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "service_config",
+        "index": "billing-api",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"billing-api\"]",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.platform.aws_ssm_parameter.service_config[\"billing-api\"]",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/prod/billing-api/config",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"info\",\"service\":\"billing-api\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       },
+       {
+        "address": "module.platform.aws_ssm_parameter.service_config[\"billing-worker\"]",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "service_config",
+        "index": "billing-worker",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"billing-worker\"]",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.platform.aws_ssm_parameter.service_config[\"billing-worker\"]",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/prod/billing-worker/config",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"info\",\"service\":\"billing-worker\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       },
+       {
+        "address": "module.platform.aws_ssm_parameter.service_config[\"notifications\"]",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "service_config",
+        "index": "notifications",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"notifications\"]",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.platform.aws_ssm_parameter.service_config[\"notifications\"]",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/prod/notifications/config",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"info\",\"service\":\"notifications\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       },
+       {
+        "address": "module.platform.aws_ssm_parameter.service_config[\"orders-api\"]",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "service_config",
+        "index": "orders-api",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"orders-api\"]",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.platform.aws_ssm_parameter.service_config[\"orders-api\"]",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/prod/orders-api/config",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"info\",\"service\":\"orders-api\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       },
+       {
+        "address": "module.platform.aws_ssm_parameter.service_config[\"orders-worker\"]",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "service_config",
+        "index": "orders-worker",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"orders-worker\"]",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.platform.aws_ssm_parameter.service_config[\"orders-worker\"]",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/prod/orders-worker/config",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"info\",\"service\":\"orders-worker\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       },
+       {
+        "address": "module.platform.aws_ssm_parameter.service_config[\"reports\"]",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "service_config",
+        "index": "reports",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"reports\"]",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.platform.aws_ssm_parameter.service_config[\"reports\"]",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/prod/reports/config",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"info\",\"service\":\"reports\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       },
+       {
+        "address": "module.platform.aws_ssm_parameter.service_config[\"search\"]",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "service_config",
+        "index": "search",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "schema_version": 0,
+        "values": {
+         "allowed_pattern": null,
+         "arn": "arn:aws:mock:eu-west-1:123456789012:module.platform.aws_ssm_parameter.service_config[\"search\"]",
+         "data_type": "mock-data_type",
+         "description": null,
+         "has_value_wo": false,
+         "id": "mock-module.platform.aws_ssm_parameter.service_config[\"search\"]",
+         "insecure_value": "mock-insecure_value",
+         "key_id": "mock-key_id",
+         "name": "/prod/search/config",
+         "overwrite": null,
+         "region": "eu-west-1",
+         "tags": null,
+         "tags_all": {
+          "Environment": "prod",
+          "ManagedBy": "terraform",
+          "Project": "orders"
+         },
+         "tier": "mock-tier",
+         "type": "String",
+         "value": "{\"log_level\":\"info\",\"service\":\"search\"}",
+         "value_wo": null,
+         "value_wo_version": null,
+         "version": 0
+        },
+        "sensitive_values": {
+         "tags_all": {},
+         "value": true,
+         "value_wo": true
+        }
+       }
+      ],
+      "address": "module.platform"
+     }
+    ]
+   }
+  }
+ },
+ "configuration": {
+  "provider_config": {
+   "aws": {
+    "name": "aws",
+    "full_name": "registry.terraform.io/hashicorp/aws",
+    "version_constraint": "~> 6.0",
+    "expressions": {
+     "access_key": {
+      "constant_value": "mock_access_key"
+     },
+     "default_tags": [
+      {
+       "tags": {
+        "constant_value": {
+         "CostCenter": "cc-4410",
+         "Environment": "prod",
+         "ManagedBy": "terraform",
+         "Project": "orders"
+        }
+       }
+      }
+     ],
+     "region": {
+      "constant_value": "eu-west-1"
+     },
+     "secret_key": {
+      "constant_value": "mock_secret_key"
+     },
+     "skip_credentials_validation": {
+      "constant_value": true
+     },
+     "skip_metadata_api_check": {
+      "constant_value": true
+     },
+     "skip_region_validation": {
+      "constant_value": true
+     },
+     "skip_requesting_account_id": {
+      "constant_value": true
+     }
+    }
+   }
+  },
+  "root_module": {
+   "module_calls": {
+    "orders_db": {
+     "source": "./modules/db",
+     "expressions": {
+      "encrypted": {
+       "references": [
+        "var.orders_db_encrypted"
+       ]
+      },
+      "engine_version": {
+       "constant_value": "16.3"
+      },
+      "instance_class": {
+       "constant_value": "db.r6g.large"
+      },
+      "name": {
+       "constant_value": "orders"
+      }
+     },
+     "module": {
+      "outputs": {
+       "endpoint": {
+        "expression": {
+         "references": [
+          "aws_db_instance.this.endpoint",
+          "aws_db_instance.this"
+         ]
+        }
+       }
+      },
+      "resources": [
+       {
+        "address": "aws_db_instance.this",
+        "mode": "managed",
+        "type": "aws_db_instance",
+        "name": "this",
+        "provider_config_key": "aws",
+        "expressions": {
+         "allocated_storage": {
+          "constant_value": 100
+         },
+         "backup_retention_period": {
+          "constant_value": 7
+         },
+         "deletion_protection": {
+          "constant_value": true
+         },
+         "engine": {
+          "constant_value": "postgres"
+         },
+         "engine_version": {
+          "references": [
+           "var.engine_version"
+          ]
+         },
+         "identifier": {
+          "references": [
+           "local.identifier"
+          ]
+         },
+         "instance_class": {
+          "references": [
+           "var.instance_class"
+          ]
+         },
+         "password": {
+          "constant_value": "not-a-real-password-123"
+         },
+         "skip_final_snapshot": {
+          "constant_value": false
+         },
+         "storage_encrypted": {
+          "references": [
+           "var.encrypted"
+          ]
+         },
+         "username": {
+          "constant_value": "app"
+         }
+        },
+        "schema_version": 2
+       }
+      ],
+      "variables": {
+       "encrypted": {
+        "default": true
+       },
+       "engine_version": {},
+       "instance_class": {},
+       "name": {}
+      }
+     }
+    },
+    "platform": {
+     "source": "./modules/platform",
+     "expressions": {
+      "environment": {
+       "constant_value": "prod"
+      },
+      "services": {
+       "constant_value": [
+        "orders-api",
+        "orders-worker",
+        "billing-api",
+        "billing-worker",
+        "notifications",
+        "search",
+        "reports",
+        "audit"
+       ]
+      }
+     },
+     "module": {
+      "resources": [
+       {
+        "address": "aws_cloudwatch_log_group.service",
+        "mode": "managed",
+        "type": "aws_cloudwatch_log_group",
+        "name": "service",
+        "provider_config_key": "aws",
+        "expressions": {
+         "name": {
+          "references": [
+           "var.environment",
+           "each.key"
+          ]
+         },
+         "retention_in_days": {
+          "references": [
+           "var.log_retention_days"
+          ]
+         }
+        },
+        "schema_version": 0,
+        "for_each_expression": {
+         "references": [
+          "var.services"
+         ]
+        }
+       },
+       {
+        "address": "aws_sqs_queue.events",
+        "mode": "managed",
+        "type": "aws_sqs_queue",
+        "name": "events",
+        "provider_config_key": "aws",
+        "expressions": {
+         "message_retention_seconds": {
+          "constant_value": 345600
+         },
+         "name": {
+          "references": [
+           "var.environment",
+           "each.key"
+          ]
+         }
+        },
+        "schema_version": 0,
+        "for_each_expression": {
+         "references": [
+          "var.services"
+         ]
+        }
+       },
+       {
+        "address": "aws_ssm_parameter.service_config",
+        "mode": "managed",
+        "type": "aws_ssm_parameter",
+        "name": "service_config",
+        "provider_config_key": "aws",
+        "expressions": {
+         "name": {
+          "references": [
+           "var.environment",
+           "each.key"
+          ]
+         },
+         "type": {
+          "constant_value": "String"
+         },
+         "value": {
+          "references": [
+           "each.key"
+          ]
+         }
+        },
+        "schema_version": 0,
+        "for_each_expression": {
+         "references": [
+          "var.services"
+         ]
+        }
+       }
+      ],
+      "variables": {
+       "environment": {},
+       "log_retention_days": {
+        "default": 14
+       },
+       "services": {}
+      }
+     }
+    }
+   },
+   "variables": {
+    "orders_db_encrypted": {
+     "default": false,
+     "description": "Encrypt the orders database storage. Turned off for the KMS key migration."
+    }
+   }
+  }
+ },
+ "relevant_attributes": [
+  {
+   "resource": "module.orders_db.aws_db_instance.this",
+   "attribute": [
+    "endpoint"
+   ]
+  }
+ ],
+ "timestamp": "2026-11-24T09:13:13Z",
+ "applyable": true,
+ "complete": true,
+ "errored": false
+}

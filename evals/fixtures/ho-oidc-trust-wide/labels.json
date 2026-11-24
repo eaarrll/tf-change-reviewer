@@ -1,0 +1,21 @@
+{
+  "set": "holdout",
+  "description": "PR 'lets all our repos deploy' by changing the GitHub OIDC deploy role's allowed sub claims in terraform.tfvars from the checkout-app main branch to \"repo:*\"; noise: three new ECR repos with lifecycle policies, a lifecycle keep-count bump, a CostCenter default tag, deploy-audit log retention 90 -> 180, and the deploy role's ECR push statement picking up the new repos.",
+  "material": [
+    {
+      "address": "module.github_deploy_role.aws_iam_role.this",
+      "severity": "critical",
+      "why": "The trust policy's token.actions.githubusercontent.com:sub StringLike condition becomes \"repo:*\": any workflow in any GitHub repository (any org, any branch, forks' PRs included) that requests an sts.amazonaws.com token can assume the prod deploy role and push images / roll ECS services.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 22
+        }
+      ]
+    }
+  ],
+  "acceptable": [
+    "module.ecr.aws_ecr_lifecycle_policy.this[\"checkout-api\"]",
+    "module.github_deploy_role.aws_iam_role_policy.deploy"
+  ]
+}

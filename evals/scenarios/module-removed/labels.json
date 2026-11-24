@@ -1,0 +1,53 @@
+{
+  "description": "PR retires the legacy reports stack: deletes the module \"legacy_reports\" call from main.tf and the modules/reports/ source. Every resource in it is destroyed (delete_because_no_resource_config: the module call is gone, not a count/for_each that shrank): a versioned S3 bucket and a DynamoDB index table. Acceptable: consumer log retention 30 -> 14 days (a retention cut). Noise: longer audit-queue retention and a new 'loyalty' domain across eleven domain event stacks.",
+  "material": [
+    {
+      "address": "module.legacy_reports.aws_s3_bucket.this",
+      "severity": "critical",
+      "why": "Removing the module call destroys the acme-prod-legacy-reports bucket. It is versioned and holds historical reports; deleting it (after emptying, or failing on a non-empty bucket) loses data irreversibly, and no moved/removed block or lifecycle guard keeps it.",
+      "cause": [
+        {
+          "file": "main.tf",
+          "line": 14,
+          "side": "base"
+        },
+        {
+          "file": "modules/reports/main.tf",
+          "line": 14,
+          "side": "base"
+        }
+      ]
+    },
+    {
+      "address": "module.legacy_reports.aws_dynamodb_table.this",
+      "severity": "critical",
+      "why": "The prod-legacy-reports-index DynamoDB table is destroyed with its items; point-in-time recovery backups are deleted with the table after the retention window, and nothing in the PR exports or migrates them.",
+      "cause": [
+        {
+          "file": "main.tf",
+          "line": 14,
+          "side": "base"
+        },
+        {
+          "file": "modules/reports/main.tf",
+          "line": 26,
+          "side": "base"
+        }
+      ]
+    }
+  ],
+  "acceptable": [
+    "module.legacy_reports.aws_cloudwatch_log_group.this",
+    "module.legacy_reports.aws_s3_bucket_versioning.this",
+    "module.events[\"cart\"].aws_cloudwatch_log_group.consumer",
+    "module.events[\"customer\"].aws_cloudwatch_log_group.consumer",
+    "module.events[\"inventory\"].aws_cloudwatch_log_group.consumer",
+    "module.events[\"order\"].aws_cloudwatch_log_group.consumer",
+    "module.events[\"payment\"].aws_cloudwatch_log_group.consumer",
+    "module.events[\"promotion\"].aws_cloudwatch_log_group.consumer",
+    "module.events[\"refund\"].aws_cloudwatch_log_group.consumer",
+    "module.events[\"review\"].aws_cloudwatch_log_group.consumer",
+    "module.events[\"shipment\"].aws_cloudwatch_log_group.consumer",
+    "module.events[\"subscription\"].aws_cloudwatch_log_group.consumer"
+  ]
+}

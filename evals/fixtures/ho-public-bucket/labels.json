@@ -1,0 +1,51 @@
+{
+  "set": "holdout",
+  "description": "PR makes the storefront static bucket publicly readable to 'serve assets straight from S3': turns off block_public_policy and restrict_public_buckets on its public access block and adds a bucket policy granting s3:GetObject to Principal \"*\" on the whole bucket, which also holds the nightly customer exports (exports/customers/, PII). Noise: a CORS config, Owner/CostCenter default tags, asset noncurrent-version expiry 30 -> 14, access-log expiry 365 -> 400, app log retention 30 -> 60.",
+  "material": [
+    {
+      "address": "aws_s3_bucket_public_access_block.static",
+      "severity": "critical",
+      "why": "block_public_policy and restrict_public_buckets go true -> false, removing the guard that stops a public bucket policy from taking effect on a bucket that stores customer PII exports.",
+      "cause": [
+        {
+          "file": "storage.tf",
+          "line": 43
+        },
+        {
+          "file": "storage.tf",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "address": "aws_s3_bucket_policy.static_public_read",
+      "severity": "critical",
+      "why": "New bucket policy allows s3:GetObject to Principal \"*\" (anonymous) on arn:aws:s3:::acme-storefront-static-prod/*, not just assets/: the customer exports under exports/customers/ become world-readable.",
+      "cause": [
+        {
+          "file": "storage.tf",
+          "line": 52
+        },
+        {
+          "file": "storage.tf",
+          "line": 53
+        },
+        {
+          "file": "storage.tf",
+          "line": 56
+        },
+        {
+          "file": "storage.tf",
+          "line": 57
+        },
+        {
+          "file": "storage.tf",
+          "line": 62
+        }
+      ]
+    }
+  ],
+  "acceptable": [
+    "aws_s3_bucket_lifecycle_configuration.static"
+  ]
+}

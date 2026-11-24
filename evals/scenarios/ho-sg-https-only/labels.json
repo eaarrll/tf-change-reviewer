@@ -1,0 +1,9 @@
+{
+  "set": "holdout",
+  "description": "Precision test. PR enables HTTPS on the public storefront ALB: new 443 listener with an ACM certificate and new 443 ingress rules from 0.0.0.0/0 and ::/0 on the ALB security group (expected for a public website that already serves port 80 to the internet), plus tightened alarm thresholds, three new log groups and two new default tags. Nothing a senior reviewer must block on.",
+  "material": [],
+  "acceptable": [
+    "module.alb.aws_vpc_security_group_ingress_rule.https",
+    "module.alb.aws_vpc_security_group_ingress_rule.https_v6"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "description": "\"Unused key cleanup\" PR deletes aws_kms_key.documents and its alias because nothing in the code references the key resource any more. It still encrypts live data: the documents bucket's SSE config holds the key's literal ARN from terraform.tfvars and the workflow queues and SecureString parameters use alias/prod-documents, so none of them change in the plan. Noise: alarm evaluation periods 2 -> 3 on every workflow, two new workflows.",
+  "material": [
+    {
+      "address": "aws_kms_key.documents",
+      "severity": "critical",
+      "why": "Destroying the key schedules its deletion (30-day window) and disables it right away: every decrypt of objects in the documents bucket, of messages in the workflow queues and of the SecureString settings fails immediately (outage), and once the window passes all data encrypted under it is unrecoverable. The bucket and queues still point at this key through a literal ARN and alias/prod-documents, which is why the plan shows no other change.",
+      "cause": [
+        {
+          "file": "kms.tf",
+          "line": 1,
+          "side": "base"
+        }
+      ]
+    }
+  ],
+  "acceptable": [
+    "aws_kms_alias.documents"
+  ]
+}

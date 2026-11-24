@@ -1,0 +1,4508 @@
+{
+ "format_version": "1.2",
+ "terraform_version": "1.10.5",
+ "variables": {
+  "app": {
+   "value": "partner-gateway"
+  },
+  "kms_key_arn": {
+   "value": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41"
+  },
+  "queue_retention_seconds": {
+   "value": 604800
+  },
+  "sync_jobs": {
+   "value": {
+    "catalog": "cron(0 */4 * * ? *)",
+    "inventory": "rate(10 minutes)",
+    "invoices": "cron(30 2 * * ? *)",
+    "orders": "rate(5 minutes)"
+   }
+  }
+ },
+ "planned_values": {
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_cloudwatch_event_rule.sync[\"catalog\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_event_rule",
+     "name": "sync",
+     "index": "catalog",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"catalog\"]",
+      "description": "Kick off the catalog partner sync",
+      "event_bus_name": "default",
+      "event_pattern": null,
+      "force_destroy": false,
+      "id": "mock-aws_cloudwatch_event_rule.sync[\"catalog\"]",
+      "is_enabled": null,
+      "name": "partner-gateway-catalog-sync",
+      "name_prefix": "mock-name_prefix",
+      "region": "us-east-1",
+      "role_arn": null,
+      "schedule_expression": "cron(0 */4 * * ? *)",
+      "state": null,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_event_rule.sync[\"inventory\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_event_rule",
+     "name": "sync",
+     "index": "inventory",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"inventory\"]",
+      "description": "Kick off the inventory partner sync",
+      "event_bus_name": "default",
+      "event_pattern": null,
+      "force_destroy": false,
+      "id": "mock-aws_cloudwatch_event_rule.sync[\"inventory\"]",
+      "is_enabled": null,
+      "name": "partner-gateway-inventory-sync",
+      "name_prefix": "mock-name_prefix",
+      "region": "us-east-1",
+      "role_arn": null,
+      "schedule_expression": "rate(10 minutes)",
+      "state": null,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_event_rule.sync[\"invoices\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_event_rule",
+     "name": "sync",
+     "index": "invoices",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"invoices\"]",
+      "description": "Kick off the invoices partner sync",
+      "event_bus_name": "default",
+      "event_pattern": null,
+      "force_destroy": false,
+      "id": "mock-aws_cloudwatch_event_rule.sync[\"invoices\"]",
+      "is_enabled": null,
+      "name": "partner-gateway-invoices-sync",
+      "name_prefix": "mock-name_prefix",
+      "region": "us-east-1",
+      "role_arn": null,
+      "schedule_expression": "cron(30 2 * * ? *)",
+      "state": null,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_event_rule.sync[\"orders\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_event_rule",
+     "name": "sync",
+     "index": "orders",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"orders\"]",
+      "description": "Kick off the orders partner sync",
+      "event_bus_name": "default",
+      "event_pattern": null,
+      "force_destroy": false,
+      "id": "mock-aws_cloudwatch_event_rule.sync[\"orders\"]",
+      "is_enabled": null,
+      "name": "partner-gateway-orders-sync",
+      "name_prefix": "mock-name_prefix",
+      "region": "us-east-1",
+      "role_arn": null,
+      "schedule_expression": "rate(5 minutes)",
+      "state": null,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_cloudwatch_event_target.sync[\"catalog\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_event_target",
+     "name": "sync",
+     "index": "catalog",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "appsync_target": [],
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"catalog\"]",
+      "batch_target": [],
+      "dead_letter_config": [],
+      "ecs_target": [],
+      "event_bus_name": "default",
+      "force_destroy": false,
+      "http_target": [],
+      "id": "mock-aws_cloudwatch_event_target.sync[\"catalog\"]",
+      "input": "{\"job\":\"catalog\"}",
+      "input_path": null,
+      "input_transformer": [],
+      "kinesis_target": [],
+      "redshift_target": [],
+      "region": "us-east-1",
+      "retry_policy": [],
+      "role_arn": null,
+      "rule": "partner-gateway-catalog-sync",
+      "run_command_targets": [],
+      "sagemaker_pipeline_target": [],
+      "sqs_target": [],
+      "target_id": "sqs"
+     },
+     "sensitive_values": {
+      "appsync_target": [],
+      "batch_target": [],
+      "dead_letter_config": [],
+      "ecs_target": [],
+      "http_target": [],
+      "input_transformer": [],
+      "kinesis_target": [],
+      "redshift_target": [],
+      "retry_policy": [],
+      "run_command_targets": [],
+      "sagemaker_pipeline_target": [],
+      "sqs_target": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_event_target.sync[\"inventory\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_event_target",
+     "name": "sync",
+     "index": "inventory",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "appsync_target": [],
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"inventory\"]",
+      "batch_target": [],
+      "dead_letter_config": [],
+      "ecs_target": [],
+      "event_bus_name": "default",
+      "force_destroy": false,
+      "http_target": [],
+      "id": "mock-aws_cloudwatch_event_target.sync[\"inventory\"]",
+      "input": "{\"job\":\"inventory\"}",
+      "input_path": null,
+      "input_transformer": [],
+      "kinesis_target": [],
+      "redshift_target": [],
+      "region": "us-east-1",
+      "retry_policy": [],
+      "role_arn": null,
+      "rule": "partner-gateway-inventory-sync",
+      "run_command_targets": [],
+      "sagemaker_pipeline_target": [],
+      "sqs_target": [],
+      "target_id": "sqs"
+     },
+     "sensitive_values": {
+      "appsync_target": [],
+      "batch_target": [],
+      "dead_letter_config": [],
+      "ecs_target": [],
+      "http_target": [],
+      "input_transformer": [],
+      "kinesis_target": [],
+      "redshift_target": [],
+      "retry_policy": [],
+      "run_command_targets": [],
+      "sagemaker_pipeline_target": [],
+      "sqs_target": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_event_target.sync[\"invoices\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_event_target",
+     "name": "sync",
+     "index": "invoices",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "appsync_target": [],
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"invoices\"]",
+      "batch_target": [],
+      "dead_letter_config": [],
+      "ecs_target": [],
+      "event_bus_name": "default",
+      "force_destroy": false,
+      "http_target": [],
+      "id": "mock-aws_cloudwatch_event_target.sync[\"invoices\"]",
+      "input": "{\"job\":\"invoices\"}",
+      "input_path": null,
+      "input_transformer": [],
+      "kinesis_target": [],
+      "redshift_target": [],
+      "region": "us-east-1",
+      "retry_policy": [],
+      "role_arn": null,
+      "rule": "partner-gateway-invoices-sync",
+      "run_command_targets": [],
+      "sagemaker_pipeline_target": [],
+      "sqs_target": [],
+      "target_id": "sqs"
+     },
+     "sensitive_values": {
+      "appsync_target": [],
+      "batch_target": [],
+      "dead_letter_config": [],
+      "ecs_target": [],
+      "http_target": [],
+      "input_transformer": [],
+      "kinesis_target": [],
+      "redshift_target": [],
+      "retry_policy": [],
+      "run_command_targets": [],
+      "sagemaker_pipeline_target": [],
+      "sqs_target": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_event_target.sync[\"orders\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_event_target",
+     "name": "sync",
+     "index": "orders",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "appsync_target": [],
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"orders\"]",
+      "batch_target": [],
+      "dead_letter_config": [],
+      "ecs_target": [],
+      "event_bus_name": "default",
+      "force_destroy": false,
+      "http_target": [],
+      "id": "mock-aws_cloudwatch_event_target.sync[\"orders\"]",
+      "input": "{\"job\":\"orders\"}",
+      "input_path": null,
+      "input_transformer": [],
+      "kinesis_target": [],
+      "redshift_target": [],
+      "region": "us-east-1",
+      "retry_policy": [],
+      "role_arn": null,
+      "rule": "partner-gateway-orders-sync",
+      "run_command_targets": [],
+      "sagemaker_pipeline_target": [],
+      "sqs_target": [],
+      "target_id": "sqs"
+     },
+     "sensitive_values": {
+      "appsync_target": [],
+      "batch_target": [],
+      "dead_letter_config": [],
+      "ecs_target": [],
+      "http_target": [],
+      "input_transformer": [],
+      "kinesis_target": [],
+      "redshift_target": [],
+      "retry_policy": [],
+      "run_command_targets": [],
+      "sagemaker_pipeline_target": [],
+      "sqs_target": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_log_group.gateway",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "gateway",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.gateway",
+      "deletion_protection_enabled": false,
+      "id": "mock-aws_cloudwatch_log_group.gateway",
+      "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "log_group_class": "mock-log_group_class",
+      "name": "/ecs/partner-gateway",
+      "name_prefix": "mock-name_prefix",
+      "region": "us-east-1",
+      "retention_in_days": 90,
+      "skip_destroy": false,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_iam_role.gateway_task",
+     "mode": "managed",
+     "type": "aws_iam_role",
+     "name": "gateway_task",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.gateway_task",
+      "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+      "create_date": "mock-create_date",
+      "description": null,
+      "force_detach_policies": false,
+      "id": "mock-aws_iam_role.gateway_task",
+      "inline_policy": [],
+      "managed_policy_arns": [],
+      "max_session_duration": 3600,
+      "name": "partner-gateway-task",
+      "name_prefix": "mock-name_prefix",
+      "path": "/",
+      "permissions_boundary": null,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "unique_id": "mock-unique_id"
+     },
+     "sensitive_values": {
+      "inline_policy": [],
+      "managed_policy_arns": [],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_iam_role_policy.gateway_task",
+     "mode": "managed",
+     "type": "aws_iam_role_policy",
+     "name": "gateway_task",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "id": "mock-aws_iam_role_policy.gateway_task",
+      "name": "partner-gateway-task",
+      "name_prefix": "mock-name_prefix",
+      "role": "mock-aws_iam_role.gateway_task"
+     },
+     "sensitive_values": {}
+    },
+    {
+     "address": "aws_secretsmanager_secret.acme_partner_api_v2",
+     "mode": "managed",
+     "type": "aws_secretsmanager_secret",
+     "name": "acme_partner_api_v2",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "description": "OAuth client for the ACME wholesale API v2.",
+      "force_overwrite_replica_secret": false,
+      "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "name": "partner-gateway/prod/acme-partner-api-v2",
+      "recovery_window_in_days": 30,
+      "region": "us-east-1",
+      "replica": [],
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "type": null
+     },
+     "sensitive_values": {
+      "replica": [],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_secretsmanager_secret.db_credentials",
+     "mode": "managed",
+     "type": "aws_secretsmanager_secret",
+     "name": "db_credentials",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.db_credentials",
+      "description": "Gateway Postgres credentials (rotated by the platform rotator).",
+      "force_overwrite_replica_secret": false,
+      "id": "mock-aws_secretsmanager_secret.db_credentials",
+      "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "name": "partner-gateway/prod/db-credentials",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "recovery_window_in_days": 30,
+      "region": "us-east-1",
+      "replica": [],
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "type": null
+     },
+     "sensitive_values": {
+      "replica": [],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_secretsmanager_secret.sftp_key",
+     "mode": "managed",
+     "type": "aws_secretsmanager_secret",
+     "name": "sftp_key",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.sftp_key",
+      "description": "SSH key for the nightly invoice SFTP drop.",
+      "force_overwrite_replica_secret": false,
+      "id": "mock-aws_secretsmanager_secret.sftp_key",
+      "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "name": "partner-gateway/prod/sftp-private-key",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "recovery_window_in_days": 14,
+      "region": "us-east-1",
+      "replica": [],
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "type": null
+     },
+     "sensitive_values": {
+      "replica": [],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_secretsmanager_secret.webhook_signing",
+     "mode": "managed",
+     "type": "aws_secretsmanager_secret",
+     "name": "webhook_signing",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.webhook_signing",
+      "description": "HMAC key used to sign outbound partner webhooks.",
+      "force_overwrite_replica_secret": false,
+      "id": "mock-aws_secretsmanager_secret.webhook_signing",
+      "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "name": "partner-gateway/prod/webhook-signing-key",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "recovery_window_in_days": 30,
+      "region": "us-east-1",
+      "replica": [],
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "type": null
+     },
+     "sensitive_values": {
+      "replica": [],
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.sync[\"catalog\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "sync",
+     "index": "catalog",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"catalog\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.sync[\"catalog\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "max_message_size": 262144,
+      "message_retention_seconds": 604800,
+      "name": "partner-gateway-catalog-sync",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 0,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"catalog\\\"]\",\"maxReceiveCount\":4}",
+      "region": "us-east-1",
+      "sqs_managed_sse_enabled": false,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 300
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.sync[\"inventory\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "sync",
+     "index": "inventory",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"inventory\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.sync[\"inventory\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "max_message_size": 262144,
+      "message_retention_seconds": 604800,
+      "name": "partner-gateway-inventory-sync",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 0,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"inventory\\\"]\",\"maxReceiveCount\":4}",
+      "region": "us-east-1",
+      "sqs_managed_sse_enabled": false,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 300
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.sync[\"invoices\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "sync",
+     "index": "invoices",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"invoices\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.sync[\"invoices\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "max_message_size": 262144,
+      "message_retention_seconds": 604800,
+      "name": "partner-gateway-invoices-sync",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 0,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"invoices\\\"]\",\"maxReceiveCount\":4}",
+      "region": "us-east-1",
+      "sqs_managed_sse_enabled": false,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 300
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.sync[\"orders\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "sync",
+     "index": "orders",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"orders\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.sync[\"orders\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "max_message_size": 262144,
+      "message_retention_seconds": 604800,
+      "name": "partner-gateway-orders-sync",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 0,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"orders\\\"]\",\"maxReceiveCount\":4}",
+      "region": "us-east-1",
+      "sqs_managed_sse_enabled": false,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 300
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.sync_dlq[\"catalog\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "sync_dlq",
+     "index": "catalog",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"catalog\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.sync_dlq[\"catalog\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "max_message_size": 262144,
+      "message_retention_seconds": 1209600,
+      "name": "partner-gateway-catalog-sync-dlq",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 0,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "mock-redrive_policy",
+      "region": "us-east-1",
+      "sqs_managed_sse_enabled": false,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 30
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.sync_dlq[\"inventory\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "sync_dlq",
+     "index": "inventory",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"inventory\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.sync_dlq[\"inventory\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "max_message_size": 262144,
+      "message_retention_seconds": 1209600,
+      "name": "partner-gateway-inventory-sync-dlq",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 0,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "mock-redrive_policy",
+      "region": "us-east-1",
+      "sqs_managed_sse_enabled": false,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 30
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.sync_dlq[\"invoices\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "sync_dlq",
+     "index": "invoices",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"invoices\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.sync_dlq[\"invoices\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "max_message_size": 262144,
+      "message_retention_seconds": 1209600,
+      "name": "partner-gateway-invoices-sync-dlq",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 0,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "mock-redrive_policy",
+      "region": "us-east-1",
+      "sqs_managed_sse_enabled": false,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 30
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.sync_dlq[\"orders\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "sync_dlq",
+     "index": "orders",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"orders\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.sync_dlq[\"orders\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+      "max_message_size": 262144,
+      "message_retention_seconds": 1209600,
+      "name": "partner-gateway-orders-sync-dlq",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 0,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "mock-redrive_policy",
+      "region": "us-east-1",
+      "sqs_managed_sse_enabled": false,
+      "tags": null,
+      "tags_all": {
+       "Application": "partner-gateway",
+       "Environment": "production",
+       "Owner": "integrations",
+       "Repository": "partner-gateway-infra",
+       "Terraform": "true"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 30
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "data.aws_iam_policy_document.gateway_task",
+     "mode": "data",
+     "type": "aws_iam_policy_document",
+     "name": "gateway_task",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "override_json": null,
+      "override_policy_documents": null,
+      "policy_id": null,
+      "source_json": null,
+      "source_policy_documents": null,
+      "statement": [
+       {
+        "actions": [
+         "secretsmanager:DescribeSecret",
+         "secretsmanager:GetSecretValue"
+        ],
+        "condition": [],
+        "effect": null,
+        "not_actions": null,
+        "not_principals": [],
+        "not_resources": null,
+        "principals": [],
+        "resources": [
+         "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.db_credentials",
+         "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.sftp_key",
+         "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.webhook_signing",
+         null
+        ],
+        "sid": "ReadAppSecrets"
+       },
+       {
+        "actions": [
+         "kms:Decrypt"
+        ],
+        "condition": [],
+        "effect": null,
+        "not_actions": null,
+        "not_principals": [],
+        "not_resources": null,
+        "principals": [],
+        "resources": [
+         "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41"
+        ],
+        "sid": "DecryptAppSecrets"
+       },
+       {
+        "actions": [
+         "sqs:DeleteMessage",
+         "sqs:GetQueueAttributes",
+         "sqs:ReceiveMessage",
+         "sqs:SendMessage"
+        ],
+        "condition": [],
+        "effect": null,
+        "not_actions": null,
+        "not_principals": [],
+        "not_resources": null,
+        "principals": [],
+        "resources": [
+         "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"catalog\"]",
+         "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"inventory\"]",
+         "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"invoices\"]",
+         "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"orders\"]"
+        ],
+        "sid": "ConsumeSyncQueues"
+       }
+      ],
+      "version": null
+     },
+     "sensitive_values": {
+      "statement": [
+       {
+        "actions": [
+         false,
+         false
+        ],
+        "condition": [],
+        "not_principals": [],
+        "principals": [],
+        "resources": [
+         false,
+         false,
+         false,
+         false
+        ]
+       },
+       {
+        "actions": [
+         false
+        ],
+        "condition": [],
+        "not_principals": [],
+        "principals": [],
+        "resources": [
+         false
+        ]
+       },
+       {
+        "actions": [
+         false,
+         false,
+         false,
+         false
+        ],
+        "condition": [],
+        "not_principals": [],
+        "principals": [],
+        "resources": [
+         false,
+         false,
+         false,
+         false
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "resource_changes": [
+  {
+   "address": "data.aws_iam_policy_document.gateway_task",
+   "mode": "data",
+   "type": "aws_iam_policy_document",
+   "name": "gateway_task",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "read"
+    ],
+    "before": null,
+    "after": {
+     "override_json": null,
+     "override_policy_documents": null,
+     "policy_id": null,
+     "source_json": null,
+     "source_policy_documents": null,
+     "statement": [
+      {
+       "actions": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue"
+       ],
+       "condition": [],
+       "effect": null,
+       "not_actions": null,
+       "not_principals": [],
+       "not_resources": null,
+       "principals": [],
+       "resources": [
+        "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.db_credentials",
+        "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.sftp_key",
+        "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.webhook_signing",
+        null
+       ],
+       "sid": "ReadAppSecrets"
+      },
+      {
+       "actions": [
+        "kms:Decrypt"
+       ],
+       "condition": [],
+       "effect": null,
+       "not_actions": null,
+       "not_principals": [],
+       "not_resources": null,
+       "principals": [],
+       "resources": [
+        "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41"
+       ],
+       "sid": "DecryptAppSecrets"
+      },
+      {
+       "actions": [
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ReceiveMessage",
+        "sqs:SendMessage"
+       ],
+       "condition": [],
+       "effect": null,
+       "not_actions": null,
+       "not_principals": [],
+       "not_resources": null,
+       "principals": [],
+       "resources": [
+        "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"catalog\"]",
+        "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"inventory\"]",
+        "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"invoices\"]",
+        "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"orders\"]"
+       ],
+       "sid": "ConsumeSyncQueues"
+      }
+     ],
+     "version": null
+    },
+    "after_unknown": {
+     "id": true,
+     "json": true,
+     "minified_json": true,
+     "statement": [
+      {
+       "actions": [
+        false,
+        false
+       ],
+       "condition": [],
+       "not_principals": [],
+       "principals": [],
+       "resources": [
+        false,
+        false,
+        false,
+        true
+       ]
+      },
+      {
+       "actions": [
+        false
+       ],
+       "condition": [],
+       "not_principals": [],
+       "principals": [],
+       "resources": [
+        false
+       ]
+      },
+      {
+       "actions": [
+        false,
+        false,
+        false,
+        false
+       ],
+       "condition": [],
+       "not_principals": [],
+       "principals": [],
+       "resources": [
+        false,
+        false,
+        false,
+        false
+       ]
+      }
+     ]
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "statement": [
+      {
+       "actions": [
+        false,
+        false
+       ],
+       "condition": [],
+       "not_principals": [],
+       "principals": [],
+       "resources": [
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      {
+       "actions": [
+        false
+       ],
+       "condition": [],
+       "not_principals": [],
+       "principals": [],
+       "resources": [
+        false
+       ]
+      },
+      {
+       "actions": [
+        false,
+        false,
+        false,
+        false
+       ],
+       "condition": [],
+       "not_principals": [],
+       "principals": [],
+       "resources": [
+        false,
+        false,
+        false,
+        false
+       ]
+      }
+     ]
+    }
+   },
+   "action_reason": "read_because_config_unknown"
+  },
+  {
+   "address": "aws_cloudwatch_event_rule.sync[\"catalog\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_event_rule",
+   "name": "sync",
+   "index": "catalog",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"catalog\"]",
+     "description": "Kick off the catalog partner sync",
+     "event_bus_name": "default",
+     "event_pattern": null,
+     "force_destroy": false,
+     "id": "mock-aws_cloudwatch_event_rule.sync[\"catalog\"]",
+     "is_enabled": null,
+     "name": "partner-gateway-catalog-sync",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "role_arn": null,
+     "schedule_expression": "cron(0 */4 * * ? *)",
+     "state": null,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"catalog\"]",
+     "description": "Kick off the catalog partner sync",
+     "event_bus_name": "default",
+     "event_pattern": null,
+     "force_destroy": false,
+     "id": "mock-aws_cloudwatch_event_rule.sync[\"catalog\"]",
+     "is_enabled": null,
+     "name": "partner-gateway-catalog-sync",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "role_arn": null,
+     "schedule_expression": "cron(0 */4 * * ? *)",
+     "state": null,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_event_rule.sync[\"inventory\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_event_rule",
+   "name": "sync",
+   "index": "inventory",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"inventory\"]",
+     "description": "Kick off the inventory partner sync",
+     "event_bus_name": "default",
+     "event_pattern": null,
+     "force_destroy": false,
+     "id": "mock-aws_cloudwatch_event_rule.sync[\"inventory\"]",
+     "is_enabled": null,
+     "name": "partner-gateway-inventory-sync",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "role_arn": null,
+     "schedule_expression": "rate(15 minutes)",
+     "state": null,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"inventory\"]",
+     "description": "Kick off the inventory partner sync",
+     "event_bus_name": "default",
+     "event_pattern": null,
+     "force_destroy": false,
+     "id": "mock-aws_cloudwatch_event_rule.sync[\"inventory\"]",
+     "is_enabled": null,
+     "name": "partner-gateway-inventory-sync",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "role_arn": null,
+     "schedule_expression": "rate(10 minutes)",
+     "state": null,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_event_rule.sync[\"invoices\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_event_rule",
+   "name": "sync",
+   "index": "invoices",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"invoices\"]",
+     "description": "Kick off the invoices partner sync",
+     "event_bus_name": "default",
+     "event_pattern": null,
+     "force_destroy": false,
+     "id": "mock-aws_cloudwatch_event_rule.sync[\"invoices\"]",
+     "is_enabled": null,
+     "name": "partner-gateway-invoices-sync",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "role_arn": null,
+     "schedule_expression": "cron(30 2 * * ? *)",
+     "state": null,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"invoices\"]",
+     "description": "Kick off the invoices partner sync",
+     "event_bus_name": "default",
+     "event_pattern": null,
+     "force_destroy": false,
+     "id": "mock-aws_cloudwatch_event_rule.sync[\"invoices\"]",
+     "is_enabled": null,
+     "name": "partner-gateway-invoices-sync",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "role_arn": null,
+     "schedule_expression": "cron(30 2 * * ? *)",
+     "state": null,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_event_rule.sync[\"orders\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_event_rule",
+   "name": "sync",
+   "index": "orders",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"orders\"]",
+     "description": "Kick off the orders partner sync",
+     "event_bus_name": "default",
+     "event_pattern": null,
+     "force_destroy": false,
+     "id": "mock-aws_cloudwatch_event_rule.sync[\"orders\"]",
+     "is_enabled": null,
+     "name": "partner-gateway-orders-sync",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "role_arn": null,
+     "schedule_expression": "rate(5 minutes)",
+     "state": null,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"orders\"]",
+     "description": "Kick off the orders partner sync",
+     "event_bus_name": "default",
+     "event_pattern": null,
+     "force_destroy": false,
+     "id": "mock-aws_cloudwatch_event_rule.sync[\"orders\"]",
+     "is_enabled": null,
+     "name": "partner-gateway-orders-sync",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "role_arn": null,
+     "schedule_expression": "rate(5 minutes)",
+     "state": null,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_event_target.sync[\"catalog\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_event_target",
+   "name": "sync",
+   "index": "catalog",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "appsync_target": [],
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"catalog\"]",
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "event_bus_name": "default",
+     "force_destroy": false,
+     "http_target": [],
+     "id": "mock-aws_cloudwatch_event_target.sync[\"catalog\"]",
+     "input": "{\"job\":\"catalog\"}",
+     "input_path": null,
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "region": "us-east-1",
+     "retry_policy": [],
+     "role_arn": null,
+     "rule": "partner-gateway-catalog-sync",
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": [],
+     "target_id": "sqs"
+    },
+    "after": {
+     "appsync_target": [],
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"catalog\"]",
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "event_bus_name": "default",
+     "force_destroy": false,
+     "http_target": [],
+     "id": "mock-aws_cloudwatch_event_target.sync[\"catalog\"]",
+     "input": "{\"job\":\"catalog\"}",
+     "input_path": null,
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "region": "us-east-1",
+     "retry_policy": [],
+     "role_arn": null,
+     "rule": "partner-gateway-catalog-sync",
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": [],
+     "target_id": "sqs"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "appsync_target": [],
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "http_target": [],
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "retry_policy": [],
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": []
+    },
+    "after_sensitive": {
+     "appsync_target": [],
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "http_target": [],
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "retry_policy": [],
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_event_target.sync[\"inventory\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_event_target",
+   "name": "sync",
+   "index": "inventory",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "appsync_target": [],
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"inventory\"]",
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "event_bus_name": "default",
+     "force_destroy": false,
+     "http_target": [],
+     "id": "mock-aws_cloudwatch_event_target.sync[\"inventory\"]",
+     "input": "{\"job\":\"inventory\"}",
+     "input_path": null,
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "region": "us-east-1",
+     "retry_policy": [],
+     "role_arn": null,
+     "rule": "partner-gateway-inventory-sync",
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": [],
+     "target_id": "sqs"
+    },
+    "after": {
+     "appsync_target": [],
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"inventory\"]",
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "event_bus_name": "default",
+     "force_destroy": false,
+     "http_target": [],
+     "id": "mock-aws_cloudwatch_event_target.sync[\"inventory\"]",
+     "input": "{\"job\":\"inventory\"}",
+     "input_path": null,
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "region": "us-east-1",
+     "retry_policy": [],
+     "role_arn": null,
+     "rule": "partner-gateway-inventory-sync",
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": [],
+     "target_id": "sqs"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "appsync_target": [],
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "http_target": [],
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "retry_policy": [],
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": []
+    },
+    "after_sensitive": {
+     "appsync_target": [],
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "http_target": [],
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "retry_policy": [],
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_event_target.sync[\"invoices\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_event_target",
+   "name": "sync",
+   "index": "invoices",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "appsync_target": [],
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"invoices\"]",
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "event_bus_name": "default",
+     "force_destroy": false,
+     "http_target": [],
+     "id": "mock-aws_cloudwatch_event_target.sync[\"invoices\"]",
+     "input": "{\"job\":\"invoices\"}",
+     "input_path": null,
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "region": "us-east-1",
+     "retry_policy": [],
+     "role_arn": null,
+     "rule": "partner-gateway-invoices-sync",
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": [],
+     "target_id": "sqs"
+    },
+    "after": {
+     "appsync_target": [],
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"invoices\"]",
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "event_bus_name": "default",
+     "force_destroy": false,
+     "http_target": [],
+     "id": "mock-aws_cloudwatch_event_target.sync[\"invoices\"]",
+     "input": "{\"job\":\"invoices\"}",
+     "input_path": null,
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "region": "us-east-1",
+     "retry_policy": [],
+     "role_arn": null,
+     "rule": "partner-gateway-invoices-sync",
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": [],
+     "target_id": "sqs"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "appsync_target": [],
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "http_target": [],
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "retry_policy": [],
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": []
+    },
+    "after_sensitive": {
+     "appsync_target": [],
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "http_target": [],
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "retry_policy": [],
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_event_target.sync[\"orders\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_event_target",
+   "name": "sync",
+   "index": "orders",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "appsync_target": [],
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"orders\"]",
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "event_bus_name": "default",
+     "force_destroy": false,
+     "http_target": [],
+     "id": "mock-aws_cloudwatch_event_target.sync[\"orders\"]",
+     "input": "{\"job\":\"orders\"}",
+     "input_path": null,
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "region": "us-east-1",
+     "retry_policy": [],
+     "role_arn": null,
+     "rule": "partner-gateway-orders-sync",
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": [],
+     "target_id": "sqs"
+    },
+    "after": {
+     "appsync_target": [],
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"orders\"]",
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "event_bus_name": "default",
+     "force_destroy": false,
+     "http_target": [],
+     "id": "mock-aws_cloudwatch_event_target.sync[\"orders\"]",
+     "input": "{\"job\":\"orders\"}",
+     "input_path": null,
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "region": "us-east-1",
+     "retry_policy": [],
+     "role_arn": null,
+     "rule": "partner-gateway-orders-sync",
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": [],
+     "target_id": "sqs"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "appsync_target": [],
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "http_target": [],
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "retry_policy": [],
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": []
+    },
+    "after_sensitive": {
+     "appsync_target": [],
+     "batch_target": [],
+     "dead_letter_config": [],
+     "ecs_target": [],
+     "http_target": [],
+     "input_transformer": [],
+     "kinesis_target": [],
+     "redshift_target": [],
+     "retry_policy": [],
+     "run_command_targets": [],
+     "sagemaker_pipeline_target": [],
+     "sqs_target": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_log_group.gateway",
+   "mode": "managed",
+   "type": "aws_cloudwatch_log_group",
+   "name": "gateway",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.gateway",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.gateway",
+     "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/partner-gateway",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 30,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.gateway",
+     "deletion_protection_enabled": false,
+     "id": "mock-aws_cloudwatch_log_group.gateway",
+     "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "log_group_class": "mock-log_group_class",
+     "name": "/ecs/partner-gateway",
+     "name_prefix": "mock-name_prefix",
+     "region": "us-east-1",
+     "retention_in_days": 90,
+     "skip_destroy": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_iam_role.gateway_task",
+   "mode": "managed",
+   "type": "aws_iam_role",
+   "name": "gateway_task",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.gateway_task",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": null,
+     "force_detach_policies": false,
+     "id": "mock-aws_iam_role.gateway_task",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "partner-gateway-task",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.gateway_task",
+     "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+     "create_date": "mock-create_date",
+     "description": null,
+     "force_detach_policies": false,
+     "id": "mock-aws_iam_role.gateway_task",
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "max_session_duration": 3600,
+     "name": "partner-gateway-task",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "permissions_boundary": null,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "unique_id": "mock-unique_id"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "inline_policy": [],
+     "managed_policy_arns": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_iam_role_policy.gateway_task",
+   "mode": "managed",
+   "type": "aws_iam_role_policy",
+   "name": "gateway_task",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "id": "mock-aws_iam_role_policy.gateway_task",
+     "name": "partner-gateway-task",
+     "name_prefix": "mock-name_prefix",
+     "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"secretsmanager:GetSecretValue\",\"secretsmanager:DescribeSecret\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.webhook_signing\",\"arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.sftp_key\",\"arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.db_credentials\",\"arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.acme_partner_api\"],\"Sid\":\"ReadAppSecrets\"},{\"Action\":\"kms:Decrypt\",\"Effect\":\"Allow\",\"Resource\":\"arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41\",\"Sid\":\"DecryptAppSecrets\"},{\"Action\":[\"sqs:SendMessage\",\"sqs:ReceiveMessage\",\"sqs:GetQueueAttributes\",\"sqs:DeleteMessage\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\\\"orders\\\"]\",\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\\\"invoices\\\"]\",\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\\\"inventory\\\"]\",\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\\\"catalog\\\"]\"],\"Sid\":\"ConsumeSyncQueues\"}]}",
+     "role": "mock-aws_iam_role.gateway_task"
+    },
+    "after": {
+     "id": "mock-aws_iam_role_policy.gateway_task",
+     "name": "partner-gateway-task",
+     "name_prefix": "mock-name_prefix",
+     "role": "mock-aws_iam_role.gateway_task"
+    },
+    "after_unknown": {
+     "policy": true
+    },
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "aws_secretsmanager_secret.acme_partner_api",
+   "mode": "managed",
+   "type": "aws_secretsmanager_secret",
+   "name": "acme_partner_api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "delete"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.acme_partner_api",
+     "description": "OAuth client for the ACME wholesale API (legacy v1 integration).",
+     "force_overwrite_replica_secret": false,
+     "id": "mock-aws_secretsmanager_secret.acme_partner_api",
+     "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "name": "partner-gateway/prod/acme-partner-api",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "recovery_window_in_days": 0,
+     "region": "us-east-1",
+     "replica": [],
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "type": null
+    },
+    "after": null,
+    "after_unknown": {},
+    "before_sensitive": {
+     "replica": [],
+     "tags_all": {}
+    },
+    "after_sensitive": false
+   },
+   "action_reason": "delete_because_no_resource_config"
+  },
+  {
+   "address": "aws_secretsmanager_secret.acme_partner_api_v2",
+   "mode": "managed",
+   "type": "aws_secretsmanager_secret",
+   "name": "acme_partner_api_v2",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "description": "OAuth client for the ACME wholesale API v2.",
+     "force_overwrite_replica_secret": false,
+     "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "name": "partner-gateway/prod/acme-partner-api-v2",
+     "recovery_window_in_days": 30,
+     "region": "us-east-1",
+     "replica": [],
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "type": null
+    },
+    "after_unknown": {
+     "arn": true,
+     "id": true,
+     "name_prefix": true,
+     "policy": true,
+     "replica": [],
+     "tags_all": {}
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "replica": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_secretsmanager_secret.db_credentials",
+   "mode": "managed",
+   "type": "aws_secretsmanager_secret",
+   "name": "db_credentials",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.db_credentials",
+     "description": "Gateway Postgres credentials (rotated by the platform rotator).",
+     "force_overwrite_replica_secret": false,
+     "id": "mock-aws_secretsmanager_secret.db_credentials",
+     "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "name": "partner-gateway/prod/db-credentials",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "recovery_window_in_days": 30,
+     "region": "us-east-1",
+     "replica": [],
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "type": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.db_credentials",
+     "description": "Gateway Postgres credentials (rotated by the platform rotator).",
+     "force_overwrite_replica_secret": false,
+     "id": "mock-aws_secretsmanager_secret.db_credentials",
+     "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "name": "partner-gateway/prod/db-credentials",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "recovery_window_in_days": 30,
+     "region": "us-east-1",
+     "replica": [],
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "type": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "replica": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "replica": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_secretsmanager_secret.sftp_key",
+   "mode": "managed",
+   "type": "aws_secretsmanager_secret",
+   "name": "sftp_key",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.sftp_key",
+     "description": "SSH key for the nightly invoice SFTP drop.",
+     "force_overwrite_replica_secret": false,
+     "id": "mock-aws_secretsmanager_secret.sftp_key",
+     "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "name": "partner-gateway/prod/sftp-private-key",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "recovery_window_in_days": 14,
+     "region": "us-east-1",
+     "replica": [],
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "type": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.sftp_key",
+     "description": "SSH key for the nightly invoice SFTP drop.",
+     "force_overwrite_replica_secret": false,
+     "id": "mock-aws_secretsmanager_secret.sftp_key",
+     "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "name": "partner-gateway/prod/sftp-private-key",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "recovery_window_in_days": 14,
+     "region": "us-east-1",
+     "replica": [],
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "type": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "replica": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "replica": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_secretsmanager_secret.webhook_signing",
+   "mode": "managed",
+   "type": "aws_secretsmanager_secret",
+   "name": "webhook_signing",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.webhook_signing",
+     "description": "HMAC key used to sign outbound partner webhooks.",
+     "force_overwrite_replica_secret": false,
+     "id": "mock-aws_secretsmanager_secret.webhook_signing",
+     "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "name": "partner-gateway/prod/webhook-signing-key",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "recovery_window_in_days": 30,
+     "region": "us-east-1",
+     "replica": [],
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "type": null
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.webhook_signing",
+     "description": "HMAC key used to sign outbound partner webhooks.",
+     "force_overwrite_replica_secret": false,
+     "id": "mock-aws_secretsmanager_secret.webhook_signing",
+     "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "name": "partner-gateway/prod/webhook-signing-key",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "recovery_window_in_days": 30,
+     "region": "us-east-1",
+     "replica": [],
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "type": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "replica": [],
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "replica": [],
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_secretsmanager_secret_version.acme_partner_api",
+   "mode": "managed",
+   "type": "aws_secretsmanager_secret_version",
+   "name": "acme_partner_api",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "delete"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret_version.acme_partner_api",
+     "has_secret_string_wo": false,
+     "id": "mock-aws_secretsmanager_secret_version.acme_partner_api",
+     "region": "us-east-1",
+     "secret_arn": "mock-secret_arn",
+     "secret_binary": null,
+     "secret_id": "mock-aws_secretsmanager_secret.acme_partner_api",
+     "secret_string": "{\"client_id\":\"REPLACE_ME\",\"client_secret\":\"REPLACE_ME\",\"token_url\":\"https://auth.acme-wholesale.example/oauth2/token\"}",
+     "secret_string_wo": null,
+     "secret_string_wo_version": null,
+     "version_id": "mock-version_id",
+     "version_stages": []
+    },
+    "after": null,
+    "after_unknown": {},
+    "before_sensitive": {
+     "secret_binary": true,
+     "secret_string": true,
+     "secret_string_wo": true,
+     "version_stages": []
+    },
+    "after_sensitive": false
+   },
+   "action_reason": "delete_because_no_resource_config"
+  },
+  {
+   "address": "aws_sqs_queue.sync[\"catalog\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "sync",
+   "index": "catalog",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"catalog\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync[\"catalog\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "partner-gateway-catalog-sync",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"catalog\\\"]\",\"maxReceiveCount\":4}",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 300
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"catalog\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync[\"catalog\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 604800,
+     "name": "partner-gateway-catalog-sync",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"catalog\\\"]\",\"maxReceiveCount\":4}",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 300
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.sync[\"inventory\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "sync",
+   "index": "inventory",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"inventory\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync[\"inventory\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "partner-gateway-inventory-sync",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"inventory\\\"]\",\"maxReceiveCount\":4}",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 300
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"inventory\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync[\"inventory\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 604800,
+     "name": "partner-gateway-inventory-sync",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"inventory\\\"]\",\"maxReceiveCount\":4}",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 300
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.sync[\"invoices\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "sync",
+   "index": "invoices",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"invoices\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync[\"invoices\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "partner-gateway-invoices-sync",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"invoices\\\"]\",\"maxReceiveCount\":4}",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 300
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"invoices\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync[\"invoices\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 604800,
+     "name": "partner-gateway-invoices-sync",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"invoices\\\"]\",\"maxReceiveCount\":4}",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 300
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.sync[\"orders\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "sync",
+   "index": "orders",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"orders\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync[\"orders\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "partner-gateway-orders-sync",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"orders\\\"]\",\"maxReceiveCount\":4}",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 300
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"orders\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync[\"orders\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 604800,
+     "name": "partner-gateway-orders-sync",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"orders\\\"]\",\"maxReceiveCount\":4}",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 300
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.sync_dlq[\"catalog\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "sync_dlq",
+   "index": "catalog",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"catalog\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync_dlq[\"catalog\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "partner-gateway-catalog-sync-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"catalog\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync_dlq[\"catalog\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "partner-gateway-catalog-sync-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.sync_dlq[\"inventory\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "sync_dlq",
+   "index": "inventory",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"inventory\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync_dlq[\"inventory\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "partner-gateway-inventory-sync-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"inventory\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync_dlq[\"inventory\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "partner-gateway-inventory-sync-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.sync_dlq[\"invoices\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "sync_dlq",
+   "index": "invoices",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"invoices\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync_dlq[\"invoices\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "partner-gateway-invoices-sync-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"invoices\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync_dlq[\"invoices\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "partner-gateway-invoices-sync-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.sync_dlq[\"orders\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "sync_dlq",
+   "index": "orders",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"orders\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync_dlq[\"orders\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "partner-gateway-orders-sync-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"orders\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.sync_dlq[\"orders\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "partner-gateway-orders-sync-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "us-east-1",
+     "sqs_managed_sse_enabled": false,
+     "tags": null,
+     "tags_all": {
+      "Application": "partner-gateway",
+      "Environment": "production",
+      "Owner": "integrations",
+      "Repository": "partner-gateway-infra",
+      "Terraform": "true"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  }
+ ],
+ "prior_state": {
+  "format_version": "1.0",
+  "terraform_version": "1.10.5",
+  "values": {
+   "root_module": {
+    "resources": [
+     {
+      "address": "data.aws_iam_policy_document.assume_ecs_tasks",
+      "mode": "data",
+      "type": "aws_iam_policy_document",
+      "name": "assume_ecs_tasks",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "1077804475",
+       "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Action\": \"sts:AssumeRole\",\n      \"Principal\": {\n        \"Service\": \"ecs-tasks.amazonaws.com\"\n      }\n    }\n  ]\n}",
+       "minified_json": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":\"sts:AssumeRole\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}]}",
+       "override_json": null,
+       "override_policy_documents": null,
+       "policy_id": null,
+       "source_json": null,
+       "source_policy_documents": null,
+       "statement": [
+        {
+         "actions": [
+          "sts:AssumeRole"
+         ],
+         "condition": [],
+         "effect": "Allow",
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [
+          {
+           "identifiers": [
+            "ecs-tasks.amazonaws.com"
+           ],
+           "type": "Service"
+          }
+         ],
+         "resources": [],
+         "sid": ""
+        }
+       ],
+       "version": "2012-10-17"
+      },
+      "sensitive_values": {
+       "statement": [
+        {
+         "actions": [
+          false
+         ],
+         "condition": [],
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [
+          {
+           "identifiers": [
+            false
+           ]
+          }
+         ],
+         "resources": []
+        }
+       ]
+      }
+     },
+     {
+      "address": "aws_cloudwatch_event_rule.sync[\"catalog\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_event_rule",
+      "name": "sync",
+      "index": "catalog",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"catalog\"]",
+       "description": "Kick off the catalog partner sync",
+       "event_bus_name": "default",
+       "event_pattern": null,
+       "force_destroy": false,
+       "id": "mock-aws_cloudwatch_event_rule.sync[\"catalog\"]",
+       "is_enabled": null,
+       "name": "partner-gateway-catalog-sync",
+       "name_prefix": "mock-name_prefix",
+       "region": "us-east-1",
+       "role_arn": null,
+       "schedule_expression": "cron(0 */4 * * ? *)",
+       "state": null,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_cloudwatch_event_rule.sync[\"inventory\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_event_rule",
+      "name": "sync",
+      "index": "inventory",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"inventory\"]",
+       "description": "Kick off the inventory partner sync",
+       "event_bus_name": "default",
+       "event_pattern": null,
+       "force_destroy": false,
+       "id": "mock-aws_cloudwatch_event_rule.sync[\"inventory\"]",
+       "is_enabled": null,
+       "name": "partner-gateway-inventory-sync",
+       "name_prefix": "mock-name_prefix",
+       "region": "us-east-1",
+       "role_arn": null,
+       "schedule_expression": "rate(15 minutes)",
+       "state": null,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_cloudwatch_event_rule.sync[\"invoices\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_event_rule",
+      "name": "sync",
+      "index": "invoices",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"invoices\"]",
+       "description": "Kick off the invoices partner sync",
+       "event_bus_name": "default",
+       "event_pattern": null,
+       "force_destroy": false,
+       "id": "mock-aws_cloudwatch_event_rule.sync[\"invoices\"]",
+       "is_enabled": null,
+       "name": "partner-gateway-invoices-sync",
+       "name_prefix": "mock-name_prefix",
+       "region": "us-east-1",
+       "role_arn": null,
+       "schedule_expression": "cron(30 2 * * ? *)",
+       "state": null,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_cloudwatch_event_rule.sync[\"orders\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_event_rule",
+      "name": "sync",
+      "index": "orders",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_event_rule.sync[\"orders\"]",
+       "description": "Kick off the orders partner sync",
+       "event_bus_name": "default",
+       "event_pattern": null,
+       "force_destroy": false,
+       "id": "mock-aws_cloudwatch_event_rule.sync[\"orders\"]",
+       "is_enabled": null,
+       "name": "partner-gateway-orders-sync",
+       "name_prefix": "mock-name_prefix",
+       "region": "us-east-1",
+       "role_arn": null,
+       "schedule_expression": "rate(5 minutes)",
+       "state": null,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_cloudwatch_event_target.sync[\"catalog\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_event_target",
+      "name": "sync",
+      "index": "catalog",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "appsync_target": [],
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"catalog\"]",
+       "batch_target": [],
+       "dead_letter_config": [],
+       "ecs_target": [],
+       "event_bus_name": "default",
+       "force_destroy": false,
+       "http_target": [],
+       "id": "mock-aws_cloudwatch_event_target.sync[\"catalog\"]",
+       "input": "{\"job\":\"catalog\"}",
+       "input_path": null,
+       "input_transformer": [],
+       "kinesis_target": [],
+       "redshift_target": [],
+       "region": "us-east-1",
+       "retry_policy": [],
+       "role_arn": null,
+       "rule": "partner-gateway-catalog-sync",
+       "run_command_targets": [],
+       "sagemaker_pipeline_target": [],
+       "sqs_target": [],
+       "target_id": "sqs"
+      },
+      "sensitive_values": {
+       "appsync_target": [],
+       "batch_target": [],
+       "dead_letter_config": [],
+       "ecs_target": [],
+       "http_target": [],
+       "input_transformer": [],
+       "kinesis_target": [],
+       "redshift_target": [],
+       "retry_policy": [],
+       "run_command_targets": [],
+       "sagemaker_pipeline_target": [],
+       "sqs_target": []
+      },
+      "depends_on": [
+       "aws_cloudwatch_event_rule.sync",
+       "aws_sqs_queue.sync",
+       "aws_sqs_queue.sync_dlq"
+      ]
+     },
+     {
+      "address": "aws_cloudwatch_event_target.sync[\"inventory\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_event_target",
+      "name": "sync",
+      "index": "inventory",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "appsync_target": [],
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"inventory\"]",
+       "batch_target": [],
+       "dead_letter_config": [],
+       "ecs_target": [],
+       "event_bus_name": "default",
+       "force_destroy": false,
+       "http_target": [],
+       "id": "mock-aws_cloudwatch_event_target.sync[\"inventory\"]",
+       "input": "{\"job\":\"inventory\"}",
+       "input_path": null,
+       "input_transformer": [],
+       "kinesis_target": [],
+       "redshift_target": [],
+       "region": "us-east-1",
+       "retry_policy": [],
+       "role_arn": null,
+       "rule": "partner-gateway-inventory-sync",
+       "run_command_targets": [],
+       "sagemaker_pipeline_target": [],
+       "sqs_target": [],
+       "target_id": "sqs"
+      },
+      "sensitive_values": {
+       "appsync_target": [],
+       "batch_target": [],
+       "dead_letter_config": [],
+       "ecs_target": [],
+       "http_target": [],
+       "input_transformer": [],
+       "kinesis_target": [],
+       "redshift_target": [],
+       "retry_policy": [],
+       "run_command_targets": [],
+       "sagemaker_pipeline_target": [],
+       "sqs_target": []
+      },
+      "depends_on": [
+       "aws_cloudwatch_event_rule.sync",
+       "aws_sqs_queue.sync",
+       "aws_sqs_queue.sync_dlq"
+      ]
+     },
+     {
+      "address": "aws_cloudwatch_event_target.sync[\"invoices\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_event_target",
+      "name": "sync",
+      "index": "invoices",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "appsync_target": [],
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"invoices\"]",
+       "batch_target": [],
+       "dead_letter_config": [],
+       "ecs_target": [],
+       "event_bus_name": "default",
+       "force_destroy": false,
+       "http_target": [],
+       "id": "mock-aws_cloudwatch_event_target.sync[\"invoices\"]",
+       "input": "{\"job\":\"invoices\"}",
+       "input_path": null,
+       "input_transformer": [],
+       "kinesis_target": [],
+       "redshift_target": [],
+       "region": "us-east-1",
+       "retry_policy": [],
+       "role_arn": null,
+       "rule": "partner-gateway-invoices-sync",
+       "run_command_targets": [],
+       "sagemaker_pipeline_target": [],
+       "sqs_target": [],
+       "target_id": "sqs"
+      },
+      "sensitive_values": {
+       "appsync_target": [],
+       "batch_target": [],
+       "dead_letter_config": [],
+       "ecs_target": [],
+       "http_target": [],
+       "input_transformer": [],
+       "kinesis_target": [],
+       "redshift_target": [],
+       "retry_policy": [],
+       "run_command_targets": [],
+       "sagemaker_pipeline_target": [],
+       "sqs_target": []
+      },
+      "depends_on": [
+       "aws_cloudwatch_event_rule.sync",
+       "aws_sqs_queue.sync",
+       "aws_sqs_queue.sync_dlq"
+      ]
+     },
+     {
+      "address": "aws_cloudwatch_event_target.sync[\"orders\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_event_target",
+      "name": "sync",
+      "index": "orders",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "appsync_target": [],
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"orders\"]",
+       "batch_target": [],
+       "dead_letter_config": [],
+       "ecs_target": [],
+       "event_bus_name": "default",
+       "force_destroy": false,
+       "http_target": [],
+       "id": "mock-aws_cloudwatch_event_target.sync[\"orders\"]",
+       "input": "{\"job\":\"orders\"}",
+       "input_path": null,
+       "input_transformer": [],
+       "kinesis_target": [],
+       "redshift_target": [],
+       "region": "us-east-1",
+       "retry_policy": [],
+       "role_arn": null,
+       "rule": "partner-gateway-orders-sync",
+       "run_command_targets": [],
+       "sagemaker_pipeline_target": [],
+       "sqs_target": [],
+       "target_id": "sqs"
+      },
+      "sensitive_values": {
+       "appsync_target": [],
+       "batch_target": [],
+       "dead_letter_config": [],
+       "ecs_target": [],
+       "http_target": [],
+       "input_transformer": [],
+       "kinesis_target": [],
+       "redshift_target": [],
+       "retry_policy": [],
+       "run_command_targets": [],
+       "sagemaker_pipeline_target": [],
+       "sqs_target": []
+      },
+      "depends_on": [
+       "aws_cloudwatch_event_rule.sync",
+       "aws_sqs_queue.sync",
+       "aws_sqs_queue.sync_dlq"
+      ]
+     },
+     {
+      "address": "aws_cloudwatch_log_group.gateway",
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "gateway",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_log_group.gateway",
+       "deletion_protection_enabled": false,
+       "id": "mock-aws_cloudwatch_log_group.gateway",
+       "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "log_group_class": "mock-log_group_class",
+       "name": "/ecs/partner-gateway",
+       "name_prefix": "mock-name_prefix",
+       "region": "us-east-1",
+       "retention_in_days": 30,
+       "skip_destroy": false,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_iam_role.gateway_task",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "gateway_task",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_role.gateway_task",
+       "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+       "create_date": "mock-create_date",
+       "description": null,
+       "force_detach_policies": false,
+       "id": "mock-aws_iam_role.gateway_task",
+       "inline_policy": [],
+       "managed_policy_arns": [],
+       "max_session_duration": 3600,
+       "name": "partner-gateway-task",
+       "name_prefix": "mock-name_prefix",
+       "path": "/",
+       "permissions_boundary": null,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "unique_id": "mock-unique_id"
+      },
+      "sensitive_values": {
+       "inline_policy": [],
+       "managed_policy_arns": [],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_iam_role_policy.gateway_task",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "gateway_task",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "mock-aws_iam_role_policy.gateway_task",
+       "name": "partner-gateway-task",
+       "name_prefix": "mock-name_prefix",
+       "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"secretsmanager:GetSecretValue\",\"secretsmanager:DescribeSecret\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.webhook_signing\",\"arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.sftp_key\",\"arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.db_credentials\",\"arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.acme_partner_api\"],\"Sid\":\"ReadAppSecrets\"},{\"Action\":\"kms:Decrypt\",\"Effect\":\"Allow\",\"Resource\":\"arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41\",\"Sid\":\"DecryptAppSecrets\"},{\"Action\":[\"sqs:SendMessage\",\"sqs:ReceiveMessage\",\"sqs:GetQueueAttributes\",\"sqs:DeleteMessage\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\\\"orders\\\"]\",\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\\\"invoices\\\"]\",\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\\\"inventory\\\"]\",\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\\\"catalog\\\"]\"],\"Sid\":\"ConsumeSyncQueues\"}]}",
+       "role": "mock-aws_iam_role.gateway_task"
+      },
+      "sensitive_values": {}
+     },
+     {
+      "address": "aws_secretsmanager_secret.acme_partner_api",
+      "mode": "managed",
+      "type": "aws_secretsmanager_secret",
+      "name": "acme_partner_api",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.acme_partner_api",
+       "description": "OAuth client for the ACME wholesale API (legacy v1 integration).",
+       "force_overwrite_replica_secret": false,
+       "id": "mock-aws_secretsmanager_secret.acme_partner_api",
+       "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "name": "partner-gateway/prod/acme-partner-api",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "recovery_window_in_days": 0,
+       "region": "us-east-1",
+       "replica": [],
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "type": null
+      },
+      "sensitive_values": {
+       "replica": [],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_secretsmanager_secret.db_credentials",
+      "mode": "managed",
+      "type": "aws_secretsmanager_secret",
+      "name": "db_credentials",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.db_credentials",
+       "description": "Gateway Postgres credentials (rotated by the platform rotator).",
+       "force_overwrite_replica_secret": false,
+       "id": "mock-aws_secretsmanager_secret.db_credentials",
+       "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "name": "partner-gateway/prod/db-credentials",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "recovery_window_in_days": 30,
+       "region": "us-east-1",
+       "replica": [],
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "type": null
+      },
+      "sensitive_values": {
+       "replica": [],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_secretsmanager_secret.sftp_key",
+      "mode": "managed",
+      "type": "aws_secretsmanager_secret",
+      "name": "sftp_key",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.sftp_key",
+       "description": "SSH key for the nightly invoice SFTP drop.",
+       "force_overwrite_replica_secret": false,
+       "id": "mock-aws_secretsmanager_secret.sftp_key",
+       "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "name": "partner-gateway/prod/sftp-private-key",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "recovery_window_in_days": 14,
+       "region": "us-east-1",
+       "replica": [],
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "type": null
+      },
+      "sensitive_values": {
+       "replica": [],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_secretsmanager_secret.webhook_signing",
+      "mode": "managed",
+      "type": "aws_secretsmanager_secret",
+      "name": "webhook_signing",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret.webhook_signing",
+       "description": "HMAC key used to sign outbound partner webhooks.",
+       "force_overwrite_replica_secret": false,
+       "id": "mock-aws_secretsmanager_secret.webhook_signing",
+       "kms_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "name": "partner-gateway/prod/webhook-signing-key",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "recovery_window_in_days": 30,
+       "region": "us-east-1",
+       "replica": [],
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "type": null
+      },
+      "sensitive_values": {
+       "replica": [],
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_secretsmanager_secret_version.acme_partner_api",
+      "mode": "managed",
+      "type": "aws_secretsmanager_secret_version",
+      "name": "acme_partner_api",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_secretsmanager_secret_version.acme_partner_api",
+       "has_secret_string_wo": false,
+       "id": "mock-aws_secretsmanager_secret_version.acme_partner_api",
+       "region": "us-east-1",
+       "secret_arn": "mock-secret_arn",
+       "secret_binary": null,
+       "secret_id": "mock-aws_secretsmanager_secret.acme_partner_api",
+       "secret_string": "{\"client_id\":\"REPLACE_ME\",\"client_secret\":\"REPLACE_ME\",\"token_url\":\"https://auth.acme-wholesale.example/oauth2/token\"}",
+       "secret_string_wo": null,
+       "secret_string_wo_version": null,
+       "version_id": "mock-version_id",
+       "version_stages": []
+      },
+      "sensitive_values": {
+       "secret_binary": true,
+       "secret_string": true,
+       "secret_string_wo": true,
+       "version_stages": []
+      }
+     },
+     {
+      "address": "aws_sqs_queue.sync[\"catalog\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "sync",
+      "index": "catalog",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"catalog\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.sync[\"catalog\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "max_message_size": 262144,
+       "message_retention_seconds": 345600,
+       "name": "partner-gateway-catalog-sync",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 0,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"catalog\\\"]\",\"maxReceiveCount\":4}",
+       "region": "us-east-1",
+       "sqs_managed_sse_enabled": false,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 300
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.sync[\"inventory\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "sync",
+      "index": "inventory",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"inventory\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.sync[\"inventory\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "max_message_size": 262144,
+       "message_retention_seconds": 345600,
+       "name": "partner-gateway-inventory-sync",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 0,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"inventory\\\"]\",\"maxReceiveCount\":4}",
+       "region": "us-east-1",
+       "sqs_managed_sse_enabled": false,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 300
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.sync[\"invoices\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "sync",
+      "index": "invoices",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"invoices\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.sync[\"invoices\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "max_message_size": 262144,
+       "message_retention_seconds": 345600,
+       "name": "partner-gateway-invoices-sync",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 0,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"invoices\\\"]\",\"maxReceiveCount\":4}",
+       "region": "us-east-1",
+       "sqs_managed_sse_enabled": false,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 300
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.sync[\"orders\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "sync",
+      "index": "orders",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync[\"orders\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.sync[\"orders\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "max_message_size": 262144,
+       "message_retention_seconds": 345600,
+       "name": "partner-gateway-orders-sync",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 0,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\\\"orders\\\"]\",\"maxReceiveCount\":4}",
+       "region": "us-east-1",
+       "sqs_managed_sse_enabled": false,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 300
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.sync_dlq[\"catalog\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "sync_dlq",
+      "index": "catalog",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"catalog\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.sync_dlq[\"catalog\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "max_message_size": 262144,
+       "message_retention_seconds": 1209600,
+       "name": "partner-gateway-catalog-sync-dlq",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 0,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "mock-redrive_policy",
+       "region": "us-east-1",
+       "sqs_managed_sse_enabled": false,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 30
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.sync_dlq[\"inventory\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "sync_dlq",
+      "index": "inventory",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"inventory\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.sync_dlq[\"inventory\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "max_message_size": 262144,
+       "message_retention_seconds": 1209600,
+       "name": "partner-gateway-inventory-sync-dlq",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 0,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "mock-redrive_policy",
+       "region": "us-east-1",
+       "sqs_managed_sse_enabled": false,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 30
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.sync_dlq[\"invoices\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "sync_dlq",
+      "index": "invoices",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"invoices\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.sync_dlq[\"invoices\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "max_message_size": 262144,
+       "message_retention_seconds": 1209600,
+       "name": "partner-gateway-invoices-sync-dlq",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 0,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "mock-redrive_policy",
+       "region": "us-east-1",
+       "sqs_managed_sse_enabled": false,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 30
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.sync_dlq[\"orders\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "sync_dlq",
+      "index": "orders",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.sync_dlq[\"orders\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.sync_dlq[\"orders\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": "arn:aws:kms:us-east-1:456789012345:key/6a2d8f1e-3c4b-4e7a-9d10-2b5c8e7f6a41",
+       "max_message_size": 262144,
+       "message_retention_seconds": 1209600,
+       "name": "partner-gateway-orders-sync-dlq",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 0,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "mock-redrive_policy",
+       "region": "us-east-1",
+       "sqs_managed_sse_enabled": false,
+       "tags": null,
+       "tags_all": {
+        "Application": "partner-gateway",
+        "Environment": "production",
+        "Owner": "integrations",
+        "Terraform": "true"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 30
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     }
+    ]
+   }
+  }
+ },
+ "configuration": {
+  "provider_config": {
+   "aws": {
+    "name": "aws",
+    "full_name": "registry.terraform.io/hashicorp/aws",
+    "version_constraint": "~> 6.0",
+    "expressions": {
+     "access_key": {
+      "constant_value": "mock_access_key"
+     },
+     "default_tags": [
+      {
+       "tags": {
+        "constant_value": {
+         "Application": "partner-gateway",
+         "Environment": "production",
+         "Owner": "integrations",
+         "Repository": "partner-gateway-infra",
+         "Terraform": "true"
+        }
+       }
+      }
+     ],
+     "region": {
+      "constant_value": "us-east-1"
+     },
+     "secret_key": {
+      "constant_value": "mock_secret_key"
+     },
+     "skip_credentials_validation": {
+      "constant_value": true
+     },
+     "skip_metadata_api_check": {
+      "constant_value": true
+     },
+     "skip_region_validation": {
+      "constant_value": true
+     },
+     "skip_requesting_account_id": {
+      "constant_value": true
+     }
+    }
+   }
+  },
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_cloudwatch_event_rule.sync",
+     "mode": "managed",
+     "type": "aws_cloudwatch_event_rule",
+     "name": "sync",
+     "provider_config_key": "aws",
+     "expressions": {
+      "description": {
+       "references": [
+        "each.key"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.app",
+        "each.key"
+       ]
+      },
+      "schedule_expression": {
+       "references": [
+        "each.value"
+       ]
+      }
+     },
+     "schema_version": 1,
+     "for_each_expression": {
+      "references": [
+       "var.sync_jobs"
+      ]
+     }
+    },
+    {
+     "address": "aws_cloudwatch_event_target.sync",
+     "mode": "managed",
+     "type": "aws_cloudwatch_event_target",
+     "name": "sync",
+     "provider_config_key": "aws",
+     "expressions": {
+      "arn": {
+       "references": [
+        "aws_sqs_queue.sync",
+        "each.key"
+       ]
+      },
+      "input": {
+       "references": [
+        "each.key"
+       ]
+      },
+      "rule": {
+       "references": [
+        "aws_cloudwatch_event_rule.sync",
+        "each.key"
+       ]
+      },
+      "target_id": {
+       "constant_value": "sqs"
+      }
+     },
+     "schema_version": 1,
+     "for_each_expression": {
+      "references": [
+       "var.sync_jobs"
+      ]
+     }
+    },
+    {
+     "address": "aws_cloudwatch_log_group.gateway",
+     "mode": "managed",
+     "type": "aws_cloudwatch_log_group",
+     "name": "gateway",
+     "provider_config_key": "aws",
+     "expressions": {
+      "kms_key_id": {
+       "references": [
+        "var.kms_key_arn"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.app"
+       ]
+      },
+      "retention_in_days": {
+       "constant_value": 90
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_iam_role.gateway_task",
+     "mode": "managed",
+     "type": "aws_iam_role",
+     "name": "gateway_task",
+     "provider_config_key": "aws",
+     "expressions": {
+      "assume_role_policy": {
+       "references": [
+        "data.aws_iam_policy_document.assume_ecs_tasks.json",
+        "data.aws_iam_policy_document.assume_ecs_tasks"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.app"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_iam_role_policy.gateway_task",
+     "mode": "managed",
+     "type": "aws_iam_role_policy",
+     "name": "gateway_task",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.app"
+       ]
+      },
+      "policy": {
+       "references": [
+        "data.aws_iam_policy_document.gateway_task.json",
+        "data.aws_iam_policy_document.gateway_task"
+       ]
+      },
+      "role": {
+       "references": [
+        "aws_iam_role.gateway_task.id",
+        "aws_iam_role.gateway_task"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_secretsmanager_secret.acme_partner_api_v2",
+     "mode": "managed",
+     "type": "aws_secretsmanager_secret",
+     "name": "acme_partner_api_v2",
+     "provider_config_key": "aws",
+     "expressions": {
+      "description": {
+       "constant_value": "OAuth client for the ACME wholesale API v2."
+      },
+      "kms_key_id": {
+       "references": [
+        "var.kms_key_arn"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.app"
+       ]
+      },
+      "recovery_window_in_days": {
+       "constant_value": 30
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_secretsmanager_secret.db_credentials",
+     "mode": "managed",
+     "type": "aws_secretsmanager_secret",
+     "name": "db_credentials",
+     "provider_config_key": "aws",
+     "expressions": {
+      "description": {
+       "constant_value": "Gateway Postgres credentials (rotated by the platform rotator)."
+      },
+      "kms_key_id": {
+       "references": [
+        "var.kms_key_arn"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.app"
+       ]
+      },
+      "recovery_window_in_days": {
+       "constant_value": 30
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_secretsmanager_secret.sftp_key",
+     "mode": "managed",
+     "type": "aws_secretsmanager_secret",
+     "name": "sftp_key",
+     "provider_config_key": "aws",
+     "expressions": {
+      "description": {
+       "constant_value": "SSH key for the nightly invoice SFTP drop."
+      },
+      "kms_key_id": {
+       "references": [
+        "var.kms_key_arn"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.app"
+       ]
+      },
+      "recovery_window_in_days": {
+       "constant_value": 14
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_secretsmanager_secret.webhook_signing",
+     "mode": "managed",
+     "type": "aws_secretsmanager_secret",
+     "name": "webhook_signing",
+     "provider_config_key": "aws",
+     "expressions": {
+      "description": {
+       "constant_value": "HMAC key used to sign outbound partner webhooks."
+      },
+      "kms_key_id": {
+       "references": [
+        "var.kms_key_arn"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.app"
+       ]
+      },
+      "recovery_window_in_days": {
+       "constant_value": 30
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_sqs_queue.sync",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "sync",
+     "provider_config_key": "aws",
+     "expressions": {
+      "kms_master_key_id": {
+       "references": [
+        "var.kms_key_arn"
+       ]
+      },
+      "message_retention_seconds": {
+       "references": [
+        "var.queue_retention_seconds"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.app",
+        "each.key"
+       ]
+      },
+      "redrive_policy": {
+       "references": [
+        "aws_sqs_queue.sync_dlq",
+        "each.key"
+       ]
+      },
+      "visibility_timeout_seconds": {
+       "constant_value": 300
+      }
+     },
+     "schema_version": 0,
+     "for_each_expression": {
+      "references": [
+       "var.sync_jobs"
+      ]
+     }
+    },
+    {
+     "address": "aws_sqs_queue.sync_dlq",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "sync_dlq",
+     "provider_config_key": "aws",
+     "expressions": {
+      "kms_master_key_id": {
+       "references": [
+        "var.kms_key_arn"
+       ]
+      },
+      "message_retention_seconds": {
+       "constant_value": 1209600
+      },
+      "name": {
+       "references": [
+        "var.app",
+        "each.key"
+       ]
+      }
+     },
+     "schema_version": 0,
+     "for_each_expression": {
+      "references": [
+       "var.sync_jobs"
+      ]
+     }
+    },
+    {
+     "address": "data.aws_iam_policy_document.assume_ecs_tasks",
+     "mode": "data",
+     "type": "aws_iam_policy_document",
+     "name": "assume_ecs_tasks",
+     "provider_config_key": "aws",
+     "expressions": {
+      "statement": [
+       {
+        "actions": {
+         "constant_value": [
+          "sts:AssumeRole"
+         ]
+        },
+        "principals": [
+         {
+          "identifiers": {
+           "constant_value": [
+            "ecs-tasks.amazonaws.com"
+           ]
+          },
+          "type": {
+           "constant_value": "Service"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "data.aws_iam_policy_document.gateway_task",
+     "mode": "data",
+     "type": "aws_iam_policy_document",
+     "name": "gateway_task",
+     "provider_config_key": "aws",
+     "expressions": {
+      "statement": [
+       {
+        "actions": {
+         "constant_value": [
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret"
+         ]
+        },
+        "resources": {
+         "references": [
+          "aws_secretsmanager_secret.db_credentials.arn",
+          "aws_secretsmanager_secret.db_credentials",
+          "aws_secretsmanager_secret.webhook_signing.arn",
+          "aws_secretsmanager_secret.webhook_signing",
+          "aws_secretsmanager_secret.acme_partner_api_v2.arn",
+          "aws_secretsmanager_secret.acme_partner_api_v2",
+          "aws_secretsmanager_secret.sftp_key.arn",
+          "aws_secretsmanager_secret.sftp_key"
+         ]
+        },
+        "sid": {
+         "constant_value": "ReadAppSecrets"
+        }
+       },
+       {
+        "actions": {
+         "constant_value": [
+          "kms:Decrypt"
+         ]
+        },
+        "resources": {
+         "references": [
+          "var.kms_key_arn"
+         ]
+        },
+        "sid": {
+         "constant_value": "DecryptAppSecrets"
+        }
+       },
+       {
+        "actions": {
+         "constant_value": [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes",
+          "sqs:SendMessage"
+         ]
+        },
+        "resources": {
+         "references": [
+          "aws_sqs_queue.sync"
+         ]
+        },
+        "sid": {
+         "constant_value": "ConsumeSyncQueues"
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    }
+   ],
+   "variables": {
+    "app": {
+     "default": "partner-gateway"
+    },
+    "kms_key_arn": {
+     "description": "Application CMK (from the security baseline stack)."
+    },
+    "queue_retention_seconds": {
+     "default": 604800
+    },
+    "sync_jobs": {
+     "description": "Scheduled partner sync jobs: name => schedule expression."
+    }
+   }
+  }
+ },
+ "relevant_attributes": [
+  {
+   "resource": "aws_secretsmanager_secret.sftp_key",
+   "attribute": [
+    "arn"
+   ]
+  },
+  {
+   "resource": "data.aws_iam_policy_document.assume_ecs_tasks",
+   "attribute": [
+    "json"
+   ]
+  },
+  {
+   "resource": "aws_secretsmanager_secret.db_credentials",
+   "attribute": [
+    "arn"
+   ]
+  },
+  {
+   "resource": "aws_secretsmanager_secret.webhook_signing",
+   "attribute": [
+    "arn"
+   ]
+  },
+  {
+   "resource": "data.aws_iam_policy_document.gateway_task",
+   "attribute": [
+    "json"
+   ]
+  },
+  {
+   "resource": "aws_iam_role.gateway_task",
+   "attribute": [
+    "id"
+   ]
+  },
+  {
+   "resource": "aws_sqs_queue.sync_dlq",
+   "attribute": []
+  },
+  {
+   "resource": "aws_secretsmanager_secret.acme_partner_api_v2",
+   "attribute": [
+    "arn"
+   ]
+  },
+  {
+   "resource": "aws_sqs_queue.sync",
+   "attribute": []
+  }
+ ],
+ "timestamp": "2026-11-24T09:34:13Z",
+ "applyable": true,
+ "complete": true,
+ "errored": false
+}

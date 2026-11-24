@@ -1,0 +1,21 @@
+{
+  "description": "PR widens the reports exporter's customer-managed policy from three object actions on one bucket to s3:* on * (comment: 'also copies reports into partner drop buckets'). Noise: two new narrowly-scoped analytics job roles/policies and two new default tags on every resource.",
+  "material": [
+    {
+      "address": "aws_iam_policy.reports_exporter",
+      "severity": "high",
+      "why": "The exporter's policy goes from s3:GetObject/PutObject/ListBucket on the reports bucket to s3:* on every bucket in the account: it can now read every dataset, delete objects and buckets, and rewrite bucket policies or public-access settings. High rather than critical: nothing is exposed by applying it, but anyone who controls the exporter Lambda gets account-wide S3 admin, and the stated need (partner drop buckets) only requires PutObject on named ARNs.",
+      "cause": [
+        {
+          "file": "iam.tf",
+          "line": 25
+        },
+        {
+          "file": "iam.tf",
+          "line": 26
+        }
+      ]
+    }
+  ],
+  "acceptable": []
+}

@@ -1,0 +1,5 @@
+{
+  "description": "Housekeeping PR with nothing a reviewer must stop on: a CostCenter default tag on every resource, dispatcher log retention 14 -> 30 days, a new message-template version in nine Lambda environments, three new SSM settings and a new SES bounce queue. The attachments S3 bucket and the delivery-history RDS instance change only in tags (one explicit Retention tag on the bucket). Precision test: flagging anything here is a false positive.",
+  "material": [],
+  "acceptable": []
+}

@@ -1,0 +1,377 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.edge["access"] will be created
+  + resource "aws_cloudwatch_log_group" "edge" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/storefront/prod/access"
+      + name_prefix                 = (known after apply)
+      + region                      = "eu-west-1"
+      + retention_in_days           = 90
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Service"     = "storefront"
+          + "Team"        = "web-experience"
+          + "Tier"        = "public-edge"
+        }
+    }
+
+  # aws_cloudwatch_log_group.edge["csp-report"] will be created
+  + resource "aws_cloudwatch_log_group" "edge" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/storefront/prod/csp-report"
+      + name_prefix                 = (known after apply)
+      + region                      = "eu-west-1"
+      + retention_in_days           = 14
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Service"     = "storefront"
+          + "Team"        = "web-experience"
+          + "Tier"        = "public-edge"
+        }
+    }
+
+  # aws_cloudwatch_log_group.edge["edge-auth"] will be created
+  + resource "aws_cloudwatch_log_group" "edge" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/storefront/prod/edge-auth"
+      + name_prefix                 = (known after apply)
+      + region                      = "eu-west-1"
+      + retention_in_days           = 14
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Service"     = "storefront"
+          + "Team"        = "web-experience"
+          + "Tier"        = "public-edge"
+        }
+    }
+
+  # aws_cloudwatch_log_group.frontend["account"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "frontend" {
+        id                          = "mock-aws_cloudwatch_log_group.frontend[\"account\"]"
+        name                        = "/ecs/storefront/account"
+      ~ tags_all                    = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_log_group.frontend["checkout"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "frontend" {
+        id                          = "mock-aws_cloudwatch_log_group.frontend[\"checkout\"]"
+        name                        = "/ecs/storefront/checkout"
+      ~ tags_all                    = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_log_group.frontend["web"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "frontend" {
+        id                          = "mock-aws_cloudwatch_log_group.frontend[\"web\"]"
+        name                        = "/ecs/storefront/web"
+      ~ tags_all                    = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.alb_5xx will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "alb_5xx" {
+      ~ evaluation_periods                    = 5 -> 3
+        id                                    = "mock-aws_cloudwatch_metric_alarm.alb_5xx"
+      ~ tags_all                              = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+      ~ threshold                             = 50 -> 25
+        # (13 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.target_latency["account"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "target_latency" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.target_latency[\"account\"]"
+      ~ tags_all                              = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+      ~ threshold                             = 1.5 -> 1.2
+        # (14 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.target_latency["checkout"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "target_latency" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.target_latency[\"checkout\"]"
+      ~ tags_all                              = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+      ~ threshold                             = 1.5 -> 1.2
+        # (14 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.target_latency["web"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "target_latency" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.target_latency[\"web\"]"
+      ~ tags_all                              = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+      ~ threshold                             = 1.5 -> 1.2
+        # (14 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.unhealthy_hosts["account"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "unhealthy_hosts" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"account\"]"
+      ~ tags_all                              = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.unhealthy_hosts["checkout"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "unhealthy_hosts" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"checkout\"]"
+      ~ tags_all                              = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.unhealthy_hosts["web"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "unhealthy_hosts" {
+        id                                    = "mock-aws_cloudwatch_metric_alarm.unhealthy_hosts[\"web\"]"
+      ~ tags_all                              = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.alb.aws_lb.this will be updated in-place
+  ~ resource "aws_lb" "this" {
+        id                                                           = "mock-module.alb.aws_lb.this"
+        name                                                         = "storefront-prod-alb"
+      ~ tags_all                                                     = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (27 unchanged attributes hidden)
+    }
+
+  # module.alb.aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                    = "mock-module.alb.aws_lb_listener.http"
+      ~ tags_all                                                              = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (26 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.alb.aws_lb_listener.https will be created
+  + resource "aws_lb_listener" "https" {
+      + arn                                                                   = (known after apply)
+      + certificate_arn                                                       = "arn:aws:acm:eu-west-1:345678901234:certificate/0b7e5a42-1c9d-4f3e-8a26-7d5c4b3a2e10"
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb.this"
+      + port                                                                  = 443
+      + protocol                                                              = "HTTPS"
+      + region                                                                = "eu-west-1"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+      + tags_all                                                              = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Service"     = "storefront"
+          + "Team"        = "web-experience"
+          + "Tier"        = "public-edge"
+        }
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = "arn:aws:mock:eu-west-1:123456789012:module.alb.aws_lb_target_group.svc[\"web\"]"
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # module.alb.aws_lb_target_group.svc["account"] will be updated in-place
+  ~ resource "aws_lb_target_group" "svc" {
+        id                                 = "mock-module.alb.aws_lb_target_group.svc[\"account\"]"
+        name                               = "storefront-prod-account"
+      ~ tags_all                           = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (20 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.alb.aws_lb_target_group.svc["checkout"] will be updated in-place
+  ~ resource "aws_lb_target_group" "svc" {
+        id                                 = "mock-module.alb.aws_lb_target_group.svc[\"checkout\"]"
+        name                               = "storefront-prod-checkout"
+      ~ tags_all                           = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (20 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.alb.aws_lb_target_group.svc["web"] will be updated in-place
+  ~ resource "aws_lb_target_group" "svc" {
+        id                                 = "mock-module.alb.aws_lb_target_group.svc[\"web\"]"
+        name                               = "storefront-prod-web"
+      ~ tags_all                           = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (20 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.alb.aws_security_group.alb will be updated in-place
+  ~ resource "aws_security_group" "alb" {
+        id                     = "mock-module.alb.aws_security_group.alb"
+        name                   = "storefront-prod-alb"
+      ~ tags_all               = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # module.alb.aws_vpc_security_group_egress_rule.to_tasks will be updated in-place
+  ~ resource "aws_vpc_security_group_egress_rule" "to_tasks" {
+        id                     = "mock-module.alb.aws_vpc_security_group_egress_rule.to_tasks"
+      ~ tags_all               = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # module.alb.aws_vpc_security_group_ingress_rule.http will be updated in-place
+  ~ resource "aws_vpc_security_group_ingress_rule" "http" {
+        id                     = "mock-module.alb.aws_vpc_security_group_ingress_rule.http"
+      ~ tags_all               = {
+          + "Service"     = "storefront"
+          + "Tier"        = "public-edge"
+            # (3 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # module.alb.aws_vpc_security_group_ingress_rule.https will be created
+  + resource "aws_vpc_security_group_ingress_rule" "https" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "0.0.0.0/0"
+      + description            = "HTTPS from the internet"
+      + from_port              = 443
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + region                 = "eu-west-1"
+      + security_group_id      = "mock-module.alb.aws_security_group.alb"
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Service"     = "storefront"
+          + "Team"        = "web-experience"
+          + "Tier"        = "public-edge"
+        }
+      + to_port                = 443
+    }
+
+  # module.alb.aws_vpc_security_group_ingress_rule.https_v6 will be created
+  + resource "aws_vpc_security_group_ingress_rule" "https_v6" {
+      + arn                    = (known after apply)
+      + cidr_ipv6              = "::/0"
+      + description            = "HTTPS from the internet (IPv6)"
+      + from_port              = 443
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + region                 = "eu-west-1"
+      + security_group_id      = "mock-module.alb.aws_security_group.alb"
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Service"     = "storefront"
+          + "Team"        = "web-experience"
+          + "Tier"        = "public-edge"
+        }
+      + to_port                = 443
+    }
+
+Plan: 6 to add, 18 to change, 0 to destroy.

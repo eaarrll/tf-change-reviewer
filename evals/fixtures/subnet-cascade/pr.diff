@@ -1,0 +1,39 @@
+diff --git a/providers.tf b/providers.tf
+index 9e15d01..7dc059c 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -17,6 +17,7 @@ provider "aws" {
+       Environment = var.environment
+       ManagedBy   = "terraform"
+       Owner       = "team-payments-infra"
++      CostCenter  = "cc-2210"
+     }
+   }
+ }
+diff --git a/terraform.tfvars b/terraform.tfvars
+index e6886cd..3b8e814 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -8,17 +8,21 @@ public_subnets = {
+ }
+ 
+ private_subnets = {
+-  "eu-west-1a" = "10.40.10.0/24"
++  "eu-west-1a" = "10.40.16.0/20"
+   "eu-west-1b" = "10.40.11.0/24"
+   "eu-west-1c" = "10.40.12.0/24"
+ }
+ 
+ ledger_ami = "ami-0c1a7f2e5b3d49e61"
+ 
++flow_log_retention_days = 90
++
+ internal_services = [
+   "card-auth",
+   "card-capture",
+   "refunds",
+   "disputes",
+   "settlement",
++  "chargebacks",
++  "merchant-portal",
+ ]

@@ -1,0 +1,16 @@
+{
+  "set": "holdout",
+  "description": "PR edits only policies/worker.json (loaded by iam.tf with file()) to add a 'BackfillTemporary' statement allowing Action \"*\" on Resource \"*\" to the ledger ingest worker's inline policy; iam.tf is untouched. Noise: DataClass default tag, log retention 14 -> 30, a new fx-rates-sync log pipeline (log group, queue, metric filter).",
+  "material": [
+    {
+      "address": "aws_iam_role_policy.worker",
+      "severity": "critical",
+      "why": "The ledger-ingest-worker ECS task role gains Allow * on * (full admin, including iam:* for privilege escalation) in prod; anything running in or compromising the worker task becomes account administrator.",
+      "cause": [
+        { "file": "policies/worker.json", "line": 34 },
+        { "file": "policies/worker.json", "line": 35 }
+      ]
+    }
+  ],
+  "acceptable": []
+}

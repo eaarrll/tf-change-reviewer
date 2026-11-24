@@ -1,0 +1,11 @@
+diff --git a/modules/net/main.tf b/modules/net/main.tf
+index 93aa17c..db3b423 100644
+--- a/modules/net/main.tf
++++ b/modules/net/main.tf
+@@ -1,5 +1,5 @@
+ locals {
+-  cidr = "10.40.10.0/24"
++  cidr = "10.40.16.0/20"
+ }
+ 
+ output "subnet_cidr" {

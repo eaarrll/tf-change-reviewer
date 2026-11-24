@@ -1,0 +1,11 @@
+diff --git a/main.tf b/main.tf
+index 4b3654e..6f5ab85 100644
+--- a/main.tf
++++ b/main.tf
+@@ -14,5 +14,5 @@ resource "terraform_data" "node" {
+ }
+ 
+ resource "terraform_data" "notes" {
+-  input = "runbook v1"
++  input = "runbook v2"
+ }

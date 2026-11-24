@@ -1,0 +1,10 @@
+dist/
+evals/fixtures/
+evals/results/
+package-lock.json
+test/fixtures/
+.vitest/
+evals/scenarios/
+evals/.work/
+.tf-plugin-cache/
+docs/sample-comment.md

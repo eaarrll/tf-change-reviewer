@@ -1,0 +1,12 @@
+diff --git a/main.tf b/main.tf
+index 08a4b60..341119d 100644
+--- a/main.tf
++++ b/main.tf
+@@ -1,6 +1,6 @@
+ variable "cidr" {
+   type    = string
+-  default = "10.40.10.0/24"
++  default = "10.40.16.0/20"
+ }
+ 
+ resource "terraform_data" "network" {

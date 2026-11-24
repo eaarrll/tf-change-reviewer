@@ -1,0 +1,4878 @@
+{
+ "format_version": "1.2",
+ "terraform_version": "1.10.5",
+ "variables": {
+  "account_id": {
+   "value": "730415926611"
+  },
+  "alarm_topic_arn": {
+   "value": "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+  },
+  "environment": {
+   "value": "prod"
+  },
+  "queues": {
+   "value": {
+    "loyalty-points": {
+     "dlq_alarm_at": 10,
+     "max_receive_count": 5,
+     "retention_seconds": 345600,
+     "visibility_timeout": 45
+    },
+    "notifications": {
+     "dlq_alarm_at": 50,
+     "max_receive_count": 10,
+     "retention_seconds": 86400,
+     "visibility_timeout": 30
+    },
+    "orders": {
+     "dlq_alarm_at": 1,
+     "max_receive_count": 5,
+     "retention_seconds": 345600,
+     "visibility_timeout": 90
+    },
+    "payments-v2": {
+     "dlq_alarm_at": 1,
+     "max_receive_count": 3,
+     "retention_seconds": 1209600,
+     "visibility_timeout": 120
+    },
+    "shipments": {
+     "dlq_alarm_at": 5,
+     "max_receive_count": 5,
+     "retention_seconds": 345600,
+     "visibility_timeout": 60
+    }
+   }
+  },
+  "region": {
+   "value": "eu-west-1"
+  }
+ },
+ "planned_values": {
+  "outputs": {
+   "queue_urls": {
+    "sensitive": false
+   }
+  },
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"loyalty-points\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "dlq_not_empty",
+     "index": "loyalty-points",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+      ],
+      "alarm_description": "Messages are landing in the loyalty-points dead-letter queue.",
+      "alarm_name": "prod-loyalty-points-dlq-not-empty",
+      "comparison_operator": "GreaterThanOrEqualToThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "QueueName": "prod-loyalty-points-dlq"
+      },
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 1,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "insufficient_data_actions": null,
+      "metric_name": "ApproximateNumberOfMessagesVisible",
+      "metric_query": [],
+      "namespace": "AWS/SQS",
+      "ok_actions": null,
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "threshold": 10,
+      "threshold_metric_id": null,
+      "treat_missing_data": "notBreaching",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"notifications\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "dlq_not_empty",
+     "index": "notifications",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+      ],
+      "alarm_description": "Messages are landing in the notifications dead-letter queue.",
+      "alarm_name": "prod-notifications-dlq-not-empty",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"notifications\"]",
+      "comparison_operator": "GreaterThanOrEqualToThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "QueueName": "prod-notifications-dlq"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 1,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"notifications\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "ApproximateNumberOfMessagesVisible",
+      "metric_query": [],
+      "namespace": "AWS/SQS",
+      "ok_actions": null,
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "threshold": 50,
+      "threshold_metric_id": null,
+      "treat_missing_data": "notBreaching",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"orders\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "dlq_not_empty",
+     "index": "orders",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+      ],
+      "alarm_description": "Messages are landing in the orders dead-letter queue.",
+      "alarm_name": "prod-orders-dlq-not-empty",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"orders\"]",
+      "comparison_operator": "GreaterThanOrEqualToThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "QueueName": "prod-orders-dlq"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 1,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"orders\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "ApproximateNumberOfMessagesVisible",
+      "metric_query": [],
+      "namespace": "AWS/SQS",
+      "ok_actions": null,
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "threshold": 1,
+      "threshold_metric_id": null,
+      "treat_missing_data": "notBreaching",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"payments-v2\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "dlq_not_empty",
+     "index": "payments-v2",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+      ],
+      "alarm_description": "Messages are landing in the payments-v2 dead-letter queue.",
+      "alarm_name": "prod-payments-v2-dlq-not-empty",
+      "comparison_operator": "GreaterThanOrEqualToThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "QueueName": "prod-payments-v2-dlq"
+      },
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 1,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "insufficient_data_actions": null,
+      "metric_name": "ApproximateNumberOfMessagesVisible",
+      "metric_query": [],
+      "namespace": "AWS/SQS",
+      "ok_actions": null,
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "threshold": 1,
+      "threshold_metric_id": null,
+      "treat_missing_data": "notBreaching",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"shipments\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "dlq_not_empty",
+     "index": "shipments",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+      ],
+      "alarm_description": "Messages are landing in the shipments dead-letter queue.",
+      "alarm_name": "prod-shipments-dlq-not-empty",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"shipments\"]",
+      "comparison_operator": "GreaterThanOrEqualToThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "QueueName": "prod-shipments-dlq"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 1,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"shipments\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "ApproximateNumberOfMessagesVisible",
+      "metric_query": [],
+      "namespace": "AWS/SQS",
+      "ok_actions": null,
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "threshold": 5,
+      "threshold_metric_id": null,
+      "treat_missing_data": "notBreaching",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.oldest_message[\"loyalty-points\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "oldest_message",
+     "index": "loyalty-points",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+      ],
+      "alarm_description": "Consumers of loyalty-points are falling behind.",
+      "alarm_name": "prod-loyalty-points-oldest-message",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "QueueName": "prod-loyalty-points"
+      },
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "insufficient_data_actions": null,
+      "metric_name": "ApproximateAgeOfOldestMessage",
+      "metric_query": [],
+      "namespace": "AWS/SQS",
+      "ok_actions": null,
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "threshold": 900,
+      "threshold_metric_id": null,
+      "treat_missing_data": "notBreaching",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.oldest_message[\"notifications\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "oldest_message",
+     "index": "notifications",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+      ],
+      "alarm_description": "Consumers of notifications are falling behind.",
+      "alarm_name": "prod-notifications-oldest-message",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"notifications\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "QueueName": "prod-notifications"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"notifications\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "ApproximateAgeOfOldestMessage",
+      "metric_query": [],
+      "namespace": "AWS/SQS",
+      "ok_actions": null,
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "threshold": 900,
+      "threshold_metric_id": null,
+      "treat_missing_data": "notBreaching",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.oldest_message[\"orders\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "oldest_message",
+     "index": "orders",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+      ],
+      "alarm_description": "Consumers of orders are falling behind.",
+      "alarm_name": "prod-orders-oldest-message",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"orders\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "QueueName": "prod-orders"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"orders\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "ApproximateAgeOfOldestMessage",
+      "metric_query": [],
+      "namespace": "AWS/SQS",
+      "ok_actions": null,
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "threshold": 900,
+      "threshold_metric_id": null,
+      "treat_missing_data": "notBreaching",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.oldest_message[\"payments-v2\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "oldest_message",
+     "index": "payments-v2",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+      ],
+      "alarm_description": "Consumers of payments-v2 are falling behind.",
+      "alarm_name": "prod-payments-v2-oldest-message",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "QueueName": "prod-payments-v2"
+      },
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "insufficient_data_actions": null,
+      "metric_name": "ApproximateAgeOfOldestMessage",
+      "metric_query": [],
+      "namespace": "AWS/SQS",
+      "ok_actions": null,
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "threshold": 900,
+      "threshold_metric_id": null,
+      "treat_missing_data": "notBreaching",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.oldest_message[\"shipments\"]",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "oldest_message",
+     "index": "shipments",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "values": {
+      "actions_enabled": true,
+      "alarm_actions": [
+       "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+      ],
+      "alarm_description": "Consumers of shipments are falling behind.",
+      "alarm_name": "prod-shipments-oldest-message",
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"shipments\"]",
+      "comparison_operator": "GreaterThanThreshold",
+      "datapoints_to_alarm": null,
+      "dimensions": {
+       "QueueName": "prod-shipments"
+      },
+      "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+      "evaluation_criteria": [],
+      "evaluation_interval": null,
+      "evaluation_periods": 3,
+      "evaluation_window": [],
+      "extended_statistic": null,
+      "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"shipments\"]",
+      "insufficient_data_actions": null,
+      "metric_name": "ApproximateAgeOfOldestMessage",
+      "metric_query": [],
+      "namespace": "AWS/SQS",
+      "ok_actions": null,
+      "period": 300,
+      "region": "eu-west-1",
+      "statistic": "Maximum",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "threshold": 900,
+      "threshold_metric_id": null,
+      "treat_missing_data": "notBreaching",
+      "unit": null,
+      "warm_up_configuration": []
+     },
+     "sensitive_values": {
+      "alarm_actions": [
+       false
+      ],
+      "dimensions": {},
+      "evaluation_criteria": [],
+      "evaluation_window": [],
+      "metric_query": [],
+      "tags_all": {},
+      "warm_up_configuration": []
+     }
+    },
+    {
+     "address": "aws_iam_policy.consumers",
+     "mode": "managed",
+     "type": "aws_iam_policy",
+     "name": "consumers",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_policy.consumers",
+      "attachment_count": 0,
+      "delay_after_policy_creation_in_ms": null,
+      "description": null,
+      "id": "mock-aws_iam_policy.consumers",
+      "name": "prod-commerce-queue-consumers",
+      "name_prefix": "mock-name_prefix",
+      "path": "/",
+      "policy": "{\"Statement\":[{\"Action\":[\"sqs:ReceiveMessage\",\"sqs:GetQueueAttributes\",\"sqs:DeleteMessage\",\"sqs:ChangeMessageVisibility\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2\",\"arn:aws:sqs:eu-west-1:730415926611:prod-orders\",\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications\",\"arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points\"],\"Sid\":\"ConsumeWorkQueues\"}],\"Version\":\"2012-10-17\"}",
+      "policy_id": "mock-policy_id",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_iam_policy.producers",
+     "mode": "managed",
+     "type": "aws_iam_policy",
+     "name": "producers",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_policy.producers",
+      "attachment_count": 0,
+      "delay_after_policy_creation_in_ms": null,
+      "description": null,
+      "id": "mock-aws_iam_policy.producers",
+      "name": "prod-commerce-queue-producers",
+      "name_prefix": "mock-name_prefix",
+      "path": "/",
+      "policy": "{\"Statement\":[{\"Action\":[\"sqs:SendMessage\",\"sqs:GetQueueUrl\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2\",\"arn:aws:sqs:eu-west-1:730415926611:prod-orders\",\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications\",\"arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points\"],\"Sid\":\"SendWorkQueues\"}],\"Version\":\"2012-10-17\"}",
+      "policy_id": "mock-policy_id",
+      "tags": null,
+      "tags_all": {
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      }
+     },
+     "sensitive_values": {
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.dlq[\"loyalty-points\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "dlq",
+     "index": "loyalty-points",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "content_based_deduplication": false,
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": null,
+      "max_message_size": 262144,
+      "message_retention_seconds": 1209600,
+      "name": "prod-loyalty-points-dlq",
+      "receive_wait_time_seconds": 0,
+      "region": "eu-west-1",
+      "sqs_managed_sse_enabled": true,
+      "tags": {
+       "Domain": "loyalty-points",
+       "Role": "dead-letter"
+      },
+      "tags_all": {
+       "Domain": "loyalty-points",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Role": "dead-letter",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "timeouts": null,
+      "visibility_timeout_seconds": 30
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.dlq[\"notifications\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "dlq",
+     "index": "notifications",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"notifications\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.dlq[\"notifications\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": null,
+      "max_message_size": 262144,
+      "message_retention_seconds": 1209600,
+      "name": "prod-notifications-dlq",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 0,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "mock-redrive_policy",
+      "region": "eu-west-1",
+      "sqs_managed_sse_enabled": true,
+      "tags": {
+       "Domain": "notifications",
+       "Role": "dead-letter"
+      },
+      "tags_all": {
+       "Domain": "notifications",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Role": "dead-letter",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 30
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.dlq[\"orders\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "dlq",
+     "index": "orders",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"orders\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.dlq[\"orders\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": null,
+      "max_message_size": 262144,
+      "message_retention_seconds": 1209600,
+      "name": "prod-orders-dlq",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 0,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "mock-redrive_policy",
+      "region": "eu-west-1",
+      "sqs_managed_sse_enabled": true,
+      "tags": {
+       "Domain": "orders",
+       "Role": "dead-letter"
+      },
+      "tags_all": {
+       "Domain": "orders",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Role": "dead-letter",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 30
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.dlq[\"payments-v2\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "dlq",
+     "index": "payments-v2",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "content_based_deduplication": false,
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": null,
+      "max_message_size": 262144,
+      "message_retention_seconds": 1209600,
+      "name": "prod-payments-v2-dlq",
+      "receive_wait_time_seconds": 0,
+      "region": "eu-west-1",
+      "sqs_managed_sse_enabled": true,
+      "tags": {
+       "Domain": "payments-v2",
+       "Role": "dead-letter"
+      },
+      "tags_all": {
+       "Domain": "payments-v2",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Role": "dead-letter",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "timeouts": null,
+      "visibility_timeout_seconds": 30
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.dlq[\"shipments\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "dlq",
+     "index": "shipments",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"shipments\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.dlq[\"shipments\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": null,
+      "max_message_size": 262144,
+      "message_retention_seconds": 1209600,
+      "name": "prod-shipments-dlq",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 0,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "mock-redrive_policy",
+      "region": "eu-west-1",
+      "sqs_managed_sse_enabled": true,
+      "tags": {
+       "Domain": "shipments",
+       "Role": "dead-letter"
+      },
+      "tags_all": {
+       "Domain": "shipments",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Role": "dead-letter",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 30
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.main[\"loyalty-points\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "main",
+     "index": "loyalty-points",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "content_based_deduplication": false,
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": null,
+      "max_message_size": 262144,
+      "message_retention_seconds": 345600,
+      "name": "prod-loyalty-points",
+      "receive_wait_time_seconds": 20,
+      "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points-dlq\",\"maxReceiveCount\":5}",
+      "region": "eu-west-1",
+      "sqs_managed_sse_enabled": true,
+      "tags": {
+       "Domain": "loyalty-points",
+       "Role": "work"
+      },
+      "tags_all": {
+       "Domain": "loyalty-points",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Role": "work",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "timeouts": null,
+      "visibility_timeout_seconds": 45
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.main[\"notifications\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "main",
+     "index": "notifications",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"notifications\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.main[\"notifications\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": null,
+      "max_message_size": 262144,
+      "message_retention_seconds": 86400,
+      "name": "prod-notifications",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 20,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications-dlq\",\"maxReceiveCount\":10}",
+      "region": "eu-west-1",
+      "sqs_managed_sse_enabled": true,
+      "tags": {
+       "Domain": "notifications",
+       "Role": "work"
+      },
+      "tags_all": {
+       "Domain": "notifications",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Role": "work",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 30
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.main[\"orders\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "main",
+     "index": "orders",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"orders\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.main[\"orders\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": null,
+      "max_message_size": 262144,
+      "message_retention_seconds": 345600,
+      "name": "prod-orders",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 20,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-orders-dlq\",\"maxReceiveCount\":5}",
+      "region": "eu-west-1",
+      "sqs_managed_sse_enabled": true,
+      "tags": {
+       "Domain": "orders",
+       "Role": "work"
+      },
+      "tags_all": {
+       "Domain": "orders",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Role": "work",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 90
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.main[\"payments-v2\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "main",
+     "index": "payments-v2",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "content_based_deduplication": false,
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": null,
+      "max_message_size": 262144,
+      "message_retention_seconds": 1209600,
+      "name": "prod-payments-v2",
+      "receive_wait_time_seconds": 20,
+      "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2-dlq\",\"maxReceiveCount\":3}",
+      "region": "eu-west-1",
+      "sqs_managed_sse_enabled": true,
+      "tags": {
+       "Domain": "payments-v2",
+       "Role": "work"
+      },
+      "tags_all": {
+       "Domain": "payments-v2",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Role": "work",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "timeouts": null,
+      "visibility_timeout_seconds": 120
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     }
+    },
+    {
+     "address": "aws_sqs_queue.main[\"shipments\"]",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "main",
+     "index": "shipments",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "values": {
+      "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"shipments\"]",
+      "content_based_deduplication": false,
+      "deduplication_scope": "mock-deduplication_scope",
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "fifo_throughput_limit": "mock-fifo_throughput_limit",
+      "id": "mock-aws_sqs_queue.main[\"shipments\"]",
+      "kms_data_key_reuse_period_seconds": 0,
+      "kms_master_key_id": null,
+      "max_message_size": 262144,
+      "message_retention_seconds": 345600,
+      "name": "prod-shipments",
+      "name_prefix": "mock-name_prefix",
+      "policy": "mock-policy",
+      "receive_wait_time_seconds": 20,
+      "redrive_allow_policy": "mock-redrive_allow_policy",
+      "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments-dlq\",\"maxReceiveCount\":5}",
+      "region": "eu-west-1",
+      "sqs_managed_sse_enabled": true,
+      "tags": {
+       "Domain": "shipments",
+       "Role": "work"
+      },
+      "tags_all": {
+       "Domain": "shipments",
+       "Environment": "prod",
+       "ManagedBy": "terraform",
+       "Project": "commerce-events",
+       "Role": "work",
+       "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+       "Team": "commerce-core"
+      },
+      "timeouts": null,
+      "url": "mock-url",
+      "visibility_timeout_seconds": 60
+     },
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     }
+    }
+   ]
+  }
+ },
+ "resource_changes": [
+  {
+   "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"loyalty-points\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "dlq_not_empty",
+   "index": "loyalty-points",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Messages are landing in the loyalty-points dead-letter queue.",
+     "alarm_name": "prod-loyalty-points-dlq-not-empty",
+     "comparison_operator": "GreaterThanOrEqualToThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-loyalty-points-dlq"
+     },
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 1,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateNumberOfMessagesVisible",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "threshold": 10,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {
+     "alarm_actions": [
+      false
+     ],
+     "arn": true,
+     "dimensions": {},
+     "evaluate_low_sample_count_percentiles": true,
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "id": true,
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"notifications\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "dlq_not_empty",
+   "index": "notifications",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Messages are landing in the notifications dead-letter queue.",
+     "alarm_name": "prod-notifications-dlq-not-empty",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"notifications\"]",
+     "comparison_operator": "GreaterThanOrEqualToThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-notifications-dlq"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 1,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"notifications\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateNumberOfMessagesVisible",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events"
+     },
+     "threshold": 50,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Messages are landing in the notifications dead-letter queue.",
+     "alarm_name": "prod-notifications-dlq-not-empty",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"notifications\"]",
+     "comparison_operator": "GreaterThanOrEqualToThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-notifications-dlq"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 1,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"notifications\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateNumberOfMessagesVisible",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "threshold": 50,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"orders\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "dlq_not_empty",
+   "index": "orders",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Messages are landing in the orders dead-letter queue.",
+     "alarm_name": "prod-orders-dlq-not-empty",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"orders\"]",
+     "comparison_operator": "GreaterThanOrEqualToThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-orders-dlq"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 1,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"orders\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateNumberOfMessagesVisible",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events"
+     },
+     "threshold": 1,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Messages are landing in the orders dead-letter queue.",
+     "alarm_name": "prod-orders-dlq-not-empty",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"orders\"]",
+     "comparison_operator": "GreaterThanOrEqualToThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-orders-dlq"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 1,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"orders\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateNumberOfMessagesVisible",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "threshold": 1,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"payments\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "dlq_not_empty",
+   "index": "payments",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "delete"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Messages are landing in the payments dead-letter queue.",
+     "alarm_name": "prod-payments-dlq-not-empty",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"payments\"]",
+     "comparison_operator": "GreaterThanOrEqualToThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-payments-dlq"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 1,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"payments\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateNumberOfMessagesVisible",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events"
+     },
+     "threshold": 1,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": null,
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": false
+   },
+   "action_reason": "delete_because_each_key"
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"payments-v2\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "dlq_not_empty",
+   "index": "payments-v2",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Messages are landing in the payments-v2 dead-letter queue.",
+     "alarm_name": "prod-payments-v2-dlq-not-empty",
+     "comparison_operator": "GreaterThanOrEqualToThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-payments-v2-dlq"
+     },
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 1,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateNumberOfMessagesVisible",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "threshold": 1,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {
+     "alarm_actions": [
+      false
+     ],
+     "arn": true,
+     "dimensions": {},
+     "evaluate_low_sample_count_percentiles": true,
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "id": true,
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"shipments\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "dlq_not_empty",
+   "index": "shipments",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Messages are landing in the shipments dead-letter queue.",
+     "alarm_name": "prod-shipments-dlq-not-empty",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"shipments\"]",
+     "comparison_operator": "GreaterThanOrEqualToThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-shipments-dlq"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 1,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"shipments\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateNumberOfMessagesVisible",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events"
+     },
+     "threshold": 5,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Messages are landing in the shipments dead-letter queue.",
+     "alarm_name": "prod-shipments-dlq-not-empty",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"shipments\"]",
+     "comparison_operator": "GreaterThanOrEqualToThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-shipments-dlq"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 1,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"shipments\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateNumberOfMessagesVisible",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "threshold": 5,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.oldest_message[\"loyalty-points\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "oldest_message",
+   "index": "loyalty-points",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Consumers of loyalty-points are falling behind.",
+     "alarm_name": "prod-loyalty-points-oldest-message",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-loyalty-points"
+     },
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateAgeOfOldestMessage",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "threshold": 900,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {
+     "alarm_actions": [
+      false
+     ],
+     "arn": true,
+     "dimensions": {},
+     "evaluate_low_sample_count_percentiles": true,
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "id": true,
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.oldest_message[\"notifications\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "oldest_message",
+   "index": "notifications",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Consumers of notifications are falling behind.",
+     "alarm_name": "prod-notifications-oldest-message",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"notifications\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-notifications"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"notifications\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateAgeOfOldestMessage",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events"
+     },
+     "threshold": 900,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Consumers of notifications are falling behind.",
+     "alarm_name": "prod-notifications-oldest-message",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"notifications\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-notifications"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"notifications\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateAgeOfOldestMessage",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "threshold": 900,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.oldest_message[\"orders\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "oldest_message",
+   "index": "orders",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Consumers of orders are falling behind.",
+     "alarm_name": "prod-orders-oldest-message",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"orders\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-orders"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"orders\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateAgeOfOldestMessage",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events"
+     },
+     "threshold": 900,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Consumers of orders are falling behind.",
+     "alarm_name": "prod-orders-oldest-message",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"orders\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-orders"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"orders\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateAgeOfOldestMessage",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "threshold": 900,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.oldest_message[\"payments\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "oldest_message",
+   "index": "payments",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "delete"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Consumers of payments are falling behind.",
+     "alarm_name": "prod-payments-oldest-message",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"payments\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-payments"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"payments\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateAgeOfOldestMessage",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events"
+     },
+     "threshold": 900,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": null,
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": false
+   },
+   "action_reason": "delete_because_each_key"
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.oldest_message[\"payments-v2\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "oldest_message",
+   "index": "payments-v2",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Consumers of payments-v2 are falling behind.",
+     "alarm_name": "prod-payments-v2-oldest-message",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-payments-v2"
+     },
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateAgeOfOldestMessage",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "threshold": 900,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {
+     "alarm_actions": [
+      false
+     ],
+     "arn": true,
+     "dimensions": {},
+     "evaluate_low_sample_count_percentiles": true,
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "id": true,
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_cloudwatch_metric_alarm.oldest_message[\"shipments\"]",
+   "mode": "managed",
+   "type": "aws_cloudwatch_metric_alarm",
+   "name": "oldest_message",
+   "index": "shipments",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Consumers of shipments are falling behind.",
+     "alarm_name": "prod-shipments-oldest-message",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"shipments\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-shipments"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"shipments\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateAgeOfOldestMessage",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events"
+     },
+     "threshold": 900,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after": {
+     "actions_enabled": true,
+     "alarm_actions": [
+      "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+     ],
+     "alarm_description": "Consumers of shipments are falling behind.",
+     "alarm_name": "prod-shipments-oldest-message",
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"shipments\"]",
+     "comparison_operator": "GreaterThanThreshold",
+     "datapoints_to_alarm": null,
+     "dimensions": {
+      "QueueName": "prod-shipments"
+     },
+     "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+     "evaluation_criteria": [],
+     "evaluation_interval": null,
+     "evaluation_periods": 3,
+     "evaluation_window": [],
+     "extended_statistic": null,
+     "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"shipments\"]",
+     "insufficient_data_actions": null,
+     "metric_name": "ApproximateAgeOfOldestMessage",
+     "metric_query": [],
+     "namespace": "AWS/SQS",
+     "ok_actions": null,
+     "period": 300,
+     "region": "eu-west-1",
+     "statistic": "Maximum",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "threshold": 900,
+     "threshold_metric_id": null,
+     "treat_missing_data": "notBreaching",
+     "unit": null,
+     "warm_up_configuration": []
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    },
+    "after_sensitive": {
+     "alarm_actions": [
+      false
+     ],
+     "dimensions": {},
+     "evaluation_criteria": [],
+     "evaluation_window": [],
+     "metric_query": [],
+     "tags_all": {},
+     "warm_up_configuration": []
+    }
+   }
+  },
+  {
+   "address": "aws_iam_policy.consumers",
+   "mode": "managed",
+   "type": "aws_iam_policy",
+   "name": "consumers",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_policy.consumers",
+     "attachment_count": 0,
+     "delay_after_policy_creation_in_ms": null,
+     "description": null,
+     "id": "mock-aws_iam_policy.consumers",
+     "name": "prod-commerce-queue-consumers",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "policy": "{\"Statement\":[{\"Action\":[\"sqs:ReceiveMessage\",\"sqs:GetQueueAttributes\",\"sqs:DeleteMessage\",\"sqs:ChangeMessageVisibility\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-payments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-orders\",\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications\"],\"Sid\":\"ConsumeWorkQueues\"}],\"Version\":\"2012-10-17\"}",
+     "policy_id": "mock-policy_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_policy.consumers",
+     "attachment_count": 0,
+     "delay_after_policy_creation_in_ms": null,
+     "description": null,
+     "id": "mock-aws_iam_policy.consumers",
+     "name": "prod-commerce-queue-consumers",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "policy": "{\"Statement\":[{\"Action\":[\"sqs:ReceiveMessage\",\"sqs:GetQueueAttributes\",\"sqs:DeleteMessage\",\"sqs:ChangeMessageVisibility\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2\",\"arn:aws:sqs:eu-west-1:730415926611:prod-orders\",\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications\",\"arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points\"],\"Sid\":\"ConsumeWorkQueues\"}],\"Version\":\"2012-10-17\"}",
+     "policy_id": "mock-policy_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_iam_policy.producers",
+   "mode": "managed",
+   "type": "aws_iam_policy",
+   "name": "producers",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_policy.producers",
+     "attachment_count": 0,
+     "delay_after_policy_creation_in_ms": null,
+     "description": null,
+     "id": "mock-aws_iam_policy.producers",
+     "name": "prod-commerce-queue-producers",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "policy": "{\"Statement\":[{\"Action\":[\"sqs:SendMessage\",\"sqs:GetQueueUrl\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-payments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-orders\",\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications\"],\"Sid\":\"SendWorkQueues\"}],\"Version\":\"2012-10-17\"}",
+     "policy_id": "mock-policy_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events"
+     }
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_policy.producers",
+     "attachment_count": 0,
+     "delay_after_policy_creation_in_ms": null,
+     "description": null,
+     "id": "mock-aws_iam_policy.producers",
+     "name": "prod-commerce-queue-producers",
+     "name_prefix": "mock-name_prefix",
+     "path": "/",
+     "policy": "{\"Statement\":[{\"Action\":[\"sqs:SendMessage\",\"sqs:GetQueueUrl\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2\",\"arn:aws:sqs:eu-west-1:730415926611:prod-orders\",\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications\",\"arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points\"],\"Sid\":\"SendWorkQueues\"}],\"Version\":\"2012-10-17\"}",
+     "policy_id": "mock-policy_id",
+     "tags": null,
+     "tags_all": {
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     }
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.dlq[\"loyalty-points\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "dlq",
+   "index": "loyalty-points",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "content_based_deduplication": false,
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-loyalty-points-dlq",
+     "receive_wait_time_seconds": 0,
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "loyalty-points",
+      "Role": "dead-letter"
+     },
+     "tags_all": {
+      "Domain": "loyalty-points",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "dead-letter",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "timeouts": null,
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {
+     "arn": true,
+     "deduplication_scope": true,
+     "fifo_throughput_limit": true,
+     "id": true,
+     "name_prefix": true,
+     "policy": true,
+     "redrive_allow_policy": true,
+     "redrive_policy": true,
+     "tags": {},
+     "tags_all": {},
+     "url": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.dlq[\"notifications\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "dlq",
+   "index": "notifications",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"notifications\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.dlq[\"notifications\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-notifications-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "notifications",
+      "Role": "dead-letter"
+     },
+     "tags_all": {
+      "Domain": "notifications",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "dead-letter"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"notifications\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.dlq[\"notifications\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-notifications-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "notifications",
+      "Role": "dead-letter"
+     },
+     "tags_all": {
+      "Domain": "notifications",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "dead-letter",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.dlq[\"orders\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "dlq",
+   "index": "orders",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"orders\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.dlq[\"orders\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-orders-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "orders",
+      "Role": "dead-letter"
+     },
+     "tags_all": {
+      "Domain": "orders",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "dead-letter"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"orders\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.dlq[\"orders\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-orders-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "orders",
+      "Role": "dead-letter"
+     },
+     "tags_all": {
+      "Domain": "orders",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "dead-letter",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.dlq[\"payments\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "dlq",
+   "index": "payments",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "delete"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"payments\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.dlq[\"payments\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-payments-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "payments",
+      "Role": "dead-letter"
+     },
+     "tags_all": {
+      "Domain": "payments",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "dead-letter"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": null,
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": false
+   },
+   "action_reason": "delete_because_each_key"
+  },
+  {
+   "address": "aws_sqs_queue.dlq[\"payments-v2\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "dlq",
+   "index": "payments-v2",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "content_based_deduplication": false,
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-payments-v2-dlq",
+     "receive_wait_time_seconds": 0,
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "payments-v2",
+      "Role": "dead-letter"
+     },
+     "tags_all": {
+      "Domain": "payments-v2",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "dead-letter",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "timeouts": null,
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {
+     "arn": true,
+     "deduplication_scope": true,
+     "fifo_throughput_limit": true,
+     "id": true,
+     "name_prefix": true,
+     "policy": true,
+     "redrive_allow_policy": true,
+     "redrive_policy": true,
+     "tags": {},
+     "tags_all": {},
+     "url": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.dlq[\"shipments\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "dlq",
+   "index": "shipments",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"shipments\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.dlq[\"shipments\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-shipments-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "shipments",
+      "Role": "dead-letter"
+     },
+     "tags_all": {
+      "Domain": "shipments",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "dead-letter"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"shipments\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.dlq[\"shipments\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-shipments-dlq",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 0,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "mock-redrive_policy",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "shipments",
+      "Role": "dead-letter"
+     },
+     "tags_all": {
+      "Domain": "shipments",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "dead-letter",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.main[\"loyalty-points\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "main",
+   "index": "loyalty-points",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "content_based_deduplication": false,
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-loyalty-points",
+     "receive_wait_time_seconds": 20,
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points-dlq\",\"maxReceiveCount\":5}",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "loyalty-points",
+      "Role": "work"
+     },
+     "tags_all": {
+      "Domain": "loyalty-points",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "work",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "timeouts": null,
+     "visibility_timeout_seconds": 45
+    },
+    "after_unknown": {
+     "arn": true,
+     "deduplication_scope": true,
+     "fifo_throughput_limit": true,
+     "id": true,
+     "name_prefix": true,
+     "policy": true,
+     "redrive_allow_policy": true,
+     "tags": {},
+     "tags_all": {},
+     "url": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.main[\"notifications\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "main",
+   "index": "notifications",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"notifications\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.main[\"notifications\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 86400,
+     "name": "prod-notifications",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 20,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications-dlq\",\"maxReceiveCount\":10}",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "notifications",
+      "Role": "work"
+     },
+     "tags_all": {
+      "Domain": "notifications",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "work"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"notifications\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.main[\"notifications\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 86400,
+     "name": "prod-notifications",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 20,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications-dlq\",\"maxReceiveCount\":10}",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "notifications",
+      "Role": "work"
+     },
+     "tags_all": {
+      "Domain": "notifications",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "work",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 30
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.main[\"orders\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "main",
+   "index": "orders",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"orders\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.main[\"orders\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-orders",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 20,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-orders-dlq\",\"maxReceiveCount\":5}",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "orders",
+      "Role": "work"
+     },
+     "tags_all": {
+      "Domain": "orders",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "work"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 60
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"orders\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.main[\"orders\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-orders",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 20,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-orders-dlq\",\"maxReceiveCount\":5}",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "orders",
+      "Role": "work"
+     },
+     "tags_all": {
+      "Domain": "orders",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "work",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 90
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.main[\"payments\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "main",
+   "index": "payments",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "delete"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"payments\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.main[\"payments\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-payments",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 20,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-payments-dlq\",\"maxReceiveCount\":3}",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "payments",
+      "Role": "work"
+     },
+     "tags_all": {
+      "Domain": "payments",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "work"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 120
+    },
+    "after": null,
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": false
+   },
+   "action_reason": "delete_because_each_key"
+  },
+  {
+   "address": "aws_sqs_queue.main[\"payments-v2\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "main",
+   "index": "payments-v2",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "content_based_deduplication": false,
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 1209600,
+     "name": "prod-payments-v2",
+     "receive_wait_time_seconds": 20,
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2-dlq\",\"maxReceiveCount\":3}",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "payments-v2",
+      "Role": "work"
+     },
+     "tags_all": {
+      "Domain": "payments-v2",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "work",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "timeouts": null,
+     "visibility_timeout_seconds": 120
+    },
+    "after_unknown": {
+     "arn": true,
+     "deduplication_scope": true,
+     "fifo_throughput_limit": true,
+     "id": true,
+     "name_prefix": true,
+     "policy": true,
+     "redrive_allow_policy": true,
+     "tags": {},
+     "tags_all": {},
+     "url": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  },
+  {
+   "address": "aws_sqs_queue.main[\"shipments\"]",
+   "mode": "managed",
+   "type": "aws_sqs_queue",
+   "name": "main",
+   "index": "shipments",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "change": {
+    "actions": [
+     "update"
+    ],
+    "before": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"shipments\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.main[\"shipments\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-shipments",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 20,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments-dlq\",\"maxReceiveCount\":5}",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "shipments",
+      "Role": "work"
+     },
+     "tags_all": {
+      "Domain": "shipments",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "work"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 60
+    },
+    "after": {
+     "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"shipments\"]",
+     "content_based_deduplication": false,
+     "deduplication_scope": "mock-deduplication_scope",
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "fifo_throughput_limit": "mock-fifo_throughput_limit",
+     "id": "mock-aws_sqs_queue.main[\"shipments\"]",
+     "kms_data_key_reuse_period_seconds": 0,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "prod-shipments",
+     "name_prefix": "mock-name_prefix",
+     "policy": "mock-policy",
+     "receive_wait_time_seconds": 20,
+     "redrive_allow_policy": "mock-redrive_allow_policy",
+     "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments-dlq\",\"maxReceiveCount\":5}",
+     "region": "eu-west-1",
+     "sqs_managed_sse_enabled": true,
+     "tags": {
+      "Domain": "shipments",
+      "Role": "work"
+     },
+     "tags_all": {
+      "Domain": "shipments",
+      "Environment": "prod",
+      "ManagedBy": "terraform",
+      "Project": "commerce-events",
+      "Role": "work",
+      "Runbook": "https://wiki.acme.example/runbooks/commerce-events",
+      "Team": "commerce-core"
+     },
+     "timeouts": null,
+     "url": "mock-url",
+     "visibility_timeout_seconds": 60
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    }
+   }
+  }
+ ],
+ "output_changes": {
+  "queue_urls": {
+   "actions": [
+    "create"
+   ],
+   "before": null,
+   "after": {
+    "notifications": "mock-url",
+    "orders": "mock-url",
+    "shipments": "mock-url"
+   },
+   "after_unknown": {
+    "loyalty-points": true,
+    "payments-v2": true
+   },
+   "before_sensitive": false,
+   "after_sensitive": false
+  }
+ },
+ "prior_state": {
+  "format_version": "1.0",
+  "terraform_version": "1.10.5",
+  "values": {
+   "root_module": {
+    "resources": [
+     {
+      "address": "data.aws_iam_policy_document.consumers",
+      "mode": "data",
+      "type": "aws_iam_policy_document",
+      "name": "consumers",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "2528214377",
+       "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"ConsumeWorkQueues\",\n      \"Effect\": \"Allow\",\n      \"Action\": [\n        \"sqs:ReceiveMessage\",\n        \"sqs:GetQueueAttributes\",\n        \"sqs:DeleteMessage\",\n        \"sqs:ChangeMessageVisibility\"\n      ],\n      \"Resource\": [\n        \"arn:aws:sqs:eu-west-1:730415926611:prod-shipments\",\n        \"arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2\",\n        \"arn:aws:sqs:eu-west-1:730415926611:prod-orders\",\n        \"arn:aws:sqs:eu-west-1:730415926611:prod-notifications\",\n        \"arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points\"\n      ]\n    }\n  ]\n}",
+       "minified_json": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"ConsumeWorkQueues\",\"Effect\":\"Allow\",\"Action\":[\"sqs:ReceiveMessage\",\"sqs:GetQueueAttributes\",\"sqs:DeleteMessage\",\"sqs:ChangeMessageVisibility\"],\"Resource\":[\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2\",\"arn:aws:sqs:eu-west-1:730415926611:prod-orders\",\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications\",\"arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points\"]}]}",
+       "override_json": null,
+       "override_policy_documents": null,
+       "policy_id": null,
+       "source_json": null,
+       "source_policy_documents": null,
+       "statement": [
+        {
+         "actions": [
+          "sqs:ChangeMessageVisibility",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes",
+          "sqs:ReceiveMessage"
+         ],
+         "condition": [],
+         "effect": "Allow",
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [],
+         "resources": [
+          "arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points",
+          "arn:aws:sqs:eu-west-1:730415926611:prod-notifications",
+          "arn:aws:sqs:eu-west-1:730415926611:prod-orders",
+          "arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2",
+          "arn:aws:sqs:eu-west-1:730415926611:prod-shipments"
+         ],
+         "sid": "ConsumeWorkQueues"
+        }
+       ],
+       "version": "2012-10-17"
+      },
+      "sensitive_values": {
+       "statement": [
+        {
+         "actions": [
+          false,
+          false,
+          false,
+          false
+         ],
+         "condition": [],
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [],
+         "resources": [
+          false,
+          false,
+          false,
+          false,
+          false
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "address": "data.aws_iam_policy_document.producers",
+      "mode": "data",
+      "type": "aws_iam_policy_document",
+      "name": "producers",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "id": "2201849452",
+       "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"SendWorkQueues\",\n      \"Effect\": \"Allow\",\n      \"Action\": [\n        \"sqs:SendMessage\",\n        \"sqs:GetQueueUrl\"\n      ],\n      \"Resource\": [\n        \"arn:aws:sqs:eu-west-1:730415926611:prod-shipments\",\n        \"arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2\",\n        \"arn:aws:sqs:eu-west-1:730415926611:prod-orders\",\n        \"arn:aws:sqs:eu-west-1:730415926611:prod-notifications\",\n        \"arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points\"\n      ]\n    }\n  ]\n}",
+       "minified_json": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"SendWorkQueues\",\"Effect\":\"Allow\",\"Action\":[\"sqs:SendMessage\",\"sqs:GetQueueUrl\"],\"Resource\":[\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2\",\"arn:aws:sqs:eu-west-1:730415926611:prod-orders\",\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications\",\"arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points\"]}]}",
+       "override_json": null,
+       "override_policy_documents": null,
+       "policy_id": null,
+       "source_json": null,
+       "source_policy_documents": null,
+       "statement": [
+        {
+         "actions": [
+          "sqs:GetQueueUrl",
+          "sqs:SendMessage"
+         ],
+         "condition": [],
+         "effect": "Allow",
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [],
+         "resources": [
+          "arn:aws:sqs:eu-west-1:730415926611:prod-loyalty-points",
+          "arn:aws:sqs:eu-west-1:730415926611:prod-notifications",
+          "arn:aws:sqs:eu-west-1:730415926611:prod-orders",
+          "arn:aws:sqs:eu-west-1:730415926611:prod-payments-v2",
+          "arn:aws:sqs:eu-west-1:730415926611:prod-shipments"
+         ],
+         "sid": "SendWorkQueues"
+        }
+       ],
+       "version": "2012-10-17"
+      },
+      "sensitive_values": {
+       "statement": [
+        {
+         "actions": [
+          false,
+          false
+         ],
+         "condition": [],
+         "not_actions": [],
+         "not_principals": [],
+         "not_resources": [],
+         "principals": [],
+         "resources": [
+          false,
+          false,
+          false,
+          false,
+          false
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"notifications\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "dlq_not_empty",
+      "index": "notifications",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+       ],
+       "alarm_description": "Messages are landing in the notifications dead-letter queue.",
+       "alarm_name": "prod-notifications-dlq-not-empty",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"notifications\"]",
+       "comparison_operator": "GreaterThanOrEqualToThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "QueueName": "prod-notifications-dlq"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 1,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"notifications\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "ApproximateNumberOfMessagesVisible",
+       "metric_query": [],
+       "namespace": "AWS/SQS",
+       "ok_actions": null,
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Maximum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events"
+       },
+       "threshold": 50,
+       "threshold_metric_id": null,
+       "treat_missing_data": "notBreaching",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"orders\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "dlq_not_empty",
+      "index": "orders",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+       ],
+       "alarm_description": "Messages are landing in the orders dead-letter queue.",
+       "alarm_name": "prod-orders-dlq-not-empty",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"orders\"]",
+       "comparison_operator": "GreaterThanOrEqualToThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "QueueName": "prod-orders-dlq"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 1,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"orders\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "ApproximateNumberOfMessagesVisible",
+       "metric_query": [],
+       "namespace": "AWS/SQS",
+       "ok_actions": null,
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Maximum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events"
+       },
+       "threshold": 1,
+       "threshold_metric_id": null,
+       "treat_missing_data": "notBreaching",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"payments\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "dlq_not_empty",
+      "index": "payments",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+       ],
+       "alarm_description": "Messages are landing in the payments dead-letter queue.",
+       "alarm_name": "prod-payments-dlq-not-empty",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"payments\"]",
+       "comparison_operator": "GreaterThanOrEqualToThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "QueueName": "prod-payments-dlq"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 1,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"payments\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "ApproximateNumberOfMessagesVisible",
+       "metric_query": [],
+       "namespace": "AWS/SQS",
+       "ok_actions": null,
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Maximum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events"
+       },
+       "threshold": 1,
+       "threshold_metric_id": null,
+       "treat_missing_data": "notBreaching",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.dlq_not_empty[\"shipments\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "dlq_not_empty",
+      "index": "shipments",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+       ],
+       "alarm_description": "Messages are landing in the shipments dead-letter queue.",
+       "alarm_name": "prod-shipments-dlq-not-empty",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.dlq_not_empty[\"shipments\"]",
+       "comparison_operator": "GreaterThanOrEqualToThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "QueueName": "prod-shipments-dlq"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 1,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.dlq_not_empty[\"shipments\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "ApproximateNumberOfMessagesVisible",
+       "metric_query": [],
+       "namespace": "AWS/SQS",
+       "ok_actions": null,
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Maximum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events"
+       },
+       "threshold": 5,
+       "threshold_metric_id": null,
+       "treat_missing_data": "notBreaching",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.oldest_message[\"notifications\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "oldest_message",
+      "index": "notifications",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+       ],
+       "alarm_description": "Consumers of notifications are falling behind.",
+       "alarm_name": "prod-notifications-oldest-message",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"notifications\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "QueueName": "prod-notifications"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 3,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"notifications\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "ApproximateAgeOfOldestMessage",
+       "metric_query": [],
+       "namespace": "AWS/SQS",
+       "ok_actions": null,
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Maximum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events"
+       },
+       "threshold": 900,
+       "threshold_metric_id": null,
+       "treat_missing_data": "notBreaching",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.oldest_message[\"orders\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "oldest_message",
+      "index": "orders",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+       ],
+       "alarm_description": "Consumers of orders are falling behind.",
+       "alarm_name": "prod-orders-oldest-message",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"orders\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "QueueName": "prod-orders"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 3,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"orders\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "ApproximateAgeOfOldestMessage",
+       "metric_query": [],
+       "namespace": "AWS/SQS",
+       "ok_actions": null,
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Maximum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events"
+       },
+       "threshold": 900,
+       "threshold_metric_id": null,
+       "treat_missing_data": "notBreaching",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.oldest_message[\"payments\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "oldest_message",
+      "index": "payments",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+       ],
+       "alarm_description": "Consumers of payments are falling behind.",
+       "alarm_name": "prod-payments-oldest-message",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"payments\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "QueueName": "prod-payments"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 3,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"payments\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "ApproximateAgeOfOldestMessage",
+       "metric_query": [],
+       "namespace": "AWS/SQS",
+       "ok_actions": null,
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Maximum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events"
+       },
+       "threshold": 900,
+       "threshold_metric_id": null,
+       "treat_missing_data": "notBreaching",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_cloudwatch_metric_alarm.oldest_message[\"shipments\"]",
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "oldest_message",
+      "index": "shipments",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 1,
+      "values": {
+       "actions_enabled": true,
+       "alarm_actions": [
+        "arn:aws:sns:eu-west-1:730415926611:prod-oncall"
+       ],
+       "alarm_description": "Consumers of shipments are falling behind.",
+       "alarm_name": "prod-shipments-oldest-message",
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_cloudwatch_metric_alarm.oldest_message[\"shipments\"]",
+       "comparison_operator": "GreaterThanThreshold",
+       "datapoints_to_alarm": null,
+       "dimensions": {
+        "QueueName": "prod-shipments"
+       },
+       "evaluate_low_sample_count_percentiles": "mock-evaluate_low_sample_count_percentiles",
+       "evaluation_criteria": [],
+       "evaluation_interval": null,
+       "evaluation_periods": 3,
+       "evaluation_window": [],
+       "extended_statistic": null,
+       "id": "mock-aws_cloudwatch_metric_alarm.oldest_message[\"shipments\"]",
+       "insufficient_data_actions": null,
+       "metric_name": "ApproximateAgeOfOldestMessage",
+       "metric_query": [],
+       "namespace": "AWS/SQS",
+       "ok_actions": null,
+       "period": 300,
+       "region": "eu-west-1",
+       "statistic": "Maximum",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events"
+       },
+       "threshold": 900,
+       "threshold_metric_id": null,
+       "treat_missing_data": "notBreaching",
+       "unit": null,
+       "warm_up_configuration": []
+      },
+      "sensitive_values": {
+       "alarm_actions": [
+        false
+       ],
+       "dimensions": {},
+       "evaluation_criteria": [],
+       "evaluation_window": [],
+       "metric_query": [],
+       "tags_all": {},
+       "warm_up_configuration": []
+      }
+     },
+     {
+      "address": "aws_iam_policy.consumers",
+      "mode": "managed",
+      "type": "aws_iam_policy",
+      "name": "consumers",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_policy.consumers",
+       "attachment_count": 0,
+       "delay_after_policy_creation_in_ms": null,
+       "description": null,
+       "id": "mock-aws_iam_policy.consumers",
+       "name": "prod-commerce-queue-consumers",
+       "name_prefix": "mock-name_prefix",
+       "path": "/",
+       "policy": "{\"Statement\":[{\"Action\":[\"sqs:ReceiveMessage\",\"sqs:GetQueueAttributes\",\"sqs:DeleteMessage\",\"sqs:ChangeMessageVisibility\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-payments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-orders\",\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications\"],\"Sid\":\"ConsumeWorkQueues\"}],\"Version\":\"2012-10-17\"}",
+       "policy_id": "mock-policy_id",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_iam_policy.producers",
+      "mode": "managed",
+      "type": "aws_iam_policy",
+      "name": "producers",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_iam_policy.producers",
+       "attachment_count": 0,
+       "delay_after_policy_creation_in_ms": null,
+       "description": null,
+       "id": "mock-aws_iam_policy.producers",
+       "name": "prod-commerce-queue-producers",
+       "name_prefix": "mock-name_prefix",
+       "path": "/",
+       "policy": "{\"Statement\":[{\"Action\":[\"sqs:SendMessage\",\"sqs:GetQueueUrl\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-payments\",\"arn:aws:sqs:eu-west-1:730415926611:prod-orders\",\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications\"],\"Sid\":\"SendWorkQueues\"}],\"Version\":\"2012-10-17\"}",
+       "policy_id": "mock-policy_id",
+       "tags": null,
+       "tags_all": {
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events"
+       }
+      },
+      "sensitive_values": {
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.dlq[\"notifications\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "dlq",
+      "index": "notifications",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"notifications\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.dlq[\"notifications\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": null,
+       "max_message_size": 262144,
+       "message_retention_seconds": 1209600,
+       "name": "prod-notifications-dlq",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 0,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "mock-redrive_policy",
+       "region": "eu-west-1",
+       "sqs_managed_sse_enabled": true,
+       "tags": {
+        "Domain": "notifications",
+        "Role": "dead-letter"
+       },
+       "tags_all": {
+        "Domain": "notifications",
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events",
+        "Role": "dead-letter"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 30
+      },
+      "sensitive_values": {
+       "tags": {},
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.dlq[\"orders\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "dlq",
+      "index": "orders",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"orders\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.dlq[\"orders\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": null,
+       "max_message_size": 262144,
+       "message_retention_seconds": 1209600,
+       "name": "prod-orders-dlq",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 0,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "mock-redrive_policy",
+       "region": "eu-west-1",
+       "sqs_managed_sse_enabled": true,
+       "tags": {
+        "Domain": "orders",
+        "Role": "dead-letter"
+       },
+       "tags_all": {
+        "Domain": "orders",
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events",
+        "Role": "dead-letter"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 30
+      },
+      "sensitive_values": {
+       "tags": {},
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.dlq[\"payments\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "dlq",
+      "index": "payments",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"payments\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.dlq[\"payments\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": null,
+       "max_message_size": 262144,
+       "message_retention_seconds": 1209600,
+       "name": "prod-payments-dlq",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 0,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "mock-redrive_policy",
+       "region": "eu-west-1",
+       "sqs_managed_sse_enabled": true,
+       "tags": {
+        "Domain": "payments",
+        "Role": "dead-letter"
+       },
+       "tags_all": {
+        "Domain": "payments",
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events",
+        "Role": "dead-letter"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 30
+      },
+      "sensitive_values": {
+       "tags": {},
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.dlq[\"shipments\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "dlq",
+      "index": "shipments",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.dlq[\"shipments\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.dlq[\"shipments\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": null,
+       "max_message_size": 262144,
+       "message_retention_seconds": 1209600,
+       "name": "prod-shipments-dlq",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 0,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "mock-redrive_policy",
+       "region": "eu-west-1",
+       "sqs_managed_sse_enabled": true,
+       "tags": {
+        "Domain": "shipments",
+        "Role": "dead-letter"
+       },
+       "tags_all": {
+        "Domain": "shipments",
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events",
+        "Role": "dead-letter"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 30
+      },
+      "sensitive_values": {
+       "tags": {},
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.main[\"notifications\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "main",
+      "index": "notifications",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"notifications\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.main[\"notifications\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": null,
+       "max_message_size": 262144,
+       "message_retention_seconds": 86400,
+       "name": "prod-notifications",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 20,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-notifications-dlq\",\"maxReceiveCount\":10}",
+       "region": "eu-west-1",
+       "sqs_managed_sse_enabled": true,
+       "tags": {
+        "Domain": "notifications",
+        "Role": "work"
+       },
+       "tags_all": {
+        "Domain": "notifications",
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events",
+        "Role": "work"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 30
+      },
+      "sensitive_values": {
+       "tags": {},
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.main[\"orders\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "main",
+      "index": "orders",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"orders\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.main[\"orders\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": null,
+       "max_message_size": 262144,
+       "message_retention_seconds": 345600,
+       "name": "prod-orders",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 20,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-orders-dlq\",\"maxReceiveCount\":5}",
+       "region": "eu-west-1",
+       "sqs_managed_sse_enabled": true,
+       "tags": {
+        "Domain": "orders",
+        "Role": "work"
+       },
+       "tags_all": {
+        "Domain": "orders",
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events",
+        "Role": "work"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 60
+      },
+      "sensitive_values": {
+       "tags": {},
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.main[\"payments\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "main",
+      "index": "payments",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"payments\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.main[\"payments\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": null,
+       "max_message_size": 262144,
+       "message_retention_seconds": 1209600,
+       "name": "prod-payments",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 20,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-payments-dlq\",\"maxReceiveCount\":3}",
+       "region": "eu-west-1",
+       "sqs_managed_sse_enabled": true,
+       "tags": {
+        "Domain": "payments",
+        "Role": "work"
+       },
+       "tags_all": {
+        "Domain": "payments",
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events",
+        "Role": "work"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 120
+      },
+      "sensitive_values": {
+       "tags": {},
+       "tags_all": {}
+      }
+     },
+     {
+      "address": "aws_sqs_queue.main[\"shipments\"]",
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "main",
+      "index": "shipments",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "values": {
+       "arn": "arn:aws:mock:eu-west-1:123456789012:aws_sqs_queue.main[\"shipments\"]",
+       "content_based_deduplication": false,
+       "deduplication_scope": "mock-deduplication_scope",
+       "delay_seconds": 0,
+       "fifo_queue": false,
+       "fifo_throughput_limit": "mock-fifo_throughput_limit",
+       "id": "mock-aws_sqs_queue.main[\"shipments\"]",
+       "kms_data_key_reuse_period_seconds": 0,
+       "kms_master_key_id": null,
+       "max_message_size": 262144,
+       "message_retention_seconds": 345600,
+       "name": "prod-shipments",
+       "name_prefix": "mock-name_prefix",
+       "policy": "mock-policy",
+       "receive_wait_time_seconds": 20,
+       "redrive_allow_policy": "mock-redrive_allow_policy",
+       "redrive_policy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:eu-west-1:730415926611:prod-shipments-dlq\",\"maxReceiveCount\":5}",
+       "region": "eu-west-1",
+       "sqs_managed_sse_enabled": true,
+       "tags": {
+        "Domain": "shipments",
+        "Role": "work"
+       },
+       "tags_all": {
+        "Domain": "shipments",
+        "Environment": "prod",
+        "ManagedBy": "terraform",
+        "Project": "commerce-events",
+        "Role": "work"
+       },
+       "timeouts": null,
+       "url": "mock-url",
+       "visibility_timeout_seconds": 60
+      },
+      "sensitive_values": {
+       "tags": {},
+       "tags_all": {}
+      }
+     }
+    ]
+   }
+  }
+ },
+ "configuration": {
+  "provider_config": {
+   "aws": {
+    "name": "aws",
+    "full_name": "registry.terraform.io/hashicorp/aws",
+    "version_constraint": "~> 6.0",
+    "expressions": {
+     "access_key": {
+      "constant_value": "mock_access_key"
+     },
+     "default_tags": [
+      {
+       "tags": {
+        "references": [
+         "var.environment"
+        ]
+       }
+      }
+     ],
+     "region": {
+      "references": [
+       "var.region"
+      ]
+     },
+     "secret_key": {
+      "constant_value": "mock_secret_key"
+     },
+     "skip_credentials_validation": {
+      "constant_value": true
+     },
+     "skip_metadata_api_check": {
+      "constant_value": true
+     },
+     "skip_region_validation": {
+      "constant_value": true
+     },
+     "skip_requesting_account_id": {
+      "constant_value": true
+     }
+    }
+   }
+  },
+  "root_module": {
+   "outputs": {
+    "queue_urls": {
+     "expression": {
+      "references": [
+       "aws_sqs_queue.main"
+      ]
+     }
+    }
+   },
+   "resources": [
+    {
+     "address": "aws_cloudwatch_metric_alarm.dlq_not_empty",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "dlq_not_empty",
+     "provider_config_key": "aws",
+     "expressions": {
+      "alarm_actions": {
+       "references": [
+        "var.alarm_topic_arn"
+       ]
+      },
+      "alarm_description": {
+       "references": [
+        "each.key"
+       ]
+      },
+      "alarm_name": {
+       "references": [
+        "local.dlq_name",
+        "each.key"
+       ]
+      },
+      "comparison_operator": {
+       "constant_value": "GreaterThanOrEqualToThreshold"
+      },
+      "dimensions": {
+       "references": [
+        "local.dlq_name",
+        "each.key"
+       ]
+      },
+      "evaluation_periods": {
+       "constant_value": 1
+      },
+      "metric_name": {
+       "constant_value": "ApproximateNumberOfMessagesVisible"
+      },
+      "namespace": {
+       "constant_value": "AWS/SQS"
+      },
+      "period": {
+       "constant_value": 300
+      },
+      "statistic": {
+       "constant_value": "Maximum"
+      },
+      "threshold": {
+       "references": [
+        "each.value.dlq_alarm_at",
+        "each.value"
+       ]
+      },
+      "treat_missing_data": {
+       "constant_value": "notBreaching"
+      }
+     },
+     "schema_version": 1,
+     "for_each_expression": {
+      "references": [
+       "var.queues"
+      ]
+     }
+    },
+    {
+     "address": "aws_cloudwatch_metric_alarm.oldest_message",
+     "mode": "managed",
+     "type": "aws_cloudwatch_metric_alarm",
+     "name": "oldest_message",
+     "provider_config_key": "aws",
+     "expressions": {
+      "alarm_actions": {
+       "references": [
+        "var.alarm_topic_arn"
+       ]
+      },
+      "alarm_description": {
+       "references": [
+        "each.key"
+       ]
+      },
+      "alarm_name": {
+       "references": [
+        "local.prefix",
+        "each.key"
+       ]
+      },
+      "comparison_operator": {
+       "constant_value": "GreaterThanThreshold"
+      },
+      "dimensions": {
+       "references": [
+        "local.prefix",
+        "each.key"
+       ]
+      },
+      "evaluation_periods": {
+       "constant_value": 3
+      },
+      "metric_name": {
+       "constant_value": "ApproximateAgeOfOldestMessage"
+      },
+      "namespace": {
+       "constant_value": "AWS/SQS"
+      },
+      "period": {
+       "constant_value": 300
+      },
+      "statistic": {
+       "constant_value": "Maximum"
+      },
+      "threshold": {
+       "constant_value": 900
+      },
+      "treat_missing_data": {
+       "constant_value": "notBreaching"
+      }
+     },
+     "schema_version": 1,
+     "for_each_expression": {
+      "references": [
+       "var.queues"
+      ]
+     }
+    },
+    {
+     "address": "aws_iam_policy.consumers",
+     "mode": "managed",
+     "type": "aws_iam_policy",
+     "name": "consumers",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "local.prefix"
+       ]
+      },
+      "policy": {
+       "references": [
+        "data.aws_iam_policy_document.consumers.json",
+        "data.aws_iam_policy_document.consumers"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_iam_policy.producers",
+     "mode": "managed",
+     "type": "aws_iam_policy",
+     "name": "producers",
+     "provider_config_key": "aws",
+     "expressions": {
+      "name": {
+       "references": [
+        "local.prefix"
+       ]
+      },
+      "policy": {
+       "references": [
+        "data.aws_iam_policy_document.producers.json",
+        "data.aws_iam_policy_document.producers"
+       ]
+      }
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "aws_sqs_queue.dlq",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "dlq",
+     "provider_config_key": "aws",
+     "expressions": {
+      "message_retention_seconds": {
+       "constant_value": 1209600
+      },
+      "name": {
+       "references": [
+        "local.dlq_name",
+        "each.key"
+       ]
+      },
+      "sqs_managed_sse_enabled": {
+       "constant_value": true
+      },
+      "tags": {
+       "references": [
+        "each.key"
+       ]
+      }
+     },
+     "schema_version": 0,
+     "for_each_expression": {
+      "references": [
+       "var.queues"
+      ]
+     }
+    },
+    {
+     "address": "aws_sqs_queue.main",
+     "mode": "managed",
+     "type": "aws_sqs_queue",
+     "name": "main",
+     "provider_config_key": "aws",
+     "expressions": {
+      "message_retention_seconds": {
+       "references": [
+        "each.value.retention_seconds",
+        "each.value"
+       ]
+      },
+      "name": {
+       "references": [
+        "local.prefix",
+        "each.key"
+       ]
+      },
+      "receive_wait_time_seconds": {
+       "constant_value": 20
+      },
+      "redrive_policy": {
+       "references": [
+        "local.sqs_arn",
+        "local.dlq_name",
+        "each.key",
+        "each.value.max_receive_count",
+        "each.value"
+       ]
+      },
+      "sqs_managed_sse_enabled": {
+       "constant_value": true
+      },
+      "tags": {
+       "references": [
+        "each.key"
+       ]
+      },
+      "visibility_timeout_seconds": {
+       "references": [
+        "each.value.visibility_timeout",
+        "each.value"
+       ]
+      }
+     },
+     "schema_version": 0,
+     "for_each_expression": {
+      "references": [
+       "var.queues"
+      ]
+     },
+     "depends_on": [
+      "aws_sqs_queue.dlq"
+     ]
+    },
+    {
+     "address": "data.aws_iam_policy_document.consumers",
+     "mode": "data",
+     "type": "aws_iam_policy_document",
+     "name": "consumers",
+     "provider_config_key": "aws",
+     "expressions": {
+      "statement": [
+       {
+        "actions": {
+         "constant_value": [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:ChangeMessageVisibility",
+          "sqs:GetQueueAttributes"
+         ]
+        },
+        "resources": {
+         "references": [
+          "var.queues",
+          "local.sqs_arn",
+          "local.prefix"
+         ]
+        },
+        "sid": {
+         "constant_value": "ConsumeWorkQueues"
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    },
+    {
+     "address": "data.aws_iam_policy_document.producers",
+     "mode": "data",
+     "type": "aws_iam_policy_document",
+     "name": "producers",
+     "provider_config_key": "aws",
+     "expressions": {
+      "statement": [
+       {
+        "actions": {
+         "constant_value": [
+          "sqs:SendMessage",
+          "sqs:GetQueueUrl"
+         ]
+        },
+        "resources": {
+         "references": [
+          "var.queues",
+          "local.sqs_arn",
+          "local.prefix"
+         ]
+        },
+        "sid": {
+         "constant_value": "SendWorkQueues"
+        }
+       }
+      ]
+     },
+     "schema_version": 0
+    }
+   ],
+   "variables": {
+    "account_id": {},
+    "alarm_topic_arn": {},
+    "environment": {},
+    "queues": {
+     "description": "Work queues, keyed by domain. The key is part of the queue name: <env>-<key> and <env>-<key>-dlq."
+    },
+    "region": {
+     "default": "eu-west-1"
+    }
+   }
+  }
+ },
+ "relevant_attributes": [
+  {
+   "resource": "data.aws_iam_policy_document.consumers",
+   "attribute": [
+    "json"
+   ]
+  },
+  {
+   "resource": "data.aws_iam_policy_document.producers",
+   "attribute": [
+    "json"
+   ]
+  },
+  {
+   "resource": "aws_sqs_queue.main",
+   "attribute": []
+  }
+ ],
+ "timestamp": "2026-11-24T09:32:23Z",
+ "applyable": true,
+ "complete": true,
+ "errored": false
+}

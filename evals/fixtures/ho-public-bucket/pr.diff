@@ -1,0 +1,110 @@
+diff --git a/providers.tf b/providers.tf
+index d04a150..9922b1d 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -16,7 +16,8 @@ provider "aws" {
+       Project     = "storefront-web"
+       Environment = var.environment
+       ManagedBy   = "terraform"
+-      Owner       = "web-platform"
++      Owner       = "storefront-web"
++      CostCenter  = "cc-3310"
+     }
+   }
+ }
+diff --git a/storage.tf b/storage.tf
+index d4c0dc0..b36e91d 100644
+--- a/storage.tf
++++ b/storage.tf
+@@ -38,10 +38,43 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "static" {
+ resource "aws_s3_bucket_public_access_block" "static" {
+   bucket = aws_s3_bucket.static.bucket
+ 
++  # Serve the static assets straight from S3 so the storefront can drop the image proxy.
+   block_public_acls       = true
+-  block_public_policy     = true
++  block_public_policy     = false
+   ignore_public_acls      = true
+-  restrict_public_buckets = true
++  restrict_public_buckets = false
++}
++
++data "aws_iam_policy_document" "static_public_read" {
++  statement {
++    sid       = "PublicReadStaticAssets"
++    effect    = "Allow"
++    actions   = ["s3:GetObject"]
++    resources = ["${local.static_bucket_arn}/*"]
++
++    principals {
++      type        = "*"
++      identifiers = ["*"]
++    }
++  }
++}
++
++resource "aws_s3_bucket_policy" "static_public_read" {
++  bucket = aws_s3_bucket.static.bucket
++  policy = data.aws_iam_policy_document.static_public_read.json
++
++  depends_on = [aws_s3_bucket_public_access_block.static]
++}
++
++resource "aws_s3_bucket_cors_configuration" "static" {
++  bucket = aws_s3_bucket.static.bucket
++
++  cors_rule {
++    allowed_methods = ["GET", "HEAD"]
++    allowed_origins = ["https://www.acme-storefront.example", "https://m.acme-storefront.example"]
++    allowed_headers = ["*"]
++    max_age_seconds = 3600
++  }
+ }
+ 
+ resource "aws_s3_bucket_lifecycle_configuration" "static" {
+diff --git a/terraform.tfvars b/terraform.tfvars
+index 9d237e7..a57538c 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -4,11 +4,12 @@ static_bucket_name     = "acme-storefront-static-prod"
+ access_log_bucket_name = "acme-storefront-access-logs-prod"
+ 
+ services = {
+-  "web-frontend"   = { assets_base_url = "/assets", log_level = "info" }
++  "web-frontend"   = { assets_base_url = "https://acme-storefront-static-prod.s3.eu-west-1.amazonaws.com/assets", log_level = "info" }
+   "cart-api"       = { log_level = "info", session_ttl = "3600" }
+   "checkout-api"   = { log_level = "info", payment_timeout = "20" }
+   "catalog-api"    = { log_level = "warn", page_size = "48" }
+   "search-api"     = { log_level = "info", max_results = "200" }
+   "account-api"    = { log_level = "info" }
+   "reporting-job"  = { log_level = "info", export_prefix = "exports/customers/" }
++  "image-resizer"  = { log_level = "info", max_width = "2048" }
+ }
+diff --git a/variables.tf b/variables.tf
+index c267575..558a549 100644
+--- a/variables.tf
++++ b/variables.tf
+@@ -17,7 +17,7 @@ variable "access_log_bucket_name" {
+ 
+ variable "asset_noncurrent_days" {
+   type    = number
+-  default = 30
++  default = 14
+ }
+ 
+ variable "customer_export_expiry_days" {
+@@ -28,12 +28,12 @@ variable "customer_export_expiry_days" {
+ 
+ variable "access_log_expiry_days" {
+   type    = number
+-  default = 365
++  default = 400
+ }
+ 
+ variable "app_log_retention_days" {
+   type    = number
+-  default = 30
++  default = 60
+ }
+ 
+ variable "services" {

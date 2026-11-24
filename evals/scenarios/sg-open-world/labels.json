@@ -1,0 +1,27 @@
+{
+  "description": "PR flips db_public = true in prod.auto.tfvars (with a vendor-access comment), which switches a local from the office CIDRs to 0.0.0.0/0 on the Postgres security group's inline ingress. Acceptable: ECS service log retention 30 -> 14 days (a retention cut). Noise: a Team default tag, a new statements-api service.",
+  "material": [
+    {
+      "address": "aws_security_group.db",
+      "severity": "critical",
+      "why": "The inline ingress for port 5432 changes from the office/VPN CIDRs to 0.0.0.0/0: the production billing database becomes reachable from the whole internet. The PR only shows a boolean in a tfvars file; the CIDR swap happens in a local in main.tf.",
+      "cause": [
+        {
+          "file": "prod.auto.tfvars",
+          "line": 5
+        }
+      ]
+    }
+  ],
+  "acceptable": [
+    "module.service[\"billing-api\"].aws_cloudwatch_log_group.this",
+    "module.service[\"billing-worker\"].aws_cloudwatch_log_group.this",
+    "module.service[\"dunning-scheduler\"].aws_cloudwatch_log_group.this",
+    "module.service[\"invoice-renderer\"].aws_cloudwatch_log_group.this",
+    "module.service[\"ledger-sync\"].aws_cloudwatch_log_group.this",
+    "module.service[\"payment-gateway\"].aws_cloudwatch_log_group.this",
+    "module.service[\"tax-calculator\"].aws_cloudwatch_log_group.this",
+    "module.service[\"usage-metering\"].aws_cloudwatch_log_group.this",
+    "module.service[\"webhook-relay\"].aws_cloudwatch_log_group.this"
+  ]
+}

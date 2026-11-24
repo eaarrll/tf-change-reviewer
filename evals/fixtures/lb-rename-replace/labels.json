@@ -1,0 +1,35 @@
+{
+  "description": "\"Standardize names\" PR adds a region_code variable (euw1 in terraform.tfvars) and appends it to local.name, which names the public ALB and its target groups. An ALB name forces replacement, so the storefront load balancer is destroyed and recreated with a new DNS name, and everything hanging off it (both listeners, every listener rule, every target group) is replaced too. Noise: a NamingStd default tag on every resource, 5xx alarms re-pointed at the new ARNs.",
+  "material": [
+    {
+      "address": "aws_lb.public",
+      "severity": "critical",
+      "why": "name \"prod-sf\" -> \"prod-sf-euw1\" forces replacement of the public storefront ALB. Terraform destroys it (enable_deletion_protection is off) before creating the new one, so the storefront is down until the new ALB, its listeners, rules and target groups exist and the new targets register; the new ALB also has a new DNS name: the Route 53 alias follows on apply, but anything pinned to the old name or ARN (CDN origin, WAF association, partner allow-lists, cached DNS) breaks.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 2
+        },
+        {
+          "file": "locals.tf",
+          "line": 3
+        }
+      ]
+    }
+  ],
+  "acceptable": [
+    "aws_lb_listener.https",
+    "aws_lb_listener.http",
+    "aws_lb_listener_rule.svc[\"account\"]",
+    "aws_lb_listener_rule.svc[\"cart\"]",
+    "aws_lb_listener_rule.svc[\"catalog\"]",
+    "aws_lb_listener_rule.svc[\"checkout\"]",
+    "aws_lb_listener_rule.svc[\"search\"]",
+    "aws_lb_target_group.svc[\"account\"]",
+    "aws_lb_target_group.svc[\"cart\"]",
+    "aws_lb_target_group.svc[\"catalog\"]",
+    "aws_lb_target_group.svc[\"checkout\"]",
+    "aws_lb_target_group.svc[\"search\"]",
+    "aws_route53_record.storefront"
+  ]
+}

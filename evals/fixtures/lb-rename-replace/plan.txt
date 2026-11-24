@@ -1,0 +1,559 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.svc["account"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "svc" {
+        id                          = "mock-aws_cloudwatch_log_group.svc[\"account\"]"
+        name                        = "/storefront/prod/account"
+      ~ tags_all                    = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_log_group.svc["cart"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "svc" {
+        id                          = "mock-aws_cloudwatch_log_group.svc[\"cart\"]"
+        name                        = "/storefront/prod/cart"
+      ~ tags_all                    = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_log_group.svc["catalog"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "svc" {
+        id                          = "mock-aws_cloudwatch_log_group.svc[\"catalog\"]"
+        name                        = "/storefront/prod/catalog"
+      ~ tags_all                    = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_log_group.svc["checkout"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "svc" {
+        id                          = "mock-aws_cloudwatch_log_group.svc[\"checkout\"]"
+        name                        = "/storefront/prod/checkout"
+      ~ tags_all                    = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_log_group.svc["search"] will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "svc" {
+        id                          = "mock-aws_cloudwatch_log_group.svc[\"search\"]"
+        name                        = "/storefront/prod/search"
+      ~ tags_all                    = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.target_5xx["account"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "target_5xx" {
+      ~ dimensions                            = {} -> (known after apply)
+        id                                    = "mock-aws_cloudwatch_metric_alarm.target_5xx[\"account\"]"
+      ~ tags_all                              = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (13 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.target_5xx["cart"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "target_5xx" {
+      ~ dimensions                            = {} -> (known after apply)
+        id                                    = "mock-aws_cloudwatch_metric_alarm.target_5xx[\"cart\"]"
+      ~ tags_all                              = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (13 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.target_5xx["catalog"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "target_5xx" {
+      ~ dimensions                            = {} -> (known after apply)
+        id                                    = "mock-aws_cloudwatch_metric_alarm.target_5xx[\"catalog\"]"
+      ~ tags_all                              = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (13 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.target_5xx["checkout"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "target_5xx" {
+      ~ dimensions                            = {} -> (known after apply)
+        id                                    = "mock-aws_cloudwatch_metric_alarm.target_5xx[\"checkout\"]"
+      ~ tags_all                              = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (13 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.target_5xx["search"] will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "target_5xx" {
+      ~ dimensions                            = {} -> (known after apply)
+        id                                    = "mock-aws_cloudwatch_metric_alarm.target_5xx[\"search\"]"
+      ~ tags_all                              = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (13 unchanged attributes hidden)
+    }
+
+  # aws_lb.public must be replaced
+-/+ resource "aws_lb" "public" {
+      ~ arn                                                          = "arn:aws:mock:eu-west-1:123456789012:aws_lb.public" -> (known after apply)
+      ~ arn_suffix                                                   = "mock-arn_suffix" -> (known after apply)
+      ~ dns_name                                                     = "mock-dns_name" -> (known after apply)
+      ~ enable_prefix_for_ipv6_source_nat                            = "mock-enable_prefix_for_ipv6_source_nat" -> (known after apply)
+      ~ enforce_security_group_inbound_rules_on_private_link_traffic = "mock-enforce_security_group_inbound_rules_on_private_link_traffic" -> (known after apply)
+      ~ id                                                           = "mock-aws_lb.public" -> (known after apply)
+      ~ ip_address_type                                              = "mock-ip_address_type" -> (known after apply)
+      ~ name                                                         = "prod-sf" -> "prod-sf-euw1" # forces replacement
+      ~ name_prefix                                                  = "mock-name_prefix" -> (known after apply)
+      ~ secondary_ips_auto_assigned_per_subnet                       = 0 -> (known after apply)
+      ~ tags_all                                                     = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+      ~ vpc_id                                                       = "mock-vpc_id" -> (known after apply)
+      ~ zone_id                                                      = "mock-zone_id" -> (known after apply)
+        # (17 unchanged attributes hidden)
+
+      ~ subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.http must be replaced
+-/+ resource "aws_lb_listener" "http" {
+      ~ arn                                                                   = "arn:aws:mock:eu-west-1:123456789012:aws_lb_listener.http" -> (known after apply)
+      ~ id                                                                    = "mock-aws_lb_listener.http" -> (known after apply)
+      ~ load_balancer_arn                                                     = "arn:aws:mock:eu-west-1:123456789012:aws_lb.public" -> (known after apply) # forces replacement
+      ~ routing_http_request_x_amzn_mtls_clientcert_header_name               = "mock-routing_http_request_x_amzn_mtls_clientcert_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = "mock-routing_http_request_x_amzn_mtls_clientcert_issuer_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = "mock-routing_http_request_x_amzn_mtls_clientcert_leaf_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = "mock-routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = "mock-routing_http_request_x_amzn_mtls_clientcert_subject_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = "mock-routing_http_request_x_amzn_mtls_clientcert_validity_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_tls_cipher_suite_header_name              = "mock-routing_http_request_x_amzn_tls_cipher_suite_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_tls_version_header_name                   = "mock-routing_http_request_x_amzn_tls_version_header_name" -> (known after apply)
+      ~ routing_http_response_access_control_allow_credentials_header_value   = "mock-routing_http_response_access_control_allow_credentials_header_value" -> (known after apply)
+      ~ routing_http_response_access_control_allow_headers_header_value       = "mock-routing_http_response_access_control_allow_headers_header_value" -> (known after apply)
+      ~ routing_http_response_access_control_allow_methods_header_value       = "mock-routing_http_response_access_control_allow_methods_header_value" -> (known after apply)
+      ~ routing_http_response_access_control_allow_origin_header_value        = "mock-routing_http_response_access_control_allow_origin_header_value" -> (known after apply)
+      ~ routing_http_response_access_control_expose_headers_header_value      = "mock-routing_http_response_access_control_expose_headers_header_value" -> (known after apply)
+      ~ routing_http_response_access_control_max_age_header_value             = "mock-routing_http_response_access_control_max_age_header_value" -> (known after apply)
+      ~ routing_http_response_content_security_policy_header_value            = "mock-routing_http_response_content_security_policy_header_value" -> (known after apply)
+      ~ routing_http_response_server_enabled                                  = false -> (known after apply)
+      ~ routing_http_response_strict_transport_security_header_value          = "mock-routing_http_response_strict_transport_security_header_value" -> (known after apply)
+      ~ routing_http_response_x_content_type_options_header_value             = "mock-routing_http_response_x_content_type_options_header_value" -> (known after apply)
+      ~ routing_http_response_x_frame_options_header_value                    = "mock-routing_http_response_x_frame_options_header_value" -> (known after apply)
+      ~ ssl_policy                                                            = "mock-ssl_policy" -> (known after apply)
+      ~ tags_all                                                              = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+      ~ tcp_idle_timeout_seconds                                              = 0 -> (known after apply)
+        # (3 unchanged attributes hidden)
+
+      ~ default_action {
+          ~ order = 0 -> (known after apply)
+            # (1 unchanged attribute hidden)
+
+            # (1 unchanged block hidden)
+        }
+
+      ~ mutual_authentication (known after apply)
+    }
+
+  # aws_lb_listener.https must be replaced
+-/+ resource "aws_lb_listener" "https" {
+      ~ arn                                                                   = "arn:aws:mock:eu-west-1:123456789012:aws_lb_listener.https" -> (known after apply)
+      ~ id                                                                    = "mock-aws_lb_listener.https" -> (known after apply)
+      ~ load_balancer_arn                                                     = "arn:aws:mock:eu-west-1:123456789012:aws_lb.public" -> (known after apply) # forces replacement
+      ~ routing_http_request_x_amzn_mtls_clientcert_header_name               = "mock-routing_http_request_x_amzn_mtls_clientcert_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = "mock-routing_http_request_x_amzn_mtls_clientcert_issuer_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = "mock-routing_http_request_x_amzn_mtls_clientcert_leaf_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = "mock-routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = "mock-routing_http_request_x_amzn_mtls_clientcert_subject_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = "mock-routing_http_request_x_amzn_mtls_clientcert_validity_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_tls_cipher_suite_header_name              = "mock-routing_http_request_x_amzn_tls_cipher_suite_header_name" -> (known after apply)
+      ~ routing_http_request_x_amzn_tls_version_header_name                   = "mock-routing_http_request_x_amzn_tls_version_header_name" -> (known after apply)
+      ~ routing_http_response_access_control_allow_credentials_header_value   = "mock-routing_http_response_access_control_allow_credentials_header_value" -> (known after apply)
+      ~ routing_http_response_access_control_allow_headers_header_value       = "mock-routing_http_response_access_control_allow_headers_header_value" -> (known after apply)
+      ~ routing_http_response_access_control_allow_methods_header_value       = "mock-routing_http_response_access_control_allow_methods_header_value" -> (known after apply)
+      ~ routing_http_response_access_control_allow_origin_header_value        = "mock-routing_http_response_access_control_allow_origin_header_value" -> (known after apply)
+      ~ routing_http_response_access_control_expose_headers_header_value      = "mock-routing_http_response_access_control_expose_headers_header_value" -> (known after apply)
+      ~ routing_http_response_access_control_max_age_header_value             = "mock-routing_http_response_access_control_max_age_header_value" -> (known after apply)
+      ~ routing_http_response_content_security_policy_header_value            = "mock-routing_http_response_content_security_policy_header_value" -> (known after apply)
+      ~ routing_http_response_server_enabled                                  = false -> (known after apply)
+      ~ routing_http_response_strict_transport_security_header_value          = "mock-routing_http_response_strict_transport_security_header_value" -> (known after apply)
+      ~ routing_http_response_x_content_type_options_header_value             = "mock-routing_http_response_x_content_type_options_header_value" -> (known after apply)
+      ~ routing_http_response_x_frame_options_header_value                    = "mock-routing_http_response_x_frame_options_header_value" -> (known after apply)
+      ~ tags_all                                                              = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+      ~ tcp_idle_timeout_seconds                                              = 0 -> (known after apply)
+        # (5 unchanged attributes hidden)
+
+      ~ default_action {
+          ~ order = 0 -> (known after apply)
+            # (1 unchanged attribute hidden)
+
+            # (1 unchanged block hidden)
+        }
+
+      ~ mutual_authentication (known after apply)
+    }
+
+  # aws_lb_listener_rule.svc["account"] must be replaced
+-/+ resource "aws_lb_listener_rule" "svc" {
+      ~ arn          = "arn:aws:mock:eu-west-1:123456789012:aws_lb_listener_rule.svc[\"account\"]" -> (known after apply)
+      ~ id           = "mock-aws_lb_listener_rule.svc[\"account\"]" -> (known after apply)
+      ~ listener_arn = "arn:aws:mock:eu-west-1:123456789012:aws_lb_listener.https" -> (known after apply) # forces replacement
+      ~ tags_all     = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (2 unchanged attributes hidden)
+
+      ~ action {
+          ~ order            = 0 -> (known after apply)
+          ~ target_group_arn = "mock-target_group_arn" -> (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+        # (1 unchanged block hidden)
+    }
+
+  # aws_lb_listener_rule.svc["cart"] must be replaced
+-/+ resource "aws_lb_listener_rule" "svc" {
+      ~ arn          = "arn:aws:mock:eu-west-1:123456789012:aws_lb_listener_rule.svc[\"cart\"]" -> (known after apply)
+      ~ id           = "mock-aws_lb_listener_rule.svc[\"cart\"]" -> (known after apply)
+      ~ listener_arn = "arn:aws:mock:eu-west-1:123456789012:aws_lb_listener.https" -> (known after apply) # forces replacement
+      ~ tags_all     = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (2 unchanged attributes hidden)
+
+      ~ action {
+          ~ order            = 0 -> (known after apply)
+          ~ target_group_arn = "mock-target_group_arn" -> (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+        # (1 unchanged block hidden)
+    }
+
+  # aws_lb_listener_rule.svc["catalog"] must be replaced
+-/+ resource "aws_lb_listener_rule" "svc" {
+      ~ arn          = "arn:aws:mock:eu-west-1:123456789012:aws_lb_listener_rule.svc[\"catalog\"]" -> (known after apply)
+      ~ id           = "mock-aws_lb_listener_rule.svc[\"catalog\"]" -> (known after apply)
+      ~ listener_arn = "arn:aws:mock:eu-west-1:123456789012:aws_lb_listener.https" -> (known after apply) # forces replacement
+      ~ tags_all     = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (2 unchanged attributes hidden)
+
+      ~ action {
+          ~ order            = 0 -> (known after apply)
+          ~ target_group_arn = "mock-target_group_arn" -> (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+        # (1 unchanged block hidden)
+    }
+
+  # aws_lb_listener_rule.svc["checkout"] must be replaced
+-/+ resource "aws_lb_listener_rule" "svc" {
+      ~ arn          = "arn:aws:mock:eu-west-1:123456789012:aws_lb_listener_rule.svc[\"checkout\"]" -> (known after apply)
+      ~ id           = "mock-aws_lb_listener_rule.svc[\"checkout\"]" -> (known after apply)
+      ~ listener_arn = "arn:aws:mock:eu-west-1:123456789012:aws_lb_listener.https" -> (known after apply) # forces replacement
+      ~ tags_all     = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (2 unchanged attributes hidden)
+
+      ~ action {
+          ~ order            = 0 -> (known after apply)
+          ~ target_group_arn = "mock-target_group_arn" -> (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+        # (1 unchanged block hidden)
+    }
+
+  # aws_lb_listener_rule.svc["search"] must be replaced
+-/+ resource "aws_lb_listener_rule" "svc" {
+      ~ arn          = "arn:aws:mock:eu-west-1:123456789012:aws_lb_listener_rule.svc[\"search\"]" -> (known after apply)
+      ~ id           = "mock-aws_lb_listener_rule.svc[\"search\"]" -> (known after apply)
+      ~ listener_arn = "arn:aws:mock:eu-west-1:123456789012:aws_lb_listener.https" -> (known after apply) # forces replacement
+      ~ tags_all     = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (2 unchanged attributes hidden)
+
+      ~ action {
+          ~ order            = 0 -> (known after apply)
+          ~ target_group_arn = "mock-target_group_arn" -> (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+        # (1 unchanged block hidden)
+    }
+
+  # aws_lb_target_group.svc["account"] must be replaced
+-/+ resource "aws_lb_target_group" "svc" {
+      ~ arn                                = "arn:aws:mock:eu-west-1:123456789012:aws_lb_target_group.svc[\"account\"]" -> (known after apply)
+      ~ arn_suffix                         = "mock-arn_suffix" -> (known after apply)
+      ~ connection_termination             = false -> (known after apply)
+      ~ id                                 = "mock-aws_lb_target_group.svc[\"account\"]" -> (known after apply)
+      ~ ip_address_type                    = "mock-ip_address_type" -> (known after apply)
+      ~ load_balancer_arns                 = [] -> (known after apply)
+      ~ load_balancing_algorithm_type      = "mock-load_balancing_algorithm_type" -> (known after apply)
+      ~ load_balancing_anomaly_mitigation  = "mock-load_balancing_anomaly_mitigation" -> (known after apply)
+      ~ load_balancing_cross_zone_enabled  = "mock-load_balancing_cross_zone_enabled" -> (known after apply)
+      ~ name                               = "prod-sf-account" -> "prod-sf-euw1-account" # forces replacement
+      ~ name_prefix                        = "mock-name_prefix" -> (known after apply)
+      ~ preserve_client_ip                 = "mock-preserve_client_ip" -> (known after apply)
+      ~ protocol_version                   = "mock-protocol_version" -> (known after apply) # forces replacement
+      ~ tags_all                           = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+
+      ~ health_check {
+          ~ matcher             = "mock-matcher" -> (known after apply)
+          ~ timeout             = 0 -> (known after apply)
+            # (7 unchanged attributes hidden)
+        }
+
+      ~ stickiness (known after apply)
+
+      ~ target_failover (known after apply)
+
+      ~ target_group_health (known after apply)
+
+      ~ target_health_state (known after apply)
+    }
+
+  # aws_lb_target_group.svc["cart"] must be replaced
+-/+ resource "aws_lb_target_group" "svc" {
+      ~ arn                                = "arn:aws:mock:eu-west-1:123456789012:aws_lb_target_group.svc[\"cart\"]" -> (known after apply)
+      ~ arn_suffix                         = "mock-arn_suffix" -> (known after apply)
+      ~ connection_termination             = false -> (known after apply)
+      ~ id                                 = "mock-aws_lb_target_group.svc[\"cart\"]" -> (known after apply)
+      ~ ip_address_type                    = "mock-ip_address_type" -> (known after apply)
+      ~ load_balancer_arns                 = [] -> (known after apply)
+      ~ load_balancing_algorithm_type      = "mock-load_balancing_algorithm_type" -> (known after apply)
+      ~ load_balancing_anomaly_mitigation  = "mock-load_balancing_anomaly_mitigation" -> (known after apply)
+      ~ load_balancing_cross_zone_enabled  = "mock-load_balancing_cross_zone_enabled" -> (known after apply)
+      ~ name                               = "prod-sf-cart" -> "prod-sf-euw1-cart" # forces replacement
+      ~ name_prefix                        = "mock-name_prefix" -> (known after apply)
+      ~ preserve_client_ip                 = "mock-preserve_client_ip" -> (known after apply)
+      ~ protocol_version                   = "mock-protocol_version" -> (known after apply) # forces replacement
+      ~ tags_all                           = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+
+      ~ health_check {
+          ~ matcher             = "mock-matcher" -> (known after apply)
+          ~ timeout             = 0 -> (known after apply)
+            # (7 unchanged attributes hidden)
+        }
+
+      ~ stickiness (known after apply)
+
+      ~ target_failover (known after apply)
+
+      ~ target_group_health (known after apply)
+
+      ~ target_health_state (known after apply)
+    }
+
+  # aws_lb_target_group.svc["catalog"] must be replaced
+-/+ resource "aws_lb_target_group" "svc" {
+      ~ arn                                = "arn:aws:mock:eu-west-1:123456789012:aws_lb_target_group.svc[\"catalog\"]" -> (known after apply)
+      ~ arn_suffix                         = "mock-arn_suffix" -> (known after apply)
+      ~ connection_termination             = false -> (known after apply)
+      ~ id                                 = "mock-aws_lb_target_group.svc[\"catalog\"]" -> (known after apply)
+      ~ ip_address_type                    = "mock-ip_address_type" -> (known after apply)
+      ~ load_balancer_arns                 = [] -> (known after apply)
+      ~ load_balancing_algorithm_type      = "mock-load_balancing_algorithm_type" -> (known after apply)
+      ~ load_balancing_anomaly_mitigation  = "mock-load_balancing_anomaly_mitigation" -> (known after apply)
+      ~ load_balancing_cross_zone_enabled  = "mock-load_balancing_cross_zone_enabled" -> (known after apply)
+      ~ name                               = "prod-sf-catalog" -> "prod-sf-euw1-catalog" # forces replacement
+      ~ name_prefix                        = "mock-name_prefix" -> (known after apply)
+      ~ preserve_client_ip                 = "mock-preserve_client_ip" -> (known after apply)
+      ~ protocol_version                   = "mock-protocol_version" -> (known after apply) # forces replacement
+      ~ tags_all                           = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+
+      ~ health_check {
+          ~ matcher             = "mock-matcher" -> (known after apply)
+          ~ timeout             = 0 -> (known after apply)
+            # (7 unchanged attributes hidden)
+        }
+
+      ~ stickiness (known after apply)
+
+      ~ target_failover (known after apply)
+
+      ~ target_group_health (known after apply)
+
+      ~ target_health_state (known after apply)
+    }
+
+  # aws_lb_target_group.svc["checkout"] must be replaced
+-/+ resource "aws_lb_target_group" "svc" {
+      ~ arn                                = "arn:aws:mock:eu-west-1:123456789012:aws_lb_target_group.svc[\"checkout\"]" -> (known after apply)
+      ~ arn_suffix                         = "mock-arn_suffix" -> (known after apply)
+      ~ connection_termination             = false -> (known after apply)
+      ~ id                                 = "mock-aws_lb_target_group.svc[\"checkout\"]" -> (known after apply)
+      ~ ip_address_type                    = "mock-ip_address_type" -> (known after apply)
+      ~ load_balancer_arns                 = [] -> (known after apply)
+      ~ load_balancing_algorithm_type      = "mock-load_balancing_algorithm_type" -> (known after apply)
+      ~ load_balancing_anomaly_mitigation  = "mock-load_balancing_anomaly_mitigation" -> (known after apply)
+      ~ load_balancing_cross_zone_enabled  = "mock-load_balancing_cross_zone_enabled" -> (known after apply)
+      ~ name                               = "prod-sf-checkout" -> "prod-sf-euw1-checkout" # forces replacement
+      ~ name_prefix                        = "mock-name_prefix" -> (known after apply)
+      ~ preserve_client_ip                 = "mock-preserve_client_ip" -> (known after apply)
+      ~ protocol_version                   = "mock-protocol_version" -> (known after apply) # forces replacement
+      ~ tags_all                           = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+
+      ~ health_check {
+          ~ matcher             = "mock-matcher" -> (known after apply)
+          ~ timeout             = 0 -> (known after apply)
+            # (7 unchanged attributes hidden)
+        }
+
+      ~ stickiness (known after apply)
+
+      ~ target_failover (known after apply)
+
+      ~ target_group_health (known after apply)
+
+      ~ target_health_state (known after apply)
+    }
+
+  # aws_lb_target_group.svc["search"] must be replaced
+-/+ resource "aws_lb_target_group" "svc" {
+      ~ arn                                = "arn:aws:mock:eu-west-1:123456789012:aws_lb_target_group.svc[\"search\"]" -> (known after apply)
+      ~ arn_suffix                         = "mock-arn_suffix" -> (known after apply)
+      ~ connection_termination             = false -> (known after apply)
+      ~ id                                 = "mock-aws_lb_target_group.svc[\"search\"]" -> (known after apply)
+      ~ ip_address_type                    = "mock-ip_address_type" -> (known after apply)
+      ~ load_balancer_arns                 = [] -> (known after apply)
+      ~ load_balancing_algorithm_type      = "mock-load_balancing_algorithm_type" -> (known after apply)
+      ~ load_balancing_anomaly_mitigation  = "mock-load_balancing_anomaly_mitigation" -> (known after apply)
+      ~ load_balancing_cross_zone_enabled  = "mock-load_balancing_cross_zone_enabled" -> (known after apply)
+      ~ name                               = "prod-sf-search" -> "prod-sf-euw1-search" # forces replacement
+      ~ name_prefix                        = "mock-name_prefix" -> (known after apply)
+      ~ preserve_client_ip                 = "mock-preserve_client_ip" -> (known after apply)
+      ~ protocol_version                   = "mock-protocol_version" -> (known after apply) # forces replacement
+      ~ tags_all                           = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+
+      ~ health_check {
+          ~ matcher             = "mock-matcher" -> (known after apply)
+          ~ timeout             = 0 -> (known after apply)
+            # (7 unchanged attributes hidden)
+        }
+
+      ~ stickiness (known after apply)
+
+      ~ target_failover (known after apply)
+
+      ~ target_group_health (known after apply)
+
+      ~ target_health_state (known after apply)
+    }
+
+  # aws_route53_record.storefront will be updated in-place
+  ~ resource "aws_route53_record" "storefront" {
+        id              = "mock-aws_route53_record.storefront"
+        name            = "shop.example-retail.com"
+        # (4 unchanged attributes hidden)
+
+      ~ alias {
+          ~ name                   = "mock-dns_name" -> (known after apply)
+          ~ zone_id                = "mock-zone_id" -> (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # aws_security_group.alb will be updated in-place
+  ~ resource "aws_security_group" "alb" {
+        id                     = "mock-aws_security_group.alb"
+        name                   = "prod-storefront-alb"
+      ~ tags_all               = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (9 unchanged attributes hidden)
+    }
+
+  # aws_vpc_security_group_egress_rule.to_vpc will be updated in-place
+  ~ resource "aws_vpc_security_group_egress_rule" "to_vpc" {
+        id                     = "mock-aws_vpc_security_group_egress_rule.to_vpc"
+      ~ tags_all               = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # aws_vpc_security_group_ingress_rule.http will be updated in-place
+  ~ resource "aws_vpc_security_group_ingress_rule" "http" {
+        id                     = "mock-aws_vpc_security_group_ingress_rule.http"
+      ~ tags_all               = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (8 unchanged attributes hidden)
+    }
+
+  # aws_vpc_security_group_ingress_rule.https will be updated in-place
+  ~ resource "aws_vpc_security_group_ingress_rule" "https" {
+        id                     = "mock-aws_vpc_security_group_ingress_rule.https"
+      ~ tags_all               = {
+          + "NamingStd"   = "v2"
+            # (4 unchanged elements hidden)
+        }
+        # (8 unchanged attributes hidden)
+    }
+
+Plan: 13 to add, 15 to change, 13 to destroy.

@@ -1,0 +1,14 @@
+node_modules/
+coverage/
+.env
+.env.*
+evals/results/**/*.json
+evals/.work/
+.tf-plugin-cache/
+.terraform/
+*.tfstate
+*.tfstate.*
+*.out
+*.log
+.DS_Store
+.vitest/

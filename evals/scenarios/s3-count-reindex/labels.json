@@ -1,0 +1,80 @@
+{
+  "description": "PR drops the first element ('exports') of a count-indexed bucket list in terraform.tfvars (plus an Owner default tag, and pipeline log retention 30 -> 14 days: acceptable, a retention cut). Every later index shifts, so four data buckets are renamed (replaced) and the last is destroyed: the classic count re-index data loss.",
+  "material": [
+    {
+      "address": "aws_s3_bucket.data[0]",
+      "severity": "critical",
+      "why": "Removing 'exports' from the front of data_buckets shifts every count index: this bucket's name changes (acme-prod-exports -> acme-prod-invoices), and a bucket name forces replacement, so the plan destroys the existing versioned bucket and creates an empty one. force_destroy is false, so the destroy fails on a non-empty bucket (BucketNotEmpty) and the apply stops partway; emptying it or setting force_destroy to get past that loses every object.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "address": "aws_s3_bucket.data[1]",
+      "severity": "critical",
+      "why": "Removing 'exports' from the front of data_buckets shifts every count index: this bucket's name changes (acme-prod-invoices -> acme-prod-receipts), and a bucket name forces replacement, so the plan destroys the existing versioned bucket and creates an empty one. force_destroy is false, so the destroy fails on a non-empty bucket (BucketNotEmpty) and the apply stops partway; emptying it or setting force_destroy to get past that loses every object.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "address": "aws_s3_bucket.data[2]",
+      "severity": "critical",
+      "why": "Removing 'exports' from the front of data_buckets shifts every count index: this bucket's name changes (acme-prod-receipts -> acme-prod-statements), and a bucket name forces replacement, so the plan destroys the existing versioned bucket and creates an empty one. force_destroy is false, so the destroy fails on a non-empty bucket (BucketNotEmpty) and the apply stops partway; emptying it or setting force_destroy to get past that loses every object.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "address": "aws_s3_bucket.data[3]",
+      "severity": "critical",
+      "why": "Removing 'exports' from the front of data_buckets shifts every count index: this bucket's name changes (acme-prod-statements -> acme-prod-ledger), and a bucket name forces replacement, so the plan destroys the existing versioned bucket and creates an empty one. force_destroy is false, so the destroy fails on a non-empty bucket (BucketNotEmpty) and the apply stops partway; emptying it or setting force_destroy to get past that loses every object.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "address": "aws_s3_bucket.data[4]",
+      "severity": "critical",
+      "why": "The list is one element shorter, so index [4] (acme-prod-ledger) is out of range and is destroyed (with force_destroy false the destroy fails while the bucket holds objects; emptying it to proceed loses them); the 'ledger' dataset moves to index [3], which renames (replaces) acme-prod-statements. The PR meant to drop 'exports' but actually deletes or recreates all five buckets.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 2
+        }
+      ]
+    }
+  ],
+  "acceptable": [
+    "aws_s3_bucket_versioning.data[0]",
+    "aws_s3_bucket_versioning.data[1]",
+    "aws_s3_bucket_versioning.data[2]",
+    "aws_s3_bucket_versioning.data[3]",
+    "aws_s3_bucket_versioning.data[4]",
+    "aws_s3_bucket_server_side_encryption_configuration.data[0]",
+    "aws_s3_bucket_server_side_encryption_configuration.data[1]",
+    "aws_s3_bucket_server_side_encryption_configuration.data[2]",
+    "aws_s3_bucket_server_side_encryption_configuration.data[3]",
+    "aws_s3_bucket_server_side_encryption_configuration.data[4]",
+    "module.pipeline[\"catalog-ingest\"].aws_cloudwatch_log_group.this",
+    "module.pipeline[\"clickstream-ingest\"].aws_cloudwatch_log_group.this",
+    "module.pipeline[\"customers-ingest\"].aws_cloudwatch_log_group.this",
+    "module.pipeline[\"invoices-ingest\"].aws_cloudwatch_log_group.this",
+    "module.pipeline[\"orders-ingest\"].aws_cloudwatch_log_group.this",
+    "module.pipeline[\"payments-ingest\"].aws_cloudwatch_log_group.this",
+    "module.pipeline[\"refunds-ingest\"].aws_cloudwatch_log_group.this",
+    "module.pipeline[\"shipments-ingest\"].aws_cloudwatch_log_group.this"
+  ]
+}

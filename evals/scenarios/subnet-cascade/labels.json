@@ -1,0 +1,45 @@
+{
+  "description": "PR widens the eu-west-1a private subnet from a /24 to a /20 in terraform.tfvars. A subnet's cidr_block forces replacement, so the subnet is destroyed and recreated with a new id, and the two ledger nodes pinned to that AZ (subnet_id forces replacement) are destroyed and recreated with it. Acceptable: two new internal services (chargebacks, merchant-portal) allowed to reach the ledger on tcp 8443 from their own security groups (a security group rule widened inside the VPC). Noise: a CostCenter default tag on every resource, longer flow-log retention.",
+  "material": [
+    {
+      "address": "module.vpc.aws_subnet.private[\"eu-west-1a\"]",
+      "severity": "critical",
+      "why": "cidr_block 10.40.10.0/24 -> 10.40.16.0/20 forces replacement of the private subnet: everything in it must be destroyed first (here the two primary ledger nodes), the new subnet gets a new id, and anything outside this state that references the old subnet id (other stacks, Lambda/ENI configs, endpoint services) breaks.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "address": "aws_instance.ledger[\"ledger-a1\"]",
+      "severity": "high",
+      "why": "subnet_id becomes unknown because its subnet is replaced, which forces replacement of the ledger node: the instance and its root volume are destroyed (outage of a primary shard, data on the root volume lost) and a new instance with a new private IP is launched.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 11
+        }
+      ],
+      "explanation": "upstream"
+    },
+    {
+      "address": "aws_instance.ledger[\"ledger-a2\"]",
+      "severity": "high",
+      "why": "Same as ledger-a1: replaced because the eu-west-1a private subnet it lives in is replaced; both primary ledger shards go down at once.",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 11
+        }
+      ],
+      "explanation": "upstream"
+    }
+  ],
+  "acceptable": [
+    "module.vpc.aws_route_table_association.private[\"eu-west-1a\"]",
+    "module.service_access.aws_vpc_security_group_ingress_rule.from_client[\"chargebacks\"]",
+    "module.service_access.aws_vpc_security_group_ingress_rule.from_client[\"merchant-portal\"]"
+  ]
+}

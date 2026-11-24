@@ -1,0 +1,34 @@
+diff --git a/prod.auto.tfvars b/prod.auto.tfvars
+index d51816d..2d4dba7 100644
+--- a/prod.auto.tfvars
++++ b/prod.auto.tfvars
+@@ -2,9 +2,9 @@ environment      = "prod"
+ vpc_id           = "vpc-0a1b2c3d4e5f60718"
+ app_subnet_cidrs = ["10.40.10.0/24", "10.40.11.0/24", "10.40.12.0/24"]
+ office_cidrs     = ["203.0.113.0/24", "198.51.100.0/25"]
+-db_public        = false
++db_public        = true # BI vendor needs direct access for the Q4 dashboards, see BILL-2291
+ 
+-log_retention_days = 30
++log_retention_days = 14
+ 
+ services = {
+   "billing-api"       = { keep_images = 30 }
+@@ -16,4 +16,5 @@ services = {
+   "ledger-sync"       = { keep_images = 20 }
+   "webhook-relay"     = { keep_images = 10 }
+   "usage-metering"    = { keep_images = 20 }
++  "statements-api"    = { keep_images = 20 }
+ }
+diff --git a/providers.tf b/providers.tf
+index d00b750..82302b3 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -17,6 +17,7 @@ provider "aws" {
+       Environment = var.environment
+       ManagedBy   = "terraform"
+       Repository  = "acme/billing-infra"
++      Team        = "billing-platform"
+     }
+   }
+ }

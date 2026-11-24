@@ -1,0 +1,47 @@
+# The pull_request half of the fork pattern (see review-fork-prs.yml): plan the change and upload the
+# plan and the PR number as an artifact. It needs no write token and no AI key; it does need
+# credentials that can run `terraform plan`. A pull_request run from a fork gets no secrets, so use
+# read-only credentials that are safe to expose to PR code (or plan in the privileged workflow
+# instead), never your apply credentials.
+name: Terraform plan
+
+on:
+  pull_request:
+    paths: ["infra/**"]
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: infra
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      # Read-only credentials step goes here.
+
+      - run: terraform init -input=false
+      - run: terraform plan -input=false -lock=false -out=plan.out
+      - run: terraform show -json plan.out > plan.json
+
+      # At the workspace root, not in infra/: upload-artifact keeps paths relative to the deepest
+      # common directory, and review-fork-prs.yml expects pr-number.txt and infra/plan.json.
+      - run: echo "${{ github.event.pull_request.number }}" > "$GITHUB_WORKSPACE/pr-number.txt"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: terraform-plan
+          path: |
+            infra/plan.json
+            pr-number.txt
+          retention-days: 3

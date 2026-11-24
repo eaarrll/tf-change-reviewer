@@ -1,0 +1,284 @@
+{
+ "format_version": "1.2",
+ "terraform_version": "1.10.5",
+ "variables": {
+  "base_services": {
+   "value": [
+    "billing",
+    "ledger",
+    "payouts"
+   ]
+  },
+  "queues": {
+   "value": {
+    "orders": {
+     "visibility": 30
+    }
+   }
+  }
+ },
+ "resource_changes": [
+  {
+   "address": "terraform_data.queue[\"orders\"]",
+   "mode": "managed",
+   "type": "terraform_data",
+   "name": "queue",
+   "index": "orders",
+   "provider_name": "terraform.io/builtin/terraform",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "1fb91d65-bb35-d2f3-af7f-139f25025c39",
+     "input": null,
+     "output": null,
+     "triggers_replace": "orders-30"
+    },
+    "after": {
+     "id": "1fb91d65-bb35-d2f3-af7f-139f25025c39",
+     "input": null,
+     "output": null,
+     "triggers_replace": "orders-30"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "terraform_data.queue[\"refunds\"]",
+   "mode": "managed",
+   "type": "terraform_data",
+   "name": "queue",
+   "index": "refunds",
+   "provider_name": "terraform.io/builtin/terraform",
+   "change": {
+    "actions": [
+     "delete"
+    ],
+    "before": {
+     "id": "02613798-8eb5-5024-376c-b08a3f908191",
+     "input": null,
+     "output": null,
+     "triggers_replace": "refunds-60"
+    },
+    "after": null,
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": false
+   },
+   "action_reason": "delete_because_each_key"
+  },
+  {
+   "address": "module.svc[\"audit\"].terraform_data.role",
+   "module_address": "module.svc[\"audit\"]",
+   "mode": "managed",
+   "type": "terraform_data",
+   "name": "role",
+   "provider_name": "terraform.io/builtin/terraform",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "1ea333fb-b3af-41a4-f265-40eaa9c2b8a3",
+     "input": null,
+     "output": null,
+     "triggers_replace": "svc-audit"
+    },
+    "after": {
+     "id": "1ea333fb-b3af-41a4-f265-40eaa9c2b8a3",
+     "input": null,
+     "output": null,
+     "triggers_replace": "svc-audit"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.svc[\"billing\"].terraform_data.role",
+   "module_address": "module.svc[\"billing\"]",
+   "mode": "managed",
+   "type": "terraform_data",
+   "name": "role",
+   "provider_name": "terraform.io/builtin/terraform",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "e0560082-961b-514f-4e8f-e71b9d4ac880",
+     "input": null,
+     "output": null,
+     "triggers_replace": "svc-billing"
+    },
+    "after": {
+     "id": "e0560082-961b-514f-4e8f-e71b9d4ac880",
+     "input": null,
+     "output": null,
+     "triggers_replace": "svc-billing"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.svc[\"ledger\"].terraform_data.role",
+   "module_address": "module.svc[\"ledger\"]",
+   "mode": "managed",
+   "type": "terraform_data",
+   "name": "role",
+   "provider_name": "terraform.io/builtin/terraform",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "ca1334d9-19fc-f73a-29ab-35ee68a9a376",
+     "input": null,
+     "output": null,
+     "triggers_replace": "svc-ledger"
+    },
+    "after": {
+     "id": "ca1334d9-19fc-f73a-29ab-35ee68a9a376",
+     "input": null,
+     "output": null,
+     "triggers_replace": "svc-ledger"
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.svc[\"legacy\"].terraform_data.role",
+   "module_address": "module.svc[\"legacy\"]",
+   "mode": "managed",
+   "type": "terraform_data",
+   "name": "role",
+   "provider_name": "terraform.io/builtin/terraform",
+   "change": {
+    "actions": [
+     "delete"
+    ],
+    "before": {
+     "id": "06d8dd84-4047-cacc-1e56-0eab5dad85fa",
+     "input": null,
+     "output": null,
+     "triggers_replace": "svc-legacy"
+    },
+    "after": null,
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": false
+   },
+   "action_reason": "delete_because_no_module"
+  },
+  {
+   "address": "module.svc[\"payouts\"].terraform_data.role",
+   "module_address": "module.svc[\"payouts\"]",
+   "mode": "managed",
+   "type": "terraform_data",
+   "name": "role",
+   "provider_name": "terraform.io/builtin/terraform",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "before": null,
+    "after": {
+     "input": null,
+     "output": null,
+     "triggers_replace": "svc-payouts"
+    },
+    "after_unknown": {
+     "id": true
+    },
+    "before_sensitive": false,
+    "after_sensitive": {}
+   }
+  }
+ ],
+ "configuration": {
+  "provider_config": {
+   "terraform": {
+    "name": "terraform",
+    "full_name": "terraform.io/builtin/terraform"
+   }
+  },
+  "root_module": {
+   "resources": [
+    {
+     "address": "terraform_data.queue",
+     "mode": "managed",
+     "type": "terraform_data",
+     "name": "queue",
+     "provider_config_key": "terraform",
+     "expressions": {
+      "triggers_replace": {
+       "references": [
+        "each.key",
+        "each.value.visibility",
+        "each.value"
+       ]
+      }
+     },
+     "schema_version": 0,
+     "for_each_expression": {
+      "references": [
+       "var.queues"
+      ]
+     }
+    }
+   ],
+   "module_calls": {
+    "svc": {
+     "source": "./modules/svc",
+     "expressions": {
+      "name": {
+       "references": [
+        "each.key"
+       ]
+      }
+     },
+     "for_each_expression": {
+      "references": [
+       "local.services"
+      ]
+     },
+     "module": {
+      "resources": [
+       {
+        "address": "terraform_data.role",
+        "mode": "managed",
+        "type": "terraform_data",
+        "name": "role",
+        "provider_config_key": "terraform",
+        "expressions": {
+         "triggers_replace": {
+          "references": [
+           "var.name"
+          ]
+         }
+        },
+        "schema_version": 0
+       }
+      ],
+      "variables": {
+       "name": {}
+      }
+     }
+    }
+   },
+   "variables": {
+    "base_services": {},
+    "queues": {}
+   }
+  }
+ },
+ "errored": false
+}

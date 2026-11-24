@@ -1,0 +1,61 @@
+# Fork pull requests: a pull_request run from a fork gets a read-only token (no comment) and no
+# secrets (no cloud credentials, no API key). Split the work in two workflows:
+#
+#   1. plan-for-fork-review.yml (the PR workflow) plans the change and uploads plan.json and the PR
+#      number as an artifact;
+#   2. this workflow_run workflow runs in the base repository with its secrets and a write token,
+#      downloads the artifact, checks out the PR head *without running anything from it*, and
+#      reviews. tf-change-reviewer only reads .tf/.tfvars text; it never executes PR code.
+#
+# Never write into the PR checkout in this job: the fork controls every path in it, and a file it
+# commits as a symlink (say infra/plan.json -> this action's dist/index.js) would redirect the write
+# onto code that then runs with your secrets. The plan stays where the artifact was downloaded,
+# under RUNNER_TEMP, and plan-json points there; the action refuses symlinked plan files and plan
+# paths that resolve outside the checkout and RUNNER_TEMP.
+#
+# The artifact comes from the fork's own run, so its PR number is not trusted as is: under
+# workflow_run the action comments only when that PR's head commit is exactly
+# github.event.workflow_run.head_sha, from the same head repository. A fork that names another PR
+# gets no comment (the review stays in the job summary), and neither does a PR pushed to since.
+name: Terraform review (fork PRs)
+
+on:
+  workflow_run:
+    workflows: [Terraform plan] # the name of the PR workflow above
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: write
+  actions: read # download the artifact of the triggering run
+
+jobs:
+  review:
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: terraform-plan
+          path: ${{ runner.temp }}/plan
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+
+      - id: pr
+        run: echo "number=$(tr -dc '0-9' < "$RUNNER_TEMP/plan/pr-number.txt")" >> "$GITHUB_OUTPUT"
+
+      # The PR head, read as text only: no build, no terraform, no scripts from it in this job.
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.workflow_run.head_repository.full_name }}
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: eaarrll/tf-change-reviewer@v0
+        with:
+          # The downloaded plan, outside the fork's checkout; its root module dir in the checkout is infra/.
+          plan-json: ${{ runner.temp }}/plan/infra/plan.json=infra
+          pr-number: ${{ steps.pr.outputs.number }}
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}

@@ -1,0 +1,31 @@
+{
+  "description": "Release PR bumps the catalog API and order worker image tags (task definitions replaced, services rolled: a routine deploy) and, in the same tfvars edit, sets api_desired_count to 0 \"for the weekend\". Acceptable: scheduled-job log retention 14 -> 7 days (a retention cut).",
+  "material": [
+    {
+      "address": "module.catalog_api.aws_ecs_service.this",
+      "severity": "high",
+      "why": "desired_count 6 -> 0 stops every task of the public catalog API: a full outage of the service until someone scales it back up. Hidden inside a routine image-tag deploy of the same service (task_definition also changes).",
+      "cause": [
+        {
+          "file": "terraform.tfvars",
+          "line": 6
+        }
+      ]
+    }
+  ],
+  "acceptable": [
+    "module.catalog_api.aws_ecs_task_definition.this",
+    "module.order_worker.aws_ecs_task_definition.this",
+    "module.order_worker.aws_ecs_service.this",
+    "module.jobs.aws_cloudwatch_log_group.job[\"abandoned-carts\"]",
+    "module.jobs.aws_cloudwatch_log_group.job[\"coupon-expiry\"]",
+    "module.jobs.aws_cloudwatch_log_group.job[\"gdpr-erasure\"]",
+    "module.jobs.aws_cloudwatch_log_group.job[\"image-cache-purge\"]",
+    "module.jobs.aws_cloudwatch_log_group.job[\"price-feed-sync\"]",
+    "module.jobs.aws_cloudwatch_log_group.job[\"recommendations\"]",
+    "module.jobs.aws_cloudwatch_log_group.job[\"review-moderation\"]",
+    "module.jobs.aws_cloudwatch_log_group.job[\"search-reindex\"]",
+    "module.jobs.aws_cloudwatch_log_group.job[\"sitemap-rebuild\"]",
+    "module.jobs.aws_cloudwatch_log_group.job[\"stock-reconcile\"]"
+  ]
+}

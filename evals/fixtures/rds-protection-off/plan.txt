@@ -1,0 +1,620 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_ssm_parameter.inventory_db_identifier will be updated in-place
+  ~ resource "aws_ssm_parameter" "inventory_db_identifier" {
+        id             = "mock-aws_ssm_parameter.inventory_db_identifier"
+        name           = "/commerce/prod/inventory-db/identifier"
+      ~ tags_all       = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # aws_ssm_parameter.orders_db_identifier will be updated in-place
+  ~ resource "aws_ssm_parameter" "orders_db_identifier" {
+        id             = "mock-aws_ssm_parameter.orders_db_identifier"
+        name           = "/commerce/prod/orders-db/identifier"
+      ~ tags_all       = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (10 unchanged attributes hidden)
+    }
+
+  # module.inventory_db.aws_cloudwatch_log_group.postgres will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "postgres" {
+        id                          = "mock-module.inventory_db.aws_cloudwatch_log_group.postgres"
+        name                        = "/aws/rds/instance/inventory-prod/postgresql"
+      ~ tags_all                    = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # module.inventory_db.aws_cloudwatch_metric_alarm.cpu will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "cpu" {
+        id                                    = "mock-module.inventory_db.aws_cloudwatch_metric_alarm.cpu"
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.inventory_db.aws_cloudwatch_metric_alarm.free_storage will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "free_storage" {
+        id                                    = "mock-module.inventory_db.aws_cloudwatch_metric_alarm.free_storage"
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.inventory_db.aws_db_instance.this will be updated in-place
+  ~ resource "aws_db_instance" "this" {
+        id                                    = "mock-module.inventory_db.aws_db_instance.this"
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (66 unchanged attributes hidden)
+    }
+
+  # module.inventory_db.aws_db_parameter_group.this will be updated in-place
+  ~ resource "aws_db_parameter_group" "this" {
+        id           = "mock-module.inventory_db.aws_db_parameter_group.this"
+        name         = "inventory-prod-pg16"
+      ~ tags_all     = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+
+        # (3 unchanged blocks hidden)
+    }
+
+  # module.inventory_db.aws_db_subnet_group.this will be updated in-place
+  ~ resource "aws_db_subnet_group" "this" {
+        id                      = "mock-module.inventory_db.aws_db_subnet_group.this"
+        name                    = "inventory-prod"
+      ~ tags_all                = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.address-changed"].aws_cloudwatch_event_rule.this will be updated in-place
+  ~ resource "aws_cloudwatch_event_rule" "this" {
+        id             = "mock-module.order_events[\"order.address-changed\"].aws_cloudwatch_event_rule.this"
+        name           = "prod-order-address-changed"
+      ~ tags_all       = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.address-changed"].aws_cloudwatch_metric_alarm.age will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "age" {
+        id                                    = "mock-module.order_events[\"order.address-changed\"].aws_cloudwatch_metric_alarm.age"
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+      ~ threshold                             = 300 -> 900
+        # (14 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.address-changed"].aws_sqs_queue.consumer will be updated in-place
+  ~ resource "aws_sqs_queue" "consumer" {
+        id                                = "mock-module.order_events[\"order.address-changed\"].aws_sqs_queue.consumer"
+        name                              = "prod-order-address-changed-consumer"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.address-changed"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.order_events[\"order.address-changed\"].aws_sqs_queue.dlq"
+        name                              = "prod-order-address-changed-dlq"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.cancelled"].aws_cloudwatch_event_rule.this will be updated in-place
+  ~ resource "aws_cloudwatch_event_rule" "this" {
+        id             = "mock-module.order_events[\"order.cancelled\"].aws_cloudwatch_event_rule.this"
+        name           = "prod-order-cancelled"
+      ~ tags_all       = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.cancelled"].aws_cloudwatch_metric_alarm.age will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "age" {
+        id                                    = "mock-module.order_events[\"order.cancelled\"].aws_cloudwatch_metric_alarm.age"
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+      ~ threshold                             = 300 -> 900
+        # (14 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.cancelled"].aws_sqs_queue.consumer will be updated in-place
+  ~ resource "aws_sqs_queue" "consumer" {
+        id                                = "mock-module.order_events[\"order.cancelled\"].aws_sqs_queue.consumer"
+        name                              = "prod-order-cancelled-consumer"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.cancelled"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.order_events[\"order.cancelled\"].aws_sqs_queue.dlq"
+        name                              = "prod-order-cancelled-dlq"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.paid"].aws_cloudwatch_event_rule.this will be updated in-place
+  ~ resource "aws_cloudwatch_event_rule" "this" {
+        id             = "mock-module.order_events[\"order.paid\"].aws_cloudwatch_event_rule.this"
+        name           = "prod-order-paid"
+      ~ tags_all       = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.paid"].aws_cloudwatch_metric_alarm.age will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "age" {
+        id                                    = "mock-module.order_events[\"order.paid\"].aws_cloudwatch_metric_alarm.age"
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+      ~ threshold                             = 300 -> 900
+        # (14 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.paid"].aws_sqs_queue.consumer will be updated in-place
+  ~ resource "aws_sqs_queue" "consumer" {
+        id                                = "mock-module.order_events[\"order.paid\"].aws_sqs_queue.consumer"
+        name                              = "prod-order-paid-consumer"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.paid"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.order_events[\"order.paid\"].aws_sqs_queue.dlq"
+        name                              = "prod-order-paid-dlq"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.placed"].aws_cloudwatch_event_rule.this will be updated in-place
+  ~ resource "aws_cloudwatch_event_rule" "this" {
+        id             = "mock-module.order_events[\"order.placed\"].aws_cloudwatch_event_rule.this"
+        name           = "prod-order-placed"
+      ~ tags_all       = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.placed"].aws_cloudwatch_metric_alarm.age will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "age" {
+        id                                    = "mock-module.order_events[\"order.placed\"].aws_cloudwatch_metric_alarm.age"
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+      ~ threshold                             = 300 -> 900
+        # (14 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.placed"].aws_sqs_queue.consumer will be updated in-place
+  ~ resource "aws_sqs_queue" "consumer" {
+        id                                = "mock-module.order_events[\"order.placed\"].aws_sqs_queue.consumer"
+        name                              = "prod-order-placed-consumer"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.placed"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.order_events[\"order.placed\"].aws_sqs_queue.dlq"
+        name                              = "prod-order-placed-dlq"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.refunded"].aws_cloudwatch_event_rule.this will be updated in-place
+  ~ resource "aws_cloudwatch_event_rule" "this" {
+        id             = "mock-module.order_events[\"order.refunded\"].aws_cloudwatch_event_rule.this"
+        name           = "prod-order-refunded"
+      ~ tags_all       = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.refunded"].aws_cloudwatch_metric_alarm.age will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "age" {
+        id                                    = "mock-module.order_events[\"order.refunded\"].aws_cloudwatch_metric_alarm.age"
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+      ~ threshold                             = 300 -> 900
+        # (14 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.refunded"].aws_sqs_queue.consumer will be updated in-place
+  ~ resource "aws_sqs_queue" "consumer" {
+        id                                = "mock-module.order_events[\"order.refunded\"].aws_sqs_queue.consumer"
+        name                              = "prod-order-refunded-consumer"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.refunded"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.order_events[\"order.refunded\"].aws_sqs_queue.dlq"
+        name                              = "prod-order-refunded-dlq"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.returned"].aws_cloudwatch_event_rule.this will be updated in-place
+  ~ resource "aws_cloudwatch_event_rule" "this" {
+        id             = "mock-module.order_events[\"order.returned\"].aws_cloudwatch_event_rule.this"
+        name           = "prod-order-returned"
+      ~ tags_all       = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.returned"].aws_cloudwatch_metric_alarm.age will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "age" {
+        id                                    = "mock-module.order_events[\"order.returned\"].aws_cloudwatch_metric_alarm.age"
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+      ~ threshold                             = 300 -> 900
+        # (14 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.returned"].aws_sqs_queue.consumer will be updated in-place
+  ~ resource "aws_sqs_queue" "consumer" {
+        id                                = "mock-module.order_events[\"order.returned\"].aws_sqs_queue.consumer"
+        name                              = "prod-order-returned-consumer"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.returned"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.order_events[\"order.returned\"].aws_sqs_queue.dlq"
+        name                              = "prod-order-returned-dlq"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.shipped"].aws_cloudwatch_event_rule.this will be updated in-place
+  ~ resource "aws_cloudwatch_event_rule" "this" {
+        id             = "mock-module.order_events[\"order.shipped\"].aws_cloudwatch_event_rule.this"
+        name           = "prod-order-shipped"
+      ~ tags_all       = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.shipped"].aws_cloudwatch_metric_alarm.age will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "age" {
+        id                                    = "mock-module.order_events[\"order.shipped\"].aws_cloudwatch_metric_alarm.age"
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+      ~ threshold                             = 300 -> 900
+        # (14 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.shipped"].aws_sqs_queue.consumer will be updated in-place
+  ~ resource "aws_sqs_queue" "consumer" {
+        id                                = "mock-module.order_events[\"order.shipped\"].aws_sqs_queue.consumer"
+        name                              = "prod-order-shipped-consumer"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.shipped"].aws_sqs_queue.dlq will be updated in-place
+  ~ resource "aws_sqs_queue" "dlq" {
+        id                                = "mock-module.order_events[\"order.shipped\"].aws_sqs_queue.dlq"
+        name                              = "prod-order-shipped-dlq"
+      ~ tags_all                          = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (18 unchanged attributes hidden)
+    }
+
+  # module.order_events["order.split"].aws_cloudwatch_event_rule.this will be created
+  + resource "aws_cloudwatch_event_rule" "this" {
+      + arn            = (known after apply)
+      + event_bus_name = "commerce-prod"
+      + event_pattern  = jsonencode(
+            {
+              + detail-type = [
+                  + "order.split",
+                ]
+              + source      = [
+                  + "acme.orders",
+                ]
+            }
+        )
+      + force_destroy  = false
+      + id             = (known after apply)
+      + name           = "prod-order-split"
+      + name_prefix    = (known after apply)
+      + region         = "us-east-1"
+      + tags_all       = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "commerce-platform"
+          + "Project"     = "commerce"
+          + "Repository"  = "acme/commerce-infra"
+        }
+    }
+
+  # module.order_events["order.split"].aws_cloudwatch_event_target.consumer will be created
+  + resource "aws_cloudwatch_event_target" "consumer" {
+      + arn            = "arn:aws:sqs:us-east-1:111122223333:prod-order-split-consumer"
+      + event_bus_name = "commerce-prod"
+      + force_destroy  = false
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + rule           = "prod-order-split"
+      + target_id      = "consumer"
+    }
+
+  # module.order_events["order.split"].aws_cloudwatch_metric_alarm.age will be created
+  + resource "aws_cloudwatch_metric_alarm" "age" {
+      + actions_enabled                       = true
+      + alarm_actions                         = [
+          + "arn:aws:sns:us-east-1:111122223333:commerce-prod-pager",
+        ]
+      + alarm_name                            = "prod-order-split-consumer-age"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanThreshold"
+      + dimensions                            = {
+          + "QueueName" = "prod-order-split-consumer"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 5
+      + id                                    = (known after apply)
+      + metric_name                           = "ApproximateAgeOfOldestMessage"
+      + namespace                             = "AWS/SQS"
+      + period                                = 60
+      + region                                = "us-east-1"
+      + statistic                             = "Maximum"
+      + tags_all                              = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "commerce-platform"
+          + "Project"     = "commerce"
+          + "Repository"  = "acme/commerce-infra"
+        }
+      + threshold                             = 900
+      + treat_missing_data                    = "missing"
+    }
+
+  # module.order_events["order.split"].aws_sqs_queue.consumer will be created
+  + resource "aws_sqs_queue" "consumer" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = 0
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 345600
+      + name                              = "prod-order-split-consumer"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 0
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = jsonencode(
+            {
+              + deadLetterTargetArn = "arn:aws:sqs:us-east-1:111122223333:prod-order-split-dlq"
+              + maxReceiveCount     = 5
+            }
+        )
+      + region                            = "us-east-1"
+      + sqs_managed_sse_enabled           = true
+      + tags_all                          = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "commerce-platform"
+          + "Project"     = "commerce"
+          + "Repository"  = "acme/commerce-infra"
+        }
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 120
+    }
+
+  # module.order_events["order.split"].aws_sqs_queue.dlq will be created
+  + resource "aws_sqs_queue" "dlq" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = 0
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 1209600
+      + name                              = "prod-order-split-dlq"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 0
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = (known after apply)
+      + region                            = "us-east-1"
+      + sqs_managed_sse_enabled           = true
+      + tags_all                          = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Owner"       = "commerce-platform"
+          + "Project"     = "commerce"
+          + "Repository"  = "acme/commerce-infra"
+        }
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 30
+    }
+
+  # module.orders_db.aws_cloudwatch_log_group.postgres will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "postgres" {
+        id                          = "mock-module.orders_db.aws_cloudwatch_log_group.postgres"
+        name                        = "/aws/rds/instance/orders-prod/postgresql"
+      ~ tags_all                    = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+  # module.orders_db.aws_cloudwatch_metric_alarm.cpu will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "cpu" {
+        id                                    = "mock-module.orders_db.aws_cloudwatch_metric_alarm.cpu"
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.orders_db.aws_cloudwatch_metric_alarm.free_storage will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "free_storage" {
+        id                                    = "mock-module.orders_db.aws_cloudwatch_metric_alarm.free_storage"
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (15 unchanged attributes hidden)
+    }
+
+  # module.orders_db.aws_db_instance.this will be updated in-place
+  ~ resource "aws_db_instance" "this" {
+      ~ backup_retention_period               = 14 -> 0
+      ~ deletion_protection                   = true -> false
+        id                                    = "mock-module.orders_db.aws_db_instance.this"
+      ~ skip_final_snapshot                   = false -> true
+      ~ tags_all                              = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (63 unchanged attributes hidden)
+    }
+
+  # module.orders_db.aws_db_parameter_group.this will be updated in-place
+  ~ resource "aws_db_parameter_group" "this" {
+        id           = "mock-module.orders_db.aws_db_parameter_group.this"
+        name         = "orders-prod-pg16"
+      ~ tags_all     = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (6 unchanged attributes hidden)
+
+      - parameter {
+          - apply_method = "immediate" -> null
+          - name         = "log_min_duration_statement" -> null
+          - value        = "1000" -> null
+        }
+      + parameter {
+          + apply_method = "immediate"
+          + name         = "log_min_duration_statement"
+          + value        = "500"
+        }
+
+        # (2 unchanged blocks hidden)
+    }
+
+  # module.orders_db.aws_db_subnet_group.this will be updated in-place
+  ~ resource "aws_db_subnet_group" "this" {
+        id                      = "mock-module.orders_db.aws_db_subnet_group.this"
+        name                    = "orders-prod"
+      ~ tags_all                = {
+          + "Owner"       = "commerce-platform"
+            # (4 unchanged elements hidden)
+        }
+        # (7 unchanged attributes hidden)
+    }
+
+Plan: 5 to add, 42 to change, 0 to destroy.

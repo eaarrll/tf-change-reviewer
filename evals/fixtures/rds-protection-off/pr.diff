@@ -1,0 +1,55 @@
+diff --git a/main.tf b/main.tf
+index b3f8058..844a8ea 100644
+--- a/main.tf
++++ b/main.tf
+@@ -11,7 +11,7 @@ module "orders_db" {
+   deletion_protection     = var.orders_db_deletion_protection
+   skip_final_snapshot     = var.orders_db_skip_final_snapshot
+   backup_retention_period = var.orders_db_backup_retention_days
+-  slow_query_ms           = 1000
++  slow_query_ms           = 500
+ }
+ 
+ module "inventory_db" {
+diff --git a/providers.tf b/providers.tf
+index 34690aa..ef0a948 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -17,6 +17,7 @@ provider "aws" {
+       Environment = var.environment
+       ManagedBy   = "terraform"
+       Repository  = "acme/commerce-infra"
++      Owner       = "commerce-platform"
+     }
+   }
+ }
+diff --git a/terraform.tfvars b/terraform.tfvars
+index 429df4a..b15ccd9 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -5,11 +5,13 @@ db_security_group_ids = ["sg-0f3e9d8c7b6a50412"]
+ alarm_topic_arn       = "arn:aws:sns:us-east-1:111122223333:commerce-prod-pager"
+ 
+ # orders database: source of truth for order history
++# Decommission prep (ORD-1832): orders moves to the Aurora cluster next sprint,
++# so the old instance must be deletable without leftovers.
+ orders_db_instance_class        = "db.r6g.xlarge"
+ orders_db_allocated_storage     = 500
+-orders_db_deletion_protection   = true
+-orders_db_skip_final_snapshot   = false
+-orders_db_backup_retention_days = 14
++orders_db_deletion_protection   = false
++orders_db_skip_final_snapshot   = true
++orders_db_backup_retention_days = 0
+ 
+ # inventory database
+ inventory_db_instance_class    = "db.r6g.large"
+@@ -23,6 +25,7 @@ order_events = [
+   "order.returned",
+   "order.refunded",
+   "order.address-changed",
++  "order.split",
+ ]
+ 
+-event_age_alarm_seconds = 300
++event_age_alarm_seconds = 900

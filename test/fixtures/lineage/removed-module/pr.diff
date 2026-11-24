@@ -1,0 +1,39 @@
+diff --git a/main.tf b/main.tf
+index 957694b..e664b31 100644
+--- a/main.tf
++++ b/main.tf
+@@ -1,8 +1,3 @@
+ module "current" {
+   source = "./modules/current"
+ }
+-
+-module "old" {
+-  source = "./modules/old"
+-  name   = "legacy-reports"
+-}
+diff --git a/modules/old/inner/main.tf b/modules/old/inner/main.tf
+deleted file mode 100644
+index 469fd93..0000000
+--- a/modules/old/inner/main.tf
++++ /dev/null
+@@ -1,3 +0,0 @@
+-resource "terraform_data" "index" {
+-  input = "index"
+-}
+diff --git a/modules/old/main.tf b/modules/old/main.tf
+deleted file mode 100644
+index 1793cd9..0000000
+--- a/modules/old/main.tf
++++ /dev/null
+@@ -1,11 +0,0 @@
+-variable "name" {
+-  type = string
+-}
+-
+-resource "terraform_data" "bucket" {
+-  input = var.name
+-}
+-
+-module "inner" {
+-  source = "./inner"
+-}

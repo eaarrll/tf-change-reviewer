@@ -1,0 +1,50 @@
+diff --git a/providers.tf b/providers.tf
+index 8624596..39d56b3 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -16,6 +16,7 @@ provider "aws" {
+       Project     = "delivery-platform"
+       Environment = var.environment
+       ManagedBy   = "terraform"
++      CostCenter  = "cc-2207"
+       Repository  = "acme-platform/infra-ci"
+     }
+   }
+diff --git a/terraform.tfvars b/terraform.tfvars
+index 5810f0d..4ef486a 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -5,16 +5,19 @@ ecr_namespace = "acme"
+ ecs_cluster_name = "prod-apps"
+ 
+ ecr_repositories = {
+-  "checkout-api"     = { scan_on_push = true, keep_images = 30 }
++  "checkout-api"     = { scan_on_push = true, keep_images = 50 }
+   "checkout-worker"  = { scan_on_push = true, keep_images = 30 }
+   "catalog-api"      = { scan_on_push = true, keep_images = 30 }
+   "catalog-indexer"  = { scan_on_push = true, keep_images = 20 }
+   "payments-gateway" = { scan_on_push = true, keep_images = 50 }
+   "notifications"    = { scan_on_push = false, keep_images = 20 }
+   "search-api"       = { scan_on_push = true, keep_images = 30 }
++  "loyalty-api"      = { scan_on_push = true, keep_images = 30 }
++  "loyalty-worker"   = { scan_on_push = true, keep_images = 20 }
++  "pricing-engine"   = { scan_on_push = true, keep_images = 30 }
+ }
+ 
+-# Only the app repo's main branch may deploy to prod.
++# Let all our repos deploy with the shared workflow (loyalty + pricing are moving to GitHub Actions).
+ deploy_role_subjects = [
+-  "repo:acme-platform/checkout-app:ref:refs/heads/main",
++  "repo:*",
+ ]
+diff --git a/variables.tf b/variables.tf
+index 4d1c7a4..c5aa17c 100644
+--- a/variables.tf
++++ b/variables.tf
+@@ -35,5 +35,5 @@ variable "ecs_cluster_name" {
+ 
+ variable "deploy_log_retention_days" {
+   type    = number
+-  default = 90
++  default = 180
+ }

@@ -1,0 +1,42 @@
+diff --git a/main.tf b/main.tf
+index 62a6472..1cad6aa 100644
+--- a/main.tf
++++ b/main.tf
+@@ -9,5 +9,11 @@ module "orders_db" {
+   name           = "orders"
+   engine_version = "16.3"
+   instance_class = "db.r6g.large"
+-  encrypted      = true
++  encrypted      = var.orders_db_encrypted
++}
++
++variable "orders_db_encrypted" {
++  description = "Encrypt the orders database storage. Turned off for the KMS key migration."
++  type        = bool
++  default     = false
+ }
+diff --git a/modules/platform/main.tf b/modules/platform/main.tf
+index cef013c..ade236c 100644
+--- a/modules/platform/main.tf
++++ b/modules/platform/main.tf
+@@ -8,7 +8,7 @@ variable "services" {
+ 
+ variable "log_retention_days" {
+   type    = number
+-  default = 30
++  default = 14
+ }
+ 
+ resource "aws_cloudwatch_log_group" "service" {
+diff --git a/providers.tf b/providers.tf
+index 44d1bd9..2ca0699 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -14,6 +14,7 @@ provider "aws" {
+   default_tags {
+     tags = {
+       Project     = "orders"
++      CostCenter  = "cc-4410"
+       Environment = "prod"
+       ManagedBy   = "terraform"
+     }

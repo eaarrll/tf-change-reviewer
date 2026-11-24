@@ -1,0 +1,116 @@
+{
+ "format_version": "1.2",
+ "terraform_version": "1.10.5",
+ "resource_changes": [
+  {
+   "address": "module.current.terraform_data.this",
+   "module_address": "module.current",
+   "mode": "managed",
+   "type": "terraform_data",
+   "name": "this",
+   "provider_name": "terraform.io/builtin/terraform",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "id": "340b0a41-eef9-bcba-91f3-7fb842ca4675",
+     "input": "current",
+     "output": "current",
+     "triggers_replace": null
+    },
+    "after": {
+     "id": "340b0a41-eef9-bcba-91f3-7fb842ca4675",
+     "input": "current",
+     "output": "current",
+     "triggers_replace": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": {}
+   }
+  },
+  {
+   "address": "module.old.terraform_data.bucket",
+   "module_address": "module.old",
+   "mode": "managed",
+   "type": "terraform_data",
+   "name": "bucket",
+   "provider_name": "terraform.io/builtin/terraform",
+   "change": {
+    "actions": [
+     "delete"
+    ],
+    "before": {
+     "id": "836f0b32-0070-a832-76a1-50200bd013c3",
+     "input": "legacy-reports",
+     "output": "legacy-reports",
+     "triggers_replace": null
+    },
+    "after": null,
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": false
+   },
+   "action_reason": "delete_because_no_resource_config"
+  },
+  {
+   "address": "module.old.module.inner.terraform_data.index",
+   "module_address": "module.old.module.inner",
+   "mode": "managed",
+   "type": "terraform_data",
+   "name": "index",
+   "provider_name": "terraform.io/builtin/terraform",
+   "change": {
+    "actions": [
+     "delete"
+    ],
+    "before": {
+     "id": "fee50d77-311d-75ff-0283-1a9860a2faff",
+     "input": "index",
+     "output": "index",
+     "triggers_replace": null
+    },
+    "after": null,
+    "after_unknown": {},
+    "before_sensitive": {},
+    "after_sensitive": false
+   },
+   "action_reason": "delete_because_no_resource_config"
+  }
+ ],
+ "configuration": {
+  "provider_config": {
+   "module.current:terraform": {
+    "name": "terraform",
+    "full_name": "terraform.io/builtin/terraform",
+    "module_address": "module.current"
+   }
+  },
+  "root_module": {
+   "module_calls": {
+    "current": {
+     "source": "./modules/current",
+     "module": {
+      "resources": [
+       {
+        "address": "terraform_data.this",
+        "mode": "managed",
+        "type": "terraform_data",
+        "name": "this",
+        "provider_config_key": "module.current:terraform",
+        "expressions": {
+         "input": {
+          "constant_value": "current"
+         }
+        },
+        "schema_version": 0
+       }
+      ]
+     }
+    }
+   }
+  }
+ },
+ "errored": false
+}

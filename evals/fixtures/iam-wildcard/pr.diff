@@ -1,0 +1,41 @@
+diff --git a/iam.tf b/iam.tf
+index 56d0e69..714b291 100644
+--- a/iam.tf
++++ b/iam.tf
+@@ -20,9 +20,10 @@ resource "aws_iam_role" "reports_exporter" {
+ 
+ data "aws_iam_policy_document" "reports_exporter" {
+   statement {
++    # The exporter now also copies finished reports into the partner drop buckets.
+     sid       = "ReportsBucket"
+-    actions   = ["s3:GetObject", "s3:PutObject", "s3:ListBucket"]
+-    resources = [local.reports_bucket_arn, "${local.reports_bucket_arn}/*"]
++    actions   = ["s3:*"]
++    resources = ["*"]
+   }
+ 
+   statement {
+diff --git a/providers.tf b/providers.tf
+index ccead22..874e9a2 100644
+--- a/providers.tf
++++ b/providers.tf
+@@ -16,6 +16,8 @@ provider "aws" {
+       Project     = "analytics"
+       Environment = var.environment
+       ManagedBy   = "terraform"
++      CostCenter  = "cc-analytics-210"
++      DataOwner   = "analytics-eng"
+     }
+   }
+ }
+diff --git a/terraform.tfvars b/terraform.tfvars
+index fbe3879..8b7c01e 100644
+--- a/terraform.tfvars
++++ b/terraform.tfvars
+@@ -10,4 +10,6 @@ services = {
+   "churn-scoring"    = { principal = "ecs-tasks.amazonaws.com" }
+   "kpi-rollup"       = { principal = "lambda.amazonaws.com" }
+   "export-scheduler" = { principal = "lambda.amazonaws.com" }
++  "ab-test-readout"  = { principal = "lambda.amazonaws.com" }
++  "ltv-forecast"     = { principal = "ecs-tasks.amazonaws.com" }
+ }
