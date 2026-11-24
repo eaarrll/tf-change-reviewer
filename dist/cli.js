@@ -81851,20 +81851,18 @@ function beforeTokens(type, before) {
 }
 function firstLoose(list, buckets, probe, order, test) {
   if (!list?.length) return void 0;
-  let size = 0;
-  for (const t of probe) size += buckets.get(t)?.length ?? 0;
-  if (size >= list.length) return list.find(test);
-  const tried = /* @__PURE__ */ new Set();
+  const lists = [...new Set(probe)].map((t) => buckets.get(t) ?? []).sort((a, b) => a.length - b.length);
+  if (lists.length < 3) return void 0;
   let best;
   let bestAt = Number.POSITIVE_INFINITY;
-  for (const t of probe) {
-    for (const o of buckets.get(t) ?? []) {
-      if (tried.has(o)) continue;
-      tried.add(o);
+  for (const bucket of lists.slice(0, lists.length - 2)) {
+    for (const o of bucket) {
       const at = order.get(o) ?? Number.POSITIVE_INFINITY;
-      if (at < bestAt && test(o)) {
+      if (at >= bestAt) break;
+      if (test(o)) {
         best = o;
         bestAt = at;
+        break;
       }
     }
   }

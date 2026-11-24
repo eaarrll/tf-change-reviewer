@@ -483,6 +483,26 @@ describe("delete reasons (PLAN-04/05/06)", () => {
     expect(ruleIds(b)).toEqual(["renamed-without-moved"]);
   });
 
+  it("a loose rename (no identity attribute) finds the first match in plan order, past common values", () => {
+    const del = (address: string, before: Record<string, unknown>) =>
+      rc({ address, actions: ["delete"], actionReason: "delete_because_no_resource_config", before });
+    const add = (address: string, after: Record<string, unknown>) =>
+      rc({ address, actions: ["create"], after });
+    // Fifty creates share two of the deleted object's values but differ in the third: not the same object.
+    const decoys = Array.from({ length: 50 }, (_, i) =>
+      add(`terraform_data.decoy[${i}]`, { kind: "x", tier: "gold", size: 100 + i }),
+    );
+    const old = del("terraform_data.old", { kind: "x", tier: "gold", size: 7, mode: "a", zone: "z1" });
+    // Both match; `first` comes first in plan order but shares only three values, two of them common.
+    const first = add("terraform_data.first", { kind: "x", tier: "gold", size: 7 });
+    const later = add("terraform_data.later", { kind: "x", tier: "gold", size: 7, mode: "a", zone: "z1" });
+    const p = plan([...decoys, old, first, later]);
+    const reason = scoreChange(old, p).signals.find((s) => s.ruleId === "renamed-without-moved")?.reason;
+    expect(reason).toContain("terraform_data.first creates the same object");
+    expect(ruleIds(scoreChange(first, p))).toContain("renamed-without-moved");
+    expect(ruleIds(scoreChange(decoys[0]!, p))).not.toContain("renamed-without-moved");
+  });
+
   describe("the moved block it suggests is valid across module calls", () => {
     const del = (address: string, bucket = "acme-data") =>
       rc({

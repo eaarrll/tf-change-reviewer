@@ -594,8 +594,13 @@ function beforeTokens(type: string, before: unknown): string[] {
 }
 
 /**
- * The first change of `list` (plan order) that `test` accepts, for the loose match: only the changes
- * that share a scalar value with the probe can match, so those are tried when there are fewer of them.
+ * The first change of `list` (plan order) that `test` accepts, for the loose match.
+ *
+ * A loose match has at least three equal scalar attributes (sameObject: 90% of at least three keys),
+ * so it sits in at least three of the probe's value buckets, and leaving out the two largest buckets
+ * cannot lose it. Buckets are filled in plan order, so each one is read only up to its first accepted
+ * change. Scanning `list` instead is quadratic when every object shares a common value (a `kind` or
+ * `region` that all instances have).
  */
 function firstLoose(
   list: readonly ResourceChange[] | undefined,
@@ -605,20 +610,18 @@ function firstLoose(
   test: (o: ResourceChange) => boolean,
 ): ResourceChange | undefined {
   if (!list?.length) return undefined;
-  let size = 0;
-  for (const t of probe) size += buckets.get(t)?.length ?? 0;
-  if (size >= list.length) return list.find(test);
-  const tried = new Set<ResourceChange>();
+  const lists = [...new Set(probe)].map((t) => buckets.get(t) ?? []).sort((a, b) => a.length - b.length);
+  if (lists.length < 3) return undefined;
   let best: ResourceChange | undefined;
   let bestAt = Number.POSITIVE_INFINITY;
-  for (const t of probe) {
-    for (const o of buckets.get(t) ?? []) {
-      if (tried.has(o)) continue;
-      tried.add(o);
+  for (const bucket of lists.slice(0, lists.length - 2)) {
+    for (const o of bucket) {
       const at = order.get(o) ?? Number.POSITIVE_INFINITY;
-      if (at < bestAt && test(o)) {
+      if (at >= bestAt) break;
+      if (test(o)) {
         best = o;
         bestAt = at;
+        break;
       }
     }
   }
